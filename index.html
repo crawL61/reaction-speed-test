@@ -28,8 +28,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    overflow: hidden;
+    /* removed justify-content:center so content starts at top on short screens */
+    overflow-y: auto;   /* vertical scroll when content exceeds viewport */
+    overflow-x: hidden;
+    /* bottom padding reserves space for the sticky score bar (~90px) */
+    padding-bottom: 96px;
   }
 
   body::before {
@@ -49,6 +52,7 @@
     width: 100%;
     max-width: 480px;
     padding: 20px;
+    padding-top: 56px; /* clear the fixed lang-toggle on small screens */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -108,8 +112,36 @@
     margin-top: 4px;
   }
 
-  /* SCORE BAR */
-  .score-bar { display: flex; gap: 12px; width: 100%; }
+  /* SCORE BAR — sticky footer on mobile, inline on desktop */
+  .score-bar {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+  }
+
+  /* Sticky wrapper: wraps the score-bar and pins it to the bottom of the viewport */
+  .score-bar-sticky {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 10px 16px 12px;
+    /* centre-align the inner bar up to max-width */
+    display: flex;
+    justify-content: center;
+  }
+
+  .score-bar-sticky .score-bar {
+    max-width: 480px;
+  }
+
+  /* On large screens (wider than 540 px) the score bar can sit inline
+     inside the container instead of the fixed footer.
+     We keep the fixed footer always visible for simplicity — it works
+     perfectly on both mobile and desktop. */
 
   .score-card {
     flex: 1;
@@ -155,6 +187,13 @@
     overflow: hidden;
     transition: background 0.2s, transform 0.1s;
     border: 2px solid var(--border);
+  }
+
+  /* On very small phones keep arena from being too tall */
+  @media (max-height: 640px) {
+    .arena { max-height: 220px; }
+    .arena-icon { font-size: 2.5rem; margin-bottom: 6px; }
+    .container { gap: 14px; }
   }
 
   .arena:active { transform: scale(0.98); }
@@ -362,12 +401,8 @@
   <button class="lang-btn" id="btnEN" onclick="setLang('en')">EN</button>
 </div>
 
-<div class="container">
-  <div class="header">
-    <div class="title" id="mainTitle">REACTION</div>
-    <div class="subtitle" id="mainSubtitle">Speed Test — 5 Rounds</div>
-  </div>
-
+<!-- STICKY SCORE BAR — always visible at bottom on any screen size -->
+<div class="score-bar-sticky">
   <div class="score-bar">
     <div class="score-card">
       <div class="score-label" id="labelScore">Score</div>
@@ -381,6 +416,13 @@
       <div class="score-label" id="labelAvg">Average</div>
       <div class="score-value yellow" id="avgDisplay">---</div>
     </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="header">
+    <div class="title" id="mainTitle">REACTION</div>
+    <div class="subtitle" id="mainSubtitle">Speed Test — 5 Rounds</div>
   </div>
 
   <div class="arena state-wait" id="arena">
