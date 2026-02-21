@@ -1,25 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title id="pageTitle">REACTION</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
+  /* ── Design tokens ── */
   :root {
-    --bg: #0a0a0f;
+    --bg:      #0a0a0f;
     --surface: #111118;
-    --border: #1e1e2e;
-    --accent: #00f5a0;
+    --border:  #1e1e2e;
+    --accent:  #00f5a0;
     --accent2: #ff2d55;
     --accent3: #ffe000;
-    --text: #e8e8f0;
-    --muted: #555570;
-    --early: #ff6b00;
+    --accent4: #7b61ff;
+    --text:    #e8e8f0;
+    --muted:   #555570;
+    --early:   #ff6b00;
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; }
+  /* ── Reset ── */
+  *, *::before, *::after {
+    margin: 0; padding: 0; box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
 
+  /* ── Body ── */
   body {
     font-family: 'Space Mono', monospace;
     background: var(--bg);
@@ -28,382 +35,474 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* removed justify-content:center so content starts at top on short screens */
-    overflow-y: auto;   /* vertical scroll when content exceeds viewport */
+    overflow-y: auto;
     overflow-x: hidden;
-    /* bottom padding reserves space for the sticky score bar (~90px) */
-    padding-bottom: 96px;
+    padding-bottom: 110px;
   }
 
   body::before {
     content: '';
-    position: fixed;
-    inset: 0;
+    position: fixed; inset: 0;
     background:
       radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0,245,160,0.07) 0%, transparent 60%),
       radial-gradient(ellipse 60% 40% at 80% 100%, rgba(255,45,85,0.05) 0%, transparent 60%);
-    pointer-events: none;
-    z-index: 0;
+    pointer-events: none; z-index: 0;
   }
 
-  .container {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 480px;
-    padding: 20px;
-    padding-top: 56px; /* clear the fixed lang-toggle on small screens */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
-
-  /* LANG TOGGLE */
+  /* ── Lang toggle (fixed top-right) ── */
   .lang-toggle {
-    position: fixed;
-    top: 14px;
-    right: 14px;
-    z-index: 10;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    display: flex;
-    overflow: hidden;
+    position: fixed; top: 14px; right: 14px; z-index: 30;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 20px; display: flex; overflow: hidden;
   }
-
   .lang-btn {
-    padding: 6px 14px;
-    cursor: pointer;
-    color: var(--muted);
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.1em;
-    border: none;
-    background: transparent;
-    transition: all 0.2s;
+    padding: 6px 14px; cursor: pointer; color: var(--muted);
+    font-family: 'Space Mono', monospace; font-size: 0.6rem;
+    letter-spacing: 0.1em; border: none; background: transparent; transition: all 0.2s;
+  }
+  .lang-btn.active { background: var(--accent); color: #000; font-weight: 700; }
+
+  /* ══════════════════════════════════════════════
+     PAGE WRAPPER
+  ══════════════════════════════════════════════ */
+  .page-wrap {
+    position: relative; z-index: 1;
+    width: 100%; max-width: 600px;
+    padding: 20px 16px;
+    padding-top: 60px;
+    display: flex; flex-direction: column; gap: 0;
   }
 
-  .lang-btn.active {
-    background: var(--accent);
-    color: #000;
-    font-weight: 700;
-  }
-
-  /* HEADER */
-  .header { text-align: center; }
-
-  .title {
+  /* ── Site header ── */
+  .site-header { text-align: center; margin-bottom: 28px; }
+  .site-title {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(3rem, 14vw, 5rem);
-    letter-spacing: 0.1em;
-    line-height: 1;
+    font-size: clamp(2.8rem, 12vw, 4.5rem);
+    letter-spacing: 0.1em; line-height: 1;
     background: linear-gradient(135deg, var(--accent), var(--accent3));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .site-sub {
+    font-size: 0.6rem; letter-spacing: 0.3em; color: var(--muted);
+    text-transform: uppercase; margin-top: 4px;
   }
 
-  .subtitle {
-    font-size: 0.65rem;
-    letter-spacing: 0.3em;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-top: 4px;
-  }
+  /* ══════════════════════════════════════════════
+     GAME TABS NAV — swipeable on mobile, mouse-draggable on desktop
+  ══════════════════════════════════════════════ */
 
-  /* SCORE BAR — sticky footer on mobile, inline on desktop */
-  .score-bar {
-    display: flex;
-    gap: 12px;
+  /* Outer wrapper creates the fade-edge "more content" hints */
+  .tabs-nav-wrap {
+    position: relative;
     width: 100%;
+    margin-bottom: 20px;
   }
+  /* Left fade — only visible when scrolled past start */
+  .tabs-nav-wrap::before {
+    content: '';
+    position: absolute; top: 0; left: 0; bottom: 6px; width: 32px;
+    background: linear-gradient(to right, var(--bg), transparent);
+    pointer-events: none; z-index: 2;
+    opacity: 0; transition: opacity 0.2s;
+  }
+  /* Right fade — always visible to hint scrollability */
+  .tabs-nav-wrap::after {
+    content: '';
+    position: absolute; top: 0; right: 0; bottom: 6px; width: 40px;
+    background: linear-gradient(to left, var(--bg), transparent);
+    pointer-events: none; z-index: 2;
+  }
+  /* Show left fade when scrolled */
+  .tabs-nav-wrap.scrolled-left::before { opacity: 1; }
+  /* Hide right fade when fully scrolled right */
+  .tabs-nav-wrap.scrolled-right::after { opacity: 0; }
 
-  /* Sticky wrapper: wraps the score-bar and pins it to the bottom of the viewport */
-  .score-bar-sticky {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 20;
-    background: var(--bg);
-    border-top: 1px solid var(--border);
-    padding: 10px 16px 12px;
-    /* centre-align the inner bar up to max-width */
+  .tabs-nav {
     display: flex;
-    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* iOS momentum */
+    scroll-behavior: smooth;
+    padding-bottom: 6px;               /* space for any thin scrollbar */
+    scrollbar-width: none;             /* Firefox */
+    cursor: grab;
+    /* Prevent text selection while dragging */
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .tabs-nav::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+  .tabs-nav.is-dragging         { cursor: grabbing; scroll-behavior: auto; }
+
+  .tab-btn {
+    flex: 0 0 auto;
+    padding: 9px 18px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; color: var(--muted);
+    font-family: 'Space Mono', monospace; font-size: 0.58rem;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    cursor: pointer; white-space: nowrap;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    user-select: none; -webkit-user-drag: none;
+    /* Minimum tap target for mobile */
+    min-height: 42px;
+    /* Disable iOS tap delay */
+    touch-action: manipulation;
+  }
+  .tab-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .tab-btn.active {
+    background: var(--accent); border-color: var(--accent);
+    color: #000; font-weight: 700;
   }
 
-  .score-bar-sticky .score-bar {
-    max-width: 480px;
-  }
+  /* ══════════════════════════════════════════════
+     TAB PANELS
+  ══════════════════════════════════════════════ */
+  .tab-panel { display: none; width: 100%; }
+  .tab-panel.active { display: flex; flex-direction: column; align-items: center; gap: 20px; }
 
-  /* On large screens (wider than 540 px) the score bar can sit inline
-     inside the container instead of the fixed footer.
-     We keep the fixed footer always visible for simplicity — it works
-     perfectly on both mobile and desktop. */
-
-  .score-card {
-    flex: 1;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 12px 16px;
-    text-align: center;
-    transition: border-color 0.3s;
-  }
-
-  .score-card.highlight { border-color: var(--accent); }
-
-  .score-label {
-    font-size: 0.55rem;
-    letter-spacing: 0.2em;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-
-  .score-value {
+  /* ══════════════════════════════════════════════
+     REACTION SPEED GAME — original styles untouched
+  ══════════════════════════════════════════════ */
+  .game-header { text-align: center; width: 100%; }
+  .game-title {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.6rem;
-    letter-spacing: 0.05em;
-    color: var(--accent);
+    font-size: clamp(2rem, 10vw, 3.5rem);
+    letter-spacing: 0.1em; line-height: 1;
+    background: linear-gradient(135deg, var(--accent), var(--accent3));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .game-sub {
+    font-size: 0.6rem; letter-spacing: 0.28em; color: var(--muted);
+    text-transform: uppercase; margin-top: 4px;
   }
 
+  .score-bar { display: flex; gap: 12px; width: 100%; }
+  .score-card {
+    flex: 1; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 12px 16px; text-align: center; transition: border-color 0.3s;
+  }
+  .score-card.highlight { border-color: var(--accent); }
+  .score-label { font-size: 0.55rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; margin-bottom: 4px; }
+  .score-value { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.05em; color: var(--accent); }
   .score-value.yellow { color: var(--accent3); }
 
-  /* GAME ARENA */
+  /* Arena */
   .arena {
-    width: 100%;
-    aspect-ratio: 1;
-    max-height: 340px;
-    border-radius: 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition: background 0.2s, transform 0.1s;
-    border: 2px solid var(--border);
+    width: 100%; aspect-ratio: 1; max-height: 320px;
+    border-radius: 24px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    cursor: pointer; position: relative; overflow: hidden;
+    transition: background 0.2s, transform 0.1s; border: 2px solid var(--border);
+    user-select: none;
   }
-
-  /* On very small phones keep arena from being too tall */
-  @media (max-height: 640px) {
-    .arena { max-height: 220px; }
-    .arena-icon { font-size: 2.5rem; margin-bottom: 6px; }
-    .container { gap: 14px; }
-  }
-
   .arena:active { transform: scale(0.98); }
-
   .arena.state-wait   { background: #0d0d1a; border-color: #2a2a4a; }
   .arena.state-ready  { background: #1a0510; border-color: var(--accent2); animation: pulse-red 0.6s ease-in-out infinite; }
   .arena.state-go     { background: #001a10; border-color: var(--accent);  animation: pulse-green 0.4s ease-in-out 1; }
   .arena.state-early  { background: #1a0800; border-color: var(--early); }
   .arena.state-result { background: var(--surface); border-color: var(--accent); }
-
-  @keyframes pulse-red {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(255,45,85,0.2); }
-    50%       { box-shadow: 0 0 0 20px rgba(255,45,85,0); }
-  }
-  @keyframes pulse-green {
-    0%   { box-shadow: 0 0 0 0 rgba(0,245,160,0.5); }
-    100% { box-shadow: 0 0 0 40px rgba(0,245,160,0); }
-  }
-
-  .arena-icon { font-size: 4rem; margin-bottom: 12px; }
-
-  .arena-text {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(1.8rem, 8vw, 2.8rem);
-    letter-spacing: 0.1em;
-    text-align: center;
-    padding: 0 20px;
-    line-height: 1.1;
-  }
-
-  .arena-sub {
-    font-size: 0.6rem;
-    letter-spacing: 0.2em;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-top: 8px;
-    text-align: center;
-    padding: 0 16px;
-  }
-
-  .result-ms {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(4rem, 18vw, 7rem);
-    letter-spacing: 0.05em;
-    color: var(--accent);
-    line-height: 1;
-  }
-
-  .result-unit {
-    font-size: 0.7rem;
-    letter-spacing: 0.3em;
-    color: var(--muted);
-    text-transform: uppercase;
-  }
-
-  .rating {
-    margin-top: 8px;
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    padding: 4px 12px;
-    border-radius: 20px;
-  }
-
+  @keyframes pulse-red   { 0%,100%{box-shadow:0 0 0 0 rgba(255,45,85,0.2)}50%{box-shadow:0 0 0 20px rgba(255,45,85,0)} }
+  @keyframes pulse-green { 0%{box-shadow:0 0 0 0 rgba(0,245,160,0.5)}100%{box-shadow:0 0 0 40px rgba(0,245,160,0)} }
   .arena::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-      repeating-linear-gradient(0deg,  transparent, transparent 39px, rgba(255,255,255,0.015) 40px),
-      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.015) 40px);
+    content:''; position:absolute; inset:0;
+    background-image: repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,0.015) 40px),
+                      repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,0.015) 40px);
     pointer-events: none;
   }
+  @media (max-height: 640px) {
+    .arena { max-height: 200px; }
+    .arena-icon { font-size: 2.2rem !important; margin-bottom: 4px !important; }
+  }
+  .arena-icon { font-size: 4rem; margin-bottom: 12px; }
+  .arena-text { font-family:'Bebas Neue',sans-serif; font-size:clamp(1.8rem,8vw,2.8rem); letter-spacing:0.1em; text-align:center; padding:0 20px; line-height:1.1; }
+  .arena-sub  { font-size:0.6rem; letter-spacing:0.2em; color:var(--muted); text-transform:uppercase; margin-top:8px; text-align:center; padding:0 16px; }
+  .result-ms  { font-family:'Bebas Neue',sans-serif; font-size:clamp(4rem,18vw,7rem); letter-spacing:0.05em; color:var(--accent); line-height:1; }
+  .result-unit{ font-size:0.7rem; letter-spacing:0.3em; color:var(--muted); text-transform:uppercase; }
+  .rating     { margin-top:8px; font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; padding:4px 12px; border-radius:20px; }
 
-  /* ROUNDS */
+  /* Rounds */
   .rounds-section { width: 100%; }
-
-  .rounds-label {
-    font-size: 0.6rem;
-    letter-spacing: 0.25em;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-
-  .rounds-dots { display: flex; gap: 8px; }
-
-  .dot {
-    flex: 1;
-    height: 6px;
-    border-radius: 3px;
-    background: var(--border);
-    transition: background 0.3s;
-  }
-
+  .rounds-label { font-size:0.6rem; letter-spacing:0.25em; color:var(--muted); text-transform:uppercase; margin-bottom:10px; }
+  .rounds-dots  { display:flex; gap:8px; }
+  .dot { flex:1; height:6px; border-radius:3px; background:var(--border); transition:background 0.3s; }
   .dot.done    { background: var(--accent); }
   .dot.fail    { background: var(--accent2); }
   .dot.current { background: var(--muted); animation: blink 0.8s ease-in-out infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50%       { opacity: 0.3; }
-  }
+  /* History chips */
+  .history { width:100%; display:flex; gap:6px; flex-wrap:wrap; min-height:32px; }
+  .history-chip { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:4px 10px; font-size:0.65rem; letter-spacing:0.05em; color:var(--muted); }
+  .history-chip.best { border-color:var(--accent);  color:var(--accent); }
+  .history-chip.fail { border-color:var(--accent2); color:var(--accent2); }
 
-  /* HISTORY */
-  .history {
-    width: 100%;
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    min-height: 32px;
-  }
-
-  .history-chip {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 4px 10px;
-    font-size: 0.65rem;
-    letter-spacing: 0.05em;
-    color: var(--muted);
-  }
-
-  .history-chip.best { border-color: var(--accent);  color: var(--accent); }
-  .history-chip.fail { border-color: var(--accent2); color: var(--accent2); }
-
-  /* GAME OVER */
+  /* Game over panel */
   .gameover {
-    width: 100%;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 24px;
-    text-align: center;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
+    width:100%; background:var(--surface); border:1px solid var(--border);
+    border-radius:20px; padding:24px; text-align:center;
+    display:none; flex-direction:column; align-items:center; gap:16px;
     animation: fadeUp 0.4s ease;
   }
-
   .gameover.show { display: flex; }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .gameover-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2rem;
-    letter-spacing: 0.1em;
-    color: var(--accent3);
-  }
-
-  .gameover-stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 12px;
-    width: 100%;
-  }
-
-  .stat-item {
-    background: var(--bg);
-    border-radius: 10px;
-    padding: 10px 6px;
-    text-align: center;
-  }
-
-  .stat-label {
-    font-size: 0.5rem;
-    letter-spacing: 0.2em;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-
-  .stat-val      { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--accent); }
-  .stat-val.bad  { color: var(--accent2); }
-
+  @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+  .gameover-title { font-family:'Bebas Neue',sans-serif; font-size:2rem; letter-spacing:0.1em; color:var(--accent3); }
+  .gameover-stats { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; width:100%; }
+  .stat-item { background:var(--bg); border-radius:10px; padding:10px 6px; text-align:center; }
+  .stat-label { font-size:0.5rem; letter-spacing:0.2em; color:var(--muted); text-transform:uppercase; margin-bottom:4px; }
+  .stat-val     { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; color:var(--accent); }
+  .stat-val.bad { color: var(--accent2); }
   .btn-play {
+    width:100%; padding:16px; background:var(--accent); color:#000; border:none;
+    border-radius:14px; font-family:'Bebas Neue',sans-serif; font-size:1.3rem;
+    letter-spacing:0.15em; cursor:pointer; transition:all 0.2s; margin-top:4px;
+  }
+  .btn-play:hover  { background:#00e090; transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,245,160,0.3); }
+  .btn-play:active { transform:translateY(0); }
+
+  /* ══════════════════════════════════════════════
+     STICKY SCORE BAR (reaction tab only)
+  ══════════════════════════════════════════════ */
+  .score-bar-sticky {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 20;
+    background: var(--bg); border-top: 1px solid var(--border);
+    padding: 10px 16px 12px;
+    display: none;
+    justify-content: center;
+  }
+  .score-bar-sticky.visible { display: flex; }
+  .score-bar-sticky .score-bar { max-width: 600px; }
+
+  /* ══════════════════════════════════════════════
+     MINI-GAME CARDS (shared by all click tabs)
+  ══════════════════════════════════════════════ */
+  .mini-game-card {
     width: 100%;
-    padding: 16px;
-    background: var(--accent);
-    color: #000;
-    border: none;
-    border-radius: 14px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 20px; padding: 24px 20px; text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 14px;
+  }
+  .mini-icon { font-size: 3rem; line-height: 1; }
+  .mini-title {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.3rem;
-    letter-spacing: 0.15em;
-    cursor: pointer;
-    transition: all 0.2s;
+    font-size: clamp(1.6rem, 7vw, 2.4rem);
+    letter-spacing: 0.1em; color: var(--text);
+  }
+  .mini-desc {
+    font-size: 0.67rem; color: var(--muted); line-height: 1.7;
+    letter-spacing: 0.03em; max-width: 380px;
+  }
+  .mini-badge {
+    font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 5px 14px; border-radius: 20px;
+    background: rgba(0,245,160,0.1); border: 1px solid rgba(0,245,160,0.25); color: var(--accent);
+  }
+
+  /* Click area */
+  .mini-click-area {
+    width: 100%; min-height: 160px;
+    background: #0d0d1a; border: 2px solid var(--border);
+    border-radius: 18px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 10px;
+    cursor: pointer; transition: all 0.15s; user-select: none;
+    touch-action: manipulation;
+  }
+  .mini-click-area:active { transform: scale(0.97); }
+  .mini-click-area.running { border-color: var(--accent); background: #001a10; }
+  .mini-click-area.done    { border-color: var(--accent3); background: #1a1600; }
+  .mini-cps { font-family:'Bebas Neue',sans-serif; font-size:clamp(2.8rem,10vw,3.5rem); color:var(--accent); line-height:1; }
+  .mini-clicks-label { font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); padding:0 12px; text-align:center; }
+  .mini-timer-bar { width:90%; height:5px; background:var(--border); border-radius:3px; overflow:hidden; }
+  .mini-timer-fill { height:100%; background:var(--accent); border-radius:3px; transition:width 0.1s linear; }
+
+  /* Stats row */
+  .mini-stats-row { display:flex; gap:10px; width:100%; }
+  .mini-stat-box {
+    flex:1; background:var(--bg); border:1px solid var(--border);
+    border-radius:12px; padding:10px 6px; text-align:center;
+    min-width: 0; /* allow flex shrink */
+  }
+  .mini-stat-num { font-family:'Bebas Neue',sans-serif; font-size:clamp(1.2rem,5vw,1.5rem); color:var(--accent); }
+  .mini-stat-lbl { font-size:0.48rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-top:2px; }
+
+  /* Spacebar key visual */
+  .space-key {
+    width: 100%; max-width: 320px; height: 60px;
+    background: var(--surface); border: 2px solid var(--border);
+    border-radius: 12px; border-bottom: 5px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--muted); cursor: pointer; transition: all 0.08s; user-select: none;
+    touch-action: manipulation;
+  }
+  .space-key:active, .space-key.pressed {
+    border-bottom-width: 2px; transform: translateY(3px);
+    background: #1a1a2e; border-color: var(--accent4); color: var(--accent4);
+  }
+
+  /* Per-tab colour overrides */
+  .tab-jitter .mini-click-area.running { border-color: var(--accent2); background: #1a0510; }
+  .tab-jitter .mini-cps               { color: var(--accent2); }
+  .tab-jitter .mini-timer-fill         { background: var(--accent2); }
+  .tab-jitter .mini-stat-num           { color: var(--accent2); }
+
+  .tab-kohi   .mini-click-area.running { border-color: var(--accent3); background: #1a1400; }
+  .tab-kohi   .mini-cps                { color: var(--accent3); }
+  .tab-kohi   .mini-timer-fill          { background: var(--accent3); }
+  .tab-kohi   .mini-stat-num            { color: var(--accent3); }
+
+  .tab-space  .space-key:active,
+  .tab-space  .space-key.pressed        { border-color: var(--accent4); color: var(--accent4); }
+  .tab-space  .mini-cps                 { color: var(--accent4); }
+  .tab-space  .mini-stat-num            { color: var(--accent4); }
+  .tab-space  .mini-timer-fill          { background: var(--accent4); }
+
+  /* ══════════════════════════════════════════════
+     REFLEX INFO SECTION
+  ══════════════════════════════════════════════ */
+  .reflex-section {
+    width: 100%; max-width: 600px;
+    padding: 0 16px 60px;
+    display: flex; flex-direction: column; gap: 28px;
+    position: relative; z-index: 1;
+    margin-top: 40px;
+  }
+
+  .reflex-divider {
+    width: 100%; display: flex; align-items: center; gap: 12px;
+  }
+  .reflex-divider-line { flex: 1; height: 1px; background: var(--border); }
+  .reflex-divider-text {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem;
+    letter-spacing: 0.15em; color: var(--muted); white-space: nowrap;
+  }
+
+  .reflex-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 22px 18px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  @media (max-width: 380px) {
+    .reflex-card { padding: 16px 14px; }
+  }
+  .reflex-card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.1rem, 5vw, 1.4rem); letter-spacing: 0.1em;
+    color: var(--accent); display: flex; align-items: center; gap: 10px;
+    flex-wrap: wrap;
+  }
+  .reflex-card-body {
+    font-size: 0.68rem; line-height: 1.85; color: var(--muted); letter-spacing: 0.03em;
+  }
+  .reflex-card-body strong { color: var(--text); }
+
+  /* Factors grid */
+  .factors-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  }
+  @media (max-width: 360px) { .factors-grid { grid-template-columns: 1fr; } }
+  .factor-item {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 12px; padding: 14px 12px;
+  }
+  .factor-icon { font-size: 1.3rem; margin-bottom: 6px; }
+  .factor-name { font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); margin-bottom: 4px; }
+  .factor-desc { font-size: 0.58rem; line-height: 1.6; color: var(--muted); }
+
+  /* Exercises list */
+  .exercise-list { display: flex; flex-direction: column; gap: 10px; }
+  .exercise-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    background: var(--bg); border-radius: 10px; padding: 12px 14px;
+  }
+  .exercise-num {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem;
+    color: var(--accent); min-width: 24px; line-height: 1; flex-shrink: 0;
+  }
+  .exercise-text { font-size: 0.63rem; line-height: 1.65; color: var(--muted); }
+  .exercise-text strong { color: var(--text); }
+
+  /* Bar chart */
+  .chart-wrap { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .chart-title {
+    font-size: 0.56rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 12px;
+  }
+  svg.react-chart { width: 100%; height: auto; display: block; min-width: 280px; }
+
+  /* ══════════════════════════════════════════════
+     SPEEDOMETER — fixed to be fully visible on all screens
+  ══════════════════════════════════════════════ */
+  .speedometer-wrap {
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+    width: 100%;
+  }
+  /* SVG sits inside a container that never clips it */
+  .speedometer-svg-box {
+    width: 100%;
+    max-width: 420px;
+    /* Add padding so the arc labels at the sides are never cut off */
+    padding: 0 8px;
+  }
+  .speedometer-svg-box svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    /* overflow visible so labels outside the viewBox are still rendered */
+    overflow: visible;
+  }
+  .speedometer-caption {
+    font-size: 0.56rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--muted); text-align: center;
+  }
+
+  /* Legend row below the arc (mobile-safe alternative to cramped SVG labels) */
+  .speedo-legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 14px;
+    width: 100%;
     margin-top: 4px;
   }
+  .speedo-legend-item {
+    display: flex; align-items: center; gap: 5px;
+    font-size: 0.55rem; letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .speedo-legend-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
 
-  .btn-play:hover  { background: #00e090; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,245,160,0.3); }
-  .btn-play:active { transform: translateY(0); }
+  /* Tips pills */
+  .tips-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tip-pill {
+    background: rgba(0,245,160,0.07); border: 1px solid rgba(0,245,160,0.2);
+    border-radius: 20px; padding: 6px 12px;
+    font-size: 0.58rem; letter-spacing: 0.07em; color: var(--accent);
+  }
+
+  /* ── Responsive helpers ── */
+  @media (max-width: 400px) {
+    .page-wrap { padding-left: 12px; padding-right: 12px; }
+    .reflex-section { padding-left: 12px; padding-right: 12px; }
+    .mini-game-card { padding: 18px 14px; }
+    .score-card { padding: 10px 10px; }
+    .score-value { font-size: 1.3rem; }
+    .gameover-title { font-size: 1.6rem; }
+  }
 </style>
 </head>
 <body>
 
-<!-- LANGUAGE TOGGLE -->
+<!-- ── Lang toggle ── -->
 <div class="lang-toggle">
   <button class="lang-btn" id="btnTR" onclick="setLang('tr')">TR</button>
   <button class="lang-btn" id="btnEN" onclick="setLang('en')">EN</button>
 </div>
 
-<!-- STICKY SCORE BAR — always visible at bottom on any screen size -->
-<div class="score-bar-sticky">
-  <div class="score-bar">
+<!-- ── Sticky score bar (reaction tab only) ── -->
+<div class="score-bar-sticky" id="stickyScoreBar">
+  <div class="score-bar" style="max-width:600px">
     <div class="score-card">
       <div class="score-label" id="labelScore">Score</div>
       <div class="score-value" id="scoreDisplay">0</div>
@@ -419,175 +518,697 @@
   </div>
 </div>
 
-<div class="container">
-  <div class="header">
-    <div class="title" id="mainTitle">REACTION</div>
-    <div class="subtitle" id="mainSubtitle">Speed Test — 5 Rounds</div>
+<!-- ════════════════ PAGE WRAPPER ════════════════ -->
+<div class="page-wrap">
+
+  <!-- Site header -->
+  <div class="site-header">
+    <div class="site-title">REFLEX LAB</div>
+    <div class="site-sub">Click Speed &amp; Reaction Tests</div>
   </div>
 
-  <div class="arena state-wait" id="arena">
-    <div class="arena-icon" id="arenaIcon">⚡</div>
-    <div class="arena-text" id="arenaText">Tap to Start</div>
-    <div class="arena-sub"  id="arenaSub">Test your reaction speed</div>
+  <!-- ══════════════════════════════════════════════
+       TABS NAV — wrapped for fade-edge hints
+  ══════════════════════════════════════════════ -->
+  <div class="tabs-nav-wrap" id="tabsNavWrap">
+    <nav class="tabs-nav" id="tabsNav" role="tablist" aria-label="Game tabs">
+      <button class="tab-btn active" data-tab="reaction" role="tab" aria-selected="true">⚡ Reaction Speed</button>
+      <button class="tab-btn"        data-tab="jitter"   role="tab" aria-selected="false">🖱 Jitter Click</button>
+      <button class="tab-btn"        data-tab="click"    role="tab" aria-selected="false">🔥 Click Speed</button>
+      <button class="tab-btn"        data-tab="kohi"     role="tab" aria-selected="false">☕ Kohi Click</button>
+      <button class="tab-btn"        data-tab="spacebar" role="tab" aria-selected="false">⌨️ Spacebar</button>
+    </nav>
   </div>
 
-  <div class="rounds-section">
-    <div class="rounds-label" id="labelRounds">Round Progress</div>
-    <div class="rounds-dots" id="roundDots">
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
+  <!-- ══════════════════════════════════════════════
+       TAB 1 — REACTION SPEED (original game)
+  ══════════════════════════════════════════════ -->
+  <div class="tab-panel active" id="tab-reaction">
+
+    <div class="game-header">
+      <div class="game-title" id="mainTitle">REACTION</div>
+      <div class="game-sub"   id="mainSubtitle">Speed Test — 5 Rounds</div>
+    </div>
+
+    <div class="score-bar" id="inlineScoreBar">
+      <div class="score-card">
+        <div class="score-label">Score</div>
+        <div class="score-value" id="scoreDisplay2">0</div>
+      </div>
+      <div class="score-card highlight">
+        <div class="score-label">Best</div>
+        <div class="score-value" id="bestDisplay2">---</div>
+      </div>
+      <div class="score-card">
+        <div class="score-label">Average</div>
+        <div class="score-value yellow" id="avgDisplay2">---</div>
+      </div>
+    </div>
+
+    <div class="arena state-wait" id="arena">
+      <div class="arena-icon" id="arenaIcon">⚡</div>
+      <div class="arena-text" id="arenaText">Tap to Start</div>
+      <div class="arena-sub"  id="arenaSub">Test your reaction speed</div>
+    </div>
+
+    <div class="rounds-section">
+      <div class="rounds-label" id="labelRounds">Round Progress</div>
+      <div class="rounds-dots" id="roundDots">
+        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        <div class="dot"></div><div class="dot"></div>
+      </div>
+    </div>
+
+    <div class="history" id="history"></div>
+
+    <div class="gameover" id="gameoverPanel">
+      <div class="gameover-title" id="gameoverTitle">🏆 GAME OVER</div>
+      <div class="gameover-stats">
+        <div class="stat-item">
+          <div class="stat-label" id="statLabelBest">Fastest</div>
+          <div class="stat-val"   id="statBest">---</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label" id="statLabelAvg">Average</div>
+          <div class="stat-val"   id="statAvg">---</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label" id="statLabelScore">Score</div>
+          <div class="stat-val"   id="statScore">0</div>
+        </div>
+      </div>
+      <button class="btn-play" id="replayBtn">🔄 PLAY AGAIN</button>
+    </div>
+
+  </div><!-- /tab-reaction -->
+
+  <!-- ══════════════════════════════════════════════
+       TAB 2 — JITTER CLICK TEST
+  ══════════════════════════════════════════════ -->
+  <div class="tab-panel tab-jitter" id="tab-jitter">
+    <div class="mini-game-card">
+      <div class="mini-icon">🖱</div>
+      <div class="mini-title">Jitter Click Test</div>
+      <div class="mini-desc">
+        Jitter clicking is a technique where you tense your arm and hand muscles to create rapid vibrations,
+        generating extremely fast clicks. Click as fast as you can for 5 seconds!
+      </div>
+      <div class="mini-badge">5-second challenge</div>
+    </div>
+
+    <div class="mini-click-area" id="jitterArea" tabindex="0" aria-label="Jitter click area">
+      <div class="mini-cps" id="jitterCPS">0</div>
+      <div class="mini-clicks-label">CPS — Click to Start</div>
+      <div class="mini-timer-bar"><div class="mini-timer-fill" id="jitterBar" style="width:100%"></div></div>
+    </div>
+
+    <div class="mini-stats-row">
+      <div class="mini-stat-box"><div class="mini-stat-num" id="jitterClicks">0</div><div class="mini-stat-lbl">Total Clicks</div></div>
+      <div class="mini-stat-box"><div class="mini-stat-num" id="jitterBest">—</div><div class="mini-stat-lbl">Best CPS</div></div>
+      <div class="mini-stat-box"><div class="mini-stat-num" id="jitterTime">5.0</div><div class="mini-stat-lbl">Seconds Left</div></div>
+    </div>
+  </div><!-- /tab-jitter -->
+
+  <!-- ══════════════════════════════════════════════
+       TAB 3 — CLICK SPEED TEST
+  ══════════════════════════════════════════════ -->
+  <div class="tab-panel" id="tab-click">
+    <div class="mini-game-card">
+      <div class="mini-icon">🔥</div>
+      <div class="mini-title">Click Speed Test</div>
+      <div class="mini-desc">
+        The standard click speed test measures how many times you can click in 10 seconds.
+        Average players score 6–9 CPS; top players can exceed 14 CPS!
+      </div>
+      <div class="mini-badge">10-second challenge</div>
+    </div>
+
+    <div class="mini-click-area" id="clickArea" tabindex="0" aria-label="Click speed area">
+      <div class="mini-cps" id="clickCPS">0</div>
+      <div class="mini-clicks-label">CPS — Click to Start</div>
+      <div class="mini-timer-bar"><div class="mini-timer-fill" id="clickBar" style="width:100%"></div></div>
+    </div>
+
+    <div class="mini-stats-row">
+      <div class="mini-stat-box"><div class="mini-stat-num" id="clickClicks">0</div><div class="mini-stat-lbl">Total Clicks</div></div>
+      <div class="mini-stat-box"><div class="mini-stat-num" id="clickBest">—</div><div class="mini-stat-lbl">Best CPS</div></div>
+      <div class="mini-stat-box"><div class="mini-stat-num" id="clickTime">10.0</div><div class="mini-stat-lbl">Seconds Left</div></div>
+    </div>
+  </div><!-- /tab-click -->
+
+  <!-- ══════════════════════════════════════════════
+       TAB 4 — KOHI CLICK TEST (intact)
+  ══════════════════════════════════════════════ -->
+  <div class="tab-panel tab-kohi" id="tab-kohi">
+    <div class="mini-game-card">
+      <div class="mini-icon">☕</div>
+      <div class="mini-title">Kohi Click Test</div>
+      <div class="mini-desc">
+        Originally from the Minecraft server Kohi, this test measures clicks-per-second over
+        a longer 15-second window — great for testing sustained clicking endurance.
+      </div>
+      <div class="mini-badge">15-second endurance</div>
+    </div>
+
+    <div class="mini-click-area" id="kohiArea" tabindex="0" aria-label="Kohi click area">
+      <div class="mini-cps" id="kohiCPS">0</div>
+      <div class="mini-clicks-label">CPS — Click to Start</div>
+      <div class="mini-timer-bar"><div class="mini-timer-fill" id="kohiBar" style="width:100%"></div></div>
+    </div>
+
+    <div class="mini-stats-row">
+      <div class="mini-stat-box"><div class="mini-stat-num" id="kohiClicks">0</div><div class="mini-stat-lbl">Total Clicks</div></div>
+      <div class="mini-stat-box"><div class="mini-stat-num" id="kohiBest">—</div><div class="mini-stat-lbl">Best CPS</div></div>
+      <div class="mini-stat-box"><div class="mini-stat-num" id="kohiTime">15.0</div><div class="mini-stat-lbl">Seconds Left</div></div>
+    </div>
+  </div><!-- /tab-kohi -->
+
+  <!-- ══════════════════════════════════════════════
+       TAB 5 — SPACEBAR CLICKER
+  ══════════════════════════════════════════════ -->
+  <div class="tab-panel tab-space" id="tab-spacebar">
+    <div class="mini-game-card">
+      <div class="mini-icon">⌨️</div>
+      <div class="mini-title">Spacebar Clicker</div>
+      <div class="mini-desc">
+        How fast can you tap the spacebar? This test measures how many times you press the
+        spacebar in 10 seconds. Works with keyboard on desktop and the button below on mobile!
+      </div>
+      <div class="mini-badge">10-second spacebar challenge</div>
+    </div>
+
+    <div class="space-key" id="spaceKey" tabindex="0" aria-label="Press spacebar or tap here">
+      SPACEBAR
+    </div>
+
+    <div class="mini-click-area" id="spaceArea" style="min-height:120px" tabindex="0" aria-label="Spacebar tap area">
+      <div class="mini-cps" id="spaceCPS">0</div>
+      <div class="mini-clicks-label">Presses/sec — Tap Key or Button Above</div>
+      <div class="mini-timer-bar"><div class="mini-timer-fill" id="spaceBar" style="width:100%"></div></div>
+    </div>
+
+    <div class="mini-stats-row">
+      <div class="mini-stat-box"><div class="mini-stat-num" id="spaceClicks">0</div><div class="mini-stat-lbl">Total Presses</div></div>
+      <div class="mini-stat-box"><div class="mini-stat-num" id="spaceBest">—</div><div class="mini-stat-lbl">Best /sec</div></div>
+      <div class="mini-stat-box"><div class="mini-stat-num" id="spaceTime">10.0</div><div class="mini-stat-lbl">Seconds Left</div></div>
+    </div>
+  </div><!-- /tab-spacebar -->
+
+</div><!-- /page-wrap -->
+
+<!-- ══════════════════════════════════════════════
+     REFLEX INFORMATION SECTION
+══════════════════════════════════════════════ -->
+<section class="reflex-section" aria-label="Reflex information">
+
+  <div class="reflex-divider">
+    <div class="reflex-divider-line"></div>
+    <div class="reflex-divider-text">REFLEX INFO</div>
+    <div class="reflex-divider-line"></div>
+  </div>
+
+  <!-- What are reflexes -->
+  <div class="reflex-card">
+    <div class="reflex-card-title">⚡ What Are Reflexes?</div>
+    <div class="reflex-card-body">
+      Reflexes are <strong>automatic, involuntary responses</strong> to stimuli that occur without conscious thought.
+      They are processed through reflex arcs — neural pathways that bypass the brain and loop directly through
+      the spinal cord, enabling lightning-fast reactions.<br><br>
+      <strong>Why they matter:</strong> Fast reflexes are critical in sports, driving, gaming, and everyday safety.
+      A human visual reaction typically ranges from <strong>150ms to 400ms</strong>, with trained athletes
+      and gamers often achieving sub-200ms responses.
     </div>
   </div>
 
-  <div class="history" id="history"></div>
+  <!-- Reaction time distribution chart -->
+  <div class="reflex-card">
+    <div class="reflex-card-title">📊 Reaction Time Distribution</div>
+    <div class="chart-title">Average human visual reaction times by category</div>
+    <div class="chart-wrap">
+      <svg class="react-chart" viewBox="0 0 520 220" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffe000" stop-opacity="0.9"/><stop offset="100%" stop-color="#ffe000" stop-opacity="0.3"/></linearGradient>
+          <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00f5a0" stop-opacity="0.9"/><stop offset="100%" stop-color="#00f5a0" stop-opacity="0.3"/></linearGradient>
+          <linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7b61ff" stop-opacity="0.9"/><stop offset="100%" stop-color="#7b61ff" stop-opacity="0.3"/></linearGradient>
+          <linearGradient id="g4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff6b00" stop-opacity="0.9"/><stop offset="100%" stop-color="#ff6b00" stop-opacity="0.3"/></linearGradient>
+          <linearGradient id="g5" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff2d55" stop-opacity="0.9"/><stop offset="100%" stop-color="#ff2d55" stop-opacity="0.3"/></linearGradient>
+        </defs>
+        <line x1="60" y1="20"  x2="510" y2="20"  stroke="#1e1e2e" stroke-width="1"/>
+        <line x1="60" y1="60"  x2="510" y2="60"  stroke="#1e1e2e" stroke-width="1"/>
+        <line x1="60" y1="100" x2="510" y2="100" stroke="#1e1e2e" stroke-width="1"/>
+        <line x1="60" y1="140" x2="510" y2="140" stroke="#1e1e2e" stroke-width="1"/>
+        <line x1="60" y1="180" x2="510" y2="180" stroke="#1e1e2e" stroke-width="1"/>
+        <text x="52" y="24"  text-anchor="end" font-size="9" fill="#555570">500ms</text>
+        <text x="52" y="64"  text-anchor="end" font-size="9" fill="#555570">400ms</text>
+        <text x="52" y="104" text-anchor="end" font-size="9" fill="#555570">300ms</text>
+        <text x="52" y="144" text-anchor="end" font-size="9" fill="#555570">200ms</text>
+        <text x="52" y="184" text-anchor="end" font-size="9" fill="#555570">100ms</text>
+        <rect x="76"  y="160" width="52" height="20"  rx="6" fill="url(#g1)"/>
+        <text x="102" y="155" text-anchor="middle" font-size="9" fill="#ffe000" font-weight="700">150ms</text>
+        <text x="102" y="198" text-anchor="middle" font-size="8" fill="#555570">Elite</text>
+        <rect x="152" y="124" width="52" height="56"  rx="6" fill="url(#g2)"/>
+        <text x="178" y="119" text-anchor="middle" font-size="9" fill="#00f5a0" font-weight="700">190ms</text>
+        <text x="178" y="198" text-anchor="middle" font-size="8" fill="#555570">Gamer</text>
+        <rect x="228" y="100" width="52" height="80"  rx="6" fill="url(#g3)"/>
+        <text x="254" y="95"  text-anchor="middle" font-size="9" fill="#7b61ff" font-weight="700">250ms</text>
+        <text x="254" y="198" text-anchor="middle" font-size="8" fill="#555570">Average</text>
+        <rect x="304" y="68"  width="52" height="112" rx="6" fill="url(#g4)"/>
+        <text x="330" y="63"  text-anchor="middle" font-size="9" fill="#ff6b00" font-weight="700">320ms</text>
+        <text x="330" y="198" text-anchor="middle" font-size="8" fill="#555570">Casual</text>
+        <rect x="380" y="20"  width="52" height="160" rx="6" fill="url(#g5)"/>
+        <text x="406" y="15"  text-anchor="middle" font-size="9" fill="#ff2d55" font-weight="700">400ms</text>
+        <text x="406" y="198" text-anchor="middle" font-size="8" fill="#555570">Slow</text>
+        <line x1="60" y1="181" x2="510" y2="181" stroke="#2a2a4a" stroke-width="1.5"/>
+        <line x1="60" y1="10"  x2="60"  y2="181" stroke="#2a2a4a" stroke-width="1.5"/>
+      </svg>
+    </div>
+  </div>
 
-  <div class="gameover" id="gameoverPanel">
-    <div class="gameover-title" id="gameoverTitle">🏆 GAME OVER</div>
-    <div class="gameover-stats">
-      <div class="stat-item">
-        <div class="stat-label" id="statLabelBest">Fastest</div>
-        <div class="stat-val"   id="statBest">---</div>
+  <!-- Factors affecting reaction time -->
+  <div class="reflex-card">
+    <div class="reflex-card-title">🧬 Factors Affecting Reaction Time</div>
+    <div class="factors-grid">
+      <div class="factor-item">
+        <div class="factor-icon">😴</div>
+        <div class="factor-name">Sleep</div>
+        <div class="factor-desc">Sleep deprivation slows reaction time by up to 300%. Even losing 2 hours of sleep has measurable impact.</div>
       </div>
-      <div class="stat-item">
-        <div class="stat-label" id="statLabelAvg">Average</div>
-        <div class="stat-val"   id="statAvg">---</div>
+      <div class="factor-item">
+        <div class="factor-icon">🎮</div>
+        <div class="factor-name">Practice</div>
+        <div class="factor-desc">Regular reaction-time training can reduce response times by 20–30ms through neural pathway strengthening.</div>
       </div>
-      <div class="stat-item">
-        <div class="stat-label" id="statLabelScore">Score</div>
-        <div class="stat-val"   id="statScore">0</div>
+      <div class="factor-item">
+        <div class="factor-icon">☕</div>
+        <div class="factor-name">Caffeine</div>
+        <div class="factor-desc">Moderate caffeine intake (100–200mg) temporarily improves reaction speed by stimulating the central nervous system.</div>
+      </div>
+      <div class="factor-item">
+        <div class="factor-icon">🧓</div>
+        <div class="factor-name">Age</div>
+        <div class="factor-desc">Reaction time peaks around age 24, then gradually slows — adding roughly 1ms per year after age 30.</div>
+      </div>
+      <div class="factor-item">
+        <div class="factor-icon">🌡️</div>
+        <div class="factor-name">Temperature</div>
+        <div class="factor-desc">Cold environments slow nerve conduction. Warm muscles respond 10–15% faster than cold ones.</div>
+      </div>
+      <div class="factor-item">
+        <div class="factor-icon">💧</div>
+        <div class="factor-name">Hydration</div>
+        <div class="factor-desc">Even mild dehydration (2% body weight) can slow cognitive processing and reaction speed measurably.</div>
       </div>
     </div>
-    <button class="btn-play" id="replayBtn">🔄 PLAY AGAIN</button>
   </div>
-</div>
+
+  <!-- How to improve -->
+  <div class="reflex-card">
+    <div class="reflex-card-title">🚀 How to Improve Your Reflexes</div>
+    <div class="reflex-card-body" style="margin-bottom:4px">
+      Improving reflexes requires both <strong>mental sharpening</strong> and <strong>physical conditioning</strong>.
+      Consistency is the key — even 10 minutes of daily practice compounds significantly over weeks.
+    </div>
+    <div class="exercise-list">
+      <div class="exercise-item">
+        <div class="exercise-num">01</div>
+        <div class="exercise-text"><strong>Daily reaction drills</strong> — Use this tool! Practicing reaction tests for 10–15 minutes daily strengthens the neural pathways responsible for fast responses.</div>
+      </div>
+      <div class="exercise-item">
+        <div class="exercise-num">02</div>
+        <div class="exercise-text"><strong>Racket sports</strong> — Tennis, ping-pong, and badminton demand split-second visual-motor coordination, making them elite reflex trainers.</div>
+      </div>
+      <div class="exercise-item">
+        <div class="exercise-num">03</div>
+        <div class="exercise-text"><strong>Action video games</strong> — Contrary to popular belief, fast-paced games (FPS, fighting) have been scientifically shown to improve perceptual decision-making speed.</div>
+      </div>
+      <div class="exercise-item">
+        <div class="exercise-num">04</div>
+        <div class="exercise-text"><strong>Mindfulness &amp; meditation</strong> — Reduces mental noise and improves focus, allowing faster processing of incoming signals.</div>
+      </div>
+      <div class="exercise-item">
+        <div class="exercise-num">05</div>
+        <div class="exercise-text"><strong>Aerobic exercise</strong> — Regular cardio increases blood flow to the brain and has been shown to improve overall cognitive processing speed.</div>
+      </div>
+      <div class="exercise-item">
+        <div class="exercise-num">06</div>
+        <div class="exercise-text"><strong>Juggling &amp; fine motor drills</strong> — Learning to juggle forces the brain to rapidly predict and respond to visual trajectories, building perceptual speed.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick tips pills -->
+  <div class="reflex-card">
+    <div class="reflex-card-title">💡 Quick Tips for Better Results</div>
+    <div class="tips-grid">
+      <span class="tip-pill">🌙 Sleep 7–9 hrs</span>
+      <span class="tip-pill">☕ Moderate caffeine</span>
+      <span class="tip-pill">💧 Stay hydrated</span>
+      <span class="tip-pill">🏃 Exercise daily</span>
+      <span class="tip-pill">🎯 Focus, no distractions</span>
+      <span class="tip-pill">🌡️ Warm up first</span>
+      <span class="tip-pill">📵 Reduce screen fatigue</span>
+      <span class="tip-pill">🧘 Breathe deeply</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       SPEED SCALE — redesigned for full mobile visibility
+       Uses a wider viewBox + overflow:visible + HTML legend
+       so no label is ever clipped on any screen size.
+  ══════════════════════════════════════════════ -->
+  <div class="reflex-card">
+    <div class="reflex-card-title">🏎 Your Reaction Speed Scale</div>
+    <div class="speedometer-wrap">
+
+      <div class="speedometer-svg-box">
+        <!--
+          viewBox="0 0 400 200"
+          Arc centre: cx=200, cy=185, r=155
+          Arc from left (M 45 185) to right (310+45=355? No, let's use full half-circle):
+            Start: 200-155=45, y=185  → M 45 185
+            End:   200+155=355, y=185 → A 155 155 0 0 1 355 185
+          This gives plenty of horizontal margin for the end labels.
+        -->
+        <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="speedo2" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%"   stop-color="#ffe000"/>
+              <stop offset="30%"  stop-color="#00f5a0"/>
+              <stop offset="60%"  stop-color="#ff6b00"/>
+              <stop offset="100%" stop-color="#ff2d55"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Track -->
+          <path d="M 45 185 A 155 155 0 0 1 355 185"
+                stroke="#1e1e2e" stroke-width="26" fill="none" stroke-linecap="round"/>
+          <!-- Colour arc -->
+          <path d="M 45 185 A 155 155 0 0 1 355 185"
+                stroke="url(#speedo2)" stroke-width="22" fill="none" stroke-linecap="round"/>
+
+          <!--
+            Tick marks + ms labels positioned along the arc.
+            Arc angle: 0° = left (180° clock), 180° = right (0° clock), top = 90°.
+            We map 100ms→180°, 200ms→135°, 300ms→90°, 400ms→45°, 500ms→0° in standard math angles.
+            cx=200, cy=185, r=155 for tick outer, r=128 for label.
+
+            Angle in radians from math convention:
+              100ms → π    → (cos π, -sin π) = (-1, 0)  → x=200-155=45,  y=185
+              200ms → 3π/4 → (-√2/2, √2/2)              → x≈91,  y≈76
+              300ms → π/2  → (0, 1)                      → x=200, y=185-155=30
+              400ms → π/4  → (√2/2, √2/2)                → x≈310, y≈76
+              500ms → 0    → (1, 0)                       → x=355, y=185
+
+            Label positions at r=120 (inside arc):
+          -->
+
+          <!-- Tick lines (outer r=155, inner r=138) -->
+          <!-- 100ms (left end) -->
+          <line x1="45" y1="185" x2="62" y2="185" stroke="#ffe000" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- 200ms (upper-left) -->
+          <line x1="91" y1="75"  x2="103" y2="84" stroke="#00f5a0" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- 300ms (top) -->
+          <line x1="200" y1="30" x2="200" y2="47" stroke="#7b61ff" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- 400ms (upper-right) -->
+          <line x1="309" y1="75" x2="297" y2="84" stroke="#ff6b00" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- 500ms (right end) -->
+          <line x1="355" y1="185" x2="338" y2="185" stroke="#ff2d55" stroke-width="2.5" stroke-linecap="round"/>
+
+          <!-- ms labels — kept well inside viewBox at r≈118 from centre -->
+          <text x="75"  y="192" text-anchor="middle" font-size="11" fill="#ffe000" font-family="monospace" font-weight="700">100</text>
+          <text x="108" y="65"  text-anchor="middle" font-size="11" fill="#00f5a0" font-family="monospace" font-weight="700">200</text>
+          <text x="200" y="18"  text-anchor="middle" font-size="11" fill="#7b61ff" font-family="monospace" font-weight="700">300</text>
+          <text x="292" y="65"  text-anchor="middle" font-size="11" fill="#ff6b00" font-family="monospace" font-weight="700">400</text>
+          <text x="325" y="192" text-anchor="middle" font-size="11" fill="#ff2d55" font-family="monospace" font-weight="700">500</text>
+
+          <!-- "ms" unit label at bottom centre -->
+          <text x="200" y="175" text-anchor="middle" font-size="9" fill="#555570" font-family="monospace">milliseconds</text>
+
+          <!-- Centre pivot -->
+          <circle cx="200" cy="185" r="7" fill="#e8e8f0"/>
+          <!-- Needle pointing at 300ms (straight up) -->
+          <line x1="200" y1="185" x2="200" y2="50"
+                stroke="#e8e8f0" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+        </svg>
+      </div>
+
+      <div class="speedometer-caption">Visual scale of human reaction time categories</div>
+
+      <!-- HTML legend — guaranteed readable at every screen size -->
+      <div class="speedo-legend" role="list">
+        <div class="speedo-legend-item" role="listitem">
+          <div class="speedo-legend-dot" style="background:#ffe000"></div>
+          <span style="color:#ffe000">≤150ms — Elite</span>
+        </div>
+        <div class="speedo-legend-item" role="listitem">
+          <div class="speedo-legend-dot" style="background:#00f5a0"></div>
+          <span style="color:#00f5a0">151–200ms — Great</span>
+        </div>
+        <div class="speedo-legend-item" role="listitem">
+          <div class="speedo-legend-dot" style="background:#7b61ff"></div>
+          <span style="color:#7b61ff">201–300ms — Average</span>
+        </div>
+        <div class="speedo-legend-item" role="listitem">
+          <div class="speedo-legend-dot" style="background:#ff6b00"></div>
+          <span style="color:#ff6b00">301–400ms — Slow</span>
+        </div>
+        <div class="speedo-legend-item" role="listitem">
+          <div class="speedo-legend-dot" style="background:#ff2d55"></div>
+          <span style="color:#ff2d55">&gt;400ms — Very Slow</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section><!-- /reflex-section -->
 
 <script>
-// ─── Translations ─────────────────────────────────────────────────────────────
+'use strict';
+
+/* ══════════════════════════════════════════════════════════════
+   TAB SWITCHING
+══════════════════════════════════════════════════════════════ */
+const tabBtns   = document.querySelectorAll('.tab-btn');
+const tabPanels = document.querySelectorAll('.tab-panel');
+const stickyBar = document.getElementById('stickyScoreBar');
+
+function switchTab(tabId) {
+  tabBtns.forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tabId);
+    b.setAttribute('aria-selected', b.dataset.tab === tabId);
+  });
+  tabPanels.forEach(p => p.classList.toggle('active', p.id === 'tab-' + tabId));
+  stickyBar.classList.toggle('visible', tabId === 'reaction');
+  document.body.style.paddingBottom = tabId === 'reaction' ? '110px' : '32px';
+}
+
+tabBtns.forEach(btn => btn.addEventListener('click', () => switchTab(btn.dataset.tab)));
+
+/* ══════════════════════════════════════════════════════════════
+   DRAG-TO-SCROLL TABS (mouse on desktop)
+   Touch devices already get native momentum scroll via CSS.
+   This adds the same feel for mouse users who can't swipe.
+══════════════════════════════════════════════════════════════ */
+(function initDragScroll() {
+  const nav  = document.getElementById('tabsNav');
+  const wrap = document.getElementById('tabsNavWrap');
+  let isDragging = false;
+  let startX     = 0;
+  let scrollLeft = 0;
+  let dragMoved  = false; // track if mouse actually moved (suppress click if dragged)
+
+  function updateFades() {
+    wrap.classList.toggle('scrolled-left',  nav.scrollLeft > 4);
+    wrap.classList.toggle('scrolled-right', nav.scrollLeft >= nav.scrollWidth - nav.clientWidth - 4);
+  }
+
+  nav.addEventListener('scroll', updateFades, { passive: true });
+  // Initial state
+  updateFades();
+
+  nav.addEventListener('mousedown', e => {
+    // Only primary button
+    if (e.button !== 0) return;
+    isDragging  = true;
+    dragMoved   = false;
+    startX      = e.pageX - nav.offsetLeft;
+    scrollLeft  = nav.scrollLeft;
+    nav.classList.add('is-dragging');
+  });
+
+  window.addEventListener('mouseup', () => {
+    if (!isDragging) return;
+    isDragging = false;
+    nav.classList.remove('is-dragging');
+  });
+
+  window.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x    = e.pageX - nav.offsetLeft;
+    const walk = (x - startX) * 1.4; // multiply for faster feel
+    if (Math.abs(x - startX) > 4) dragMoved = true;
+    nav.scrollLeft = scrollLeft - walk;
+  });
+
+  // Suppress the click on tab buttons if the mouse dragged (not just clicked)
+  nav.addEventListener('click', e => {
+    if (dragMoved) {
+      e.stopPropagation();
+      e.preventDefault();
+      dragMoved = false;
+    }
+  }, true); // capture phase so it runs before the tab-btn click handler
+})();
+
+/* ══════════════════════════════════════════════════════════════
+   CLICK-COUNTER ENGINE (shared by Jitter / Click Speed / Kohi / Spacebar)
+══════════════════════════════════════════════════════════════ */
+function makeClickGame({ area, cpsEl, barEl, clicksEl, bestEl, timeEl, duration }) {
+  let clicks = 0, running = false, startTs = null, intervalId = null, bestCPS = 0;
+
+  function reset() {
+    clicks = 0; running = false; startTs = null;
+    clearInterval(intervalId);
+    cpsEl.textContent    = '0';
+    clicksEl.textContent = '0';
+    timeEl.textContent   = duration.toFixed(1);
+    barEl.style.width    = '100%';
+    area.classList.remove('running', 'done');
+    area.querySelector('.mini-clicks-label').textContent = 'CPS — Click to Start';
+  }
+
+  function tick() {
+    const elapsed = (Date.now() - startTs) / 1000;
+    const rem     = Math.max(0, duration - elapsed);
+    const cps     = elapsed > 0 ? (clicks / elapsed).toFixed(1) : '0';
+    cpsEl.textContent    = cps;
+    clicksEl.textContent = clicks;
+    timeEl.textContent   = rem.toFixed(1);
+    barEl.style.width    = ((rem / duration) * 100) + '%';
+    if (parseFloat(cps) > bestCPS) { bestCPS = parseFloat(cps); bestEl.textContent = bestCPS.toFixed(1); }
+    if (rem <= 0) finish();
+  }
+
+  function finish() {
+    clearInterval(intervalId);
+    running = false;
+    area.classList.remove('running'); area.classList.add('done');
+    const elapsed  = Math.min(duration, (Date.now() - startTs) / 1000);
+    const finalCPS = elapsed > 0 ? (clicks / elapsed).toFixed(1) : '0';
+    cpsEl.textContent  = finalCPS;
+    timeEl.textContent = '0.0';
+    barEl.style.width  = '0%';
+    area.querySelector('.mini-clicks-label').textContent = 'Done! Click to restart';
+  }
+
+  function handleClick() {
+    if (!running) {
+      if (area.classList.contains('done')) reset();
+      running = true; startTs = Date.now(); clicks = 0;
+      area.classList.add('running');
+      area.querySelector('.mini-clicks-label').textContent = 'Keep clicking!';
+      intervalId = setInterval(tick, 80);
+    }
+    clicks++;
+    tick();
+  }
+
+  area.addEventListener('click', handleClick);
+  area.addEventListener('touchstart', e => { e.preventDefault(); handleClick(); }, { passive: false });
+}
+
+// Wire up each click game
+makeClickGame({ area: document.getElementById('jitterArea'), cpsEl: document.getElementById('jitterCPS'), barEl: document.getElementById('jitterBar'), clicksEl: document.getElementById('jitterClicks'), bestEl: document.getElementById('jitterBest'), timeEl: document.getElementById('jitterTime'), duration: 5  });
+makeClickGame({ area: document.getElementById('clickArea'),  cpsEl: document.getElementById('clickCPS'),  barEl: document.getElementById('clickBar'),  clicksEl: document.getElementById('clickClicks'),  bestEl: document.getElementById('clickBest'),  timeEl: document.getElementById('clickTime'),  duration: 10 });
+makeClickGame({ area: document.getElementById('kohiArea'),   cpsEl: document.getElementById('kohiCPS'),   barEl: document.getElementById('kohiBar'),   clicksEl: document.getElementById('kohiClicks'),   bestEl: document.getElementById('kohiBest'),   timeEl: document.getElementById('kohiTime'),   duration: 15 });
+makeClickGame({ area: document.getElementById('spaceArea'),  cpsEl: document.getElementById('spaceCPS'),  barEl: document.getElementById('spaceBar'),  clicksEl: document.getElementById('spaceClicks'),  bestEl: document.getElementById('spaceBest'),  timeEl: document.getElementById('spaceTime'),  duration: 10 });
+
+// Spacebar key button → trigger spaceArea click
+const spaceKey = document.getElementById('spaceKey');
+spaceKey.addEventListener('click',      () => document.getElementById('spaceArea').click());
+spaceKey.addEventListener('touchstart', e => { e.preventDefault(); document.getElementById('spaceArea').click(); }, { passive: false });
+
+// Physical spacebar key (desktop)
+document.addEventListener('keydown', e => {
+  if (e.code === 'Space' && document.getElementById('tab-spacebar').classList.contains('active')) {
+    e.preventDefault();
+    spaceKey.classList.add('pressed');
+    document.getElementById('spaceArea').click();
+  }
+});
+document.addEventListener('keyup', e => { if (e.code === 'Space') spaceKey.classList.remove('pressed'); });
+
+/* ══════════════════════════════════════════════════════════════
+   i18n — original, untouched
+══════════════════════════════════════════════════════════════ */
 const TRANSLATIONS = {
   tr: {
-    pageTitle:     'REAKSİYON',
-    mainTitle:     'REAKSİYON',
-    mainSubtitle:  'Hız Testi — 5 Tur',
-    labelScore:    'Skor',
-    labelBest:     'En İyi',
-    labelAvg:      'Ortalama',
-    labelRounds:   'Tur İlerlemesi',
-    statLabelBest: 'En Hızlı',
-    statLabelAvg:  'Ortalama',
-    statLabelScore:'Skor',
-    replayBtn:     '🔄 TEKRAR OYNA',
-    idleText:      'Başlamak için Dokun',
-    idleSub:       'Reaksiyon hızını test et',
-    readyText:     'Hazır mısın?',
-    readySub:      'Başlamak için dokun',
-    waitText:      'Bekle...',
-    waitSub:       'Yeşile dönünce dokun!',
-    goText:        'DOKUN!',
-    goSub:         'Hemen dokun!',
-    earlyText:     'ÇOK ERKEN!',
-    earlySub:      (p) => `-${p} puan — Sonraki turda daha dikkatli ol`,
-    earlyChip:     'ERKEN',
-    msUnit:        'MİLİSANİYE',
-    pointsSuffix:  (p) => `  +${p} puan`,
-    gameOverText:  'Oyun Bitti!',
-    gameOverSub:   'Sonuçlarına bak',
-    goTitle:       '🏆 OYUN BİTTİ',
-    legendTitle:   '⚡ EFSANEVİ PERFORMANS!',
-    perfectTitle:  '🔥 MÜKEMMEL!',
-    earlyTitle:    '💥 ERKEN ATLAMALAR!',
-    ratings: [
-      { limit: 150,      text: '⚡ EFSANE',   color: '#ffe000' },
-      { limit: 200,      text: '🔥 MÜKEMMEL', color: '#00f5a0' },
-      { limit: 250,      text: '✅ HARIKA',   color: '#00f5a0' },
-      { limit: 320,      text: '👍 İYİ',      color: '#80f0c0' },
-      { limit: 400,      text: '😐 ORTA',     color: '#aaaacc' },
-      { limit: Infinity, text: '🐢 YAVAŞ',   color: '#ff6b00' },
+    pageTitle:'REAKSİYON', mainTitle:'REAKSİYON', mainSubtitle:'Hız Testi — 5 Tur',
+    labelScore:'Skor', labelBest:'En İyi', labelAvg:'Ortalama', labelRounds:'Tur İlerlemesi',
+    statLabelBest:'En Hızlı', statLabelAvg:'Ortalama', statLabelScore:'Skor',
+    replayBtn:'🔄 TEKRAR OYNA',
+    idleText:'Başlamak için Dokun', idleSub:'Reaksiyon hızını test et',
+    readyText:'Hazır mısın?', readySub:'Başlamak için dokun',
+    waitText:'Bekle...', waitSub:'Yeşile dönünce dokun!',
+    goText:'DOKUN!', goSub:'Hemen dokun!',
+    earlyText:'ÇOK ERKEN!', earlySub:(p)=>`-${p} puan — Sonraki turda daha dikkatli ol`,
+    earlyChip:'ERKEN', msUnit:'MİLİSANİYE', pointsSuffix:(p)=>`  +${p} puan`,
+    gameOverText:'Oyun Bitti!', gameOverSub:'Sonuçlarına bak',
+    goTitle:'🏆 OYUN BİTTİ', legendTitle:'⚡ EFSANEVİ PERFORMANS!',
+    perfectTitle:'🔥 MÜKEMMEL!', earlyTitle:'💥 ERKEN ATLAMALAR!',
+    ratings:[
+      {limit:150,text:'⚡ EFSANE',color:'#ffe000'},{limit:200,text:'🔥 MÜKEMMEL',color:'#00f5a0'},
+      {limit:250,text:'✅ HARIKA',color:'#00f5a0'},{limit:320,text:'👍 İYİ',color:'#80f0c0'},
+      {limit:400,text:'😐 ORTA',color:'#aaaacc'},{limit:Infinity,text:'🐢 YAVAŞ',color:'#ff6b00'}
     ]
   },
   en: {
-    pageTitle:     'REACTION',
-    mainTitle:     'REACTION',
-    mainSubtitle:  'Speed Test — 5 Rounds',
-    labelScore:    'Score',
-    labelBest:     'Best',
-    labelAvg:      'Average',
-    labelRounds:   'Round Progress',
-    statLabelBest: 'Fastest',
-    statLabelAvg:  'Average',
-    statLabelScore:'Score',
-    replayBtn:     '🔄 PLAY AGAIN',
-    idleText:      'Tap to Start',
-    idleSub:       'Test your reaction speed',
-    readyText:     'Ready?',
-    readySub:      'Tap to begin',
-    waitText:      'Wait...',
-    waitSub:       'Tap when it turns green!',
-    goText:        'TAP NOW!',
-    goSub:         'Hit it!',
-    earlyText:     'TOO EARLY!',
-    earlySub:      (p) => `-${p} pts — Be more patient next round`,
-    earlyChip:     'EARLY',
-    msUnit:        'MILLISECONDS',
-    pointsSuffix:  (p) => `  +${p} pts`,
-    gameOverText:  'Game Over!',
-    gameOverSub:   'Check your results',
-    goTitle:       '🏆 GAME OVER',
-    legendTitle:   '⚡ LEGENDARY PERFORMANCE!',
-    perfectTitle:  '🔥 PERFECT!',
-    earlyTitle:    '💥 TOO MANY FALSE STARTS!',
-    ratings: [
-      { limit: 150,      text: '⚡ LEGENDARY', color: '#ffe000' },
-      { limit: 200,      text: '🔥 PERFECT',   color: '#00f5a0' },
-      { limit: 250,      text: '✅ GREAT',      color: '#00f5a0' },
-      { limit: 320,      text: '👍 GOOD',       color: '#80f0c0' },
-      { limit: 400,      text: '😐 AVERAGE',    color: '#aaaacc' },
-      { limit: Infinity, text: '🐢 SLOW',       color: '#ff6b00' },
+    pageTitle:'REACTION', mainTitle:'REACTION', mainSubtitle:'Speed Test — 5 Rounds',
+    labelScore:'Score', labelBest:'Best', labelAvg:'Average', labelRounds:'Round Progress',
+    statLabelBest:'Fastest', statLabelAvg:'Average', statLabelScore:'Score',
+    replayBtn:'🔄 PLAY AGAIN',
+    idleText:'Tap to Start', idleSub:'Test your reaction speed',
+    readyText:'Ready?', readySub:'Tap to begin',
+    waitText:'Wait...', waitSub:'Tap when it turns green!',
+    goText:'TAP NOW!', goSub:'Hit it!',
+    earlyText:'TOO EARLY!', earlySub:(p)=>`-${p} pts — Be more patient next round`,
+    earlyChip:'EARLY', msUnit:'MILLISECONDS', pointsSuffix:(p)=>`  +${p} pts`,
+    gameOverText:'Game Over!', gameOverSub:'Check your results',
+    goTitle:'🏆 GAME OVER', legendTitle:'⚡ LEGENDARY PERFORMANCE!',
+    perfectTitle:'🔥 PERFECT!', earlyTitle:'💥 TOO MANY FALSE STARTS!',
+    ratings:[
+      {limit:150,text:'⚡ LEGENDARY',color:'#ffe000'},{limit:200,text:'🔥 PERFECT',color:'#00f5a0'},
+      {limit:250,text:'✅ GREAT',color:'#00f5a0'},{limit:320,text:'👍 GOOD',color:'#80f0c0'},
+      {limit:400,text:'😐 AVERAGE',color:'#aaaacc'},{limit:Infinity,text:'🐢 SLOW',color:'#ff6b00'}
     ]
   }
 };
 
-// ─── Language setup ───────────────────────────────────────────────────────────
-function detectLang() {
-  const nav = (navigator.language || navigator.userLanguage || '').toLowerCase();
-  return nav.startsWith('tr') ? 'tr' : 'en';
-}
-
-let lang = detectLang();
-let T = TRANSLATIONS[lang];
+function detectLang() { return (navigator.language||'').toLowerCase().startsWith('tr') ? 'tr' : 'en'; }
+let lang = detectLang(), T = TRANSLATIONS[lang];
 
 function setLang(l) {
-  lang = l;
-  T = TRANSLATIONS[lang];
-  applyTranslations();
-  document.getElementById('btnTR').classList.toggle('active', lang === 'tr');
-  document.getElementById('btnEN').classList.toggle('active', lang === 'en');
+  lang = l; T = TRANSLATIONS[lang]; applyTranslations();
+  document.getElementById('btnTR').classList.toggle('active', lang==='tr');
+  document.getElementById('btnEN').classList.toggle('active', lang==='en');
   if (state === 'idle') setArena('⚡', T.idleText, T.idleSub, 'state-wait');
 }
 
 function applyTranslations() {
   document.title = T.pageTitle;
-  const ids = ['mainTitle','mainSubtitle','labelScore','labelBest','labelAvg',
-                'labelRounds','statLabelBest','statLabelAvg','statLabelScore','replayBtn'];
-  ids.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.textContent = T[id];
+  ['mainTitle','mainSubtitle','labelScore','labelBest','labelAvg','labelRounds',
+   'statLabelBest','statLabelAvg','statLabelScore','replayBtn'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.textContent = T[id];
   });
 }
 
-// ─── Game state ───────────────────────────────────────────────────────────────
-const TOTAL_ROUNDS = 5;
-const MIN_DELAY    = 1500;
-const MAX_DELAY    = 4500;
-
-let state        = 'idle';
-let startTime    = null;
-let waitTimer    = null;
-let currentRound = 0;
-let results      = [];
-let score        = 0;
+/* ══════════════════════════════════════════════════════════════
+   REACTION SPEED GAME — original logic, untouched
+══════════════════════════════════════════════════════════════ */
+const TOTAL_ROUNDS = 5, MIN_DELAY = 1500, MAX_DELAY = 4500;
+let state = 'idle', startTime = null, waitTimer = null, currentRound = 0, results = [], score = 0;
 
 const arena         = document.getElementById('arena');
 const arenaIcon     = document.getElementById('arenaIcon');
@@ -605,37 +1226,24 @@ const statAvg       = document.getElementById('statAvg');
 const statScore     = document.getElementById('statScore');
 const replayBtn     = document.getElementById('replayBtn');
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
 function setArena(icon, text, sub, cls) {
-  arenaIcon.textContent = icon;
-  arenaText.textContent = text;
-  arenaSub.textContent  = sub;
+  arenaIcon.textContent = icon; arenaText.textContent = text; arenaSub.textContent = sub;
   arena.className = 'arena ' + cls;
 }
 
 function updateDots() {
   for (let i = 0; i < TOTAL_ROUNDS; i++) {
-    const dot = roundDots[i];
-    dot.className = 'dot';
-    if (i < results.length) {
-      dot.classList.add(results[i] === 'early' ? 'fail' : 'done');
-    } else if (i === results.length && state !== 'gameover') {
-      dot.classList.add('current');
-    }
+    const dot = roundDots[i]; dot.className = 'dot';
+    if (i < results.length) dot.classList.add(results[i]==='early' ? 'fail' : 'done');
+    else if (i === results.length && state !== 'gameover') dot.classList.add('current');
   }
 }
 
-function getRating(ms) {
-  return T.ratings.find(r => ms < r.limit);
-}
+function getRating(ms) { return T.ratings.find(r => ms < r.limit); }
 
 function scoreForMs(ms) {
-  if (ms < 150) return 1000;
-  if (ms < 200) return 800;
-  if (ms < 250) return 600;
-  if (ms < 320) return 400;
-  if (ms < 400) return 200;
-  return 100;
+  if (ms < 150) return 1000; if (ms < 200) return 800; if (ms < 250) return 600;
+  if (ms < 320) return 400;  if (ms < 400) return 200; return 100;
 }
 
 function addHistoryChip(ms, isBest, isFail) {
@@ -647,134 +1255,100 @@ function addHistoryChip(ms, isBest, isFail) {
 
 function updateScorebar() {
   const valid = results.filter(r => r !== 'early');
-  const avg   = valid.length ? Math.round(valid.reduce((a,b) => a+b, 0) / valid.length) : null;
+  const avg   = valid.length ? Math.round(valid.reduce((a,b)=>a+b,0)/valid.length) : null;
   const best  = valid.length ? Math.min(...valid) : null;
+  const sVal  = s => s !== null ? s + 'ms' : '---';
   scoreDisplay.textContent = score;
-  bestDisplay.textContent  = best !== null ? best + 'ms' : '---';
-  avgDisplay.textContent   = avg  !== null ? avg  + 'ms' : '---';
+  bestDisplay.textContent  = sVal(best);
+  avgDisplay.textContent   = sVal(avg);
+  const s2 = document.getElementById('scoreDisplay2');
+  const b2 = document.getElementById('bestDisplay2');
+  const a2 = document.getElementById('avgDisplay2');
+  if (s2) s2.textContent = score;
+  if (b2) b2.textContent = sVal(best);
+  if (a2) a2.textContent = sVal(avg);
 }
 
-// ─── Game flow ────────────────────────────────────────────────────────────────
 function startRound() {
   if (currentRound >= TOTAL_ROUNDS) { endGame(); return; }
-  state = 'waiting';
-  setArena('⏳', T.waitText, T.waitSub, 'state-ready');
-  updateDots();
-
+  state = 'waiting'; setArena('⏳', T.waitText, T.waitSub, 'state-ready'); updateDots();
   const delay = MIN_DELAY + Math.random() * (MAX_DELAY - MIN_DELAY);
-  waitTimer = setTimeout(() => {
-    state = 'ready';
-    startTime = Date.now();
-    setArena('🟢', T.goText, T.goSub, 'state-go');
-  }, delay);
+  waitTimer = setTimeout(() => { state = 'ready'; startTime = Date.now(); setArena('🟢', T.goText, T.goSub, 'state-go'); }, delay);
 }
 
 function handleTap() {
-  if (state === 'idle' || state === 'gameover') {
-    resetGame();
-    setTimeout(startRound, 600);
-    return;
-  }
-
+  if (state === 'idle' || state === 'gameover') { resetGame(); setTimeout(startRound, 600); return; }
   if (state === 'waiting') {
-    clearTimeout(waitTimer);
-    state = 'early';
-    const penalty = 200;
-    results.push('early');
-    currentRound++;
+    clearTimeout(waitTimer); state = 'early';
+    const penalty = 200; results.push('early'); currentRound++;
     score = Math.max(0, score - penalty);
     setArena('💥', T.earlyText, T.earlySub(penalty), 'state-early');
-    addHistoryChip(null, false, true);
-    updateScorebar();
-    updateDots();
-    setTimeout(() => startRound(), 1600);
-    return;
+    addHistoryChip(null, false, true); updateScorebar(); updateDots();
+    setTimeout(() => startRound(), 1600); return;
   }
-
   if (state === 'ready') {
-    const ms  = Date.now() - startTime;
-    state = 'result';
-    const pts = scoreForMs(ms);
-    score += pts;
-    results.push(ms);
-    currentRound++;
-
+    const ms  = Date.now() - startTime; state = 'result';
+    const pts = scoreForMs(ms); score += pts; results.push(ms); currentRound++;
     const valid  = results.filter(r => r !== 'early');
     const isBest = valid.length === 1 || ms === Math.min(...valid);
     const rating = getRating(ms);
-
-    addHistoryChip(ms, isBest, false);
-    updateScorebar();
-    updateDots();
-
+    addHistoryChip(ms, isBest, false); updateScorebar(); updateDots();
     arenaIcon.textContent = '✅';
     arenaText.innerHTML   = `<span class="result-ms">${ms}</span>`;
     arenaSub.innerHTML    = `<span class="result-unit">${T.msUnit}</span>`;
     arena.className = 'arena state-result';
-
     const ratingEl = document.createElement('div');
     ratingEl.className = 'rating';
     ratingEl.style.cssText = `background:${rating.color}22;color:${rating.color};border:1px solid ${rating.color}55;margin-top:8px;`;
     ratingEl.textContent = rating.text + T.pointsSuffix(pts);
     arena.appendChild(ratingEl);
-
     setTimeout(() => {
       if (ratingEl.parentNode) ratingEl.parentNode.removeChild(ratingEl);
-      if (currentRound >= TOTAL_ROUNDS) endGame();
-      else startRound();
+      if (currentRound >= TOTAL_ROUNDS) endGame(); else startRound();
     }, 1400);
-    return;
   }
 }
 
 function endGame() {
   state = 'gameover';
-  const valid = results.filter(r => r !== 'early');
-  const best  = valid.length ? Math.min(...valid) : null;
-  const avg   = valid.length ? Math.round(valid.reduce((a,b) => a+b, 0) / valid.length) : null;
+  const valid      = results.filter(r => r !== 'early');
+  const best       = valid.length ? Math.min(...valid) : null;
+  const avg        = valid.length ? Math.round(valid.reduce((a,b)=>a+b,0)/valid.length) : null;
   const earlyCount = results.filter(r => r === 'early').length;
-
   setArena('🏆', T.gameOverText, T.gameOverSub, 'state-result');
-
   let title = T.goTitle;
   if      (score >= 4000)   title = T.legendTitle;
   else if (score >= 3000)   title = T.perfectTitle;
   else if (earlyCount >= 3) title = T.earlyTitle;
   gameoverTitle.textContent = title;
-
-  statBest.textContent  = best !== null ? best + 'ms' : '---';
+  statBest.textContent  = best !== null ? best+'ms' : '---';
   statBest.className    = 'stat-val' + (best && best > 400 ? ' bad' : '');
-  statAvg.textContent   = avg  !== null ? avg  + 'ms' : '---';
+  statAvg.textContent   = avg  !== null ? avg+'ms'  : '---';
   statScore.textContent = score;
   replayBtn.textContent = T.replayBtn;
-
-  gameoverPanel.classList.add('show');
-  updateDots();
+  gameoverPanel.classList.add('show'); updateDots();
 }
 
 function resetGame() {
-  results = [];
-  score = 0;
-  currentRound = 0;
-  historyEl.innerHTML = '';
-  gameoverPanel.classList.remove('show');
-  state = 'idle';
+  results = []; score = 0; currentRound = 0; historyEl.innerHTML = '';
+  gameoverPanel.classList.remove('show'); state = 'idle';
   setArena('⚡', T.readyText, T.readySub, 'state-wait');
-  scoreDisplay.textContent = '0';
-  bestDisplay.textContent  = '---';
-  avgDisplay.textContent   = '---';
+  scoreDisplay.textContent = '0'; bestDisplay.textContent = '---'; avgDisplay.textContent = '---';
+  const s2=document.getElementById('scoreDisplay2'),b2=document.getElementById('bestDisplay2'),a2=document.getElementById('avgDisplay2');
+  if(s2) s2.textContent='0'; if(b2) b2.textContent='---'; if(a2) a2.textContent='---';
   for (let i = 0; i < TOTAL_ROUNDS; i++) roundDots[i].className = 'dot';
 }
 
-// ─── Init ─────────────────────────────────────────────────────────────────────
+/* ── Init ── */
 applyTranslations();
 setArena('⚡', T.idleText, T.idleSub, 'state-wait');
-document.getElementById(lang === 'tr' ? 'btnTR' : 'btnEN').classList.add('active');
+document.getElementById(lang==='tr' ? 'btnTR' : 'btnEN').classList.add('active');
+stickyBar.classList.add('visible');
 
-// ─── Events ───────────────────────────────────────────────────────────────────
+/* ── Events (reaction game) ── */
 arena.addEventListener('click', handleTap);
 replayBtn.addEventListener('click', () => { resetGame(); setTimeout(startRound, 600); });
-arena.addEventListener('touchstart', (e) => { e.preventDefault(); handleTap(); }, { passive: false });
+arena.addEventListener('touchstart', e => { e.preventDefault(); handleTap(); }, { passive: false });
 </script>
 </body>
 </html>
