@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">REACTION</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --border: #1e1e2e;
+    --accent: #00f5a0;
+    --accent2: #ff2d55;
+    --accent3: #ffe000;
+    --text: #e8e8f0;
+    --muted: #555570;
+    --early: #ff6b00;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; }
+
+  body {
+    font-family: 'Space Mono', monospace;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0,245,160,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 100%, rgba(255,45,85,0.05) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 480px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  /* LANG TOGGLE */
+  .lang-toggle {
+    position: fixed;
+    top: 14px;
+    right: 14px;
+    z-index: 10;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    display: flex;
+    overflow: hidden;
+  }
+
+  .lang-btn {
+    padding: 6px 14px;
+    cursor: pointer;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    border: none;
+    background: transparent;
+    transition: all 0.2s;
+  }
+
+  .lang-btn.active {
+    background: var(--accent);
+    color: #000;
+    font-weight: 700;
+  }
+
+  /* HEADER */
+  .header { text-align: center; }
+
+  .title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 14vw, 5rem);
+    letter-spacing: 0.1em;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--accent), var(--accent3));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .subtitle {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* SCORE BAR */
+  .score-bar { display: flex; gap: 12px; width: 100%; }
+
+  .score-card {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 16px;
+    text-align: center;
+    transition: border-color 0.3s;
+  }
+
+  .score-card.highlight { border-color: var(--accent); }
+
+  .score-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .score-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+  }
+
+  .score-value.yellow { color: var(--accent3); }
+
+  /* GAME ARENA */
+  .arena {
+    width: 100%;
+    aspect-ratio: 1;
+    max-height: 340px;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.2s, transform 0.1s;
+    border: 2px solid var(--border);
+  }
+
+  .arena:active { transform: scale(0.98); }
+
+  .arena.state-wait   { background: #0d0d1a; border-color: #2a2a4a; }
+  .arena.state-ready  { background: #1a0510; border-color: var(--accent2); animation: pulse-red 0.6s ease-in-out infinite; }
+  .arena.state-go     { background: #001a10; border-color: var(--accent);  animation: pulse-green 0.4s ease-in-out 1; }
+  .arena.state-early  { background: #1a0800; border-color: var(--early); }
+  .arena.state-result { background: var(--surface); border-color: var(--accent); }
+
+  @keyframes pulse-red {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255,45,85,0.2); }
+    50%       { box-shadow: 0 0 0 20px rgba(255,45,85,0); }
+  }
+  @keyframes pulse-green {
+    0%   { box-shadow: 0 0 0 0 rgba(0,245,160,0.5); }
+    100% { box-shadow: 0 0 0 40px rgba(0,245,160,0); }
+  }
+
+  .arena-icon { font-size: 4rem; margin-bottom: 12px; }
+
+  .arena-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.8rem, 8vw, 2.8rem);
+    letter-spacing: 0.1em;
+    text-align: center;
+    padding: 0 20px;
+    line-height: 1.1;
+  }
+
+  .arena-sub {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-top: 8px;
+    text-align: center;
+    padding: 0 16px;
+  }
+
+  .result-ms {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 18vw, 7rem);
+    letter-spacing: 0.05em;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .result-unit {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .rating {
+    margin-top: 8px;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+
+  .arena::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg,  transparent, transparent 39px, rgba(255,255,255,0.015) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.015) 40px);
+    pointer-events: none;
+  }
+
+  /* ROUNDS */
+  .rounds-section { width: 100%; }
+
+  .rounds-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .rounds-dots { display: flex; gap: 8px; }
+
+  .dot {
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--border);
+    transition: background 0.3s;
+  }
+
+  .dot.done    { background: var(--accent); }
+  .dot.fail    { background: var(--accent2); }
+  .dot.current { background: var(--muted); animation: blink 0.8s ease-in-out infinite; }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.3; }
+  }
+
+  /* HISTORY */
+  .history {
+    width: 100%;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    min-height: 32px;
+  }
+
+  .history-chip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 4px 10px;
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+  }
+
+  .history-chip.best { border-color: var(--accent);  color: var(--accent); }
+  .history-chip.fail { border-color: var(--accent2); color: var(--accent2); }
+
+  /* GAME OVER */
+  .gameover {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 24px;
+    text-align: center;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    animation: fadeUp 0.4s ease;
+  }
+
+  .gameover.show { display: flex; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .gameover-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 0.1em;
+    color: var(--accent3);
+  }
+
+  .gameover-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .stat-item {
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 10px 6px;
+    text-align: center;
+  }
+
+  .stat-label {
+    font-size: 0.5rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .stat-val      { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--accent); }
+  .stat-val.bad  { color: var(--accent2); }
+
+  .btn-play {
+    width: 100%;
+    padding: 16px;
+    background: var(--accent);
+    color: #000;
+    border: none;
+    border-radius: 14px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 4px;
+  }
+
+  .btn-play:hover  { background: #00e090; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,245,160,0.3); }
+  .btn-play:active { transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- LANGUAGE TOGGLE -->
+<div class="lang-toggle">
+  <button class="lang-btn" id="btnTR" onclick="setLang('tr')">TR</button>
+  <button class="lang-btn" id="btnEN" onclick="setLang('en')">EN</button>
+</div>
+
+<div class="container">
+  <div class="header">
+    <div class="title" id="mainTitle">REACTION</div>
+    <div class="subtitle" id="mainSubtitle">Speed Test — 5 Rounds</div>
+  </div>
+
+  <div class="score-bar">
+    <div class="score-card">
+      <div class="score-label" id="labelScore">Score</div>
+      <div class="score-value" id="scoreDisplay">0</div>
+    </div>
+    <div class="score-card highlight">
+      <div class="score-label" id="labelBest">Best</div>
+      <div class="score-value" id="bestDisplay">---</div>
+    </div>
+    <div class="score-card">
+      <div class="score-label" id="labelAvg">Average</div>
+      <div class="score-value yellow" id="avgDisplay">---</div>
+    </div>
+  </div>
+
+  <div class="arena state-wait" id="arena">
+    <div class="arena-icon" id="arenaIcon">⚡</div>
+    <div class="arena-text" id="arenaText">Tap to Start</div>
+    <div class="arena-sub"  id="arenaSub">Test your reaction speed</div>
+  </div>
+
+  <div class="rounds-section">
+    <div class="rounds-label" id="labelRounds">Round Progress</div>
+    <div class="rounds-dots" id="roundDots">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </div>
+
+  <div class="history" id="history"></div>
+
+  <div class="gameover" id="gameoverPanel">
+    <div class="gameover-title" id="gameoverTitle">🏆 GAME OVER</div>
+    <div class="gameover-stats">
+      <div class="stat-item">
+        <div class="stat-label" id="statLabelBest">Fastest</div>
+        <div class="stat-val"   id="statBest">---</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label" id="statLabelAvg">Average</div>
+        <div class="stat-val"   id="statAvg">---</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label" id="statLabelScore">Score</div>
+        <div class="stat-val"   id="statScore">0</div>
+      </div>
+    </div>
+    <button class="btn-play" id="replayBtn">🔄 PLAY AGAIN</button>
+  </div>
+</div>
+
+<script>
+// ─── Translations ─────────────────────────────────────────────────────────────
+const TRANSLATIONS = {
+  tr: {
+    pageTitle:     'REAKSİYON',
+    mainTitle:     'REAKSİYON',
+    mainSubtitle:  'Hız Testi — 5 Tur',
+    labelScore:    'Skor',
+    labelBest:     'En İyi',
+    labelAvg:      'Ortalama',
+    labelRounds:   'Tur İlerlemesi',
+    statLabelBest: 'En Hızlı',
+    statLabelAvg:  'Ortalama',
+    statLabelScore:'Skor',
+    replayBtn:     '🔄 TEKRAR OYNA',
+    idleText:      'Başlamak için Dokun',
+    idleSub:       'Reaksiyon hızını test et',
+    readyText:     'Hazır mısın?',
+    readySub:      'Başlamak için dokun',
+    waitText:      'Bekle...',
+    waitSub:       'Yeşile dönünce dokun!',
+    goText:        'DOKUN!',
+    goSub:         'Hemen dokun!',
+    earlyText:     'ÇOK ERKEN!',
+    earlySub:      (p) => `-${p} puan — Sonraki turda daha dikkatli ol`,
+    earlyChip:     'ERKEN',
+    msUnit:        'MİLİSANİYE',
+    pointsSuffix:  (p) => `  +${p} puan`,
+    gameOverText:  'Oyun Bitti!',
+    gameOverSub:   'Sonuçlarına bak',
+    goTitle:       '🏆 OYUN BİTTİ',
+    legendTitle:   '⚡ EFSANEVİ PERFORMANS!',
+    perfectTitle:  '🔥 MÜKEMMEL!',
+    earlyTitle:    '💥 ERKEN ATLAMALAR!',
+    ratings: [
+      { limit: 150,      text: '⚡ EFSANE',   color: '#ffe000' },
+      { limit: 200,      text: '🔥 MÜKEMMEL', color: '#00f5a0' },
+      { limit: 250,      text: '✅ HARIKA',   color: '#00f5a0' },
+      { limit: 320,      text: '👍 İYİ',      color: '#80f0c0' },
+      { limit: 400,      text: '😐 ORTA',     color: '#aaaacc' },
+      { limit: Infinity, text: '🐢 YAVAŞ',   color: '#ff6b00' },
+    ]
+  },
+  en: {
+    pageTitle:     'REACTION',
+    mainTitle:     'REACTION',
+    mainSubtitle:  'Speed Test — 5 Rounds',
+    labelScore:    'Score',
+    labelBest:     'Best',
+    labelAvg:      'Average',
+    labelRounds:   'Round Progress',
+    statLabelBest: 'Fastest',
+    statLabelAvg:  'Average',
+    statLabelScore:'Score',
+    replayBtn:     '🔄 PLAY AGAIN',
+    idleText:      'Tap to Start',
+    idleSub:       'Test your reaction speed',
+    readyText:     'Ready?',
+    readySub:      'Tap to begin',
+    waitText:      'Wait...',
+    waitSub:       'Tap when it turns green!',
+    goText:        'TAP NOW!',
+    goSub:         'Hit it!',
+    earlyText:     'TOO EARLY!',
+    earlySub:      (p) => `-${p} pts — Be more patient next round`,
+    earlyChip:     'EARLY',
+    msUnit:        'MILLISECONDS',
+    pointsSuffix:  (p) => `  +${p} pts`,
+    gameOverText:  'Game Over!',
+    gameOverSub:   'Check your results',
+    goTitle:       '🏆 GAME OVER',
+    legendTitle:   '⚡ LEGENDARY PERFORMANCE!',
+    perfectTitle:  '🔥 PERFECT!',
+    earlyTitle:    '💥 TOO MANY FALSE STARTS!',
+    ratings: [
+      { limit: 150,      text: '⚡ LEGENDARY', color: '#ffe000' },
+      { limit: 200,      text: '🔥 PERFECT',   color: '#00f5a0' },
+      { limit: 250,      text: '✅ GREAT',      color: '#00f5a0' },
+      { limit: 320,      text: '👍 GOOD',       color: '#80f0c0' },
+      { limit: 400,      text: '😐 AVERAGE',    color: '#aaaacc' },
+      { limit: Infinity, text: '🐢 SLOW',       color: '#ff6b00' },
+    ]
+  }
+};
+
+// ─── Language setup ───────────────────────────────────────────────────────────
+function detectLang() {
+  const nav = (navigator.language || navigator.userLanguage || '').toLowerCase();
+  return nav.startsWith('tr') ? 'tr' : 'en';
+}
+
+let lang = detectLang();
+let T = TRANSLATIONS[lang];
+
+function setLang(l) {
+  lang = l;
+  T = TRANSLATIONS[lang];
+  applyTranslations();
+  document.getElementById('btnTR').classList.toggle('active', lang === 'tr');
+  document.getElementById('btnEN').classList.toggle('active', lang === 'en');
+  if (state === 'idle') setArena('⚡', T.idleText, T.idleSub, 'state-wait');
+}
+
+function applyTranslations() {
+  document.title = T.pageTitle;
+  const ids = ['mainTitle','mainSubtitle','labelScore','labelBest','labelAvg',
+                'labelRounds','statLabelBest','statLabelAvg','statLabelScore','replayBtn'];
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = T[id];
+  });
+}
+
+// ─── Game state ───────────────────────────────────────────────────────────────
+const TOTAL_ROUNDS = 5;
+const MIN_DELAY    = 1500;
+const MAX_DELAY    = 4500;
+
+let state        = 'idle';
+let startTime    = null;
+let waitTimer    = null;
+let currentRound = 0;
+let results      = [];
+let score        = 0;
+
+const arena         = document.getElementById('arena');
+const arenaIcon     = document.getElementById('arenaIcon');
+const arenaText     = document.getElementById('arenaText');
+const arenaSub      = document.getElementById('arenaSub');
+const scoreDisplay  = document.getElementById('scoreDisplay');
+const bestDisplay   = document.getElementById('bestDisplay');
+const avgDisplay    = document.getElementById('avgDisplay');
+const roundDots     = document.getElementById('roundDots').children;
+const historyEl     = document.getElementById('history');
+const gameoverPanel = document.getElementById('gameoverPanel');
+const gameoverTitle = document.getElementById('gameoverTitle');
+const statBest      = document.getElementById('statBest');
+const statAvg       = document.getElementById('statAvg');
+const statScore     = document.getElementById('statScore');
+const replayBtn     = document.getElementById('replayBtn');
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+function setArena(icon, text, sub, cls) {
+  arenaIcon.textContent = icon;
+  arenaText.textContent = text;
+  arenaSub.textContent  = sub;
+  arena.className = 'arena ' + cls;
+}
+
+function updateDots() {
+  for (let i = 0; i < TOTAL_ROUNDS; i++) {
+    const dot = roundDots[i];
+    dot.className = 'dot';
+    if (i < results.length) {
+      dot.classList.add(results[i] === 'early' ? 'fail' : 'done');
+    } else if (i === results.length && state !== 'gameover') {
+      dot.classList.add('current');
+    }
+  }
+}
+
+function getRating(ms) {
+  return T.ratings.find(r => ms < r.limit);
+}
+
+function scoreForMs(ms) {
+  if (ms < 150) return 1000;
+  if (ms < 200) return 800;
+  if (ms < 250) return 600;
+  if (ms < 320) return 400;
+  if (ms < 400) return 200;
+  return 100;
+}
+
+function addHistoryChip(ms, isBest, isFail) {
+  const chip = document.createElement('div');
+  chip.className = 'history-chip' + (isFail ? ' fail' : isBest ? ' best' : '');
+  chip.textContent = isFail ? T.earlyChip : ms + 'ms';
+  historyEl.appendChild(chip);
+}
+
+function updateScorebar() {
+  const valid = results.filter(r => r !== 'early');
+  const avg   = valid.length ? Math.round(valid.reduce((a,b) => a+b, 0) / valid.length) : null;
+  const best  = valid.length ? Math.min(...valid) : null;
+  scoreDisplay.textContent = score;
+  bestDisplay.textContent  = best !== null ? best + 'ms' : '---';
+  avgDisplay.textContent   = avg  !== null ? avg  + 'ms' : '---';
+}
+
+// ─── Game flow ────────────────────────────────────────────────────────────────
+function startRound() {
+  if (currentRound >= TOTAL_ROUNDS) { endGame(); return; }
+  state = 'waiting';
+  setArena('⏳', T.waitText, T.waitSub, 'state-ready');
+  updateDots();
+
+  const delay = MIN_DELAY + Math.random() * (MAX_DELAY - MIN_DELAY);
+  waitTimer = setTimeout(() => {
+    state = 'ready';
+    startTime = Date.now();
+    setArena('🟢', T.goText, T.goSub, 'state-go');
+  }, delay);
+}
+
+function handleTap() {
+  if (state === 'idle' || state === 'gameover') {
+    resetGame();
+    setTimeout(startRound, 600);
+    return;
+  }
+
+  if (state === 'waiting') {
+    clearTimeout(waitTimer);
+    state = 'early';
+    const penalty = 200;
+    results.push('early');
+    currentRound++;
+    score = Math.max(0, score - penalty);
+    setArena('💥', T.earlyText, T.earlySub(penalty), 'state-early');
+    addHistoryChip(null, false, true);
+    updateScorebar();
+    updateDots();
+    setTimeout(() => startRound(), 1600);
+    return;
+  }
+
+  if (state === 'ready') {
+    const ms  = Date.now() - startTime;
+    state = 'result';
+    const pts = scoreForMs(ms);
+    score += pts;
+    results.push(ms);
+    currentRound++;
+
+    const valid  = results.filter(r => r !== 'early');
+    const isBest = valid.length === 1 || ms === Math.min(...valid);
+    const rating = getRating(ms);
+
+    addHistoryChip(ms, isBest, false);
+    updateScorebar();
+    updateDots();
+
+    arenaIcon.textContent = '✅';
+    arenaText.innerHTML   = `<span class="result-ms">${ms}</span>`;
+    arenaSub.innerHTML    = `<span class="result-unit">${T.msUnit}</span>`;
+    arena.className = 'arena state-result';
+
+    const ratingEl = document.createElement('div');
+    ratingEl.className = 'rating';
+    ratingEl.style.cssText = `background:${rating.color}22;color:${rating.color};border:1px solid ${rating.color}55;margin-top:8px;`;
+    ratingEl.textContent = rating.text + T.pointsSuffix(pts);
+    arena.appendChild(ratingEl);
+
+    setTimeout(() => {
+      if (ratingEl.parentNode) ratingEl.parentNode.removeChild(ratingEl);
+      if (currentRound >= TOTAL_ROUNDS) endGame();
+      else startRound();
+    }, 1400);
+    return;
+  }
+}
+
+function endGame() {
+  state = 'gameover';
+  const valid = results.filter(r => r !== 'early');
+  const best  = valid.length ? Math.min(...valid) : null;
+  const avg   = valid.length ? Math.round(valid.reduce((a,b) => a+b, 0) / valid.length) : null;
+  const earlyCount = results.filter(r => r === 'early').length;
+
+  setArena('🏆', T.gameOverText, T.gameOverSub, 'state-result');
+
+  let title = T.goTitle;
+  if      (score >= 4000)   title = T.legendTitle;
+  else if (score >= 3000)   title = T.perfectTitle;
+  else if (earlyCount >= 3) title = T.earlyTitle;
+  gameoverTitle.textContent = title;
+
+  statBest.textContent  = best !== null ? best + 'ms' : '---';
+  statBest.className    = 'stat-val' + (best && best > 400 ? ' bad' : '');
+  statAvg.textContent   = avg  !== null ? avg  + 'ms' : '---';
+  statScore.textContent = score;
+  replayBtn.textContent = T.replayBtn;
+
+  gameoverPanel.classList.add('show');
+  updateDots();
+}
+
+function resetGame() {
+  results = [];
+  score = 0;
+  currentRound = 0;
+  historyEl.innerHTML = '';
+  gameoverPanel.classList.remove('show');
+  state = 'idle';
+  setArena('⚡', T.readyText, T.readySub, 'state-wait');
+  scoreDisplay.textContent = '0';
+  bestDisplay.textContent  = '---';
+  avgDisplay.textContent   = '---';
+  for (let i = 0; i < TOTAL_ROUNDS; i++) roundDots[i].className = 'dot';
+}
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+applyTranslations();
+setArena('⚡', T.idleText, T.idleSub, 'state-wait');
+document.getElementById(lang === 'tr' ? 'btnTR' : 'btnEN').classList.add('active');
+
+// ─── Events ───────────────────────────────────────────────────────────────────
+arena.addEventListener('click', handleTap);
+replayBtn.addEventListener('click', () => { resetGame(); setTimeout(startRound, 600); });
+arena.addEventListener('touchstart', (e) => { e.preventDefault(); handleTap(); }, { passive: false });
+</script>
+</body>
+</html>
