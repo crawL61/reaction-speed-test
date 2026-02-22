@@ -8,7 +8,7 @@
 <title>Reaction Time Test & Click Speed Test — Free CPS Tester Online</title>
 <meta name="description" content="Free online reaction time test and click speed test (CPS). Measure your reaction speed in milliseconds. Test jitter click, Kohi click, spacebar speed, and stimulation clicker — 1s to 100s modes.">
 <meta name="keywords" content="reaction time test, click speed test, CPS test, free CPS test, jitter click test, kohi click test, spacebar test, stimulation clicker, online reaction test, how fast can I click, clicks per second, reaction speed test, CPS counter, click speed counter">
-<link rel="canonical" href="https://reactionspeedtest.com/">
+<link rel="canonical" href="https://https://reactionspeedtest.com//">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <meta name="theme-color" content="#06060e">
 <meta name="author" content="Reflex Lab">
@@ -17,8 +17,8 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Reaction Time Test & Click Speed Test — Free CPS Tester">
 <meta property="og:description" content="Test your reaction time and click speed for free. Reaction time in milliseconds, CPS test with 8 durations, jitter click, Kohi click, and stimulation clicker. No download needed.">
-<meta property="og:url" content="https://reactionspeedtest.com/">
-<meta property="og:image" content="https://reactionspeedtest.com/og-image.png">
+<meta property="og:url" content="https://https://reactionspeedtest.com//">
+<meta property="og:image" content="https://https://reactionspeedtest.com//og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="en_US">
@@ -28,7 +28,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Reaction Time Test & Click Speed Test — Free CPS Tester">
 <meta name="twitter:description" content="Test your reaction time and CPS for free. 6 modes, 8 durations, instant results.">
-<meta name="twitter:image" content="https://reactionspeedtest.com/og-image.png">
+<meta name="twitter:image" content="https://https://reactionspeedtest.com//og-image.png">
 
 <!-- ═══ FAVICON ═══ -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%2306060e'/><polygon points='20,2 9,18 15.5,18 11,30 23,13 16.5,13' fill='%2300f5a0'/></svg>">
@@ -40,9 +40,9 @@
   "@graph": [
     {
       "@type": "WebApplication",
-      "@id": "https://reactionspeedtest.com/#webapp",
+      "@id": "https://https://reactionspeedtest.com//#webapp",
       "name": "Reflex Lab — Reaction Time & Click Speed Test",
-      "url": "https://reactionspeedtest.com/",
+      "url": "https://https://reactionspeedtest.com//",
       "description": "Free online tool to test reaction time, click speed (CPS), jitter click, Kohi click, spacebar speed, and stimulation clicker aim training.",
       "applicationCategory": "GameApplication",
       "operatingSystem": "Any",
@@ -86,7 +86,7 @@
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://reactionspeedtest.com/" }
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://https://reactionspeedtest.com//" }
       ]
     }
   ]
@@ -155,6 +155,7 @@ body::before {
   display: flex; align-items: stretch;
   border-bottom: 1px solid var(--border2);
   overflow-x: auto; scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
 .row1::-webkit-scrollbar { display: none; }
 
@@ -173,6 +174,7 @@ body::before {
 .tabs {
   display: flex; align-items: stretch;
   flex: 1; overflow-x: auto; scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
 .tabs::-webkit-scrollbar { display: none; }
 
@@ -209,6 +211,7 @@ body::before {
   display: flex; align-items: center;
   padding: 0 16px; gap: 6px;
   overflow-x: auto; scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
 .row2::-webkit-scrollbar { display: none; }
 .row2.hidden { display: none; }
@@ -299,7 +302,7 @@ body::before {
 
 /* ─── CLICK ARENA ─── */
 .click-arena {
-  width: 100%;
+  width: 100%; max-width: 680px; align-self: center;
   height: clamp(300px, 45vh, 520px);
   background: var(--surf);
   border: 2px solid var(--border);
@@ -425,7 +428,7 @@ body::before {
 
 /* ─── REACTION ARENA ─── */
 .reaction-arena {
-  width: 100%;
+  width: 100%; max-width: 680px; align-self: center;
   height: clamp(300px, 45vh, 520px);
   border-radius: 20px; overflow: hidden;
   display: flex; flex-direction: column;
@@ -709,10 +712,124 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
 .sfooter { width:100%; text-align:center; padding:28px 0 12px; font-size:0.53rem; letter-spacing:0.07em; color:var(--muted); line-height:1.9; border-top:1px solid var(--border); margin-top:10px; }
 .sfooter strong { color:var(--text); }
 
-/* Responsive tweaks */
+/* ════════════════════════════════════════════════
+   RESPONSIVE / MOBILE
+════════════════════════════════════════════════ */
+
+/* Tablet */
+@media(max-width:768px){
+  .game-zone { padding:16px 14px 0; gap:12px; }
+  .info-wrap  { padding:0 14px 60px; gap:20px; }
+  .gtitle { font-size:clamp(1.6rem,6vw,2.4rem); }
+  .icard  { padding:18px 16px; }
+  .go-stats { grid-template-columns:1fr 1fr 1fr; }
+}
+
+/* Mobile */
 @media(max-width:520px){
-  .game-zone { padding:18px 14px 0; }
-  .info-wrap  { padding:0 14px 60px; }
+  /* ── HEADER ── */
+  :root {
+    --row1-h: 48px;
+    --row2-h: 40px;
+    --header-h: 88px;
+  }
+  .logo { padding:0 12px 0 12px; font-size:1.1rem; }
+
+  /* Tab row: wider to scroll, bigger touch targets */
+  .row1 { gap:0; }
+  .tab  {
+    padding:0 14px;
+    font-size:0.55rem;
+    min-width:80px;
+    /* keep text on one line, scroll horizontally */
+    white-space:nowrap;
+  }
+  .tab .ticon { font-size:0.85rem; }
+
+  /* Duration buttons smaller */
+  .tbtn { padding:4px 10px; font-size:0.55rem; }
+  .mbtn { padding:4px 10px; font-size:0.55rem; }
+  .row2 { padding:0 10px; gap:4px; }
+  .row2-label { font-size:0.45rem; padding-right:4px; }
+
+  /* ── GAME AREAS ── */
+  .game-zone { padding:12px 10px 0; gap:10px; }
+
+  .click-arena {
+    height: clamp(200px, 38vh, 340px);
+    max-width: 100%;
+  }
+  .reaction-arena {
+    height: clamp(240px, 38vh, 380px);
+    max-width: 100%;
+  }
+  .stim-arena {
+    height: clamp(260px, 44vh, 400px);
+  }
+  .big-cps { font-size:clamp(4rem,20vw,8rem); }
+  .arena-icon { font-size:2.5rem; }
+  .arena-text { font-size:clamp(1.8rem,7vw,3rem); }
+
+  /* Stats bar: 2 cols on phone */
+  .stats-bar { grid-template-columns:1fr 1fr; gap:8px; }
+  .scard { padding:10px 8px; }
+  .sval  { font-size:clamp(1.4rem,6vw,1.9rem); }
+  .slbl  { font-size:0.42rem; }
+
+  /* Title row */
+  .gtitle-row { gap:8px; }
+  .gtitle { font-size:clamp(1.5rem,7vw,2.2rem); }
+  .gsub   { font-size:0.5rem; letter-spacing:0.12em; }
+
+  /* Space key smaller on phone */
+  .space-key { height:56px; font-size:0.58rem; }
+
+  /* Reaction gameover */
+  .go-stats { grid-template-columns:1fr 1fr 1fr; gap:8px; }
+  .go-sval  { font-size:1.2rem; }
+  .go-slbl  { font-size:0.42rem; }
+
+  /* Result overlay score */
+  .r-score { font-size:clamp(3.5rem,18vw,7rem); }
+  .r-rank  { font-size:1.1rem; }
+
+  /* Stim idle */
+  .stim-idle-title { font-size:clamp(1.5rem,6vw,2.5rem); }
+  .diff-btn { padding:7px 16px; font-size:0.58rem; }
+
+  /* Info section */
+  .info-wrap { padding:0 10px 50px; gap:16px; }
+  .icard     { padding:14px 12px; }
+  .icard-title { font-size:clamp(0.95rem,4vw,1.2rem); }
+  .ibody     { font-size:0.63rem; line-height:1.75; }
+
+  /* Tables scroll */
+  .rtable, .ctable { font-size:0.55rem; }
+  .rtable th, .rtable td { padding:8px 6px; }
+
+  /* Factors grid: 1 col */
+  .fgrid { grid-template-columns:1fr; }
+
+  /* Records grid: 2 col */
+  .rgrid { grid-template-columns:1fr 1fr; }
+
+  /* Tips */
+  .tip { font-size:0.52rem; padding:5px 10px; }
+
+  /* FAQ */
+  .faq-q { font-size:0.56rem; padding:12px 12px; }
+  .faq-a { font-size:0.58rem; }
+
+  /* Footer */
+  .sfooter { font-size:0.48rem; padding:20px 0 10px; }
+}
+
+/* Very small phones */
+@media(max-width:360px){
+  .logo { display:none; }  /* hide logo to give more tab space */
+  .tab  { padding:0 10px; font-size:0.5rem; min-width:68px; }
+  .click-arena, .reaction-arena { height:clamp(170px,35vh,280px); }
+  .stim-arena { height:clamp(220px,42vh,340px); }
 }
 </style>
 </head>
@@ -1572,6 +1689,7 @@ spaceKey.addEventListener('touchstart', e => { e.preventDefault(); sgClick(); },
 document.addEventListener('keydown', e => {
   if (e.code === 'Space' && curPanel === 'spacebar') {
     e.preventDefault();
+    if (e.repeat) return; // ignore held-down key repeats
     spaceKey.classList.add('down');
     sgClick();
   }
