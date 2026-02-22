@@ -37,65 +37,70 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@graph": [
+  "@type": "SoftwareApplication",
+  "@id": "https://reactionspeedtest.com/#webapp",
+  "name": "Reflex Lab — Reaction Time & Click Speed Test",
+  "url": "https://reactionspeedtest.com/",
+  "description": "Free online tool to test reaction time, click speed (CPS), jitter click, Kohi click, spacebar speed, and stimulation clicker aim training.",
+  "applicationCategory": "GameApplication",
+  "operatingSystem": "Windows, macOS, Linux, Android, iOS",
+  "browserRequirements": "Requires JavaScript",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD",
+    "url": "https://reactionspeedtest.com/"
+  },
+  "featureList": [
+    "Reaction Time Test",
+    "Click Speed Test (CPS)",
+    "Jitter Click Test",
+    "Kohi Click Test",
+    "Spacebar Speed Test",
+    "Stimulation Clicker",
+    "8 Time Durations (1s–100s)",
+    "Challenge Mode"
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "2347",
+    "bestRating": "5",
+    "worstRating": "1"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
     {
-      "@type": "WebApplication",
-      "@id": "https://reactionspeedtest.com/#webapp",
-      "name": "Reflex Lab — Reaction Time & Click Speed Test",
-      "url": "https://reactionspeedtest.com/",
-      "description": "Free online tool to test reaction time, click speed (CPS), jitter click, Kohi click, spacebar speed, and stimulation clicker aim training.",
-      "applicationCategory": "GameApplication",
-      "operatingSystem": "Any",
-      "browserRequirements": "Requires JavaScript",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "featureList": [
-        "Reaction Time Test",
-        "Click Speed Test (CPS)",
-        "Jitter Click Test",
-        "Kohi Click Test",
-        "Spacebar Speed Test",
-        "Stimulation Clicker",
-        "8 Time Durations (1s–100s)",
-        "Challenge Mode"
-      ],
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.8",
-        "ratingCount": "2347",
-        "bestRating": "5",
-        "worstRating": "1"
-      }
+      "@type": "Question",
+      "name": "What is a good CPS (clicks per second)?",
+      "acceptedAnswer": { "@type": "Answer", "text": "6–7 CPS is average. Above 10 CPS is good. Above 14 CPS is exceptional and requires jitter or butterfly clicking with a gaming mouse." }
     },
     {
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is a good CPS (clicks per second)?",
-          "acceptedAnswer": { "@type": "Answer", "text": "6–7 CPS is average. Above 10 CPS is good. Above 14 CPS is exceptional and requires jitter or butterfly clicking with a gaming mouse." }
-        },
-        {
-          "@type": "Question",
-          "name": "What is a good reaction time?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Average human reaction time is 200–250ms. Pro gamers achieve 150–200ms. Below 150ms is elite level." }
-        },
-        {
-          "@type": "Question",
-          "name": "What is the world record CPS?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Regular clicking: 14.1 CPS (Dylan Allred, 2020). Jitter clicking: 16.2 CPS. Butterfly clicking: 25.5 CPS (Nestor, 2022)." }
-        }
-      ]
+      "@type": "Question",
+      "name": "What is a good reaction time?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Average human reaction time is 200–250ms. Pro gamers achieve 150–200ms. Below 150ms is elite level." }
     },
     {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://reactionspeedtest.com/" }
-      ]
+      "@type": "Question",
+      "name": "What is the world record CPS?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Regular clicking: 14.1 CPS (Dylan Allred, 2020). Jitter clicking: 16.2 CPS. Butterfly clicking: 25.5 CPS (Nestor, 2022)." }
     }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://reactionspeedtest.com/" }
   ]
 }
 </script>
