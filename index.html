@@ -1254,23 +1254,14 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
       <h2 class="icard-title">💡 How to Improve Reaction Time</h2>
       <p class="ibody"><strong>Sleep:</strong> Even 1 hour less sleep adds 50ms+ to reaction time.<br><strong>Practice:</strong> Daily reaction tests build neural pathways over 2–4 weeks.<br><strong>Gaming:</strong> Fast-paced FPS games (CS2, Valorant) measurably improve reaction speed.<br><strong>Caffeine:</strong> 100–200mg reduces reaction time by 10–30ms temporarily.<br><strong>Monitor:</strong> A 144Hz+ monitor with low latency reduces visual delay significantly.</p>
     </article>
-    <article class="icard">
-      <h2 class="icard-title">🌍 Reaction Time World Records</h2>
-      <table class="rtable"><thead><tr><th>Category</th><th>Record</th><th>Notes</th></tr></thead><tbody>
-        <tr><td style="color:var(--accent)">Visual Reaction</td><td style="color:var(--yellow)">~100ms</td><td style="color:#c8c8e8">Fastest recorded human visual response</td></tr>
-        <tr><td style="color:var(--accent)">100m Sprint Start</td><td style="color:var(--yellow)">101ms</td><td style="color:#c8c8e8">Usain Bolt, 2011 World Championships</td></tr>
-        <tr><td style="color:var(--accent)">Average Pro Gamer</td><td style="color:var(--yellow)">150–190ms</td><td style="color:#c8c8e8">CS2, Valorant top 0.1% players</td></tr>
-        <tr><td style="color:var(--accent)">Average Adult</td><td style="color:var(--yellow)">200–250ms</td><td style="color:#c8c8e8">Healthy, alert, non-gamer</td></tr>
-        <tr><td style="color:var(--accent)">F1 Driver Start</td><td style="color:var(--yellow)">~200ms</td><td style="color:#c8c8e8">Average across the grid</td></tr>
-      </tbody></table>
-      <p class="ibody" style="margin-top:12px"><strong>Note:</strong> Results on this site include mouse hardware latency (~5–15ms) and monitor display delay (~1–8ms). Your true neural reaction time is slightly faster than what you see here.</p>
-    </article>
     <div class="sec-divider">FAQ — REACTION TIME</div>
     <article class="icard"><div class="faq-list">
       <div class="faq-item"><button class="faq-q">What is a good reaction time? <span class="faq-arrow">▼</span></button><div class="faq-a">Average: <strong>200–250ms</strong>. Excellent: under <strong>200ms</strong>. Elite (pro gamers): under <strong>150ms</strong>.</div></div>
       <div class="faq-item"><button class="faq-q">Why does my reaction time vary? <span class="faq-arrow">▼</span></button><div class="faq-a">Reaction time varies with <strong>fatigue, focus, and anticipation</strong>. Multiple rounds average out variance — 5 rounds gives a reliable score.</div></div>
       <div class="faq-item"><button class="faq-q">Does gaming improve reaction time? <span class="faq-arrow">▼</span></button><div class="faq-a">Yes. Action games improve <strong>visual processing speed</strong>. Studies show gamers react 50–100ms faster than non-gamers on average.</div></div>
-      <div class="faq-item"><button class="faq-q">What is the fastest human reaction time? <span class="faq-arrow">▼</span></button><div class="faq-a">The world record visual reaction time is approximately <strong>100ms</strong>. For sprinters, the minimum legal reaction time in the 100m dash is 100ms (anything faster is considered a false start).</div></div>
+      <div class="faq-item"><button class="faq-q">What is the fastest human reaction time? <span class="faq-arrow">▼</span></button><div class="faq-a">The world record visual reaction time is approximately <strong>100ms</strong>. For sprinters, the minimum legal reaction time in the 100m dash is 100ms.</div></div>
+      <div class="faq-item"><button class="faq-q">Do monitors affect reaction time results? <span class="faq-arrow">▼</span></button><div class="faq-a">Yes. Results include ~5–15ms mouse latency and ~1–8ms monitor delay. A <strong>144Hz+ monitor</strong> reduces display lag significantly. Your true neural reaction is slightly faster than the number shown.</div></div>
+      <div class="faq-item"><button class="faq-q">How can I get a lower reaction time score? <span class="faq-arrow">▼</span></button><div class="faq-a">Be well-rested, stay focused, and practice daily. Avoid anticipating the signal — early clicks are counted as failed rounds. Use a gaming mouse and high-refresh monitor for best results.</div></div>
     </div></article>
     </div>
 
@@ -2338,11 +2329,11 @@ document.getElementById('tInput').addEventListener('input', function() {
 ═══════════════════════════════════════════ */
 const cbCanvas = document.getElementById('coreCanvas');
 const cbCtx = cbCanvas.getContext('2d');
-let cb = { score:0, best:0, level:1, ballsLeft:10, angle:0, speed:0.012, balls:[], stuck:[], gameOver:false, animId:null };
+let cb = { score:0, best:0, level:1, ballsLeft:10, angle:0, speed:0.012, balls:[], stuck:[], preplaced:[], gameOver:false, animId:null, transitioning:false };
 
 function cbReset() {
   if(cb.animId) cancelAnimationFrame(cb.animId);
-  cb = { score:0, best:cb.best, level:1, ballsLeft:10, angle:0, speed:0.012, balls:[], stuck:[], gameOver:false, animId:null };
+  cb = { score:0, best:cb.best, level:1, ballsLeft:10, angle:0, speed:0.012, balls:[], stuck:[], preplaced:[], gameOver:false, animId:null, transitioning:false };
   document.getElementById('cbScore').textContent = '0';
   document.getElementById('cbLevel').textContent = '1';
   document.getElementById('cbBalls').textContent = '10';
@@ -2360,6 +2351,29 @@ function cbDraw() {
   cbCtx.strokeStyle = cb.gameOver ? '#ff2d55' : '#2a2a4a';
   cbCtx.lineWidth = 4;
   cbCtx.stroke();
+
+  // Preplaced danger balls (new level obstacles) — drawn with warning ring
+  cb.preplaced.forEach(s => {
+    const bx = cx + Math.cos(s.angle) * R;
+    const by = cy + Math.sin(s.angle) * R;
+    // Warning pulse ring
+    cbCtx.beginPath();
+    cbCtx.arc(bx, by, 14, 0, Math.PI*2);
+    cbCtx.strokeStyle = 'rgba(255,45,85,0.4)';
+    cbCtx.lineWidth = 2;
+    cbCtx.stroke();
+    cbCtx.beginPath();
+    cbCtx.arc(bx, by, 10, 0, Math.PI*2);
+    cbCtx.fillStyle = '#ff2d55';
+    cbCtx.fill();
+    // X mark
+    cbCtx.strokeStyle = '#fff';
+    cbCtx.lineWidth = 2;
+    cbCtx.beginPath();
+    cbCtx.moveTo(bx-4, by-4); cbCtx.lineTo(bx+4, by+4);
+    cbCtx.moveTo(bx+4, by-4); cbCtx.lineTo(bx-4, by+4);
+    cbCtx.stroke();
+  });
 
   // Spokes for stuck balls
   cb.stuck.forEach(s => {
@@ -2430,12 +2444,35 @@ function cbDraw() {
 
 const CB_COLORS = ['#00f5a0','#ff2d55','#ffe000','#7b61ff','#ff6b00','#00b4d8','#ff69b4'];
 
+function cbNextLevel() {
+  cb.level++;
+  cb.stuck = [];
+  cb.balls = [];
+  cb.ballsLeft = 10;
+  cb.speed = Math.min(0.012 + cb.level * 0.005, 0.06);
+  cb.transitioning = false;
+  cb.animId = null; // reset so loop restarts fresh
+  // Add preplaced danger balls — more per level
+  cb.preplaced = [];
+  const count = Math.min(cb.level - 1, 6);
+  for (let i = 0; i < count; i++) {
+    cb.preplaced.push({ angle: (Math.PI * 2 / Math.max(count,1)) * i });
+  }
+  document.getElementById('cbLevel').textContent = cb.level;
+  document.getElementById('cbBalls').textContent = cb.ballsLeft;
+  document.getElementById('cbMsg').textContent = `⭐ LEVEL ${cb.level}${count > 0 ? ` — ${count} danger balls!` : ''} Tap to shoot`;
+  cbDraw();
+  // Restart animation loop for rotating preplaced balls
+  cb.animId = requestAnimationFrame(cbLoop);
+}
+
 function cbLoop() {
   if (curPanel !== 'coreball') return;
   const W = cbCanvas.width, H = cbCanvas.height, cx = W/2, cy = H/2, R = 110;
 
   cb.angle += cb.speed;
   cb.stuck.forEach(s => s.angle += cb.speed);
+  cb.preplaced.forEach(s => s.angle += cb.speed);
 
   cb.balls = cb.balls.filter(b => {
     b.y += b.vy;
@@ -2444,26 +2481,45 @@ function cbLoop() {
 
     if (dist <= R + 12) {
       const hitAngle = Math.atan2(dy, dx);
-      const collision = cb.stuck.some(s => {
+
+      // Check collision with preplaced danger balls — instant game over
+      const hitDanger = cb.preplaced.some(s => {
+        let diff = Math.abs(s.angle - hitAngle);
+        if (diff > Math.PI) diff = Math.PI*2 - diff;
+        return diff < 0.26;
+      });
+      if (hitDanger) {
+        cb.gameOver = true;
+        if (cb.score > cb.best) { cb.best = cb.score; document.getElementById('cbBest').textContent = cb.best; }
+        document.getElementById('cbMsg').textContent = `💥 Hit a danger ball! Score: ${cb.score} — TAP TO RESTART`;
+        cbDraw(); return false;
+      }
+
+      // Check collision with stuck balls
+      const hitStuck = cb.stuck.some(s => {
         let diff = Math.abs(s.angle - hitAngle);
         if (diff > Math.PI) diff = Math.PI*2 - diff;
         return diff < 0.24;
       });
-      if (collision) {
+      if (hitStuck) {
         cb.gameOver = true;
         if (cb.score > cb.best) { cb.best = cb.score; document.getElementById('cbBest').textContent = cb.best; }
-        document.getElementById('cbMsg').textContent = '💥 TAP TO PLAY AGAIN';
-        cbDraw();
-        return false;
+        document.getElementById('cbMsg').textContent = `💥 Hit existing ball! Score: ${cb.score} — TAP TO RESTART`;
+        cbDraw(); return false;
       }
+
+      // Successful stick
       cb.stuck.push({ angle: hitAngle, color: b.color });
       cb.score++;
       document.getElementById('cbScore').textContent = cb.score;
-      // Speed up every ball — progressive difficulty
       cb.speed = Math.min(0.012 + cb.score * 0.0015, 0.055);
-      if (cb.score % 10 === 0) {
-        cb.level++;
-        document.getElementById('cbLevel').textContent = cb.level;
+
+      // Every 10 stuck = level up
+      if (cb.stuck.length >= 10) {
+        cb.transitioning = true;
+        document.getElementById('cbMsg').textContent = `🎉 LEVEL CLEAR! Preparing level ${cb.level + 1}...`;
+        cbDraw();
+        setTimeout(cbNextLevel, 1200);
       }
       return false;
     }
@@ -2472,18 +2528,18 @@ function cbLoop() {
   });
 
   cbDraw();
-  if (!cb.gameOver) cb.animId = requestAnimationFrame(cbLoop);
+  if (!cb.gameOver && !cb.transitioning) cb.animId = requestAnimationFrame(cbLoop);
 }
 
 cbCanvas.addEventListener('click', () => {
   if (cb.gameOver) { cbReset(); return; }
-  if (cb.ballsLeft <= 0) return;
+  if (cb.transitioning || cb.ballsLeft <= 0) return;
   cb.ballsLeft--;
   document.getElementById('cbBalls').textContent = cb.ballsLeft;
-  document.getElementById('cbMsg').textContent = `${cb.ballsLeft} balls left`;
+  document.getElementById('cbMsg').textContent = cb.ballsLeft === 0 ? '🎯 Last ball!' : `${cb.ballsLeft} balls left`;
   const color = CB_COLORS[Math.floor(Math.random()*CB_COLORS.length)];
-  cb.balls.push({ x: cbCanvas.width/2, y: cbCanvas.height - 40, vy: -4, color });
-  if (!cb.animId || cb.gameOver) { cb.animId = null; cbLoop(); }
+  cb.balls.push({ x: cbCanvas.width/2, y: cbCanvas.height - 40, vy: -12, color });
+  if (!cb.animId) { cb.animId = requestAnimationFrame(cbLoop); }
 });
 cbCanvas.addEventListener('touchstart', e => { e.preventDefault(); cbCanvas.click(); }, {passive:false});
 
@@ -2536,7 +2592,7 @@ function dinoSpawnObstacle() {
   const isBird = t === 'bird';
   dino.obstacles.push({
     x: dc.width + 20,
-    y: isBird ? dino.groundY - 60 - Math.random()*40 : dino.groundY,
+    y: isBird ? dino.groundY - 30 - Math.random()*20 : dino.groundY,
     w: isBird ? 46 : t==='cactus-s'?20:t==='cactus-m'?28:38,
     h: isBird ? 32 : t==='cactus-s'?40:t==='cactus-m'?52:60,
     type: t, bird: isBird, wingUp: true, wingTimer: 0
@@ -2568,35 +2624,123 @@ function dinoDraw() {
     dctx.fill();
   });
 
-  // Dino body
-  const col = !dino.alive ? '#444466' : dino.jumping ? '#00f5a0' : '#ffffff';
+  // Dino — pixel T-Rex facing right
+  const col = !dino.alive ? '#555577' : dino.jumping ? '#00f5a0' : '#d0d0f8';
+  const dx = dino.x, dy = dino.y, dw = dino.w, dh = dino.h;
   dctx.fillStyle = col;
-  // Body
-  dctx.fillRect(dino.x, dino.y, dino.w, dino.h);
-  // Eye
-  dctx.fillStyle = '#06060e';
-  dctx.fillRect(dino.x + dino.w - 10, dino.y + 8, 7, 7);
-  // Legs (only when running)
-  if (!dino.jumping && dino.alive) {
+  if (dino.ducking) {
+    // Ducking body
+    dctx.fillRect(dx + 4, dy + 4, dw + 10, dh - 4);
+    // Head facing right
+    dctx.fillRect(dx + dw + 2, dy, 18, 14);
+    // Snout
+    dctx.fillRect(dx + dw + 16, dy + 4, 8, 7);
+    // Eye
+    dctx.fillStyle = '#06060e';
+    dctx.fillRect(dx + dw + 10, dy + 2, 5, 5);
+    // Tiny teeth
+    dctx.fillStyle = '#ffffff';
+    dctx.fillRect(dx + dw + 18, dy + 9, 3, 2);
+  } else {
+    // === MAIN BODY ===
+    dctx.fillRect(dx + 6, dy + 18, dw - 8, dh - 18);
+    // === NECK ===
+    dctx.fillRect(dx + 18, dy + 8, 12, 14);
+    // === HEAD ===
+    dctx.fillRect(dx + 14, dy - 2, 24, 16);
+    // === SNOUT (longer, pointy) ===
+    dctx.fillRect(dx + 32, dy + 2, 14, 9);
+    dctx.fillRect(dx + 40, dy + 4, 8, 5); // tip
+    // === TOP BUMP (skull) ===
+    dctx.fillRect(dx + 16, dy - 6, 14, 6);
+    // === TINY ARM ===
+    dctx.fillRect(dx + 16, dy + 24, 10, 5);
+    dctx.fillRect(dx + 22, dy + 27, 6, 4);
+    // === TAIL ===
+    dctx.fillRect(dx, dy + 22, 10, 10);
+    dctx.fillRect(dx - 8, dy + 28, 10, 7);
+    dctx.fillRect(dx - 14, dy + 32, 8, 5);
+    // === EYE (white + pupil) ===
+    dctx.fillStyle = '#ffffff';
+    dctx.fillRect(dx + 28, dy, 7, 7);
+    dctx.fillStyle = '#06060e';
+    dctx.fillRect(dx + 30, dy + 1, 4, 4);
+    dctx.fillStyle = '#ffffff';
+    dctx.fillRect(dx + 32, dy + 1, 1, 1); // highlight
+    // === NOSTRIL ===
+    dctx.fillStyle = '#9090b8';
+    dctx.fillRect(dx + 42, dy + 4, 2, 2);
+    // === TEETH ===
+    dctx.fillStyle = '#ffffff';
+    dctx.fillRect(dx + 34, dy + 9, 3, 3);
+    dctx.fillRect(dx + 39, dy + 9, 2, 2);
+    // === LEGS & FEET ===
     dctx.fillStyle = col;
-    const leg = Math.floor(dino.legFrame/4) % 2;
-    dctx.fillRect(dino.x + 8, dino.y + dino.h, 10, leg ? 12 : 4);
-    dctx.fillRect(dino.x + 22, dino.y + dino.h, 10, leg ? 4 : 12);
+    if (!dino.jumping && dino.alive) {
+      const lp = Math.floor(dino.legFrame / 5) % 2;
+      // Thighs
+      dctx.fillRect(dx + 20, dy + dh - 16, 11, lp ? 18 : 10);
+      dctx.fillRect(dx + 8, dy + dh - 16, 11, lp ? 10 : 18);
+      // Shins
+      dctx.fillRect(dx + 20, dy + dh + (lp ? 2 : -6), 9, 8);
+      dctx.fillRect(dx + 8, dy + dh + (lp ? -6 : 2), 9, 8);
+      // Feet / claws
+      dctx.fillRect(dx + 18, dy + dh + (lp ? 8 : 0), 14, 4);
+      dctx.fillRect(dx + 6, dy + dh + (lp ? 0 : 8), 14, 4);
+    } else {
+      // Mid-air tucked
+      dctx.fillRect(dx + 16, dy + dh - 10, 11, 12);
+      dctx.fillRect(dx + 8, dy + dh - 8, 11, 10);
+    }
   }
 
   // Obstacles
   dino.obstacles.forEach(o => {
     if (o.bird) {
-      dctx.fillStyle = '#ff6b00';
-      dctx.fillRect(o.x, o.y - o.h + (o.wingUp ? 0 : 10), o.w, o.h - 10);
-      // Wings
-      dctx.fillRect(o.x + 4, o.y - o.h + (o.wingUp ? -12 : 0), o.w - 8, 10);
+      // Pterodactyl facing LEFT (toward dino)
+      const bx = o.x, by = o.y - o.h, bw = o.w, bh = o.h;
+      // Body
+      dctx.fillStyle = '#b03000';
+      dctx.fillRect(bx + 6, by + 8, bw - 12, bh - 10);
+      // Head (left side — facing dino)
+      dctx.fillStyle = '#cc3a00';
+      dctx.fillRect(bx, by + 6, 16, 12);
+      // Beak pointing LEFT
+      dctx.fillStyle = '#ff9900';
+      dctx.fillRect(bx - 10, by + 9, 12, 5);
+      // Eye on left head
+      dctx.fillStyle = '#ffffff';
+      dctx.fillRect(bx + 3, by + 8, 5, 5);
+      dctx.fillStyle = '#000';
+      dctx.fillRect(bx + 4, by + 9, 3, 3);
+      // Wings flap
+      dctx.fillStyle = '#b03000';
+      if (o.wingUp) {
+        dctx.fillRect(bx + 4, by - 10, bw - 8, 12); // up
+        dctx.fillRect(bx + 8, by - 18, bw - 18, 10);
+      } else {
+        dctx.fillRect(bx + 4, by + bh - 8, bw - 8, 12); // down
+        dctx.fillRect(bx + 8, by + bh, bw - 18, 8);
+      }
+      // Tail (right side)
+      dctx.fillStyle = '#9a2800';
+      dctx.fillRect(bx + bw - 6, by + 10, 10, 6);
+      dctx.fillRect(bx + bw + 2, by + 8, 6, 4);
     } else {
-      dctx.fillStyle = '#00f5a0';
-      dctx.fillRect(o.x, o.y - o.h, o.w, o.h);
-      // Cactus arms
-      dctx.fillRect(o.x - 8, o.y - o.h + 12, 8, 16);
-      dctx.fillRect(o.x + o.w, o.y - o.h + 18, 8, 12);
+      // Cactus — main stem + side arms
+      const cx2 = o.x, cy2 = o.y - o.h, cw = o.w, ch = o.h;
+      dctx.fillStyle = '#1a8a3a';
+      // Main stem
+      dctx.fillRect(cx2 + Math.floor(cw*0.3), cy2, Math.floor(cw*0.4), ch);
+      // Left arm
+      dctx.fillRect(cx2, cy2 + Math.floor(ch*0.25), Math.floor(cw*0.35), Math.floor(cw*0.35));
+      dctx.fillRect(cx2, cy2 + Math.floor(ch*0.1), Math.floor(cw*0.35), Math.floor(cw*0.35));
+      // Right arm
+      dctx.fillRect(cx2 + Math.floor(cw*0.65), cy2 + Math.floor(ch*0.35), Math.floor(cw*0.35), Math.floor(cw*0.35));
+      dctx.fillRect(cx2 + Math.floor(cw*0.65), cy2 + Math.floor(ch*0.18), Math.floor(cw*0.35), Math.floor(cw*0.35));
+      // Highlight
+      dctx.fillStyle = '#22aa4a';
+      dctx.fillRect(cx2 + Math.floor(cw*0.33), cy2 + 2, Math.floor(cw*0.12), Math.floor(ch*0.6));
     }
   });
 
