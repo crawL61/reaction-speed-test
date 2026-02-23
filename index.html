@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- ═══ PRIMARY SEO ═══ -->
-<title>Reaction Time Test & Click Speed Test — Free CPS Tester Online</title>
-<meta name="description" content="Free online reaction time test and click speed test (CPS). Measure your reaction speed in milliseconds. Test jitter click, Kohi click, spacebar speed, and stimulation clicker — 1s to 100s modes.">
-<meta name="keywords" content="reaction time test, click speed test, CPS test, free CPS test, jitter click test, kohi click test, spacebar test, stimulation clicker, online reaction test, how fast can I click, clicks per second, reaction speed test, CPS counter, click speed counter">
+<title>Reaction Time Test, Typing Test, Dino Game & Click Speed Test — Free Online</title>
+<meta name="description" content="Free online games: reaction time test, typing speed test (WPM), click speed test (CPS), dinosaur game, coreball, jitter click, spacebar test and stimulation clicker. Test your reflexes instantly.">
+<meta name="keywords" content="reaction time test, typing speed test, WPM test, dinosaur game, dino game, coreball game, click speed test, CPS test, free typing test, jitter click test, spacebar test, stimulation clicker, online reaction test, words per minute, typing test free, chrome dino game">
 <link rel="canonical" href="https://reactionspeedtest.com/">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <meta name="theme-color" content="#06060e">
@@ -54,7 +54,9 @@
   },
   "featureList": [
     "Reaction Time Test",
+    "Typing Speed Test (WPM)",
     "Click Speed Test (CPS)",
+    "Coreball Game",
     "Jitter Click Test",
     "Kohi Click Test",
     "Spacebar Speed Test",
@@ -124,9 +126,9 @@
   --yellow:   #ffe000;
   --purple:   #7b61ff;
   --orange:   #ff6b00;
-  --text:     #e2e2f0;
-  --muted:    #50507a;
-  --muted2:   #38385a;
+  --text:     #ffffff;
+  --muted:    #b0b0d0;
+  --muted2:   #8080b0;
   --row1-h:   52px;
   --row2-h:   44px;
   --header-h: 96px; /* row1 + row2 */
@@ -194,15 +196,15 @@ body::before {
 .tab {
   display: flex; align-items: center; gap: 7px;
   padding: 0 20px; cursor: pointer;
-  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--muted); white-space: nowrap; flex-shrink: 0;
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: #c0c0e0; white-space: nowrap; flex-shrink: 0;
   background: none; border: none; border-bottom: 2px solid transparent;
   transition: color 0.18s, border-color 0.18s;
   position: relative;
 }
-.tab:hover { color: var(--text); }
+.tab:hover { color: #ffffff; }
 .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
-.tab .ticon { font-size: 0.95rem; }
+.tab .ticon { font-size: 1.05rem; }
 
 /* Language */
 .lang {
@@ -635,9 +637,9 @@ body::before {
   background:var(--surf); border:1px solid var(--border); border-radius:16px;
   padding:26px 22px; display:flex; flex-direction:column; gap:16px;
 }
-.icard-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(1.1rem,4vw,1.5rem); letter-spacing:0.1em; color:var(--accent); }
-.ibody { font-size:0.67rem; line-height:1.9; color:var(--muted); }
-.ibody strong { color:var(--text); }
+.icard-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(1.3rem,4vw,1.8rem); letter-spacing:0.1em; color:var(--accent); }
+.ibody { font-size:0.78rem; line-height:1.9; color:#c8c8e8; }
+.ibody strong { color:#ffffff; }
 
 /* Rank table */
 .rtable { width:100%; border-collapse:collapse; }
@@ -657,7 +659,7 @@ body::before {
 .tbadge.y { background:rgba(255,224,0,0.1); border:1px solid rgba(255,224,0,0.3); color:var(--yellow); }
 .tbadge.r { background:rgba(255,45,85,0.1); border:1px solid rgba(255,45,85,0.3); color:var(--red); }
 .tbadge.p { background:rgba(123,97,255,0.1); border:1px solid rgba(123,97,255,0.3); color:var(--purple); }
-.tbody-t { font-size:0.63rem; line-height:1.75; color:var(--muted); }
+.tbody-t { font-size:0.75rem; line-height:1.8; color:#c8c8e8; }
 .tbody-t strong { color:var(--text); }
 
 /* Factors */
@@ -752,9 +754,8 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
   .row1 { gap:0; }
   .tab  {
     padding:0 14px;
-    font-size:0.55rem;
-    min-width:80px;
-    /* keep text on one line, scroll horizontally */
+    font-size:0.65rem;
+    min-width:85px;
     white-space:nowrap;
   }
   .tab .ticon { font-size:0.85rem; }
@@ -870,11 +871,17 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
       <button class="tab" data-panel="jitter" onclick="switchPanel('jitter')" role="tab">
         <span class="ticon">🖱</span> Jitter Click
       </button>
-      <button class="tab" data-panel="kohi" onclick="switchPanel('kohi')" role="tab">
-        <span class="ticon">☕</span> Kohi Click
-      </button>
       <button class="tab" data-panel="spacebar" onclick="switchPanel('spacebar')" role="tab">
         <span class="ticon">⌨️</span> Spacebar
+      </button>
+      <button class="tab" data-panel="dino" onclick="switchPanel('dino')" role="tab">
+        <span class="ticon">🦕</span> Dino Game
+      </button>
+      <button class="tab" data-panel="typing" onclick="switchPanel('typing')" role="tab">
+        <span class="ticon">📝</span> Typing Test
+      </button>
+      <button class="tab" data-panel="coreball" onclick="switchPanel('coreball')" role="tab">
+        <span class="ticon">🎮</span> Coreball
       </button>
     </div>
 
@@ -1100,272 +1107,317 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
 
   </div>
 
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       PANEL: TYPING TEST
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <div id="panel-typing" class="game-zone" style="display:none">
+    <div class="gtitle-row">
+      <h1 class="gtitle" style="background:linear-gradient(135deg,#00b4d8,#00f5a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Typing Speed Test</h1>
+      <span class="gsub">Type the words as fast as you can — WPM &amp; accuracy</span>
+    </div>
+    <div class="stats-bar">
+      <div class="scard hi1"><div class="slbl">WPM</div><div class="sval" id="tWpm" style="color:#00b4d8">0</div></div>
+      <div class="scard"><div class="slbl">Accuracy</div><div class="sval muted" id="tAcc">—</div></div>
+      <div class="scard hi2"><div class="slbl">Correct</div><div class="sval yellow" id="tCorrect">0</div></div>
+      <div class="scard hi3"><div class="slbl">Time Left</div><div class="sval purple" id="tTime">60</div></div>
+    </div>
+
+    <!-- Word display -->
+    <div id="typingBox" style="
+      width:100%;max-width:680px;align-self:center;
+      background:#090914;border:2px solid var(--border);border-radius:20px;
+      padding:28px 24px;display:flex;flex-direction:column;gap:16px;position:relative;
+    ">
+      <div id="tWords" style="
+        font-family:'JetBrains Mono',monospace;font-size:clamp(0.9rem,2.5vw,1.1rem);
+        line-height:2.2;letter-spacing:0.03em;
+        display:flex;flex-wrap:wrap;gap:6px;
+        max-height:120px;overflow:hidden;
+        pointer-events:none;user-select:none;
+      "></div>
+      <input id="tInput" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+        placeholder="Click here and start typing..."
+        style="
+          width:100%;background:var(--surf2);border:1.5px solid var(--border2);
+          border-radius:10px;padding:12px 16px;
+          font-family:'JetBrains Mono',monospace;font-size:0.85rem;
+          color:var(--text);outline:none;transition:border-color 0.2s;
+        "
+      >
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+        <div style="display:flex;gap:8px">
+          <button onclick="setTypingDuration(30)" id="td30" class="tbtn" style="font-size:0.6rem">30s</button>
+          <button onclick="setTypingDuration(60)" id="td60" class="tbtn active" style="font-size:0.6rem">60s</button>
+          <button onclick="setTypingDuration(120)" id="td120" class="tbtn" style="font-size:0.6rem">120s</button>
+        </div>
+        <button onclick="resetTyping()" style="
+          padding:8px 20px;background:var(--surf);border:1px solid var(--border2);
+          border-radius:8px;color:var(--muted);cursor:pointer;
+          font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;
+          transition:all 0.15s;
+        ">↺ Restart</button>
+      </div>
+      <!-- Result overlay -->
+      <div id="tResult" style="
+        display:none;position:absolute;inset:0;z-index:10;border-radius:18px;
+        background:rgba(6,6,14,0.93);flex-direction:column;
+        align-items:center;justify-content:center;gap:10px;text-align:center;padding:20px;
+      ">
+        <div style="font-size:0.58rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted)">Your Speed</div>
+        <div id="tFinalWpm" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,15vw,8rem);line-height:1;color:#00b4d8"></div>
+        <div style="font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted)">Words Per Minute</div>
+        <div id="tFinalAcc" style="font-size:0.7rem;color:var(--accent);letter-spacing:0.1em"></div>
+        <button onclick="resetTyping()" style="
+          margin-top:8px;padding:12px 36px;background:#00b4d8;color:#000;
+          border:none;border-radius:12px;font-family:'Bebas Neue',sans-serif;
+          font-size:1.1rem;letter-spacing:0.15em;cursor:pointer;transition:all 0.2s;
+        ">↺ Try Again</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       PANEL: COREBALL
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <div id="panel-coreball" class="game-zone" style="display:none">
+    <div class="gtitle-row">
+      <h1 class="gtitle" style="background:linear-gradient(135deg,#ff6b00,#ffe000);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Coreball Game</h1>
+      <span class="gsub">Shoot balls into the spinning core — don't hit existing balls</span>
+    </div>
+    <div class="stats-bar">
+      <div class="scard hi4"><div class="slbl">Score</div><div class="sval red" id="cbScore">0</div></div>
+      <div class="scard hi2"><div class="slbl">Best</div><div class="sval yellow" id="cbBest">0</div></div>
+      <div class="scard"><div class="slbl">Level</div><div class="sval muted" id="cbLevel">1</div></div>
+      <div class="scard hi3"><div class="slbl">Balls Left</div><div class="sval purple" id="cbBalls">10</div></div>
+    </div>
+
+    <div style="width:100%;max-width:480px;align-self:center;display:flex;flex-direction:column;gap:12px">
+      <canvas id="coreCanvas" width="480" height="480" style="
+        width:100%;border-radius:20px;
+        background:#06060e;border:2px solid var(--border);
+        cursor:pointer;touch-action:none;display:block;
+      "></canvas>
+      <div id="cbMsg" style="text-align:center;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.15em;color:var(--muted)">
+        TAP TO SHOOT
+      </div>
+    </div>
+  </div>
+
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       PANEL: DINO GAME
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <div id="panel-dino" class="game-zone" style="display:none">
+    <div class="gtitle-row">
+      <h1 class="gtitle" style="background:linear-gradient(135deg,#666,#ccc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Dinosaur Game</h1>
+      <span class="gsub">Press Space or tap to jump — avoid cacti and pterodactyls</span>
+    </div>
+    <div class="stats-bar">
+      <div class="scard hi1"><div class="slbl">Score</div><div class="sval" id="dinoScore">0</div></div>
+      <div class="scard hi2"><div class="slbl">Best</div><div class="sval yellow" id="dinoBest">0</div></div>
+      <div class="scard"><div class="slbl">Speed</div><div class="sval muted" id="dinoSpeed">1x</div></div>
+      <div class="scard hi3"><div class="slbl">Status</div><div class="sval purple" id="dinoStatus">Ready</div></div>
+    </div>
+    <canvas id="dinoCanvas" width="800" height="280" style="
+      width:100%;max-width:800px;align-self:center;
+      border-radius:16px;background:#111118;border:2px solid var(--border);
+      cursor:pointer;display:block;touch-action:none;
+    "></canvas>
+    <div style="text-align:center;font-size:0.58rem;letter-spacing:0.15em;color:var(--muted);text-transform:uppercase">
+      Space / Tap = Jump &nbsp;·&nbsp; ↓ / Swipe Down = Duck
+    </div>
+  </div>
+
   <!-- ═══════════════════════════════════════════════════
        INFO CONTENT SECTION
   ═══════════════════════════════════════════════════ -->
-  <div class="info-wrap">
+  <div class="info-wrap" id="infoWrap">
 
-    <div class="sec-divider">ABOUT THE TESTS</div>
-
+    <!-- ═══ INFO: REACTION ═══ -->
+    <div class="info-section" data-info="reaction">
+    <div class="sec-divider">ABOUT REACTION TIME TEST</div>
     <article class="icard">
       <h2 class="icard-title">⚡ What Is a Reaction Time Test?</h2>
+      <p class="ibody">A <strong>reaction time test</strong> measures how quickly you respond to a visual stimulus — from when your eyes detect a signal to when your hand clicks. Results are in <strong>milliseconds (ms)</strong>. Average human reaction time is <strong>200–250ms</strong>, while elite gamers achieve <strong>150–200ms</strong>.<br><br>Our free online test runs <strong>5 rounds</strong>, gives ratings from <em>Slow</em> to <em>Legendary</em>, and shows your best, average, and score. No download needed — works on any browser.</p>
+    </article>
+    <article class="icard">
+      <h2 class="icard-title">📊 Reaction Time Rating Chart</h2>
+      <table class="rtable"><thead><tr><th>Time</th><th>Rating</th><th>Who?</th></tr></thead><tbody>
+        <tr><td style="color:var(--yellow)">Under 150ms</td><td style="color:var(--yellow)">⚡ Legendary</td><td style="color:#c8c8e8">Pro esports athletes</td></tr>
+        <tr><td style="color:var(--accent)">150–200ms</td><td style="color:var(--accent)">🔥 Perfect</td><td style="color:#c8c8e8">Top competitive gamers</td></tr>
+        <tr><td style="color:var(--accent)">200–250ms</td><td style="color:var(--accent)">✅ Great</td><td style="color:#c8c8e8">Above average, serious player</td></tr>
+        <tr><td style="color:var(--purple)">250–320ms</td><td style="color:var(--purple)">👍 Good</td><td style="color:#c8c8e8">Casual gamer, average adult</td></tr>
+        <tr><td style="color:#c8c8e8">320–400ms</td><td style="color:#c8c8e8">😐 Average</td><td style="color:#c8c8e8">Most non-gamers</td></tr>
+        <tr><td style="color:var(--red)">400ms+</td><td style="color:var(--red)">🐢 Slow</td><td style="color:#c8c8e8">Tired, distracted or first try</td></tr>
+      </tbody></table>
+    </article>
+    <article class="icard">
+      <h2 class="icard-title">💡 How to Improve Reaction Time</h2>
+      <p class="ibody"><strong>Sleep:</strong> Even 1 hour less sleep adds 50ms+ to reaction time.<br><strong>Practice:</strong> Daily reaction tests build neural pathways over 2–4 weeks.<br><strong>Gaming:</strong> Fast-paced FPS games (CS2, Valorant) measurably improve reaction speed.<br><strong>Caffeine:</strong> 100–200mg reduces reaction time by 10–30ms temporarily.<br><strong>Monitor:</strong> A 144Hz+ monitor with low latency reduces visual delay significantly.</p>
+    </article>
+    <article class="icard">
+      <h2 class="icard-title">🌍 Reaction Time World Records</h2>
+      <table class="rtable"><thead><tr><th>Category</th><th>Record</th><th>Notes</th></tr></thead><tbody>
+        <tr><td style="color:var(--accent)">Visual Reaction</td><td style="color:var(--yellow)">~100ms</td><td style="color:#c8c8e8">Fastest recorded human visual response</td></tr>
+        <tr><td style="color:var(--accent)">100m Sprint Start</td><td style="color:var(--yellow)">101ms</td><td style="color:#c8c8e8">Usain Bolt, 2011 World Championships</td></tr>
+        <tr><td style="color:var(--accent)">Average Pro Gamer</td><td style="color:var(--yellow)">150–190ms</td><td style="color:#c8c8e8">CS2, Valorant top 0.1% players</td></tr>
+        <tr><td style="color:var(--accent)">Average Adult</td><td style="color:var(--yellow)">200–250ms</td><td style="color:#c8c8e8">Healthy, alert, non-gamer</td></tr>
+        <tr><td style="color:var(--accent)">F1 Driver Start</td><td style="color:var(--yellow)">~200ms</td><td style="color:#c8c8e8">Average across the grid</td></tr>
+      </tbody></table>
+      <p class="ibody" style="margin-top:12px"><strong>Note:</strong> Results on this site include mouse hardware latency (~5–15ms) and monitor display delay (~1–8ms). Your true neural reaction time is slightly faster than what you see here.</p>
+    </article>
+    <div class="sec-divider">FAQ — REACTION TIME</div>
+    <article class="icard"><div class="faq-list">
+      <div class="faq-item"><button class="faq-q">What is a good reaction time? <span class="faq-arrow">▼</span></button><div class="faq-a">Average: <strong>200–250ms</strong>. Excellent: under <strong>200ms</strong>. Elite (pro gamers): under <strong>150ms</strong>.</div></div>
+      <div class="faq-item"><button class="faq-q">Why does my reaction time vary? <span class="faq-arrow">▼</span></button><div class="faq-a">Reaction time varies with <strong>fatigue, focus, and anticipation</strong>. Multiple rounds average out variance — 5 rounds gives a reliable score.</div></div>
+      <div class="faq-item"><button class="faq-q">Does gaming improve reaction time? <span class="faq-arrow">▼</span></button><div class="faq-a">Yes. Action games improve <strong>visual processing speed</strong>. Studies show gamers react 50–100ms faster than non-gamers on average.</div></div>
+      <div class="faq-item"><button class="faq-q">What is the fastest human reaction time? <span class="faq-arrow">▼</span></button><div class="faq-a">The world record visual reaction time is approximately <strong>100ms</strong>. For sprinters, the minimum legal reaction time in the 100m dash is 100ms (anything faster is considered a false start).</div></div>
+    </div></article>
+    </div>
+
+    <!-- ═══ INFO: STIMULATION ═══ -->
+    <div class="info-section" data-info="stimulation" style="display:none">
+    <div class="sec-divider">ABOUT STIMULATION CLICKER</div>
+    <article class="icard">
+      <h2 class="icard-title">🎯 What Is the Stimulation Clicker?</h2>
+      <p class="ibody">The <strong>Stimulation Clicker</strong> is an aim training game where colorful targets appear at random positions and you must click them before they disappear. It combines <strong>clicking speed</strong> with <strong>spatial precision</strong> — the same skill set required in FPS games like CS2, Valorant, and Fortnite.<br><br>It is directly inspired by professional aim trainers like <strong>Aimlabs</strong> and <strong>KovaaK's</strong>, designed to build mouse accuracy under time pressure.</p>
+    </article>
+    <article class="icard">
+      <h2 class="icard-title">🎮 Difficulty Levels</h2>
+      <table class="rtable"><thead><tr><th>Level</th><th>Target Size</th><th>Lifetime</th><th>Best For</th></tr></thead><tbody>
+        <tr><td style="color:var(--accent)">🟢 Easy</td><td style="color:#c8c8e8">80px</td><td style="color:#c8c8e8">1.2 seconds</td><td style="color:#c8c8e8">Beginners, warm-up</td></tr>
+        <tr><td style="color:var(--yellow)">🟡 Medium</td><td style="color:#c8c8e8">55px</td><td style="color:#c8c8e8">0.8 seconds</td><td style="color:#c8c8e8">Standard aim training</td></tr>
+        <tr><td style="color:var(--red)">🔴 Hard</td><td style="color:#c8c8e8">38px</td><td style="color:#c8c8e8">0.5 seconds</td><td style="color:#c8c8e8">Elite aim, comparable to Aimlabs Gridshot</td></tr>
+      </tbody></table>
+    </article>
+    <div class="sec-divider">FAQ — STIMULATION CLICKER</div>
+    <article class="icard"><div class="faq-list">
+      <div class="faq-item"><button class="faq-q">Does stimulation clicker help in real games? <span class="faq-arrow">▼</span></button><div class="faq-a">Yes. The mechanics directly mirror FPS target acquisition. <strong>Hard mode</strong> is comparable to professional aim trainer scenarios. Regular practice improves flick-shot accuracy in CS2 and Valorant.</div></div>
+      <div class="faq-item"><button class="faq-q">What is a good stimulation clicker score? <span class="faq-arrow">▼</span></button><div class="faq-a">On Medium difficulty: <strong>1500+ points</strong> is average, <strong>3500+</strong> is skilled, <strong>6000+</strong> is elite. Hard mode scores above 3500 indicate pro-level aim.</div></div>
+      <div class="faq-item"><button class="faq-q">How long should I train with Stimulation Clicker? <span class="faq-arrow">▼</span></button><div class="faq-a"><strong>15–20 minutes daily</strong> is optimal. More than 30 minutes causes fatigue that reduces accuracy. Consistent daily practice beats long occasional sessions.</div></div>
+    </div></article>
+    </div>
+
+    <!-- ═══ INFO: CPS / JITTER ═══ -->
+    <div class="info-section" data-info="cps" style="display:none">
+    <div class="sec-divider">ABOUT CLICK SPEED TEST</div>
+    <article class="icard">
+      <h2 class="icard-title">🖱️ What Is a CPS Test?</h2>
+      <p class="ibody">A <strong>Click Speed Test</strong> (CPS Test) measures how many times you can click per second. It's the core benchmark for competitive gaming, especially <strong>Minecraft PvP</strong>, where raw clicking speed gives a combat advantage. Our free CPS test offers <strong>8 time durations</strong> (1s to 100s) and includes Normal and Challenge modes.</p>
+    </article>
+    <article class="icard">
+      <h2 class="icard-title">🏆 CPS Ranking Table</h2>
+      <table class="rtable"><thead><tr><th>Rank</th><th>CPS</th><th>Level</th></tr></thead><tbody>
+        <tr><td style="color:#b0b0d0">🐢 Turtle</td><td style="color:#b0b0d0">1–4</td><td style="color:#b0b0d0">Beginner</td></tr>
+        <tr><td style="color:var(--purple)">🐇 Normal</td><td style="color:var(--purple)">5–7</td><td style="color:var(--purple)">Average</td></tr>
+        <tr><td style="color:var(--accent)">⚡ Fast</td><td style="color:var(--accent)">8–10</td><td style="color:var(--accent)">Good</td></tr>
+        <tr><td style="color:var(--yellow)">🐆 Cheetah</td><td style="color:var(--yellow)">11–14</td><td style="color:var(--yellow)">Pro</td></tr>
+        <tr><td style="color:var(--red)">⚡ God Mode</td><td style="color:var(--red)">15+</td><td style="color:var(--red)">Elite</td></tr>
+      </tbody></table>
+    </article>
+    <article class="icard">
+      <h2 class="icard-title">🖱 Clicking Techniques</h2>
+      <div class="tech-grid">
+        <div class="tcard"><div class="thead-row"><span class="tname">Regular Clicking</span><span class="tbadge p">3–9 CPS</span></div><p class="tbody-t">Standard one-finger method. Best aim accuracy. Sustainable for all durations including 100s.</p></div>
+        <div class="tcard"><div class="thead-row"><span class="tname">Jitter Clicking</span><span class="tbadge g">10–14 CPS</span></div><p class="tbody-t">Tense forearm and wrist to create rapid vibrations. Learnable with practice. Risk of wrist strain — take breaks every 15 min.</p></div>
+        <div class="tcard"><div class="thead-row"><span class="tname">Butterfly Clicking</span><span class="tbadge y">15–25 CPS</span></div><p class="tbody-t">Two fingers alternate on the same button. World record: <strong>25.5 CPS (Nestor, 2022)</strong>. Often banned in competitive servers.</p></div>
+        <div class="tcard"><div class="thead-row"><span class="tname">Drag Clicking</span><span class="tbadge r">30–100+ CPS</span></div><p class="tbody-t">Drag finger across button creating friction micro-clicks. Universally banned in competitive play.</p></div>
+      </div>
+    </article>
+    <div class="sec-divider">FAQ — CLICK SPEED</div>
+    <article class="icard"><div class="faq-list">
+      <div class="faq-item"><button class="faq-q">What is a good CPS score? <span class="faq-arrow">▼</span></button><div class="faq-a"><strong>6–7 CPS</strong> is average. Above <strong>10 CPS</strong> is good. Above <strong>14 CPS</strong> requires jitter or butterfly technique.</div></div>
+      <div class="faq-item"><button class="faq-q">What is the world record CPS? <span class="faq-arrow">▼</span></button><div class="faq-a">Regular: <strong>14.1 CPS (Dylan Allred, 2020)</strong>. Jitter: <strong>16.2 CPS</strong>. Butterfly: <strong>25.5 CPS (Nestor, 2022)</strong>.</div></div>
+      <div class="faq-item"><button class="faq-q">Is jitter clicking harmful? <span class="faq-arrow">▼</span></button><div class="faq-a">Extended sessions can cause <strong>wrist strain and carpal tunnel</strong>. Take breaks every 10–15 minutes. Stop if you feel pain.</div></div>
+      <div class="faq-item"><button class="faq-q">Does a better mouse improve CPS? <span class="faq-arrow">▼</span></button><div class="faq-a">Yes. A gaming mouse with <strong>1000Hz polling rate</strong> and low debounce registers clicks faster. Most players gain 0.5–2 CPS from upgrading.</div></div>
+    </div></article>
+    </div>
+
+    <!-- ═══ INFO: SPACEBAR ═══ -->
+    <div class="info-section" data-info="spacebar" style="display:none">
+    <div class="sec-divider">ABOUT SPACEBAR TEST</div>
+    <article class="icard">
+      <h2 class="icard-title">⌨️ What Is the Spacebar Speed Test?</h2>
+      <p class="ibody">The <strong>Spacebar Speed Test</strong> measures how many times per second you can press the spacebar. It's popular among <strong>rhythm game players</strong> (osu!, Beat Saber) and keyboard enthusiasts. Unlike mouse clicking, spacebar speed depends heavily on keyboard switch type and finger placement technique.<br><br>Our test supports 8 durations (1s–100s) and counts only new presses — holding down the spacebar does not register multiple presses.</p>
+    </article>
+    <article class="icard">
+      <h2 class="icard-title">⌨️ Spacebar Speed Rankings</h2>
+      <table class="rtable"><thead><tr><th>Presses/sec</th><th>Rating</th></tr></thead><tbody>
+        <tr><td style="color:#b0b0d0">1–4</td><td style="color:#b0b0d0">🐢 Slow</td></tr>
+        <tr><td style="color:var(--purple)">5–7</td><td style="color:var(--purple)">👍 Average</td></tr>
+        <tr><td style="color:var(--accent)">8–10</td><td style="color:var(--accent)">⚡ Fast</td></tr>
+        <tr><td style="color:var(--yellow)">11+</td><td style="color:var(--yellow)">🏆 Elite</td></tr>
+      </tbody></table>
+    </article>
+    <div class="sec-divider">FAQ — SPACEBAR</div>
+    <article class="icard"><div class="faq-list">
+      <div class="faq-item"><button class="faq-q">What is a good spacebar speed? <span class="faq-arrow">▼</span></button><div class="faq-a"><strong>6–8 presses per second</strong> is average. Above 10 presses/sec is exceptional and typically requires a mechanical keyboard with linear switches.</div></div>
+      <div class="faq-item"><button class="faq-q">Does keyboard type affect spacebar speed? <span class="faq-arrow">▼</span></button><div class="faq-a">Yes significantly. <strong>Linear mechanical switches</strong> (Red, Speed Silver) allow faster actuation than membrane keyboards. Switch actuation force and travel distance directly impact speed.</div></div>
+      <div class="faq-item"><button class="faq-q">Why doesn't holding spacebar count? <span class="faq-arrow">▼</span></button><div class="faq-a">Browsers fire repeated keydown events when a key is held. We filter these with <code>e.repeat</code> detection — only actual new presses count, making the test fair and accurate.</div></div>
+    </div></article>
+    </div>
+
+    <!-- ═══ INFO: TYPING ═══ -->
+    <div class="info-section" data-info="typing" style="display:none">
+    <div class="sec-divider">ABOUT TYPING SPEED TEST</div>
+    <article class="icard">
+      <h2 class="icard-title">📝 What Is a Typing Speed Test (WPM)?</h2>
+      <p class="ibody">A <strong>Typing Speed Test</strong> measures your typing speed in <strong>WPM (Words Per Minute)</strong> and accuracy. The standard WPM formula counts each 5 characters as one "word." Our test uses real English words, tracks correct/incorrect entries, and gives live WPM feedback.<br><br>Choose <strong>30s, 60s, or 120s</strong> modes. Average typing speed is <strong>40–50 WPM</strong>. Professional typists reach 70–100+ WPM.</p>
+    </article>
+    <article class="icard">
+      <h2 class="icard-title">⌨️ WPM Rankings</h2>
+      <table class="rtable"><thead><tr><th>WPM</th><th>Level</th></tr></thead><tbody>
+        <tr><td style="color:#b0b0d0">Under 30</td><td style="color:#b0b0d0">🐢 Beginner</td></tr>
+        <tr><td style="color:var(--purple)">30–50</td><td style="color:var(--purple)">👍 Average</td></tr>
+        <tr><td style="color:var(--accent)">50–70</td><td style="color:var(--accent)">⚡ Good</td></tr>
+        <tr><td style="color:var(--yellow)">70–100</td><td style="color:var(--yellow)">🏆 Fast</td></tr>
+        <tr><td style="color:var(--red)">100+</td><td style="color:var(--red)">⚡ Elite</td></tr>
+      </tbody></table>
+    </article>
+    <div class="sec-divider">FAQ — TYPING TEST</div>
+    <article class="icard"><div class="faq-list">
+      <div class="faq-item"><button class="faq-q">What is average typing speed? <span class="faq-arrow">▼</span></button><div class="faq-a">The global average is <strong>40–50 WPM</strong>. Office professionals average 55–70 WPM. Professional typists and stenographers reach 100–200+ WPM.</div></div>
+      <div class="faq-item"><button class="faq-q">How can I type faster? <span class="faq-arrow">▼</span></button><div class="faq-a">Learn <strong>touch typing</strong> (all 10 fingers without looking). Practice 15–30 minutes daily. Focus on accuracy first — speed comes naturally. Sites like Keybr.com complement our test well.</div></div>
+      <div class="faq-item"><button class="faq-q">Does keyboard type affect typing speed? <span class="faq-arrow">▼</span></button><div class="faq-a">Yes. <strong>Mechanical keyboards</strong> with tactile feedback help accuracy. Low-profile laptops keys often cause more errors. However, technique matters far more than hardware.</div></div>
+    </div></article>
+    </div>
+
+    <!-- ═══ INFO: COREBALL ═══ -->
+    <div class="info-section" data-info="coreball" style="display:none">
+    <div class="sec-divider">ABOUT COREBALL GAME</div>
+    <article class="icard">
+      <h2 class="icard-title">🎮 How to Play Coreball</h2>
+      <p class="ibody">In <strong>Coreball</strong>, a central core spins continuously. You shoot balls from the bottom — each ball sticks to the core when it lands. The challenge: <strong>don't let your ball hit an existing ball</strong> already stuck on the core. As you score more, the core spins faster, increasing difficulty.<br><br>Tap or click to shoot. You start with 10 balls. Plan your shots carefully — timing is everything.</p>
+    </article>
+    <article class="icard">
+      <h2 class="icard-title">🎯 Coreball Tips</h2>
+      <p class="ibody"><strong>Watch the gaps:</strong> Focus on the spaces between stuck balls, not the balls themselves.<br><strong>Rhythm shooting:</strong> Find the rotation rhythm and shoot in sync.<br><strong>Don't rush:</strong> You have 10 balls — patience beats panic.<br><strong>Higher levels:</strong> Speed increases every 10 points. Adjust your timing accordingly.</p>
+    </article>
+    <div class="sec-divider">FAQ — COREBALL</div>
+    <article class="icard"><div class="faq-list">
+      <div class="faq-item"><button class="faq-q">What is the Coreball game? <span class="faq-arrow">▼</span></button><div class="faq-a">Coreball is a precision timing game where you shoot balls onto a spinning core without hitting existing balls. It tests <strong>timing, patience, and spatial awareness</strong>.</div></div>
+      <div class="faq-item"><button class="faq-q">What is a good Coreball score? <span class="faq-arrow">▼</span></button><div class="faq-a">Scoring <strong>10+ points</strong> without a miss is good. Above <strong>20</strong> is excellent. The game gets significantly harder past level 3 as rotation speed increases.</div></div>
+    </div></article>
+    </div>
+
+    <!-- ═══ INFO: DINO ═══ -->
+    <div class="info-section" data-info="dino" style="display:none">
+    <div class="sec-divider">ABOUT DINOSAUR GAME</div>
+    <article class="icard">
+      <h2 class="icard-title">🦕 How to Play the Dinosaur Game</h2>
+      <p class="ibody">The <strong>Dinosaur Game</strong> (also known as the Chrome Dino or T-Rex Runner) is a classic endless runner. Press <strong>Space or tap</strong> to jump over cacti and duck under pterodactyls. The game speeds up over time — how far can you run?<br><br>This tests your <strong>reaction time and rhythm</strong> under escalating pressure, making it a fun complement to the reaction time test.</p>
+    </article>
+    <div class="sec-divider">FAQ — DINO GAME</div>
+    <article class="icard"><div class="faq-list">
+      <div class="faq-item"><button class="faq-q">What is the Chrome Dinosaur game? <span class="faq-arrow">▼</span></button><div class="faq-a">Originally created by Google, the <strong>T-Rex Runner</strong> appears in Chrome when you have no internet. It's now one of the most played browser games in the world, with an estimated 270 million plays per month.</div></div>
+      <div class="faq-item"><button class="faq-q">What is a good Dino game score? <span class="faq-arrow">▼</span></button><div class="faq-a">Reaching <strong>500 points</strong> is good for beginners. <strong>1000+</strong> is above average. Expert players regularly score <strong>5000–10000+</strong>. The theoretical maximum score is 99999.</div></div>
+    </div></article>
+    </div>
+
+    <footer class="sfooter">
       <p class="ibody">
         A <strong>reaction time test</strong> measures how quickly you respond to a visual stimulus — from when your eyes detect a signal to when your hand clicks. Results are measured in <strong>milliseconds (ms)</strong>. The average human reaction time is <strong>200–250ms</strong>, while elite gamers and athletes consistently achieve <strong>150–200ms</strong>.<br><br>
         Our free online reaction time test runs <strong>5 rounds</strong>, automatically removes outliers, and gives you your best, average, and a performance rating from <em>Slow</em> to <em>Legendary</em>. No software to install — works in any browser on desktop or mobile.
       </p>
-    </article>
-
-    <article class="icard">
-      <h2 class="icard-title">🖱️ What Is a Click Speed Test (CPS Test)?</h2>
-      <p class="ibody">
-        A <strong>click speed test</strong> measures your <strong>CPS — Clicks Per Second</strong>. It's the core benchmark for competitive gaming, especially Minecraft PvP, where clicking faster gives a combat advantage. Our <strong>free CPS test</strong> offers <strong>8 time durations</strong> (1s, 2s, 5s, 10s, 15s, 30s, 60s, 100s) and three clicking modes: Click Speed, Jitter Click, and Kohi Click.<br><br>
-        After each test you'll see your CPS, total clicks, and a rank badge from 🐢 Turtle (1–4 CPS) up to ⚡ God Mode (15+ CPS).
-      </p>
-    </article>
-
-    <article class="icard">
-      <h2 class="icard-title">🕐 Time Mode Guide — 1s to 100s</h2>
-      <p class="ibody">
-        <strong>1s / 2s</strong> — Pure burst speed. Your absolute peak CPS with zero fatigue. Best for personal records.<br><br>
-        <strong>5s</strong> — The global standard. Balances burst speed with a small sustainability window.<br><br>
-        <strong>10s</strong> — The gaming community classic. Exposes jitter-click fatigue. Where most rankings are based.<br><br>
-        <strong>15s</strong> — The Kohi standard. Tests whether your technique holds under sustained pressure.<br><br>
-        <strong>30s</strong> — Serious endurance. Expect a 15–25% CPS drop from your 5s peak.<br><br>
-        <strong>60s / 100s</strong> — Elite endurance modes. Only regular clicking (not jitter) stays consistent.
-        Most players see a <strong>20–40% CPS drop</strong> compared to their 5s peak.
-      </p>
-    </article>
-
-    <article class="icard">
-      <h2 class="icard-title">🏆 CPS Ranking Table</h2>
-      <p class="ibody" style="margin-bottom:14px">Where does your score land?</p>
-      <table class="rtable">
-        <thead>
-          <tr><th>Rank</th><th>CPS</th><th>Level</th><th>Description</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><span class="rbadge"><span class="rdot" style="background:#3a3a5a"></span>🐢 Turtle</span></td>
-            <td style="color:var(--muted)">1–4</td><td style="color:var(--muted)">Beginner</td>
-            <td style="color:var(--muted)">Casual browsing speed. Not competitive for gaming.</td>
-          </tr>
-          <tr>
-            <td><span class="rbadge"><span class="rdot" style="background:var(--purple)"></span>🐇 Normal</span></td>
-            <td style="color:var(--purple)">5–7</td><td style="color:var(--purple)">Average</td>
-            <td style="color:var(--muted)">Average for most players. Good starting point.</td>
-          </tr>
-          <tr>
-            <td><span class="rbadge"><span class="rdot" style="background:var(--accent)"></span>⚡ Fast</span></td>
-            <td style="color:var(--accent)">8–10</td><td style="color:var(--accent)">Good</td>
-            <td style="color:var(--muted)">Above average. Competitive in most PvP modes.</td>
-          </tr>
-          <tr>
-            <td><span class="rbadge"><span class="rdot" style="background:var(--yellow)"></span>🐆 Cheetah</span></td>
-            <td style="color:var(--yellow)">11–14</td><td style="color:var(--yellow)">Pro</td>
-            <td style="color:var(--muted)">Pro-level. Requires jitter technique to achieve.</td>
-          </tr>
-          <tr>
-            <td><span class="rbadge"><span class="rdot" style="background:var(--red)"></span>⚡ God Mode</span></td>
-            <td style="color:var(--red)">15+</td><td style="color:var(--red)">Elite</td>
-            <td style="color:var(--muted)">Extremely rare. Butterfly or drag clicking required.</td>
-          </tr>
-        </tbody>
-      </table>
-    </article>
-
-    <article class="icard">
-      <h2 class="icard-title">🎯 Stimulation Clicker — Aim Training</h2>
-      <p class="ibody">
-        The <strong>Stimulation Clicker</strong> combines clicking speed with spatial precision.
-        Colorful targets appear at random positions — click each before it vanishes to earn points.
-        Faster clicks earn multiplied scores. Missed targets and clicks outside targets reduce accuracy.<br><br>
-        <strong>Easy:</strong> 80px targets, 1.2s lifetime. Relaxed training pace.<br>
-        <strong>Medium:</strong> 55px targets, 0.8s lifetime. Requires quick eye-hand coordination.<br>
-        <strong>Hard:</strong> 38px targets, 0.5s lifetime. Elite aim, comparable to Aimlabs Gridshot.
-      </p>
-    </article>
-
-    <article class="icard">
-      <h2 class="icard-title">🖱 Clicking Techniques Explained</h2>
-      <div class="tech-grid">
-        <div class="tcard">
-          <div class="thead-row"><span class="tname">Regular Clicking</span><span class="tbadge p">3–9 CPS</span></div>
-          <p class="tbody-t">Standard one-finger method. Best <strong>aim accuracy</strong> of any technique. Ideal for FPS games where clicking precision matters more than speed. Sustainable across all time durations including 100s.</p>
-        </div>
-        <div class="tcard">
-          <div class="thead-row"><span class="tname">Jitter Clicking</span><span class="tbadge g">10–14 CPS</span></div>
-          <p class="tbody-t">Tense your forearm and wrist to create rapid vibrations — your finger bounces fast on the button. Learnable with practice. <strong>Warning:</strong> risk of wrist strain with extended sessions. Take breaks every 15 minutes.</p>
-        </div>
-        <div class="tcard">
-          <div class="thead-row"><span class="tname">Butterfly Clicking</span><span class="tbadge y">15–25 CPS</span></div>
-          <p class="tbody-t">Two fingers (index + middle) alternate rapidly on the same button. World record: <strong>25.5 CPS (Nestor, 2022)</strong>. Sacrifices aim accuracy. Often banned in competitive servers.</p>
-        </div>
-        <div class="tcard">
-          <div class="thead-row"><span class="tname">Drag Clicking</span><span class="tbadge r">30–100+ CPS</span></div>
-          <p class="tbody-t">Drag your finger across the button creating friction-based micro-clicks. Registers extreme numbers but is <strong>universally banned</strong> in competitive play and destroys mouse switches rapidly.</p>
-        </div>
-      </div>
-    </article>
-
-    <article class="icard">
-      <h2 class="icard-title">📊 Technique Comparison</h2>
-      <div style="overflow-x:auto">
-        <table class="ctable">
-          <thead>
-            <tr><th style="text-align:left">Technique</th><th>Avg CPS</th><th>Easy to Learn</th><th>Good Aim</th><th>Allowed PvP</th><th>Injury Risk</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Regular</td><td>3–9</td><td><span class="yes">✓</span></td><td><span class="yes">✓</span></td><td><span class="yes">✓</span></td><td style="color:var(--accent)">Low</td></tr>
-            <tr><td>Jitter</td><td>10–14</td><td><span class="mid">~</span></td><td><span class="mid">~</span></td><td><span class="yes">✓</span></td><td style="color:var(--yellow)">Medium</td></tr>
-            <tr><td>Butterfly</td><td>15–25</td><td><span class="mid">~</span></td><td><span class="no">✗</span></td><td><span class="no">Often ✗</span></td><td style="color:var(--yellow)">Medium</td></tr>
-            <tr><td>Drag</td><td>30–100+</td><td><span class="no">✗</span></td><td><span class="no">✗</span></td><td><span class="no">✗</span></td><td style="color:var(--red)">High</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </article>
-
-    <div class="sec-divider">WORLD RECORDS</div>
-
-    <article class="icard">
-      <h2 class="icard-title">🌍 CPS World Records</h2>
-      <div class="rgrid">
-        <div class="ritem"><div class="rval" style="color:var(--accent)">14.1</div><div class="rlbl">Regular Click CPS</div><div class="rholder">Dylan Allred, 2020</div></div>
-        <div class="ritem"><div class="rval" style="color:var(--red)">16.2</div><div class="rlbl">Jitter Click CPS</div><div class="rholder">alliesaurus, 2021</div></div>
-        <div class="ritem"><div class="rval" style="color:var(--yellow)">25.5</div><div class="rlbl">Butterfly Click CPS</div><div class="rholder">Nestor, 2022</div></div>
-        <div class="ritem"><div class="rval" style="color:var(--purple)">150ms</div><div class="rlbl">Elite Reaction Time</div><div class="rholder">Pro Gamers</div></div>
-      </div>
-      <p class="ibody" style="margin-top:4px"><strong>Note:</strong> Drag clicking records (60–100+ CPS) are not recognized as legitimate skill records — they exploit mouse hardware rather than human ability.</p>
-    </article>
-
-    <div class="sec-divider">REACTION TIME</div>
-
-    <article class="icard">
-      <h2 class="icard-title">🧠 Reaction Time Explained</h2>
-      <p class="ibody">
-        <strong>Reaction time</strong> is the elapsed time between a visual cue and your physical response, measured in milliseconds. It involves: eyes detecting stimulus → brain processing → motor command → hand movement → click.<br><br>
-        <strong>Average human:</strong> 200–250ms. <strong>Pro gamers/athletes:</strong> 150–200ms. <strong>Elite:</strong> under 150ms — exceptionally rare.
-      </p>
-      <div class="chart-wrap">
-        <div class="chart-ttl">Human visual reaction times by player category</div>
-        <svg class="rchart" viewBox="0 0 520 220" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="cg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffe000" stop-opacity="0.9"/><stop offset="100%" stop-color="#ffe000" stop-opacity="0.3"/></linearGradient>
-            <linearGradient id="cg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00f5a0" stop-opacity="0.9"/><stop offset="100%" stop-color="#00f5a0" stop-opacity="0.3"/></linearGradient>
-            <linearGradient id="cg3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7b61ff" stop-opacity="0.9"/><stop offset="100%" stop-color="#7b61ff" stop-opacity="0.3"/></linearGradient>
-            <linearGradient id="cg4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff6b00" stop-opacity="0.9"/><stop offset="100%" stop-color="#ff6b00" stop-opacity="0.3"/></linearGradient>
-            <linearGradient id="cg5" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff2d55" stop-opacity="0.9"/><stop offset="100%" stop-color="#ff2d55" stop-opacity="0.3"/></linearGradient>
-          </defs>
-          <line x1="60" y1="20" x2="510" y2="20" stroke="#1c1c30" stroke-width="1"/>
-          <line x1="60" y1="60" x2="510" y2="60" stroke="#1c1c30" stroke-width="1"/>
-          <line x1="60" y1="100" x2="510" y2="100" stroke="#1c1c30" stroke-width="1"/>
-          <line x1="60" y1="140" x2="510" y2="140" stroke="#1c1c30" stroke-width="1"/>
-          <line x1="60" y1="180" x2="510" y2="180" stroke="#1c1c30" stroke-width="1"/>
-          <text x="52" y="24" text-anchor="end" font-size="9" fill="#50507a">500ms</text>
-          <text x="52" y="64" text-anchor="end" font-size="9" fill="#50507a">400ms</text>
-          <text x="52" y="104" text-anchor="end" font-size="9" fill="#50507a">300ms</text>
-          <text x="52" y="144" text-anchor="end" font-size="9" fill="#50507a">200ms</text>
-          <text x="52" y="184" text-anchor="end" font-size="9" fill="#50507a">100ms</text>
-          <rect x="76" y="160" width="52" height="20" rx="6" fill="url(#cg1)"/>
-          <text x="102" y="155" text-anchor="middle" font-size="9" fill="#ffe000" font-weight="700">150ms</text>
-          <text x="102" y="198" text-anchor="middle" font-size="8" fill="#50507a">Elite</text>
-          <rect x="152" y="124" width="52" height="56" rx="6" fill="url(#cg2)"/>
-          <text x="178" y="119" text-anchor="middle" font-size="9" fill="#00f5a0" font-weight="700">190ms</text>
-          <text x="178" y="198" text-anchor="middle" font-size="8" fill="#50507a">Gamer</text>
-          <rect x="228" y="100" width="52" height="80" rx="6" fill="url(#cg3)"/>
-          <text x="254" y="95" text-anchor="middle" font-size="9" fill="#7b61ff" font-weight="700">250ms</text>
-          <text x="254" y="198" text-anchor="middle" font-size="8" fill="#50507a">Average</text>
-          <rect x="304" y="68" width="52" height="112" rx="6" fill="url(#cg4)"/>
-          <text x="330" y="63" text-anchor="middle" font-size="9" fill="#ff6b00" font-weight="700">320ms</text>
-          <text x="330" y="198" text-anchor="middle" font-size="8" fill="#50507a">Casual</text>
-          <rect x="380" y="20" width="52" height="160" rx="6" fill="url(#cg5)"/>
-          <text x="406" y="15" text-anchor="middle" font-size="9" fill="#ff2d55" font-weight="700">400ms</text>
-          <text x="406" y="198" text-anchor="middle" font-size="8" fill="#50507a">Slow</text>
-          <line x1="60" y1="181" x2="510" y2="181" stroke="#252540" stroke-width="1.5"/>
-          <line x1="60" y1="10" x2="60" y2="181" stroke="#252540" stroke-width="1.5"/>
-        </svg>
-      </div>
-    </article>
-
-    <article class="icard">
-      <h2 class="icard-title">🧬 What Affects Your CPS &amp; Reaction Time?</h2>
-      <div class="fgrid">
-        <div class="fitem"><div class="ficon">😴</div><div class="fname">Sleep</div><div class="fdesc">Sleep deprivation slows reaction time up to 300%. Even losing 2 hours measurably reduces CPS.</div></div>
-        <div class="fitem"><div class="ficon">🖱</div><div class="fname">Mouse Quality</div><div class="fdesc">Gaming mice with 1000Hz polling rate and low debounce register clicks faster than budget mice.</div></div>
-        <div class="fitem"><div class="ficon">☕</div><div class="fname">Caffeine</div><div class="fdesc">100–200mg caffeine temporarily boosts reaction speed by stimulating the central nervous system.</div></div>
-        <div class="fitem"><div class="ficon">🧓</div><div class="fname">Age</div><div class="fdesc">Clicking speed peaks around age 24, then gradually declines. Training slows this decline.</div></div>
-        <div class="fitem"><div class="ficon">🌡️</div><div class="fname">Hand Temperature</div><div class="fdesc">Cold muscles click 10–15% slower. Always warm up hands before serious testing sessions.</div></div>
-        <div class="fitem"><div class="ficon">💧</div><div class="fname">Hydration</div><div class="fdesc">Even 2% body weight dehydration slows both cognitive processing and CPS measurably.</div></div>
-      </div>
-    </article>
-
-    <article class="icard">
-      <h2 class="icard-title">🚀 How to Improve Your CPS</h2>
-      <div class="exlist">
-        <div class="exitem"><div class="exnum">01</div><div class="extxt"><strong>Practice 10–15 min daily</strong> — Short consistent sessions build muscle memory faster than long irregular ones. Use all 8 time modes to train burst speed and endurance separately.</div></div>
-        <div class="exitem"><div class="exnum">02</div><div class="extxt"><strong>Use a gaming mouse</strong> — Lightweight mice with 1000Hz polling rate (Logitech G Pro X Superlight, Razer Viper Mini) register clicks measurably faster than standard office mice.</div></div>
-        <div class="exitem"><div class="exnum">03</div><div class="extxt"><strong>Learn jitter clicking</strong> — Start by gently tensing your forearm and placing your finger on the button. Feel the vibration build slowly over days. Technique before speed.</div></div>
-        <div class="exitem"><div class="exnum">04</div><div class="extxt"><strong>Train endurance with 30s–100s modes</strong> — Burst and sustained CPS are different skills. Long-duration tests reveal technique flaws hidden by short tests.</div></div>
-        <div class="exitem"><div class="exnum">05</div><div class="extxt"><strong>Use Stimulation Clicker for aim</strong> — Raw CPS means nothing if your aim is poor. Stimulation mode trains spatial precision alongside speed — critical for actual gameplay.</div></div>
-        <div class="exitem"><div class="exnum">06</div><div class="extxt"><strong>Warm up before each session</strong> — Stretch fingers, shake your hands, do 10 slow warm-up clicks. Cold muscles click 10–15% slower than warmed-up ones.</div></div>
-      </div>
-    </article>
-
-    <article class="icard">
-      <h2 class="icard-title">💡 Quick Tips</h2>
-      <div class="tips">
-        <span class="tip">🖱 Gaming mouse</span>
-        <span class="tip">🌙 Sleep 7–9 hrs</span>
-        <span class="tip">💧 Stay hydrated</span>
-        <span class="tip">🏃 Warm up hands</span>
-        <span class="tip">🎯 Train aim too</span>
-        <span class="tip">☕ Moderate caffeine</span>
-        <span class="tip">📵 No trackpads</span>
-        <span class="tip">🔁 Practice daily</span>
-        <span class="tip">⏱ Train endurance</span>
-        <span class="tip">🧘 Stay relaxed</span>
-        <span class="tip">⌨ 1000Hz polling</span>
-        <span class="tip">🔥 Try all 8 modes</span>
-      </div>
-    </article>
-
-    <div class="sec-divider">FAQ</div>
-
-    <article class="icard">
-      <h2 class="icard-title">❓ Frequently Asked Questions</h2>
-      <div class="faq-list">
-        <div class="faq-item">
-          <button class="faq-q">What is a good CPS score? <span class="faq-arrow">▼</span></button>
-          <div class="faq-a"><strong>6–7 CPS</strong> is average. Above <strong>10 CPS</strong> is good. Above <strong>14 CPS</strong> is exceptional and requires jitter or butterfly clicking technique with a gaming mouse.</div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-q">What is the world record CPS? <span class="faq-arrow">▼</span></button>
-          <div class="faq-a">Regular clicking: <strong>14.1 CPS (Dylan Allred, 2020)</strong>. Jitter: <strong>16.2 CPS (alliesaurus, 2021)</strong>. Butterfly: <strong>25.5 CPS (Nestor, 2022)</strong>.</div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-q">Why does CPS drop in 60s/100s modes? <span class="faq-arrow">▼</span></button>
-          <div class="faq-a">Muscle fatigue. Most players see a <strong>20–40% CPS drop</strong> from 5s peak over 60 seconds. Jitter clickers fatigue fastest — regular clicking is more sustainable long-term.</div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-q">What is the Kohi Click Test? <span class="faq-arrow">▼</span></button>
-          <div class="faq-a">Originated from the <strong>Minecraft Kohi PvP server</strong>, the 15-second test became standard for verifying human-level clicking. Tests sustained endurance, not just peak burst speed.</div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-q">Is jitter clicking harmful? <span class="faq-arrow">▼</span></button>
-          <div class="faq-a">Extended sessions can cause <strong>wrist strain, carpal tunnel symptoms</strong>, and tendinitis. Take breaks every 10–15 minutes and stop if you feel any pain.</div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-q">What is a good reaction time? <span class="faq-arrow">▼</span></button>
-          <div class="faq-a">Average: <strong>200–250ms</strong>. Excellent: under <strong>200ms</strong>. Elite (pro gamers): under <strong>150ms</strong>. Most people naturally score between 180–300ms.</div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-q">What does Stimulation Clicker train? <span class="faq-arrow">▼</span></button>
-          <div class="faq-a"><strong>Aim precision combined with reaction speed</strong> — the same skills used in FPS games. Hard mode is comparable to professional aim trainer performance (Aimlabs, Kovaak's).</div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-q">Does a better mouse actually improve CPS? <span class="faq-arrow">▼</span></button>
-          <div class="faq-a">Yes. A gaming mouse with <strong>1ms debounce time</strong> and <strong>1000Hz polling rate</strong> can register clicks that a 125Hz budget mouse would drop. Most players gain 0.5–2 CPS from upgrading.</div>
-        </div>
-      </div>
     </article>
 
     <footer class="sfooter">
@@ -1409,19 +1461,18 @@ function switchPanel(p) {
   document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.panel === p));
 
   // Map jitter/kohi → cps panel
-  const allPanels = ['cps','spacebar','reaction','stimulation'];
+  const allPanels = ['cps','spacebar','reaction','stimulation','typing','coreball','dino'];
   allPanels.forEach(id => {
     const el = document.getElementById('panel-' + id);
     if (el) el.style.display = 'none';
   });
-  const target = ['jitter','kohi','cps'].includes(p) ? 'cps' : p;
+  const target = ['jitter','cps'].includes(p) ? 'cps' : p;
   const panelEl = document.getElementById('panel-' + target);
-  if (panelEl) panelEl.style.display = 'flex';
-  if (panelEl) panelEl.style.flexDirection = 'column';
+  if (panelEl) { panelEl.style.display = 'flex'; panelEl.style.flexDirection = 'column'; }
 
-  // Row2: hide for reaction & stim
+  // Row2: hide for reaction, stim, typing, coreball
   const row2 = document.getElementById('row2');
-  const hideRow2 = p === 'reaction' || p === 'stimulation';
+  const hideRow2 = ['reaction','stimulation','typing','coreball','dino'].includes(p);
   row2.classList.toggle('hidden', hideRow2);
   document.querySelector('.wrap').style.paddingTop =
     hideRow2 ? 'var(--row1-h)' : 'var(--header-h)';
@@ -1430,7 +1481,6 @@ function switchPanel(p) {
   const titles = {
     cps:    ['Click Speed Test',  `${curDuration}s — click as fast as you can`],
     jitter: ['Jitter Click Test', `${curDuration}s — tense & vibrate for max speed`],
-    kohi:   ['Kohi Click Test',   `${curDuration}s — sustained CPS endurance`],
   };
   if (titles[p]) {
     document.getElementById('cpsH1').textContent = titles[p][0];
@@ -1440,6 +1490,13 @@ function switchPanel(p) {
   // Reset
   if (target === 'cps')    resetCPS();
   if (p === 'stimulation') resetStim();
+
+  // Switch info section
+  const infoMap = { reaction:'reaction', stimulation:'stimulation', cps:'cps', jitter:'cps', spacebar:'spacebar', typing:'typing', coreball:'coreball', dino:'dino' };
+  document.querySelectorAll('.info-section').forEach(s => s.style.display = 'none');
+  const infoKey = infoMap[p] || 'reaction';
+  const infoEl = document.querySelector(`.info-section[data-info="${infoKey}"]`);
+  if (infoEl) infoEl.style.display = 'block';
 }
 
 /* ═══════════════════════════════════════════
@@ -1453,7 +1510,7 @@ function setDuration(s) {
   // Update subtitle
   const sub = document.getElementById('cpsSub');
   if (sub) {
-    const map = { cps:'click as fast as you can', jitter:'tense & vibrate for max speed', kohi:'sustained CPS endurance' };
+    const map = { cps:'click as fast as you can', jitter:'tense & vibrate for max speed' };
     sub.textContent = `${s}s — ${map[curPanel] || 'click as fast as you can'}`;
   }
   const sSub = document.getElementById('sSub');
@@ -2180,10 +2237,479 @@ function setLang(l) {
 }
 
 /* ═══════════════════════════════════════════
+   TYPING TEST ENGINE
+═══════════════════════════════════════════ */
+const WORD_LIST = ['the','be','to','of','and','in','that','have','it','for','on','with','he','as','you','do','at','this','but','his','by','from','they','we','say','her','she','or','an','will','my','one','all','would','there','their','what','so','up','out','if','about','who','get','which','go','me','when','make','can','like','time','no','just','him','know','take','people','into','year','your','good','some','could','them','see','other','than','then','now','look','only','come','its','over','think','also','back','after','use','two','how','our','work','first','well','way','even','new','want','because','any','these','give','day','most','us','great','between','need','large','often','hand','high','place','hold','real','life','few','north','open','seem','together','next','white','children','begin','got','walk','example','ease','paper','group','always','music','those','both','mark','book','letter','until','mile','river','car','feet','care','second','enough','plain','girl','usual','young','ready','above','ever','red','list','though','feel','talk','bird','soon','body','dog','family','direct','pose','leave'];
+
+let typing = { running:false, duration:60, timeLeft:60, iv:null, words:[], currentIdx:0, correctCount:0, wrongCount:0, charCount:0, startTime:null };
+
+function setTypingDuration(s) {
+  typing.duration = s;
+  ['30','60','120'].forEach(x => {
+    document.getElementById('td'+x).classList.toggle('active', +x === s);
+  });
+  resetTyping();
+}
+
+function generateWords() {
+  const arr = [];
+  for (let i = 0; i < 80; i++) arr.push(WORD_LIST[Math.floor(Math.random()*WORD_LIST.length)]);
+  return arr;
+}
+
+function renderWords() {
+  const container = document.getElementById('tWords');
+  container.innerHTML = '';
+  typing.words.forEach((w, i) => {
+    const span = document.createElement('span');
+    span.textContent = w;
+    span.id = 'tw' + i;
+    span.style.cssText = 'padding:2px 4px;border-radius:4px;transition:all 0.1s;';
+    if (i < typing.currentIdx) {
+      span.style.color = '#00f5a0';
+    } else if (i === typing.currentIdx) {
+      span.style.color = '#f0f0ff';
+      span.style.background = 'rgba(0,180,216,0.18)';
+      span.style.borderBottom = '2px solid #00b4d8';
+      // scroll into view
+      setTimeout(() => span.scrollIntoView({block:'nearest'}), 10);
+    } else {
+      span.style.color = '#6060a0';
+    }
+    container.appendChild(span);
+  });
+}
+
+function resetTyping() {
+  clearInterval(typing.iv);
+  typing = { running:false, duration:typing.duration, timeLeft:typing.duration, iv:null, words:generateWords(), currentIdx:0, correctCount:0, wrongCount:0, charCount:0, startTime:null };
+  document.getElementById('tWpm').textContent = '0';
+  document.getElementById('tAcc').textContent = '—';
+  document.getElementById('tCorrect').textContent = '0';
+  document.getElementById('tTime').textContent = typing.duration;
+  document.getElementById('tResult').style.display = 'none';
+  document.getElementById('tInput').value = '';
+  document.getElementById('tInput').disabled = false;
+  renderWords();
+}
+
+function finishTyping() {
+  clearInterval(typing.iv); typing.running = false;
+  document.getElementById('tInput').disabled = true;
+  const elapsed = typing.duration;
+  const wpm = Math.round(typing.correctCount / (elapsed / 60));
+  const total = typing.correctCount + typing.wrongCount;
+  const acc = total > 0 ? Math.round(typing.correctCount / total * 100) : 100;
+  document.getElementById('tFinalWpm').textContent = wpm;
+  document.getElementById('tFinalAcc').textContent = `Accuracy: ${acc}% — ${typing.correctCount} correct words`;
+  document.getElementById('tResult').style.display = 'flex';
+}
+
+document.getElementById('tInput').addEventListener('input', function() {
+  const val = this.value;
+  if (!typing.running && val.length > 0) {
+    typing.running = true; typing.startTime = Date.now();
+    typing.iv = setInterval(() => {
+      typing.timeLeft--;
+      document.getElementById('tTime').textContent = typing.timeLeft;
+      const elapsed = Math.max(1, typing.duration - typing.timeLeft);
+      const wpm = Math.round(typing.correctCount / (elapsed / 60));
+      document.getElementById('tWpm').textContent = wpm;
+      if (typing.timeLeft <= 0) finishTyping();
+    }, 1000);
+  }
+  if (!typing.running && val.length === 0) return;
+  if (val.endsWith(' ')) {
+    const typed = val.trim();
+    const target = typing.words[typing.currentIdx];
+    if (typed === target) { typing.correctCount++; } else { typing.wrongCount++; }
+    typing.currentIdx++;
+    this.value = '';
+    document.getElementById('tCorrect').textContent = typing.correctCount;
+    const total = typing.correctCount + typing.wrongCount;
+    document.getElementById('tAcc').textContent = total > 0 ? Math.round(typing.correctCount/total*100)+'%' : '—';
+    if (typing.currentIdx >= typing.words.length) { typing.words = typing.words.concat(generateWords()); }
+    renderWords();
+  }
+});
+
+/* ═══════════════════════════════════════════
+   COREBALL — fixed: slower speed, ball visible during flight
+═══════════════════════════════════════════ */
+const cbCanvas = document.getElementById('coreCanvas');
+const cbCtx = cbCanvas.getContext('2d');
+let cb = { score:0, best:0, level:1, ballsLeft:10, angle:0, speed:0.012, balls:[], stuck:[], gameOver:false, animId:null };
+
+function cbReset() {
+  if(cb.animId) cancelAnimationFrame(cb.animId);
+  cb = { score:0, best:cb.best, level:1, ballsLeft:10, angle:0, speed:0.012, balls:[], stuck:[], gameOver:false, animId:null };
+  document.getElementById('cbScore').textContent = '0';
+  document.getElementById('cbLevel').textContent = '1';
+  document.getElementById('cbBalls').textContent = '10';
+  document.getElementById('cbMsg').textContent = 'TAP TO SHOOT';
+  cbDraw();
+}
+
+function cbDraw() {
+  const W = cbCanvas.width, H = cbCanvas.height, cx = W/2, cy = H/2, R = 110;
+  cbCtx.clearRect(0, 0, W, H);
+
+  // Core circle
+  cbCtx.beginPath();
+  cbCtx.arc(cx, cy, R, 0, Math.PI*2);
+  cbCtx.strokeStyle = cb.gameOver ? '#ff2d55' : '#2a2a4a';
+  cbCtx.lineWidth = 4;
+  cbCtx.stroke();
+
+  // Spokes for stuck balls
+  cb.stuck.forEach(s => {
+    const bx = cx + Math.cos(s.angle) * R;
+    const by = cy + Math.sin(s.angle) * R;
+    cbCtx.beginPath();
+    cbCtx.moveTo(cx, cy);
+    cbCtx.lineTo(bx, by);
+    cbCtx.strokeStyle = s.color + '30';
+    cbCtx.lineWidth = 1;
+    cbCtx.stroke();
+    cbCtx.beginPath();
+    cbCtx.arc(bx, by, 10, 0, Math.PI*2);
+    cbCtx.fillStyle = s.color;
+    cbCtx.fill();
+  });
+
+  // Flying balls — clearly visible
+  cb.balls.forEach(b => {
+    // Trail
+    cbCtx.beginPath();
+    cbCtx.arc(b.x, b.y + 8, 6, 0, Math.PI*2);
+    cbCtx.fillStyle = b.color + '40';
+    cbCtx.fill();
+    // Ball
+    cbCtx.beginPath();
+    cbCtx.arc(b.x, b.y, 10, 0, Math.PI*2);
+    cbCtx.fillStyle = b.color;
+    cbCtx.fill();
+    cbCtx.beginPath();
+    cbCtx.arc(b.x - 3, b.y - 3, 3, 0, Math.PI*2);
+    cbCtx.fillStyle = 'rgba(255,255,255,0.5)';
+    cbCtx.fill();
+  });
+
+  // Score
+  cbCtx.fillStyle = cb.gameOver ? '#ff2d55' : '#ffffff';
+  cbCtx.font = `bold ${cb.gameOver?24:38}px 'Bebas Neue',sans-serif`;
+  cbCtx.textAlign = 'center'; cbCtx.textBaseline = 'middle';
+  cbCtx.fillText(cb.gameOver ? 'GAME OVER' : cb.score, cx, cy);
+
+  // Remaining balls dots
+  const totalDots = 10;
+  for (let i = 0; i < totalDots; i++) {
+    const dx = cx + (i - totalDots/2 + 0.5) * 20;
+    cbCtx.beginPath();
+    cbCtx.arc(dx, H - 20, 6, 0, Math.PI*2);
+    cbCtx.fillStyle = i < cb.ballsLeft ? '#00f5a0' : '#1c1c30';
+    cbCtx.fill();
+  }
+
+  // Shooter indicator at bottom
+  cbCtx.beginPath();
+  cbCtx.arc(cx, H - 20, 10, 0, Math.PI*2);
+  cbCtx.strokeStyle = '#ffffff40';
+  cbCtx.lineWidth = 2;
+  cbCtx.stroke();
+  // aim line
+  cbCtx.beginPath();
+  cbCtx.setLineDash([4, 4]);
+  cbCtx.moveTo(cx, H - 30);
+  cbCtx.lineTo(cx, cy + R + 20);
+  cbCtx.strokeStyle = '#ffffff20';
+  cbCtx.lineWidth = 1;
+  cbCtx.stroke();
+  cbCtx.setLineDash([]);
+}
+
+const CB_COLORS = ['#00f5a0','#ff2d55','#ffe000','#7b61ff','#ff6b00','#00b4d8','#ff69b4'];
+
+function cbLoop() {
+  if (curPanel !== 'coreball') return;
+  const W = cbCanvas.width, H = cbCanvas.height, cx = W/2, cy = H/2, R = 110;
+
+  cb.angle += cb.speed;
+  cb.stuck.forEach(s => s.angle += cb.speed);
+
+  cb.balls = cb.balls.filter(b => {
+    b.y += b.vy;
+    const dx = b.x - cx, dy = b.y - cy;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+
+    if (dist <= R + 12) {
+      const hitAngle = Math.atan2(dy, dx);
+      const collision = cb.stuck.some(s => {
+        let diff = Math.abs(s.angle - hitAngle);
+        if (diff > Math.PI) diff = Math.PI*2 - diff;
+        return diff < 0.24;
+      });
+      if (collision) {
+        cb.gameOver = true;
+        if (cb.score > cb.best) { cb.best = cb.score; document.getElementById('cbBest').textContent = cb.best; }
+        document.getElementById('cbMsg').textContent = '💥 TAP TO PLAY AGAIN';
+        cbDraw();
+        return false;
+      }
+      cb.stuck.push({ angle: hitAngle, color: b.color });
+      cb.score++;
+      document.getElementById('cbScore').textContent = cb.score;
+      // Speed up every ball — progressive difficulty
+      cb.speed = Math.min(0.012 + cb.score * 0.0015, 0.055);
+      if (cb.score % 10 === 0) {
+        cb.level++;
+        document.getElementById('cbLevel').textContent = cb.level;
+      }
+      return false;
+    }
+    if (b.y < -20) return false;
+    return true;
+  });
+
+  cbDraw();
+  if (!cb.gameOver) cb.animId = requestAnimationFrame(cbLoop);
+}
+
+cbCanvas.addEventListener('click', () => {
+  if (cb.gameOver) { cbReset(); return; }
+  if (cb.ballsLeft <= 0) return;
+  cb.ballsLeft--;
+  document.getElementById('cbBalls').textContent = cb.ballsLeft;
+  document.getElementById('cbMsg').textContent = `${cb.ballsLeft} balls left`;
+  const color = CB_COLORS[Math.floor(Math.random()*CB_COLORS.length)];
+  cb.balls.push({ x: cbCanvas.width/2, y: cbCanvas.height - 40, vy: -4, color });
+  if (!cb.animId || cb.gameOver) { cb.animId = null; cbLoop(); }
+});
+cbCanvas.addEventListener('touchstart', e => { e.preventDefault(); cbCanvas.click(); }, {passive:false});
+
+/* ═══════════════════════════════════════════
+   DINOSAUR GAME ENGINE
+═══════════════════════════════════════════ */
+const dc = document.getElementById('dinoCanvas');
+const dctx = dc.getContext('2d');
+let dino = {
+  x:80, y:220, w:44, h:48, vy:0, jumping:false, ducking:false,
+  score:0, best:0, speed:5, alive:false, started:false,
+  obstacles:[], clouds:[], frame:0, animId:null, groundY:240,
+  legFrame:0
+};
+
+function dinoReset() {
+  if(dino.animId) cancelAnimationFrame(dino.animId);
+  const best = dino.best;
+  dino = {
+    x:80, y:220, w:44, h:48, vy:0, jumping:false, ducking:false,
+    score:0, best, speed:5, alive:false, started:false,
+    obstacles:[], clouds:[], frame:0, animId:null, groundY:240,
+    legFrame:0
+  };
+  document.getElementById('dinoScore').textContent = '0';
+  document.getElementById('dinoSpeed').textContent = '1x';
+  document.getElementById('dinoStatus').textContent = 'Ready';
+  dinoDraw();
+}
+
+function dinoJump() {
+  if (!dino.started) {
+    dino.started = true; dino.alive = true;
+    document.getElementById('dinoStatus').textContent = 'Running';
+    dino.animId = requestAnimationFrame(dinoLoop);
+  }
+  if (!dino.jumping && !dino.ducking && dino.y >= dino.groundY - dino.h) {
+    dino.vy = -14; dino.jumping = true;
+  }
+}
+
+function dinoDuck(on) {
+  if (on && !dino.jumping) { dino.ducking = true; dino.h = 28; dino.y = dino.groundY - 28; }
+  else { dino.ducking = false; dino.h = 48; dino.y = Math.min(dino.y, dino.groundY - 48); }
+}
+
+function dinoSpawnObstacle() {
+  const types = ['cactus-s','cactus-m','cactus-l','bird'];
+  const t = types[Math.floor(Math.random()*types.length)];
+  const isBird = t === 'bird';
+  dino.obstacles.push({
+    x: dc.width + 20,
+    y: isBird ? dino.groundY - 60 - Math.random()*40 : dino.groundY,
+    w: isBird ? 46 : t==='cactus-s'?20:t==='cactus-m'?28:38,
+    h: isBird ? 32 : t==='cactus-s'?40:t==='cactus-m'?52:60,
+    type: t, bird: isBird, wingUp: true, wingTimer: 0
+  });
+}
+
+function dinoCheckHit() {
+  const pad = 6;
+  const dx = dino.x + pad, dy = dino.y + pad, dw = dino.w - pad*2, dh = dino.h - pad*2;
+  return dino.obstacles.some(o => {
+    const op = 4;
+    return dx < o.x+o.w-op && dx+dw > o.x+op && dy < o.y && dy+dh > o.y-o.h;
+  });
+}
+
+function dinoDraw() {
+  const W = dc.width, H = dc.height, gy = dino.groundY;
+  dctx.clearRect(0, 0, W, H);
+
+  // Ground
+  dctx.fillStyle = '#2a2a4a';
+  dctx.fillRect(0, gy, W, 2);
+
+  // Clouds
+  dino.clouds.forEach(c => {
+    dctx.fillStyle = 'rgba(255,255,255,0.08)';
+    dctx.beginPath();
+    dctx.ellipse(c.x, c.y, 40, 14, 0, 0, Math.PI*2);
+    dctx.fill();
+  });
+
+  // Dino body
+  const col = !dino.alive ? '#444466' : dino.jumping ? '#00f5a0' : '#ffffff';
+  dctx.fillStyle = col;
+  // Body
+  dctx.fillRect(dino.x, dino.y, dino.w, dino.h);
+  // Eye
+  dctx.fillStyle = '#06060e';
+  dctx.fillRect(dino.x + dino.w - 10, dino.y + 8, 7, 7);
+  // Legs (only when running)
+  if (!dino.jumping && dino.alive) {
+    dctx.fillStyle = col;
+    const leg = Math.floor(dino.legFrame/4) % 2;
+    dctx.fillRect(dino.x + 8, dino.y + dino.h, 10, leg ? 12 : 4);
+    dctx.fillRect(dino.x + 22, dino.y + dino.h, 10, leg ? 4 : 12);
+  }
+
+  // Obstacles
+  dino.obstacles.forEach(o => {
+    if (o.bird) {
+      dctx.fillStyle = '#ff6b00';
+      dctx.fillRect(o.x, o.y - o.h + (o.wingUp ? 0 : 10), o.w, o.h - 10);
+      // Wings
+      dctx.fillRect(o.x + 4, o.y - o.h + (o.wingUp ? -12 : 0), o.w - 8, 10);
+    } else {
+      dctx.fillStyle = '#00f5a0';
+      dctx.fillRect(o.x, o.y - o.h, o.w, o.h);
+      // Cactus arms
+      dctx.fillRect(o.x - 8, o.y - o.h + 12, 8, 16);
+      dctx.fillRect(o.x + o.w, o.y - o.h + 18, 8, 12);
+    }
+  });
+
+  // Score
+  dctx.fillStyle = '#ffffff';
+  dctx.font = '700 18px JetBrains Mono,monospace';
+  dctx.textAlign = 'right';
+  dctx.fillText(String(Math.floor(dino.score)).padStart(5,'0'), W - 20, 30);
+  if (dino.best > 0) {
+    dctx.fillStyle = '#6060a0';
+    dctx.font = '12px JetBrains Mono,monospace';
+    dctx.fillText('HI ' + String(dino.best).padStart(5,'0'), W - 20, 50);
+  }
+
+  // Start / Game Over overlay
+  if (!dino.started) {
+    dctx.fillStyle = 'rgba(6,6,14,0.6)';
+    dctx.fillRect(0, 0, W, H);
+    dctx.fillStyle = '#ffffff';
+    dctx.font = 'bold 28px Bebas Neue,sans-serif';
+    dctx.textAlign = 'center';
+    dctx.fillText('PRESS SPACE OR TAP TO START', W/2, H/2);
+  } else if (!dino.alive) {
+    dctx.fillStyle = 'rgba(6,6,14,0.7)';
+    dctx.fillRect(0, 0, W, H);
+    dctx.fillStyle = '#ff2d55';
+    dctx.font = 'bold 32px Bebas Neue,sans-serif';
+    dctx.textAlign = 'center';
+    dctx.fillText('GAME OVER', W/2, H/2 - 20);
+    dctx.fillStyle = '#ffffff';
+    dctx.font = '18px Bebas Neue,sans-serif';
+    dctx.fillText('TAP TO RESTART', W/2, H/2 + 20);
+  }
+  dctx.textAlign = 'left';
+}
+
+function dinoLoop() {
+  if (curPanel !== 'dino' || !dino.alive) return;
+
+  dino.frame++;
+  dino.legFrame++;
+  dino.score += 0.1;
+  dino.speed = 5 + dino.score * 0.005;
+
+  // Physics
+  dino.vy += 0.7;
+  dino.y += dino.vy;
+  if (dino.y >= dino.groundY - dino.h) {
+    dino.y = dino.groundY - dino.h;
+    dino.vy = 0; dino.jumping = false;
+  }
+
+  // Spawn obstacles
+  const gap = Math.max(800 - dino.score * 2, 400);
+  if (dino.obstacles.length === 0 || dc.width - dino.obstacles[dino.obstacles.length-1].x > gap + Math.random()*300) {
+    dinoSpawnObstacle();
+  }
+
+  // Move & animate obstacles
+  dino.obstacles = dino.obstacles.filter(o => {
+    o.x -= dino.speed;
+    o.wingTimer++;
+    if (o.wingTimer > 8) { o.wingUp = !o.wingUp; o.wingTimer = 0; }
+    return o.x > -100;
+  });
+
+  // Clouds
+  if (Math.random() < 0.005) dino.clouds.push({x: dc.width, y: 40 + Math.random()*60});
+  dino.clouds = dino.clouds.filter(c => { c.x -= 0.8; return c.x > -100; });
+
+  // Score & speed display
+  const sc = Math.floor(dino.score);
+  document.getElementById('dinoScore').textContent = sc;
+  document.getElementById('dinoSpeed').textContent = (1 + dino.score*0.005).toFixed(1) + 'x';
+
+  if (dinoCheckHit()) {
+    dino.alive = false;
+    if (sc > dino.best) { dino.best = sc; document.getElementById('dinoBest').textContent = dino.best; }
+    document.getElementById('dinoStatus').textContent = 'Dead 💀';
+    dinoDraw();
+    return;
+  }
+
+  dinoDraw();
+  dino.animId = requestAnimationFrame(dinoLoop);
+}
+
+dc.addEventListener('click', () => {
+  if (!dino.started || !dino.alive) { dinoReset(); setTimeout(()=>{ dinoJump(); }, 100); }
+  else dinoJump();
+});
+dc.addEventListener('touchstart', e => { e.preventDefault(); dc.click(); }, {passive:false});
+document.addEventListener('keydown', e => {
+  if (curPanel !== 'dino') return;
+  if (e.code === 'Space' || e.code === 'ArrowUp') { e.preventDefault(); if (!e.repeat) dinoJump(); }
+  if (e.code === 'ArrowDown') { e.preventDefault(); dinoDuck(true); }
+});
+document.addEventListener('keyup', e => {
+  if (e.code === 'ArrowDown') dinoDuck(false);
+});
+
+/* ═══════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════
    INIT
 ═══════════════════════════════════════════ */
 document.getElementById('footYear').textContent = new Date().getFullYear();
 setLang('en');
+resetTyping();
+cbReset();
+dinoReset();
 switchPanel('reaction');
 setDuration(5);
 </script>
