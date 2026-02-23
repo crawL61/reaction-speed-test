@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- ═══ PRIMARY SEO ═══ -->
-<title>Reaction Time Test, Typing Test, Dino Game & Click Speed Test — Free Online</title>
-<meta name="description" content="Free online games: reaction time test, typing speed test (WPM), click speed test (CPS), dinosaur game, coreball, jitter click, spacebar test and stimulation clicker. Test your reflexes instantly.">
+<title>Reaction Time Test — Free Online Brain & Reflex Games</title>
+<meta name="description" content="Test your reaction time, typing speed (WPM), click speed (CPS), number memory and more — free, instant, no download. Play Dino Game, Coreball, Stimulation Clicker and Spacebar Test online.">
 <meta name="keywords" content="reaction time test, typing speed test, WPM test, dinosaur game, dino game, coreball game, click speed test, CPS test, free typing test, jitter click test, spacebar test, stimulation clicker, online reaction test, words per minute, typing test free, chrome dino game">
 <link rel="canonical" href="https://reactionspeedtest.com/">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
@@ -31,9 +31,38 @@
 <meta name="twitter:image" content="https://reactionspeedtest.com/og-image.png">
 
 <!-- ═══ FAVICON ═══ -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%2306060e'/><polygon points='20,2 9,18 15.5,18 11,30 23,13 16.5,13' fill='%2300f5a0'/></svg>">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2306060e'/%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%230a0a1a'/%3E%3Cstop offset='1' stop-color='%2306060e'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpolygon points='19,2 8,18 14.5,18 10,30 24,13 17.5,13' fill='%2300f5a0'/%3E%3Cpolygon points='19,2 8,18 14.5,18 10,30 24,13 17.5,13' fill='url(%23lg)'/%3E%3Cdefs%3E%3ClinearGradient id='lg' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23ffe000'/%3E%3Cstop offset='1' stop-color='%2300f5a0'/%3E%3C/linearGradient%3E%3C/defs%3E%3C/svg%3E">
 
 <!-- ═══ STRUCTURED DATA (JSON-LD) ═══ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://reactionspeedtest.com/#org",
+  "name": "Reflex Lab",
+  "url": "https://reactionspeedtest.com/",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://reactionspeedtest.com/og-image.png",
+    "width": 1200,
+    "height": 630
+  },
+  "sameAs": ["https://reactionspeedtest.com/"]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://reactionspeedtest.com/#website",
+  "name": "Reflex Lab — Reaction Time & Brain Tests",
+  "url": "https://reactionspeedtest.com/",
+  "description": "Free online reaction time test, typing speed test, click speed test, number memory test, dino game and more.",
+  "publisher": { "@id": "https://reactionspeedtest.com/#org" }
+}
+</script>
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -2554,13 +2583,14 @@ function cbLoop() {
     const dist = Math.sqrt(dx*dx + dy*dy);
 
     if (dist <= R + 12) {
+      // Normalize to exact circle surface angle
       const hitAngle = Math.atan2(dy, dx);
 
-      // Check collision with preplaced danger balls — instant game over
+      // Check collision with preplaced danger balls
       const hitDanger = cb.preplaced.some(s => {
         let diff = Math.abs(s.angle - hitAngle);
         if (diff > Math.PI) diff = Math.PI*2 - diff;
-        return diff < 0.16;
+        return diff < 0.12;
       });
       if (hitDanger) {
         cb.gameOver = true;
@@ -2569,11 +2599,11 @@ function cbLoop() {
         cbDraw(); return false;
       }
 
-      // Check collision with stuck balls
+      // Check collision with stuck balls — only collide if truly overlapping (ball radius 10, R 110 → 10/110 = 0.091 rad per ball side)
       const hitStuck = cb.stuck.some(s => {
         let diff = Math.abs(s.angle - hitAngle);
         if (diff > Math.PI) diff = Math.PI*2 - diff;
-        return diff < 0.15;
+        return diff < 0.10;
       });
       if (hitStuck) {
         cb.gameOver = true;
@@ -2906,7 +2936,25 @@ dc.addEventListener('click', () => {
   if (!dino.started || !dino.alive) { dinoReset(); setTimeout(()=>{ dinoJump(); }, 100); }
   else dinoJump();
 });
-dc.addEventListener('touchstart', e => { e.preventDefault(); dc.click(); }, {passive:false});
+// Touch: tap = jump, swipe down = duck
+let dcTouchY = 0;
+dc.addEventListener('touchstart', e => {
+  e.preventDefault();
+  dcTouchY = e.touches[0].clientY;
+}, {passive:false});
+dc.addEventListener('touchend', e => {
+  e.preventDefault();
+  const dy = e.changedTouches[0].clientY - dcTouchY;
+  if (dy > 30) {
+    // Swipe down = duck
+    dinoDuck(true);
+    setTimeout(() => dinoDuck(false), 400);
+  } else {
+    // Tap = jump
+    if (!dino.started || !dino.alive) { dinoReset(); setTimeout(()=>{ dinoJump(); }, 100); }
+    else dinoJump();
+  }
+}, {passive:false});
 document.addEventListener('keydown', e => {
   if (curPanel !== 'dino') return;
   if (e.code === 'Space' || e.code === 'ArrowUp') { e.preventDefault(); if (!e.repeat) dinoJump(); }
