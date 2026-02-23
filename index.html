@@ -2432,48 +2432,90 @@ document.getElementById('tInput').addEventListener('input', function() {
 });
 
 /* ═══════════════════════════════════════════
-   COREBALL — fixed: slower speed, ball visible during flight
+   COREBALL — collision via real pixel distance
 ═══════════════════════════════════════════ */
 const cbCanvas = document.getElementById('coreCanvas');
-const cbCtx = cbCanvas.getContext('2d');
-let cb = { score:0, best:0, level:1, ballsLeft:10, angle:0, speed:0.012, balls:[], stuck:[], preplaced:[], gameOver:false, animId:null, transitioning:false };
+const cbCtx    = cbCanvas.getContext('2d');
 
+const CB_R      = 110;   // core circle radius
+const CB_BRAD   = 10;    // ball radius
+const CB_COLORS = ['#00f5a0','#ff2d55','#ffe000','#7b61ff','#ff6b00','#00b4d8','#ff69b4'];
+
+let cb = {
+  score:0, best:0, level:1, ballsLeft:10,
+  rotSpeed:0.012,           // radians per frame — whole cluster rotates
+  stuckBalls:[],            // {angle, color}  — rotate with cluster
+  danger:[],                // {angle, color}  — rotate with cluster
+  flyBall:null,             // {x, y, vy, color} — one ball in flight at a time
+  gameOver:false, transitioning:false, animId:null
+};
+
+function cbCX() { return cbCanvas.width  / 2; }
+function cbCY() { return cbCanvas.height / 2; }
+
+/* ── reset / next-level ─────────────────────────────── */
 function cbReset() {
-  if(cb.animId) cancelAnimationFrame(cb.animId);
-  cb = { score:0, best:cb.best, level:1, ballsLeft:10, angle:0, speed:0.012, balls:[], stuck:[], preplaced:[], gameOver:false, animId:null, transitioning:false };
-  document.getElementById('cbScore').textContent = '0';
-  document.getElementById('cbLevel').textContent = '1';
-  document.getElementById('cbBalls').textContent = '10';
-  document.getElementById('cbMsg').textContent = 'TAP TO SHOOT';
+  cancelAnimationFrame(cb.animId);
+  cb = { score:0, best:cb.best, level:1, ballsLeft:10,
+         rotSpeed:0.012, stuckBalls:[], danger:[],
+         flyBall:null, gameOver:false, transitioning:false, animId:null };
+  document.getElementById('cbScore').textContent  = '0';
+  document.getElementById('cbLevel').textContent  = '1';
+  document.getElementById('cbBalls').textContent  = '10';
+  document.getElementById('cbMsg').textContent    = 'TAP TO SHOOT';
   cbDraw();
 }
 
+function cbNextLevel() {
+  cb.level++;
+  cb.stuckBalls  = [];
+  cb.flyBall     = null;
+  cb.ballsLeft   = 10;
+  cb.rotSpeed    = Math.min(0.012 + cb.level * 0.004, 0.05);
+  cb.transitioning = false;
+  cb.animId = null;
+
+  // danger balls evenly spaced
+  cb.danger = [];
+  const dCount = Math.min(cb.level - 1, 6);
+  for (let i = 0; i < dCount; i++) {
+    cb.danger.push({ angle: (Math.PI * 2 / Math.max(dCount, 1)) * i });
+  }
+
+  document.getElementById('cbLevel').textContent = cb.level;
+  document.getElementById('cbBalls').textContent = cb.ballsLeft;
+  document.getElementById('cbMsg').textContent   =
+    `⭐ LEVEL ${cb.level}${dCount ? ' — avoid red balls!' : ''} — TAP TO SHOOT`;
+  cbDraw();
+  cb.animId = requestAnimationFrame(cbTick);
+}
+
+/* ── draw ───────────────────────────────────────────── */
 function cbDraw() {
-  const W = cbCanvas.width, H = cbCanvas.height, cx = W/2, cy = H/2, R = 110;
+  const W = cbCanvas.width, H = cbCanvas.height;
+  const cx = cbCX(), cy = cbCY(), R = CB_R;
   cbCtx.clearRect(0, 0, W, H);
 
-  // Core circle
+  // Core ring
   cbCtx.beginPath();
-  cbCtx.arc(cx, cy, R, 0, Math.PI*2);
+  cbCtx.arc(cx, cy, R, 0, Math.PI * 2);
   cbCtx.strokeStyle = cb.gameOver ? '#ff2d55' : '#2a2a4a';
   cbCtx.lineWidth = 4;
   cbCtx.stroke();
 
-  // Preplaced danger balls (new level obstacles) — drawn with warning ring
-  cb.preplaced.forEach(s => {
-    const bx = cx + Math.cos(s.angle) * R;
-    const by = cy + Math.sin(s.angle) * R;
-    // Warning pulse ring
+  // Danger balls
+  cb.danger.forEach(d => {
+    const bx = cx + Math.cos(d.angle) * R;
+    const by = cy + Math.sin(d.angle) * R;
     cbCtx.beginPath();
-    cbCtx.arc(bx, by, 14, 0, Math.PI*2);
-    cbCtx.strokeStyle = 'rgba(255,45,85,0.4)';
+    cbCtx.arc(bx, by, CB_BRAD + 4, 0, Math.PI * 2);
+    cbCtx.strokeStyle = 'rgba(255,45,85,0.35)';
     cbCtx.lineWidth = 2;
     cbCtx.stroke();
     cbCtx.beginPath();
-    cbCtx.arc(bx, by, 10, 0, Math.PI*2);
+    cbCtx.arc(bx, by, CB_BRAD, 0, Math.PI * 2);
     cbCtx.fillStyle = '#ff2d55';
     cbCtx.fill();
-    // X mark
     cbCtx.strokeStyle = '#fff';
     cbCtx.lineWidth = 2;
     cbCtx.beginPath();
@@ -2482,172 +2524,165 @@ function cbDraw() {
     cbCtx.stroke();
   });
 
-  // Spokes for stuck balls
-  cb.stuck.forEach(s => {
+  // Stuck balls + spokes
+  cb.stuckBalls.forEach(s => {
     const bx = cx + Math.cos(s.angle) * R;
     const by = cy + Math.sin(s.angle) * R;
     cbCtx.beginPath();
-    cbCtx.moveTo(cx, cy);
-    cbCtx.lineTo(bx, by);
+    cbCtx.moveTo(cx, cy); cbCtx.lineTo(bx, by);
     cbCtx.strokeStyle = s.color + '30';
     cbCtx.lineWidth = 1;
     cbCtx.stroke();
     cbCtx.beginPath();
-    cbCtx.arc(bx, by, 10, 0, Math.PI*2);
+    cbCtx.arc(bx, by, CB_BRAD, 0, Math.PI * 2);
     cbCtx.fillStyle = s.color;
     cbCtx.fill();
   });
 
-  // Flying balls — clearly visible
-  cb.balls.forEach(b => {
-    // Trail
+  // Flying ball
+  if (cb.flyBall) {
+    const b = cb.flyBall;
     cbCtx.beginPath();
-    cbCtx.arc(b.x, b.y + 8, 6, 0, Math.PI*2);
+    cbCtx.arc(b.x, b.y + 10, 6, 0, Math.PI * 2);
     cbCtx.fillStyle = b.color + '40';
     cbCtx.fill();
-    // Ball
     cbCtx.beginPath();
-    cbCtx.arc(b.x, b.y, 10, 0, Math.PI*2);
+    cbCtx.arc(b.x, b.y, CB_BRAD, 0, Math.PI * 2);
     cbCtx.fillStyle = b.color;
     cbCtx.fill();
     cbCtx.beginPath();
-    cbCtx.arc(b.x - 3, b.y - 3, 3, 0, Math.PI*2);
+    cbCtx.arc(b.x - 3, b.y - 3, 3, 0, Math.PI * 2);
     cbCtx.fillStyle = 'rgba(255,255,255,0.5)';
     cbCtx.fill();
-  });
+  }
 
-  // Score
-  cbCtx.fillStyle = cb.gameOver ? '#ff2d55' : '#ffffff';
-  cbCtx.font = `bold ${cb.gameOver?24:38}px 'Bebas Neue',sans-serif`;
-  cbCtx.textAlign = 'center'; cbCtx.textBaseline = 'middle';
+  // Center score
+  cbCtx.fillStyle    = cb.gameOver ? '#ff2d55' : '#ffffff';
+  cbCtx.font         = `bold ${cb.gameOver ? 22 : 38}px 'Bebas Neue',sans-serif`;
+  cbCtx.textAlign    = 'center';
+  cbCtx.textBaseline = 'middle';
   cbCtx.fillText(cb.gameOver ? 'GAME OVER' : cb.score, cx, cy);
 
-  // Remaining balls dots
-  const totalDots = 10;
-  for (let i = 0; i < totalDots; i++) {
-    const dx = cx + (i - totalDots/2 + 0.5) * 20;
+  // Remaining balls dots at bottom
+  for (let i = 0; i < 10; i++) {
     cbCtx.beginPath();
-    cbCtx.arc(dx, H - 20, 6, 0, Math.PI*2);
+    cbCtx.arc(cx + (i - 4.5) * 20, H - 20, 6, 0, Math.PI * 2);
     cbCtx.fillStyle = i < cb.ballsLeft ? '#00f5a0' : '#1c1c30';
     cbCtx.fill();
   }
 
-  // Shooter indicator at bottom
+  // Shooter + aim line
   cbCtx.beginPath();
-  cbCtx.arc(cx, H - 20, 10, 0, Math.PI*2);
-  cbCtx.strokeStyle = '#ffffff40';
-  cbCtx.lineWidth = 2;
-  cbCtx.stroke();
-  // aim line
-  cbCtx.beginPath();
+  cbCtx.arc(cx, H - 20, 10, 0, Math.PI * 2);
+  cbCtx.strokeStyle = '#ffffff40'; cbCtx.lineWidth = 2; cbCtx.stroke();
   cbCtx.setLineDash([4, 4]);
-  cbCtx.moveTo(cx, H - 30);
-  cbCtx.lineTo(cx, cy + R + 20);
-  cbCtx.strokeStyle = '#ffffff20';
-  cbCtx.lineWidth = 1;
-  cbCtx.stroke();
+  cbCtx.beginPath();
+  cbCtx.moveTo(cx, H - 32); cbCtx.lineTo(cx, cy + R + 20);
+  cbCtx.strokeStyle = '#ffffff18'; cbCtx.lineWidth = 1; cbCtx.stroke();
   cbCtx.setLineDash([]);
 }
 
-const CB_COLORS = ['#00f5a0','#ff2d55','#ffe000','#7b61ff','#ff6b00','#00b4d8','#ff69b4'];
+/* ── main tick ──────────────────────────────────────── */
+function cbTick() {
+  if (curPanel !== 'coreball') { cb.animId = requestAnimationFrame(cbTick); return; }
 
-function cbNextLevel() {
-  cb.level++;
-  cb.stuck = [];
-  cb.balls = [];
-  cb.ballsLeft = 10;
-  cb.speed = Math.min(0.012 + cb.level * 0.005, 0.06);
-  cb.transitioning = false;
-  cb.animId = null; // reset so loop restarts fresh
-  // Add preplaced danger balls — more per level
-  cb.preplaced = [];
-  const count = Math.min(cb.level - 1, 6);
-  for (let i = 0; i < count; i++) {
-    cb.preplaced.push({ angle: (Math.PI * 2 / Math.max(count,1)) * i });
-  }
-  document.getElementById('cbLevel').textContent = cb.level;
-  document.getElementById('cbBalls').textContent = cb.ballsLeft;
-  document.getElementById('cbMsg').textContent = `⭐ LEVEL ${cb.level}${count > 0 ? ` — ${count} danger balls!` : ''} Tap to shoot`;
-  cbDraw();
-  // Restart animation loop for rotating preplaced balls
-  cb.animId = requestAnimationFrame(cbLoop);
-}
+  // Rotate whole cluster
+  cb.stuckBalls.forEach(s => s.angle += cb.rotSpeed);
+  cb.danger.forEach(d     => d.angle += cb.rotSpeed);
 
-function cbLoop() {
-  if (curPanel !== 'coreball') return;
-  const W = cbCanvas.width, H = cbCanvas.height, cx = W/2, cy = H/2, R = 110;
-
-  cb.angle += cb.speed;
-  cb.stuck.forEach(s => s.angle += cb.speed);
-  cb.preplaced.forEach(s => s.angle += cb.speed);
-
-  cb.balls = cb.balls.filter(b => {
-    b.y += b.vy;
+  // Move flying ball
+  if (cb.flyBall) {
+    cb.flyBall.y += cb.flyBall.vy;
+    const b  = cb.flyBall;
+    const cx = cbCX(), cy = cbCY();
     const dx = b.x - cx, dy = b.y - cy;
-    const dist = Math.sqrt(dx*dx + dy*dy);
+    const dist = Math.sqrt(dx * dx + dy * dy);
 
-    if (dist <= R + 12) {
-      // Normalize to exact circle surface angle
-      const hitAngle = Math.atan2(dy, dx);
+    // Ball touches the ring when its CENTER reaches R (not R+brad,
+    // because we want it to land ON the ring, not outside it)
+    if (dist <= CB_R + CB_BRAD) {
 
-      // Check collision with preplaced danger balls
-      const hitDanger = cb.preplaced.some(s => {
-        let diff = Math.abs(s.angle - hitAngle);
-        if (diff > Math.PI) diff = Math.PI*2 - diff;
-        return diff < 0.12;
+      // Where exactly on the ring does it land?
+      const landAngle = Math.atan2(dy, dx);
+
+      // Convert every stuck/danger ball angle → XY on ring, then
+      // measure PIXEL distance to landing point. This is exact — no angle math.
+      const landX = cx + Math.cos(landAngle) * CB_R;
+      const landY = cy + Math.sin(landAngle) * CB_R;
+
+      // Check danger balls
+      const hitDanger = cb.danger.some(d => {
+        const ex = cx + Math.cos(d.angle) * CB_R;
+        const ey = cy + Math.sin(d.angle) * CB_R;
+        return Math.hypot(ex - landX, ey - landY) < CB_BRAD * 2;
       });
+
       if (hitDanger) {
         cb.gameOver = true;
         if (cb.score > cb.best) { cb.best = cb.score; document.getElementById('cbBest').textContent = cb.best; }
-        document.getElementById('cbMsg').textContent = `💥 Hit a danger ball! Score: ${cb.score} — TAP TO RESTART`;
-        cbDraw(); return false;
+        document.getElementById('cbMsg').textContent = `💥 Hit danger ball! Score: ${cb.score} — TAP TO RESTART`;
+        cb.flyBall = null;
+        cbDraw(); return;
       }
 
-      // Check collision with stuck balls — only collide if truly overlapping (ball radius 10, R 110 → 10/110 = 0.091 rad per ball side)
-      const hitStuck = cb.stuck.some(s => {
-        let diff = Math.abs(s.angle - hitAngle);
-        if (diff > Math.PI) diff = Math.PI*2 - diff;
-        return diff < 0.10;
+      // Check stuck balls
+      const hitStuck = cb.stuckBalls.some(s => {
+        const ex = cx + Math.cos(s.angle) * CB_R;
+        const ey = cy + Math.sin(s.angle) * CB_R;
+        return Math.hypot(ex - landX, ey - landY) < CB_BRAD * 2;
       });
+
       if (hitStuck) {
         cb.gameOver = true;
         if (cb.score > cb.best) { cb.best = cb.score; document.getElementById('cbBest').textContent = cb.best; }
         document.getElementById('cbMsg').textContent = `💥 Hit existing ball! Score: ${cb.score} — TAP TO RESTART`;
-        cbDraw(); return false;
+        cb.flyBall = null;
+        cbDraw(); return;
       }
 
-      // Successful stick
-      cb.stuck.push({ angle: hitAngle, color: b.color });
+      // ✅ Stick!
+      cb.stuckBalls.push({ angle: landAngle, color: b.color });
+      cb.flyBall = null;
       cb.score++;
       document.getElementById('cbScore').textContent = cb.score;
-      cb.speed = Math.min(0.012 + cb.score * 0.0015, 0.055);
+      cb.rotSpeed = Math.min(0.012 + cb.score * 0.001, 0.05);
 
-      // Every 10 stuck = level up
-      if (cb.stuck.length >= 10) {
+      if (cb.stuckBalls.length >= 10) {
         cb.transitioning = true;
-        document.getElementById('cbMsg').textContent = `🎉 LEVEL CLEAR! Preparing level ${cb.level + 1}...`;
+        document.getElementById('cbMsg').textContent = `🎉 LEVEL CLEAR! Going to level ${cb.level + 1}…`;
         cbDraw();
         setTimeout(cbNextLevel, 1200);
+        return;
       }
-      return false;
+      document.getElementById('cbMsg').textContent = `${cb.ballsLeft} balls left`;
     }
-    if (b.y < -20) return false;
-    return true;
-  });
+
+    // Ball flew off screen
+    if (b.y < -CB_BRAD) {
+      cb.flyBall = null;
+    }
+  }
 
   cbDraw();
-  if (!cb.gameOver && !cb.transitioning) cb.animId = requestAnimationFrame(cbLoop);
+  if (!cb.gameOver && !cb.transitioning) cb.animId = requestAnimationFrame(cbTick);
 }
 
+/* ── shoot ──────────────────────────────────────────── */
 cbCanvas.addEventListener('click', () => {
   if (cb.gameOver) { cbReset(); return; }
-  if (cb.transitioning || cb.ballsLeft <= 0) return;
+  if (cb.transitioning) return;
+  if (cb.flyBall) return;          // one ball at a time
+  if (cb.ballsLeft <= 0) return;
+
   cb.ballsLeft--;
   document.getElementById('cbBalls').textContent = cb.ballsLeft;
-  document.getElementById('cbMsg').textContent = cb.ballsLeft === 0 ? '🎯 Last ball!' : `${cb.ballsLeft} balls left`;
-  const color = CB_COLORS[Math.floor(Math.random()*CB_COLORS.length)];
-  cb.balls.push({ x: cbCanvas.width/2, y: cbCanvas.height - 40, vy: -12, color });
-  if (!cb.animId) { cb.animId = requestAnimationFrame(cbLoop); }
+  document.getElementById('cbMsg').textContent   =
+    cb.ballsLeft === 0 ? '🎯 Last ball!' : `${cb.ballsLeft} balls left`;
+
+  const color = CB_COLORS[Math.floor(Math.random() * CB_COLORS.length)];
+  cb.flyBall = { x: cbCX(), y: cbCanvas.height - 30, vy: -9, color };
+
+  if (!cb.animId) cb.animId = requestAnimationFrame(cbTick);
 });
 cbCanvas.addEventListener('touchstart', e => { e.preventDefault(); cbCanvas.click(); }, {passive:false});
 
