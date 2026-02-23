@@ -174,16 +174,7 @@ body::before {
 }
 .row1::-webkit-scrollbar { display: none; }
 
-.logo {
-  display: flex; align-items: center;
-  padding: 0 22px 0 18px;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.35rem; letter-spacing: 0.15em;
-  background: linear-gradient(135deg, var(--accent), var(--yellow));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-  white-space: nowrap; flex-shrink: 0; text-decoration: none;
-  border-right: 1px solid var(--border2);
-}
+.logo { display: none; }
 
 /* Test type tabs */
 .tabs {
@@ -194,8 +185,8 @@ body::before {
 .tabs::-webkit-scrollbar { display: none; }
 
 .tab {
-  display: flex; align-items: center; gap: 7px;
-  padding: 0 20px; cursor: pointer;
+  display: flex; align-items: center; gap: 6px;
+  padding: 0 16px; cursor: pointer;
   font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
   color: #c0c0e0; white-space: nowrap; flex-shrink: 0;
   background: none; border: none; border-bottom: 2px solid transparent;
@@ -748,14 +739,10 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
     --row2-h: 40px;
     --header-h: 88px;
   }
-  .logo { padding:0 12px 0 12px; font-size:1.1rem; }
-
-  /* Tab row: wider to scroll, bigger touch targets */
-  .row1 { gap:0; }
   .tab  {
-    padding:0 14px;
+    padding:0 12px;
     font-size:0.65rem;
-    min-width:85px;
+    min-width:80px;
     white-space:nowrap;
   }
   .tab .ticon { font-size:0.85rem; }
@@ -840,8 +827,7 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
 
 /* Very small phones */
 @media(max-width:360px){
-  .logo { display:none; }  /* hide logo to give more tab space */
-  .tab  { padding:0 10px; font-size:0.5rem; min-width:68px; }
+  .tab  { padding:0 8px; font-size:0.5rem; min-width:65px; }
   .click-arena, .reaction-arena { height:clamp(170px,35vh,280px); }
   .stim-arena { height:clamp(220px,42vh,340px); }
 }
@@ -854,9 +840,8 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
 ═══════════════════════════════════════════════════ -->
 <div class="header">
 
-  <!-- ROW 1: Logo + test type tabs + lang toggle -->
+  <!-- ROW 1: tabs + lang toggle -->
   <div class="row1">
-    <a class="logo" href="#">⚡ REFLEX LAB</a>
 
     <div class="tabs" role="tablist">
       <button class="tab active" data-panel="reaction" onclick="switchPanel('reaction')" role="tab">
@@ -882,6 +867,9 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
       </button>
       <button class="tab" data-panel="coreball" onclick="switchPanel('coreball')" role="tab">
         <span class="ticon">🎮</span> Coreball
+      </button>
+      <button class="tab" data-panel="memory" onclick="switchPanel('memory')" role="tab">
+        <span class="ticon">🧠</span> Number Memory
       </button>
     </div>
 
@@ -1204,6 +1192,70 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
   </div>
 
   <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       PANEL: NUMBER MEMORY
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <div id="panel-memory" class="game-zone" style="display:none">
+    <div class="gtitle-row">
+      <h1 class="gtitle" style="background:linear-gradient(135deg,#7b61ff,#00b4d8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Number Memory</h1>
+      <span class="gsub">Memorize the number — how many digits can you remember?</span>
+    </div>
+    <div class="stats-bar">
+      <div class="scard hi3"><div class="slbl">Level</div><div class="sval purple" id="memLevel">1</div></div>
+      <div class="scard hi2"><div class="slbl">Best</div><div class="sval yellow" id="memBest">—</div></div>
+      <div class="scard"><div class="slbl">Digits</div><div class="sval muted" id="memDigits">1</div></div>
+      <div class="scard hi1"><div class="slbl">Lives</div><div class="sval" id="memLives">❤️❤️❤️</div></div>
+    </div>
+
+    <div style="width:100%;max-width:520px;align-self:center;display:flex;flex-direction:column;gap:16px;align-items:center">
+
+      <!-- Number display box -->
+      <div id="memDisplay" style="
+        width:100%;min-height:140px;
+        background:#090914;border:2px solid var(--border);border-radius:20px;
+        display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;
+        padding:24px;position:relative;overflow:hidden;
+      ">
+        <div id="memNumber" style="
+          font-family:'Bebas Neue',sans-serif;
+          font-size:clamp(2.5rem,10vw,5rem);
+          letter-spacing:0.18em;color:#ffffff;
+          transition:opacity 0.3s;text-align:center;word-break:break-all;
+        "></div>
+        <div id="memMsg" style="font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted)">PRESS START</div>
+        <!-- Progress bar for memorize time -->
+        <div id="memBar" style="position:absolute;bottom:0;left:0;height:4px;background:var(--purple);width:100%;transition:width linear;"></div>
+      </div>
+
+      <!-- Input area -->
+      <div id="memInputArea" style="width:100%;display:flex;flex-direction:column;gap:10px;align-items:center;display:none">
+        <div style="font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted)">Type the number you saw</div>
+        <input id="memInput" type="number" inputmode="numeric" pattern="[0-9]*"
+          style="
+            width:100%;background:var(--surf2);border:2px solid var(--purple);
+            border-radius:12px;padding:14px 18px;text-align:center;
+            font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:0.2em;
+            color:#ffffff;outline:none;
+          "
+          placeholder="?"
+        >
+        <button id="memSubmit" onclick="memCheck()" style="
+          width:100%;padding:14px;background:var(--purple);color:#fff;
+          border:none;border-radius:12px;font-family:'Bebas Neue',sans-serif;
+          font-size:1.2rem;letter-spacing:0.2em;cursor:pointer;transition:opacity 0.2s;
+        ">SUBMIT</button>
+      </div>
+
+      <!-- Start / next button -->
+      <button id="memStartBtn" onclick="memStart()" style="
+        padding:14px 48px;background:var(--purple);color:#fff;
+        border:none;border-radius:14px;font-family:'Bebas Neue',sans-serif;
+        font-size:1.3rem;letter-spacing:0.2em;cursor:pointer;transition:all 0.2s;
+      ">START</button>
+
+    </div>
+  </div>
+
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━
        PANEL: DINO GAME
   ━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
   <div id="panel-dino" class="game-zone" style="display:none">
@@ -1404,28 +1456,50 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
     </div></article>
     </div>
 
-    <footer class="sfooter">
-      <p class="ibody">
-        A <strong>reaction time test</strong> measures how quickly you respond to a visual stimulus — from when your eyes detect a signal to when your hand clicks. Results are measured in <strong>milliseconds (ms)</strong>. The average human reaction time is <strong>200–250ms</strong>, while elite gamers and athletes consistently achieve <strong>150–200ms</strong>.<br><br>
-        Our free online reaction time test runs <strong>5 rounds</strong>, automatically removes outliers, and gives you your best, average, and a performance rating from <em>Slow</em> to <em>Legendary</em>. No software to install — works in any browser on desktop or mobile.
-      </p>
+    <!-- ═══ INFO: NUMBER MEMORY ═══ -->
+    <div class="info-section" data-info="memory" style="display:none">
+    <div class="sec-divider">ABOUT NUMBER MEMORY TEST</div>
+    <article class="icard">
+      <h2 class="icard-title">🧠 What Is the Number Memory Test?</h2>
+      <p class="ibody">The <strong>Number Memory Test</strong> challenges you to memorize increasingly long sequences of digits. Each level adds one more digit — starting at 1, going up as far as your working memory allows. You have <strong>3 lives</strong>; a wrong answer costs one life and drops you back a level. The number is shown briefly, then hidden — you must type it from memory.<br><br>This test directly measures your <strong>working memory capacity</strong>, one of the most researched cognitive abilities. It's used in IQ tests, psychology research, and neurological assessments worldwide.</p>
     </article>
+    <article class="icard">
+      <h2 class="icard-title">📊 Number Memory Score Rankings</h2>
+      <table class="rtable"><thead><tr><th>Digits</th><th>Level</th><th>Population</th></tr></thead><tbody>
+        <tr><td style="color:#b0b0d0">1–4</td><td style="color:#b0b0d0">🐢 Below Average</td><td style="color:#c8c8e8">Bottom 25%</td></tr>
+        <tr><td style="color:var(--purple)">5–6</td><td style="color:var(--purple)">👍 Average</td><td style="color:#c8c8e8">Most adults: 5–7 digits</td></tr>
+        <tr><td style="color:var(--accent)">7–8</td><td style="color:var(--accent)">⚡ Good</td><td style="color:#c8c8e8">Top 30% — strong working memory</td></tr>
+        <tr><td style="color:var(--yellow)">9–10</td><td style="color:var(--yellow)">🏆 Excellent</td><td style="color:#c8c8e8">Top 10% — gifted memory</td></tr>
+        <tr><td style="color:var(--red)">11+</td><td style="color:var(--red)">🧠 Exceptional</td><td style="color:#c8c8e8">Top 1% — memory athlete level</td></tr>
+      </tbody></table>
+    </article>
+    <article class="icard">
+      <h2 class="icard-title">💡 Tips to Improve Number Memory</h2>
+      <p class="ibody"><strong>Chunking:</strong> Group digits into pairs or triples (e.g. 3-8-4-7-2 → 38, 47, 2). This is how phone numbers are remembered.<br><strong>Rhythm:</strong> Say the number aloud with a rhythm or melody — music memory is stronger than verbal memory.<br><strong>Visualization:</strong> Associate digits with images or locations (memory palace technique).<br><strong>Practice:</strong> Daily training measurably expands working memory span within 2–4 weeks.</p>
+    </article>
+    <div class="sec-divider">FAQ — NUMBER MEMORY</div>
+    <article class="icard"><div class="faq-list">
+      <div class="faq-item"><button class="faq-q">What is the average number memory span? <span class="faq-arrow">▼</span></button><div class="faq-a">The average adult can hold <strong>5–7 digits</strong> in working memory — this is why phone numbers were traditionally 7 digits long. The "magical number 7±2" was proposed by psychologist George Miller in 1956.</div></div>
+      <div class="faq-item"><button class="faq-q">What is the world record for number memory? <span class="faq-arrow">▼</span></button><div class="faq-a">Memory athletes using the <strong>memory palace technique</strong> can memorize hundreds of digits. The world record for memorizing pi is over 70,000 digits. For random number sequences, competitive memorizers regularly achieve 50–100+ digits.</div></div>
+      <div class="faq-item"><button class="faq-q">Does number memory relate to IQ? <span class="faq-arrow">▼</span></button><div class="faq-a">Yes. Working memory capacity is <strong>moderately correlated with fluid intelligence</strong> (IQ). Digit span tasks are included in WAIS and WISC intelligence tests. However, memory can be trained independently of IQ.</div></div>
+      <div class="faq-item"><button class="faq-q">Why does the number disappear so fast? <span class="faq-arrow">▼</span></button><div class="faq-a">Display time scales with digit count (800ms per digit). At higher levels you get more time. The challenge is transferring what you see into <strong>short-term verbal memory</strong> fast enough — this is exactly what the test measures.</div></div>
+    </div></article>
+    </div>
 
     <footer class="sfooter">
       <div style="margin-bottom:10px">
         <span style="color:var(--yellow);font-size:0.9rem;letter-spacing:2px">★★★★★</span>
         <span style="color:var(--text);font-size:0.58rem;margin-left:6px">4.8/5 — 2,347 ratings</span>
       </div>
-      <!-- App meta — required visible for Google mobile crawler -->
       <p style="margin-bottom:6px;font-size:0.5rem">
         Platform: <span>Windows, macOS, Linux, Android, iOS</span> &nbsp;·&nbsp;
         Category: <span>Game Application</span> &nbsp;·&nbsp;
         Price: <span>Free</span> &nbsp;·&nbsp;
         Rated: <span>4.8 / 5</span> by <span>2,347</span> users
       </p>
-      <p>© <span id="footYear"></span> Reaction Speed Test — Free Online CPS &amp; Reaction Time Tester</p>
-      <p style="margin-top:6px">Test your <strong>reaction time</strong>, <strong>click speed (CPS)</strong>, <strong>jitter click</strong>, <strong>Kohi click</strong>, <strong>spacebar speed</strong>, and <strong>stimulation clicker</strong> aim training for free. No download, no registration. Works on any device.</p>
-      <p style="margin-top:6px;font-size:0.48rem">Keywords: reaction time test · click speed test · CPS test · free CPS counter · jitter click test · kohi click · spacebar speed test · stimulation clicker · online reaction test · how fast can I click · clicks per second · 1 second CPS · 10 second click test · reaction speed</p>
+      <p>© <span id="footYear"></span> Reaction Speed Test — Free Online Brain &amp; Reflex Tests</p>
+      <p style="margin-top:6px">Test your <strong>reaction time</strong>, <strong>number memory</strong>, <strong>typing speed</strong>, <strong>click speed (CPS)</strong>, and more — free, no download, works on any device.</p>
+      <p style="margin-top:6px;font-size:0.48rem">Keywords: reaction time test · number memory test · typing speed test · click speed test · CPS test · dino game · coreball · jitter click · spacebar test · stimulation clicker · working memory test · brain test online</p>
     </footer>
 
   </div>
@@ -1452,7 +1526,7 @@ function switchPanel(p) {
   document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.panel === p));
 
   // Map jitter/kohi → cps panel
-  const allPanels = ['cps','spacebar','reaction','stimulation','typing','coreball','dino'];
+  const allPanels = ['cps','spacebar','reaction','stimulation','typing','coreball','dino','memory'];
   allPanels.forEach(id => {
     const el = document.getElementById('panel-' + id);
     if (el) el.style.display = 'none';
@@ -1463,7 +1537,7 @@ function switchPanel(p) {
 
   // Row2: hide for reaction, stim, typing, coreball
   const row2 = document.getElementById('row2');
-  const hideRow2 = ['reaction','stimulation','typing','coreball','dino'].includes(p);
+  const hideRow2 = ['reaction','stimulation','typing','coreball','dino','memory'].includes(p);
   row2.classList.toggle('hidden', hideRow2);
   document.querySelector('.wrap').style.paddingTop =
     hideRow2 ? 'var(--row1-h)' : 'var(--header-h)';
@@ -1483,7 +1557,7 @@ function switchPanel(p) {
   if (p === 'stimulation') resetStim();
 
   // Switch info section
-  const infoMap = { reaction:'reaction', stimulation:'stimulation', cps:'cps', jitter:'cps', spacebar:'spacebar', typing:'typing', coreball:'coreball', dino:'dino' };
+  const infoMap = { reaction:'reaction', stimulation:'stimulation', cps:'cps', jitter:'cps', spacebar:'spacebar', typing:'typing', coreball:'coreball', dino:'dino', memory:'memory' };
   document.querySelectorAll('.info-section').forEach(s => s.style.display = 'none');
   const infoKey = infoMap[p] || 'reaction';
   const infoEl = document.querySelector(`.info-section[data-info="${infoKey}"]`);
@@ -2486,7 +2560,7 @@ function cbLoop() {
       const hitDanger = cb.preplaced.some(s => {
         let diff = Math.abs(s.angle - hitAngle);
         if (diff > Math.PI) diff = Math.PI*2 - diff;
-        return diff < 0.26;
+        return diff < 0.16;
       });
       if (hitDanger) {
         cb.gameOver = true;
@@ -2499,7 +2573,7 @@ function cbLoop() {
       const hitStuck = cb.stuck.some(s => {
         let diff = Math.abs(s.angle - hitAngle);
         if (diff > Math.PI) diff = Math.PI*2 - diff;
-        return diff < 0.24;
+        return diff < 0.15;
       });
       if (hitStuck) {
         cb.gameOver = true;
@@ -2843,17 +2917,105 @@ document.addEventListener('keyup', e => {
 });
 
 /* ═══════════════════════════════════════════
-   INIT
+   NUMBER MEMORY ENGINE
 ═══════════════════════════════════════════ */
+let mem = { level:1, best:0, lives:3, number:'', phase:'idle', timer:null };
+
+function memReset() {
+  clearTimeout(mem.timer);
+  mem = { level:1, best:0, lives:3, number:'', phase:'idle', timer:null };
+  document.getElementById('memLevel').textContent = '1';
+  document.getElementById('memDigits').textContent = '1';
+  document.getElementById('memLives').textContent = '❤️❤️❤️';
+  document.getElementById('memBest').textContent = '—';
+  memSetMsg('PRESS START', '');
+  document.getElementById('memInputArea').style.display = 'none';
+  document.getElementById('memStartBtn').style.display = 'block';
+  document.getElementById('memStartBtn').textContent = 'START';
+  const bar = document.getElementById('memBar');
+  bar.style.transition = 'none'; bar.style.width = '100%';
+}
+
+function memSetMsg(msg, num) {
+  document.getElementById('memMsg').textContent = msg;
+  document.getElementById('memNumber').textContent = num;
+}
+
+function memStart() {
+  if (mem.phase === 'gameover') {
+    const best = mem.best;
+    mem = { level:1, best, lives:3, number:'', phase:'idle', timer:null };
+    document.getElementById('memLives').textContent = '❤️❤️❤️';
+  }
+  mem.phase = 'show';
+  const digits = mem.level;
+  document.getElementById('memDigits').textContent = digits;
+  document.getElementById('memLevel').textContent = mem.level;
+  let num = String(Math.floor(Math.random()*9)+1);
+  for (let i = 1; i < digits; i++) num += String(Math.floor(Math.random()*10));
+  mem.number = num;
+  document.getElementById('memStartBtn').style.display = 'none';
+  document.getElementById('memInputArea').style.display = 'none';
+  document.getElementById('memInput').value = '';
+  memSetMsg('MEMORIZE!', num);
+  const showTime = Math.max(1000, digits * 800);
+  const bar = document.getElementById('memBar');
+  bar.style.transition = 'none'; bar.style.width = '100%'; bar.style.background = 'var(--purple)';
+  setTimeout(() => { bar.style.transition = `width ${showTime}ms linear`; bar.style.width = '0%'; }, 50);
+  mem.timer = setTimeout(() => {
+    memSetMsg('WHAT WAS THE NUMBER?', '');
+    document.getElementById('memInputArea').style.display = 'flex';
+    document.getElementById('memInput').focus();
+    mem.phase = 'input';
+    bar.style.transition = 'none'; bar.style.width = '100%'; bar.style.background = 'var(--accent)';
+  }, showTime);
+}
+
+function memCheck() {
+  if (mem.phase !== 'input') return;
+  const answer = document.getElementById('memInput').value.trim();
+  document.getElementById('memInputArea').style.display = 'none';
+  if (answer === mem.number) {
+    if (mem.level > mem.best) { mem.best = mem.level; document.getElementById('memBest').textContent = mem.best; }
+    mem.level++;
+    document.getElementById('memLevel').textContent = mem.level;
+    document.getElementById('memDigits').textContent = mem.level;
+    document.getElementById('memBar').style.background = 'var(--accent)';
+    memSetMsg(`✅ CORRECT! Ready for ${mem.level} digits`, '');
+    document.getElementById('memStartBtn').textContent = 'NEXT LEVEL →';
+    document.getElementById('memStartBtn').style.display = 'block';
+    mem.phase = 'idle';
+  } else {
+    mem.lives--;
+    const hearts = '❤️'.repeat(Math.max(0,mem.lives)) + '🖤'.repeat(Math.max(0,3-mem.lives));
+    document.getElementById('memLives').textContent = hearts;
+    document.getElementById('memBar').style.background = 'var(--red)';
+    if (mem.lives <= 0) {
+      mem.phase = 'gameover';
+      if (mem.level-1 > mem.best) { mem.best = mem.level-1; document.getElementById('memBest').textContent = mem.best; }
+      memSetMsg(`GAME OVER — It was:`, mem.number);
+      document.getElementById('memStartBtn').textContent = 'PLAY AGAIN';
+      document.getElementById('memStartBtn').style.display = 'block';
+    } else {
+      mem.level = Math.max(1, mem.level-1);
+      document.getElementById('memLevel').textContent = mem.level;
+      memSetMsg(`❌ WRONG! It was: ${mem.number} — ${mem.lives} ${mem.lives===1?'life':'lives'} left`, '');
+      document.getElementById('memStartBtn').textContent = 'TRY AGAIN';
+      document.getElementById('memStartBtn').style.display = 'block';
+      mem.phase = 'idle';
+    }
+  }
+}
+document.getElementById('memInput').addEventListener('keydown', e => { if(e.key==='Enter') memCheck(); });
 
 /* ═══════════════════════════════════════════
    INIT
 ═══════════════════════════════════════════ */
-document.getElementById('footYear').textContent = new Date().getFullYear();
 setLang('en');
 resetTyping();
 cbReset();
 dinoReset();
+memReset();
 switchPanel('reaction');
 setDuration(5);
 </script>
