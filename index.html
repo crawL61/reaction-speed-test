@@ -10,6 +10,16 @@
 <meta name="keywords" content="reaction time test, typing speed test, WPM test, dinosaur game, dino game, coreball game, click speed test, CPS test, free typing test, jitter click test, spacebar test, stimulation clicker, online reaction test, words per minute, typing test free, chrome dino game">
 <link rel="canonical" href="https://reactionspeedtest.com/">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<!-- Sitemap hints for crawlers — each game has its own URL -->
+<link rel="alternate" href="https://reactionspeedtest.com/reaction-time-test">
+<link rel="alternate" href="https://reactionspeedtest.com/click-speed-test">
+<link rel="alternate" href="https://reactionspeedtest.com/jitter-click-test">
+<link rel="alternate" href="https://reactionspeedtest.com/spacebar-speed-test">
+<link rel="alternate" href="https://reactionspeedtest.com/stimulation-clicker">
+<link rel="alternate" href="https://reactionspeedtest.com/typing-speed-test">
+<link rel="alternate" href="https://reactionspeedtest.com/dinosaur-game">
+<link rel="alternate" href="https://reactionspeedtest.com/coreball-game">
+<link rel="alternate" href="https://reactionspeedtest.com/number-memory-test">
 <meta name="theme-color" content="#06060e">
 <meta name="author" content="Reflex Lab">
 
@@ -1552,8 +1562,99 @@ let stimDiff    = 'medium';
 /* ═══════════════════════════════════════════
    HEADER / PANEL SWITCHING
 ═══════════════════════════════════════════ */
-function switchPanel(p) {
+/* ═══════════════════════════════════════════
+   ROUTER — URL-based navigation + SEO meta
+═══════════════════════════════════════════ */
+const ROUTES = {
+  'reaction':    {
+    path: '/reaction-time-test',
+    title: 'Reaction Time Test — How Fast Are Your Reflexes? | Reflex Lab',
+    desc:  'Measure your reaction time in milliseconds with our free online test. 5 rounds, automatic scoring, and performance ratings from Slow to Legendary. No download needed.',
+    h1:    'Reaction Time Test'
+  },
+  'stimulation': {
+    path: '/stimulation-clicker',
+    title: 'Stimulation Clicker — Aim & Click Speed Trainer | Reflex Lab',
+    desc:  'Train your mouse accuracy and click speed with our free Stimulation Clicker. Hit moving targets to improve your aim — perfect for FPS and battle royale gamers.',
+    h1:    'Stimulation Clicker'
+  },
+  'cps':         {
+    path: '/click-speed-test',
+    title: 'Click Speed Test (CPS Test) — Clicks Per Second Counter | Reflex Lab',
+    desc:  'Test your click speed with our free CPS test. Choose from 8 durations (1s–100s) and see your clicks per second instantly. Compare with average and elite scores.',
+    h1:    'Click Speed Test'
+  },
+  'jitter':      {
+    path: '/jitter-click-test',
+    title: 'Jitter Click Test — Improve Your Jitter Clicking Speed | Reflex Lab',
+    desc:  'Practice jitter clicking and measure your CPS with our free jitter click test. Tense your arm muscles to achieve maximum clicks per second for gaming advantage.',
+    h1:    'Jitter Click Test'
+  },
+  'spacebar':    {
+    path: '/spacebar-speed-test',
+    title: 'Spacebar Speed Test — How Fast Can You Press Spacebar? | Reflex Lab',
+    desc:  'Test how many times you can press the spacebar per second with our free spacebar speed test. Choose your duration and challenge your friends to beat your score.',
+    h1:    'Spacebar Speed Test'
+  },
+  'dino':        {
+    path: '/dinosaur-game',
+    title: 'Dinosaur Game Online — Free Chrome Dino T-Rex Runner | Reflex Lab',
+    desc:  'Play the classic Chrome Dinosaur game online for free. Jump over cacti and dodge pterodactyls as the T-Rex runner speeds up. No internet required — play anytime.',
+    h1:    'Dinosaur Game'
+  },
+  'typing':      {
+    path: '/typing-speed-test',
+    title: 'Typing Speed Test — Words Per Minute (WPM) Counter | Reflex Lab',
+    desc:  'Measure your typing speed in words per minute (WPM) with our free online typing test. Real-time WPM tracking, accuracy percentage, and instant results.',
+    h1:    'Typing Speed Test'
+  },
+  'coreball':    {
+    path: '/coreball-game',
+    title: 'Coreball Game Online — Free Ball Shooting Puzzle | Reflex Lab',
+    desc:  'Play Coreball online for free — shoot balls onto the rotating core without hitting existing ones. Progress through levels with increasing difficulty and danger balls.',
+    h1:    'Coreball Game'
+  },
+  'memory':      {
+    path: '/number-memory-test',
+    title: 'Number Memory Test — How Many Digits Can You Remember? | Reflex Lab',
+    desc:  'Test your working memory with our free number memory test. Memorize increasingly long digit sequences and see how you compare — average adults remember 5–7 digits.',
+    h1:    'Number Memory Test'
+  }
+};
+
+// Reverse map: URL path → panel key
+const PATH_TO_PANEL = {};
+Object.entries(ROUTES).forEach(([k, v]) => { PATH_TO_PANEL[v.path] = k; });
+
+function routerUpdate(p) {
+  const route = ROUTES[p] || ROUTES['reaction'];
+  try { history.pushState({ panel: p }, route.title, route.path); } catch(e) {}
+  document.title = route.title;
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) metaDesc.setAttribute('content', route.desc);
+  const canonical = document.querySelector('link[rel="canonical"]');
+  if (canonical) canonical.setAttribute('href', 'https://reactionspeedtest.com' + route.path);
+  const ogTitle = document.querySelector('meta[property="og:title"]');
+  const ogDesc  = document.querySelector('meta[property="og:description"]');
+  const ogUrl   = document.querySelector('meta[property="og:url"]');
+  if (ogTitle) ogTitle.setAttribute('content', route.title);
+  if (ogDesc)  ogDesc.setAttribute('content', route.desc);
+  if (ogUrl)   ogUrl.setAttribute('content', 'https://reactionspeedtest.com' + route.path);
+}
+
+// Handle browser back/forward
+window.addEventListener('popstate', e => {
+  const panel = e.state?.panel || panelFromPath(location.pathname);
+  if (panel) switchPanel(panel, true); // true = skip pushState
+});
+
+function panelFromPath(path) {
+  return PATH_TO_PANEL[path] || 'reaction';
+}
+
+function switchPanel(p, fromPopstate) {
   curPanel = p;
+  if (!fromPopstate) routerUpdate(p);
 
   // Tab highlight
   document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.panel === p));
@@ -3103,7 +3204,10 @@ resetTyping();
 cbReset();
 dinoReset();
 memReset();
-switchPanel('reaction');
+// Read panel from current URL path, fall back to 'reaction'
+const _initPanel = panelFromPath(location.pathname);
+switchPanel(_initPanel);
+try { history.replaceState({ panel: _initPanel }, document.title, location.pathname !== '/' ? location.pathname : ROUTES[_initPanel].path); } catch(e) {}
 setDuration(5);
 </script>
 </body>
