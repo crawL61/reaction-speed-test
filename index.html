@@ -129,7 +129,7 @@
   --purple:  #7b61ff;
   --blue:    #00b4d8;
   --text:    #ffffff;
-  --muted:   #6666aa;
+  --muted:   #a0a0cc;
 }
 
 html { scroll-behavior: smooth; }
@@ -220,7 +220,7 @@ nav {
 
 .hero-sub {
   font-size: clamp(0.95rem, 2vw, 1.15rem);
-  color: rgba(255,255,255,0.55); max-width: 600px; line-height: 1.65;
+  color: #c0c0e0; max-width: 600px; line-height: 1.65;
 }
 
 .hero-cta {
@@ -281,7 +281,7 @@ nav {
   margin-bottom: 8px;
 }
 .section-desc {
-  font-size: 0.9rem; color: rgba(255,255,255,0.5); max-width: 560px; line-height: 1.6;
+  font-size: 0.9rem; color: #b0b0d8; max-width: 560px; line-height: 1.6;
   margin-bottom: 40px;
 }
 
@@ -327,7 +327,7 @@ nav {
   font-size: 1.3rem; letter-spacing: 0.06em;
   color: var(--text); margin-bottom: 8px;
 }
-.card-desc { font-size: 0.78rem; color: rgba(255,255,255,0.45); line-height: 1.55; }
+.card-desc { font-size: 0.78rem; color: #a8a8cc; line-height: 1.55; }
 .card-arrow {
   position: absolute; bottom: 20px; right: 20px;
   width: 32px; height: 32px; border-radius: 8px;
@@ -369,9 +369,9 @@ nav {
   font-size: clamp(1.8rem, 4vw, 2.6rem); letter-spacing: 0.06em; margin-bottom: 16px;
 }
 .about-text p {
-  font-size: 0.88rem; color: rgba(255,255,255,0.5); line-height: 1.7; margin-bottom: 14px;
+  font-size: 0.88rem; color: #b0b0d8; line-height: 1.7; margin-bottom: 14px;
 }
-.about-text p strong { color: rgba(255,255,255,0.75); }
+.about-text p strong { color: #e0e0f0; }
 
 .about-facts {
   display: flex; flex-direction: column; gap: 12px;
@@ -408,11 +408,11 @@ footer {
 .footer-link {
   padding: 5px 12px; border-radius: 6px;
   font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
-  text-decoration: none; color: var(--muted);
+  text-decoration: none; color: #a0a0cc;
   transition: color 0.15s;
 }
 .footer-link:hover { color: var(--text); }
-.footer-copy { font-size: 0.65rem; color: var(--muted); line-height: 1.6; }
+.footer-copy { font-size: 0.65rem; color: #9090bb; line-height: 1.6; }
 
 /* ── MOBILE ── */
 @media (max-width: 640px) {
@@ -440,18 +440,19 @@ footer {
 <nav>
   <a class="nav-logo" href="/">⚡ REFLEX LAB</a>
   <div class="nav-links">
-    <a class="nav-link" href="/reaction-time-test">Reaction</a>
-    <a class="nav-link" href="/click-speed-test">Click Speed</a>
-    <a class="nav-link" href="/typing-speed-test">Typing</a>
-    <a class="nav-link" href="/number-memory-test">Memory</a>
-    <a class="nav-link" href="/dinosaur-game">Dino Game</a>
-    <a class="nav-link" href="/coreball-game">Coreball</a>
-    <a class="nav-link" href="/jitter-click-test">Jitter Click</a>
-    <a class="nav-link" href="/spacebar-speed-test">Spacebar</a>
-    <a class="nav-link" href="/stimulation-clicker">Stimulation</a>
+    <a class="nav-link" href="/reaction-time-test">⚡ Reaction</a>
+    <a class="nav-link" href="/click-speed-test">🔥 Click Speed</a>
+    <a class="nav-link" href="/typing-speed-test">📝 Typing</a>
+    <a class="nav-link" href="/number-memory-test">🧠 Memory</a>
+    <a class="nav-link" href="/dinosaur-game">🦕 Dino Game</a>
+    <a class="nav-link" href="/coreball-game">🎮 Coreball</a>
+    <a class="nav-link" href="/jitter-click-test">🖱️ Jitter Click</a>
+    <a class="nav-link" href="/spacebar-speed-test">⌨️ Spacebar</a>
+    <a class="nav-link" href="/stimulation-clicker">🎯 Stimulation</a>
   </div>
 </nav>
 
+<main>
 <!-- ── HERO ── -->
 <section class="hero">
   <div class="hero-badge">⚡ Free · No Download · Instant Results</div>
@@ -681,7 +682,7 @@ footer {
       <summary style="padding:18px 20px;font-weight:600;font-size:0.9rem;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center">
         What is a good reaction time? <span style="color:var(--accent);font-size:1.1rem">+</span>
       </summary>
-      <p style="padding:0 20px 18px;font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.65">
+      <p style="padding:0 20px 18px;font-size:0.82rem;color:#b0b0d8;line-height:1.65">
         The average human reaction time is <strong style="color:var(--text)">200–250ms</strong>. Pro gamers typically achieve 150–190ms. Anything below 200ms is considered above average. Elite athletes and F1 drivers react in around 200ms. Hardware latency (mouse 5–15ms, monitor 1–8ms) also affects your measured score.
       </p>
     </details>
@@ -690,7 +691,7 @@ footer {
       <summary style="padding:18px 20px;font-weight:600;font-size:0.9rem;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center">
         What is a good typing speed (WPM)? <span style="color:var(--accent);font-size:1.1rem">+</span>
       </summary>
-      <p style="padding:0 20px 18px;font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.65">
+      <p style="padding:0 20px 18px;font-size:0.82rem;color:#b0b0d8;line-height:1.65">
         The average adult types <strong style="color:var(--text)">41 WPM</strong>. Professional typists reach 65–75 WPM. A score above 60 WPM is considered good, and above 100 WPM is exceptional. The world record is over 220 WPM.
       </p>
     </details>
@@ -699,7 +700,7 @@ footer {
       <summary style="padding:18px 20px;font-weight:600;font-size:0.9rem;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center">
         What is a good CPS (clicks per second)? <span style="color:var(--accent);font-size:1.1rem">+</span>
       </summary>
-      <p style="padding:0 20px 18px;font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.65">
+      <p style="padding:0 20px 18px;font-size:0.82rem;color:#b0b0d8;line-height:1.65">
         The average person clicks <strong style="color:var(--text)">6–7 times per second</strong>. Gamers using jitter clicking can reach 10–14 CPS. Above 14 CPS is exceptional and typically requires advanced techniques like butterfly or drag clicking.
       </p>
     </details>
@@ -708,7 +709,7 @@ footer {
       <summary style="padding:18px 20px;font-weight:600;font-size:0.9rem;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center">
         How many digits can the average person memorize? <span style="color:var(--accent);font-size:1.1rem">+</span>
       </summary>
-      <p style="padding:0 20px 18px;font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.65">
+      <p style="padding:0 20px 18px;font-size:0.82rem;color:#b0b0d8;line-height:1.65">
         Most adults can hold <strong style="color:var(--text)">5–7 digits</strong> in working memory — this is Miller's Law ("The Magical Number Seven"). This is why phone numbers were originally 7 digits long. Memory athletes can far exceed this using chunking and the memory palace technique.
       </p>
     </details>
@@ -717,7 +718,7 @@ footer {
       <summary style="padding:18px 20px;font-weight:600;font-size:0.9rem;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center">
         Are these tests accurate? <span style="color:var(--accent);font-size:1.1rem">+</span>
       </summary>
-      <p style="padding:0 20px 18px;font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.65">
+      <p style="padding:0 20px 18px;font-size:0.82rem;color:#b0b0d8;line-height:1.65">
         Our tests are <strong style="color:var(--text)">browser-accurate</strong> but not lab-grade. Browser timing has ~1–4ms variance. For reaction time specifically, your monitor refresh rate and mouse polling rate introduce an additional 5–15ms of hardware latency. Results are consistent and great for relative comparison and improvement tracking.
       </p>
     </details>
@@ -726,7 +727,7 @@ footer {
       <summary style="padding:18px 20px;font-weight:600;font-size:0.9rem;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center">
         Are all tests completely free? <span style="color:var(--accent);font-size:1.1rem">+</span>
       </summary>
-      <p style="padding:0 20px 18px;font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.65">
+      <p style="padding:0 20px 18px;font-size:0.82rem;color:#b0b0d8;line-height:1.65">
         Yes — all 9 tests are <strong style="color:var(--text)">100% free</strong>. No download, no registration, no account needed. Everything runs in your browser. Your results are calculated locally and never stored on our servers.
       </p>
     </details>
@@ -744,45 +745,45 @@ footer {
   <table style="width:100%;max-width:800px;border-collapse:collapse;font-size:0.82rem">
     <thead>
       <tr style="border-bottom:1px solid var(--border2)">
-        <th style="text-align:left;padding:12px 16px;color:var(--muted);font-weight:600;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase">Test</th>
-        <th style="text-align:center;padding:12px 16px;color:var(--muted);font-weight:600;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase">Below Average</th>
-        <th style="text-align:center;padding:12px 16px;color:var(--muted);font-weight:600;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase">Average</th>
-        <th style="text-align:center;padding:12px 16px;color:var(--muted);font-weight:600;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase">Good</th>
-        <th style="text-align:center;padding:12px 16px;color:var(--muted);font-weight:600;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase">Elite</th>
+        <th style="text-align:left;padding:12px 16px;color:#b0b0d8;font-weight:600;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase">Test</th>
+        <th style="text-align:center;padding:12px 16px;color:#b0b0d8;font-weight:600;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase">Below Average</th>
+        <th style="text-align:center;padding:12px 16px;color:#b0b0d8;font-weight:600;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase">Average</th>
+        <th style="text-align:center;padding:12px 16px;color:#b0b0d8;font-weight:600;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase">Good</th>
+        <th style="text-align:center;padding:12px 16px;color:#b0b0d8;font-weight:600;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase">Elite</th>
       </tr>
     </thead>
     <tbody>
       <tr style="border-bottom:1px solid var(--border)">
         <td style="padding:14px 16px;font-weight:600"><a href="/reaction-time-test" style="color:var(--accent);text-decoration:none">⚡ Reaction Time</a></td>
-        <td style="text-align:center;padding:14px 16px;color:rgba(255,255,255,0.4)">&gt;300ms</td>
+        <td style="text-align:center;padding:14px 16px;color:#9898c0">&gt;300ms</td>
         <td style="text-align:center;padding:14px 16px;color:var(--yellow)">200–250ms</td>
         <td style="text-align:center;padding:14px 16px;color:var(--accent)">150–200ms</td>
         <td style="text-align:center;padding:14px 16px;color:var(--red)">&lt;150ms</td>
       </tr>
       <tr style="border-bottom:1px solid var(--border)">
         <td style="padding:14px 16px;font-weight:600"><a href="/click-speed-test" style="color:var(--yellow);text-decoration:none">🔥 Click Speed</a></td>
-        <td style="text-align:center;padding:14px 16px;color:rgba(255,255,255,0.4)">&lt;5 CPS</td>
+        <td style="text-align:center;padding:14px 16px;color:#9898c0">&lt;5 CPS</td>
         <td style="text-align:center;padding:14px 16px;color:var(--yellow)">6–7 CPS</td>
         <td style="text-align:center;padding:14px 16px;color:var(--accent)">8–10 CPS</td>
         <td style="text-align:center;padding:14px 16px;color:var(--red)">&gt;14 CPS</td>
       </tr>
       <tr style="border-bottom:1px solid var(--border)">
         <td style="padding:14px 16px;font-weight:600"><a href="/typing-speed-test" style="color:#00b4d8;text-decoration:none">📝 Typing Speed</a></td>
-        <td style="text-align:center;padding:14px 16px;color:rgba(255,255,255,0.4)">&lt;30 WPM</td>
+        <td style="text-align:center;padding:14px 16px;color:#9898c0">&lt;30 WPM</td>
         <td style="text-align:center;padding:14px 16px;color:var(--yellow)">40–55 WPM</td>
         <td style="text-align:center;padding:14px 16px;color:var(--accent)">60–80 WPM</td>
         <td style="text-align:center;padding:14px 16px;color:var(--red)">&gt;100 WPM</td>
       </tr>
       <tr style="border-bottom:1px solid var(--border)">
         <td style="padding:14px 16px;font-weight:600"><a href="/number-memory-test" style="color:var(--purple);text-decoration:none">🧠 Number Memory</a></td>
-        <td style="text-align:center;padding:14px 16px;color:rgba(255,255,255,0.4)">&lt;5 digits</td>
+        <td style="text-align:center;padding:14px 16px;color:#9898c0">&lt;5 digits</td>
         <td style="text-align:center;padding:14px 16px;color:var(--yellow)">5–7 digits</td>
         <td style="text-align:center;padding:14px 16px;color:var(--accent)">8–10 digits</td>
         <td style="text-align:center;padding:14px 16px;color:var(--red)">&gt;11 digits</td>
       </tr>
       <tr>
         <td style="padding:14px 16px;font-weight:600"><a href="/spacebar-speed-test" style="color:#00b4d8;text-decoration:none">⌨️ Spacebar</a></td>
-        <td style="text-align:center;padding:14px 16px;color:rgba(255,255,255,0.4)">&lt;5 HPS</td>
+        <td style="text-align:center;padding:14px 16px;color:#9898c0">&lt;5 HPS</td>
         <td style="text-align:center;padding:14px 16px;color:var(--yellow)">7–9 HPS</td>
         <td style="text-align:center;padding:14px 16px;color:var(--accent)">10–13 HPS</td>
         <td style="text-align:center;padding:14px 16px;color:var(--red)">&gt;15 HPS</td>
@@ -793,6 +794,8 @@ footer {
 </section>
 
 <div class="divider"></div>
+
+</main>
 
 <!-- ── FOOTER ── -->
 <footer>
@@ -810,7 +813,7 @@ footer {
   </div>
   <p class="footer-copy">
     © <span id="yr"></span> Reflex Lab — Free Online Reaction Time & Brain Tests<br>
-    <span style="font-size:0.6rem;opacity:0.5">Keywords: reaction time test · typing speed test · click speed test · number memory test · CPS test · jitter click · spacebar test · dino game · coreball · brain test online</span>
+    <span style="font-size:0.6rem;color:#7878aa">Keywords: reaction time test · typing speed test · click speed test · number memory test · CPS test · jitter click · spacebar test · dino game · coreball · brain test online</span>
   </p>
   <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
 </footer>
