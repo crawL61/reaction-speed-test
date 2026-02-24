@@ -434,6 +434,8 @@ footer {
   max-width: 860px;
   margin: 0 auto;
   padding: 0 clamp(16px, 5vw, 48px) 80px;
+  position: relative;
+  z-index: 1;
 }
 .seo-section h2 {
   font-family: 'Bebas Neue', sans-serif;
@@ -452,28 +454,29 @@ footer {
 .seo-section p {
   font-size: 0.92rem;
   margin-bottom: 16px;
-  color: #b8b8d8;
+  color: #c0c0e0;
   line-height: 1.75;
 }
-.seo-section strong { color: #e8e8ff; font-weight: 600; }
+.seo-section strong { color: #ffffff; font-weight: 600; }
 .seo-section ul, .seo-section ol { padding-left: 20px; margin-bottom: 20px; }
-.seo-section li { font-size: 0.92rem; color: #b8b8d8; margin-bottom: 8px; line-height: 1.65; }
+.seo-section li { font-size: 0.92rem; color: #c0c0e0; margin-bottom: 8px; line-height: 1.65; }
 .seo-highlight {
   background: #0d0d1a;
-  border: 1px solid #1c1c30;
+  border: 1px solid #252540;
   border-left: 3px solid #00f5a0;
   border-radius: 0 10px 10px 0;
   padding: 16px 20px;
   margin: 24px 0;
+  position: relative; z-index: 1;
 }
-.seo-highlight p { margin: 0; font-size: 0.88rem; color: #c0c0e0; }
+.seo-highlight p { margin: 0; font-size: 0.88rem; color: #d0d0f0; }
 .seo-stats {
   display: flex; flex-wrap: wrap; gap: 12px; margin: 24px 0;
 }
 .seo-stat-chip {
-  background: #111122; border: 1px solid #1c1c30;
+  background: #111122; border: 1px solid #252540;
   border-radius: 8px; padding: 10px 16px;
-  font-size: 0.78rem; color: #a8a8cc;
+  font-size: 0.82rem; color: #c8c8e8;
 }
 .seo-stat-chip strong {
   display: block; font-size: 1.1rem;
@@ -482,8 +485,8 @@ footer {
 }
 .seo-faq-item { border-bottom: 1px solid #1c1c30; padding: 20px 0; }
 .seo-faq-item:last-child { border-bottom: none; }
-.seo-faq-q { font-size: 0.95rem; font-weight: 700; color: #e0e0ff; margin-bottom: 8px; }
-.seo-faq-a { font-size: 0.88rem; color: #a8a8cc; line-height: 1.7; margin: 0; }
+.seo-faq-q { font-size: 0.95rem; font-weight: 700; color: #ffffff; margin-bottom: 8px; }
+.seo-faq-a { font-size: 0.88rem; color: #c0c0e0; line-height: 1.7; margin: 0; }
 
 /* ── MOBILE ── */
 @media (max-width: 640px) {
@@ -881,9 +884,9 @@ footer {
   <div class="seo-stats">
     <div class="seo-stat-chip"><strong style="color:#00f5a0">150–190ms</strong>Pro Gamers</div>
     <div class="seo-stat-chip"><strong style="color:#ffe000">200–250ms</strong>Average Adults</div>
-    <div class="seo-stat-chip"><strong style="color:#7b61ff">~200ms</strong>F1 Drivers</div>
-    <div class="seo-stat-chip"><strong style="color:#00b4d8">~200ms</strong>Elite Athletes</div>
-    <div class="seo-stat-chip"><strong style="color:#ff2d55">&gt;300ms</strong>Below Average</div>
+    <div class="seo-stat-chip"><strong style="color:#a99fff">~200ms</strong>F1 Drivers</div>
+    <div class="seo-stat-chip"><strong style="color:#33ccee">~200ms</strong>Elite Athletes</div>
+    <div class="seo-stat-chip"><strong style="color:#ff6b85">&gt;300ms</strong>Below Average</div>
   </div>
 
   <p>
