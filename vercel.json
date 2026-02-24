@@ -1,0 +1,14 @@
+{
+  "rewrites": [
+    { "source": "/reaction-time-test",  "destination": "/index.html" },
+    { "source": "/click-speed-test",    "destination": "/index.html" },
+    { "source": "/jitter-click-test",   "destination": "/index.html" },
+    { "source": "/spacebar-speed-test", "destination": "/index.html" },
+    { "source": "/stimulation-clicker", "destination": "/index.html" },
+    { "source": "/typing-speed-test",   "destination": "/index.html" },
+    { "source": "/dinosaur-game",       "destination": "/index.html" },
+    { "source": "/coreball-game",       "destination": "/index.html" },
+    { "source": "/number-memory-test",  "destination": "/index.html" },
+    { "source": "/(.*)",                "destination": "/index.html" }
+  ]
+}
