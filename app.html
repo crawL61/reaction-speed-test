@@ -7,7 +7,7 @@
 <!-- ═══ PRIMARY SEO ═══ -->
 <title>Reaction Time Test — Measure Your Reflexes in Milliseconds | Reflex Lab</title>
 <meta name="description" content="Free online reaction time test. Measure how fast you respond in milliseconds. 5 rounds, instant scoring. Average human reaction time is 200–250ms — how do you compare?">
-<meta name="keywords" content="reaction time test, typing speed test, WPM test, dinosaur game, dino game, coreball game, click speed test, CPS test, free typing test, jitter click test, spacebar test, stimulation clicker, online reaction test, words per minute, typing test free, chrome dino game">
+<meta name="keywords" content="reaction time test, typing speed test, WPM test, dinosaur game, dino game, coreball game, click speed test, CPS test, free typing test, jitter click test, spacebar test, stimulation clicker, snake game online, snake game free, online snake game, number memory test, online reaction test, words per minute, typing test free, chrome dino game">
 <link rel="canonical" href="https://reactionspeedtest.com/reaction-time-test">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <!-- Sitemap hints for crawlers — each game has its own URL -->
@@ -20,6 +20,7 @@
 <link rel="alternate" href="https://reactionspeedtest.com/dinosaur-game">
 <link rel="alternate" href="https://reactionspeedtest.com/coreball-game">
 <link rel="alternate" href="https://reactionspeedtest.com/number-memory-test">
+<link rel="alternate" href="https://reactionspeedtest.com/snake-game">
 <meta name="theme-color" content="#06060e">
 <meta name="author" content="Reflex Lab">
 
@@ -45,12 +46,8 @@
 <meta name="twitter:description" content="Free reaction time test in ms. Test typing speed, CPS, number memory and more. Instant results, no download.">
 <meta name="twitter:image" content="https://reactionspeedtest.com/og-image.png">
 
-<!-- ═══ FAVICON ═══ -->
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
+<!-- ═══ FAVICON (inline SVG, no server needed) ═══ -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2306060e'/><text y='24' x='4' font-size='22'>⚡</text></svg>">
 
 <!-- ═══ STRUCTURED DATA (JSON-LD) ═══ -->
 <script type="application/ld+json">
@@ -232,24 +229,50 @@ body::before {
 
 /* Test type tabs */
 .tabs {
-  display: flex; align-items: stretch;
+  display: flex; align-items: center;
   flex: 1; overflow-x: auto; scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
+  padding: 0 6px;
+  gap: 5px;
+  overflow-y: hidden;
 }
 .tabs::-webkit-scrollbar { display: none; }
 
 .tab {
-  display: flex; align-items: center; gap: 6px;
-  padding: 0 16px; cursor: pointer;
-  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-  color: #c0c0e0; white-space: nowrap; flex-shrink: 0;
-  background: none; border: none; border-bottom: 2px solid transparent;
-  transition: color 0.18s, border-color 0.18s;
+  display: flex; align-items: center; gap: 5px;
+  padding: 6px 13px; cursor: pointer;
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+  color: #ffffff; white-space: nowrap; flex-shrink: 0;
+  background: var(--surf);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  transition: color 0.15s, border-color 0.2s, background 0.2s, box-shadow 0.2s;
   position: relative;
+  overflow: hidden;
 }
-.tab:hover { color: #ffffff; }
-.tab.active { color: var(--accent); border-bottom-color: var(--accent); }
-.tab .ticon { font-size: 1.05rem; }
+.tab::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at center, rgba(0,245,160,0.15) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+.tab:hover {
+  color: #ffffff;
+  border-color: rgba(0,245,160,0.55);
+  background: rgba(0,245,160,0.08);
+  box-shadow: 0 0 14px rgba(0,245,160,0.22), inset 0 0 8px rgba(0,245,160,0.05);
+}
+.tab:hover::after { opacity: 1; }
+.tab.active {
+  color: #00f5a0;
+  border-color: rgba(0,245,160,0.65);
+  background: rgba(0,245,160,0.11);
+  box-shadow: 0 0 16px rgba(0,245,160,0.25);
+}
+.tab.active::after { opacity: 0.6; }
+.tab .ticon { font-size: 0.9rem; }
 
 /* Language */
 .lang {
@@ -894,11 +917,20 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
 ═══════════════════════════════════════════════════ -->
 <div class="header">
 
-  <!-- ROW 1: tabs + lang toggle -->
+  <!-- ROW 1: tabs + controls -->
   <div class="row1">
     <a class="home-btn" href="/" aria-label="Back to homepage">⚡ Home</a>
 
-    <div class="tabs" role="tablist">
+    <!-- Left scroll arrow -->
+    <button id="tabScrollLeft" onclick="scrollTabs(-1)" aria-label="Scroll left" style="
+      flex-shrink:0; border:none; cursor:pointer;
+      color:#ffffff; font-size:1.2rem; padding:0 10px; height:100%;
+      display:flex; align-items:center; z-index:2;
+      background:linear-gradient(to right, rgba(6,6,14,0.95) 60%, transparent);
+      transition:color 0.15s;
+    ">‹</button>
+
+    <div class="tabs" id="tabsContainer" role="tablist">
       <button class="tab active" data-panel="reaction" onclick="switchPanel('reaction')" role="tab">
         <span class="ticon">⚡</span> Reaction
       </button>
@@ -924,13 +956,25 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
         <span class="ticon">🎮</span> Coreball
       </button>
       <button class="tab" data-panel="memory" onclick="switchPanel('memory')" role="tab">
-        <span class="ticon">🧠</span> Number Memory
+        <span class="ticon">🧠</span> Memory
+      </button>
+      <button class="tab" data-panel="snake" onclick="switchPanel('snake')" role="tab">
+        <span class="ticon">🐍</span> Snake
       </button>
     </div>
 
-    <div class="lang">
-      <button class="lbtn" id="lbtnTR" onclick="setLang('tr')">TR</button>
-      <button class="lbtn active" id="lbtnEN" onclick="setLang('en')">EN</button>
+    <!-- Right scroll arrow -->
+    <button id="tabScrollRight" onclick="scrollTabs(1)" aria-label="Scroll right" style="
+      flex-shrink:0; border:none; cursor:pointer;
+      color:#ffffff; font-size:1.2rem; padding:0 10px; height:100%;
+      display:flex; align-items:center; z-index:2;
+      background:linear-gradient(to left, rgba(6,6,14,0.95) 60%, transparent);
+      transition:color 0.15s;
+    ">›</button>
+
+    <div class="lang" style="border-left:1px solid var(--border2); padding:0 10px; gap:4px; flex-shrink:0;">
+      <button class="lbtn" id="soundToggle" onclick="toggleSound()" title="Toggle Sound" style="font-size:0.8rem;padding:4px 8px;">🔊</button>
+      <button class="lbtn" id="statsBtn" onclick="showStatsModal()" title="My Stats" style="font-size:0.6rem;padding:4px 8px;letter-spacing:0.04em;">📊</button>
     </div>
   </div>
 
@@ -992,6 +1036,7 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
         <div class="r-score" id="rScore">0</div>
         <div class="r-unit">Clicks Per Second</div>
         <div class="r-rank" id="rRank"></div>
+        <div id="cNewRecord" style="display:none;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.18em;color:var(--yellow);background:rgba(255,224,0,0.12);border:1px solid rgba(255,224,0,0.4);border-radius:20px;padding:4px 18px;">🏆 NEW RECORD!</div>
         <button class="r-retry" onclick="resetCPS()">↺ Try Again</button>
       </div>
 
@@ -1334,6 +1379,30 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
     </div>
   </div>
 
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       PANEL: SNAKE GAME
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <div id="panel-snake" class="game-zone" style="display:none">
+    <div class="gtitle-row">
+      <h1 class="gtitle" style="background:linear-gradient(135deg,#00f5a0,#00b4d8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Snake</h1>
+      <span class="gsub">Arrow keys or swipe — eat food, don't hit yourself</span>
+    </div>
+    <div class="stats-bar">
+      <div class="scard hi1"><div class="slbl">Score</div><div class="sval" id="snakeScore">0</div></div>
+      <div class="scard hi2"><div class="slbl">Best</div><div class="sval yellow" id="snakeBest">0</div></div>
+      <div class="scard"><div class="slbl">Length</div><div class="sval muted" id="snakeLen">3</div></div>
+      <div class="scard hi3"><div class="slbl">Status</div><div class="sval purple" id="snakeStatus">Ready</div></div>
+    </div>
+    <canvas id="snakeCanvas" width="400" height="400" style="
+      width:100%;max-width:420px;align-self:center;
+      border-radius:16px;background:#0a0a14;border:2px solid var(--border);
+      display:block;touch-action:none;cursor:pointer;
+    "></canvas>
+    <div style="text-align:center;font-size:0.58rem;letter-spacing:0.15em;color:var(--muted);text-transform:uppercase">
+      Arrow Keys / WASD &nbsp;·&nbsp; Tap Canvas to Start &nbsp;·&nbsp; Swipe to Turn
+    </div>
+  </div>
+
   <!-- ═══════════════════════════════════════════════════
        INFO CONTENT SECTION
   ═══════════════════════════════════════════════════ -->
@@ -1632,6 +1701,41 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
     </div></article>
     </div>
 
+    <div class="info-section" data-info="snake" style="display:none">
+    <div class="sec-divider">ABOUT SNAKE GAME</div>
+    <article class="icard">
+      <h2 class="icard-title">🐍 What Is Snake? How to Play</h2>
+      <p class="ibody">Snake is one of the most iconic games ever made — a simple concept with infinite replayability. You control a snake that grows longer every time it eats food. The challenge: avoid hitting the walls or your own body, which ends the game instantly.<br><br>Use <strong>Arrow Keys</strong> or <strong>WASD</strong> on keyboard to change direction. On mobile, <strong>swipe</strong> in any direction. Tap or press any arrow key to start. Each apple you eat adds 10 points and makes the snake one cell longer. The game speeds up gradually as your score climbs — plan your path ahead to survive.</p>
+    </article>
+    <article class="icard">
+      <h2 class="icard-title">📊 Snake Score Rankings</h2>
+      <table class="rtable"><thead><tr><th>Score</th><th>Level</th><th>Who?</th></tr></thead><tbody>
+        <tr><td style="color:#b0b0d0">0–40</td><td style="color:#b0b0d0">🐣 Beginner</td><td style="color:#c8c8e8">First-time players</td></tr>
+        <tr><td style="color:var(--blue)">50–100</td><td style="color:var(--blue)">🐍 Casual</td><td style="color:#c8c8e8">Getting comfortable</td></tr>
+        <tr><td style="color:var(--accent)">110–200</td><td style="color:var(--accent)">⚡ Skilled</td><td style="color:#c8c8e8">Good spatial awareness</td></tr>
+        <tr><td style="color:var(--yellow)">210–350</td><td style="color:var(--yellow)">🔥 Expert</td><td style="color:#c8c8e8">Top 15% of players</td></tr>
+        <tr><td style="color:var(--red)">360+</td><td style="color:var(--red)">👑 Master</td><td style="color:#c8c8e8">Near-perfect routing</td></tr>
+      </tbody></table>
+    </article>
+    <article class="icard">
+      <h2 class="icard-title">💡 Snake Strategy Tips</h2>
+      <p class="ibody"><strong>Hug the walls early:</strong> In the first 30 seconds, move along the edges. This keeps the center open and gives you more room to maneuver as your body grows.<br><br><strong>Think in loops:</strong> Plan an S-shaped or U-shaped path that covers the whole board systematically. This avoids dead ends.<br><br><strong>Don't rush to food:</strong> A longer path to the apple is always better than a short path that boxes you in. Survival beats score optimization at first.<br><br><strong>Watch your tail:</strong> Remember your tail is moving too — a cell your body occupies now will be free in a few steps. Advanced players use this to thread through tight gaps.</p>
+    </article>
+    <article class="icard">
+      <h2 class="icard-title">🎮 History of Snake</h2>
+      <p class="ibody">Snake was originally created in <strong>1976</strong> as an arcade game called <em>Blockade</em> by Gremlin Industries. The modern Snake phenomenon exploded in <strong>1998</strong> when Nokia pre-installed it on the <strong>Nokia 6110</strong>, making it the first game hundreds of millions of people played on a mobile device.<br><br>The game trained an entire generation's reflexes and spatial reasoning. Its simple grid-based movement, clear failure state, and addictive "just one more try" loop make it a timeless design masterpiece. Our version adds smooth 60fps animation via interpolation between game ticks, wall boundaries, and difficulty scaling.</p>
+    </article>
+    <div class="sec-divider">FAQ — SNAKE GAME</div>
+    <article class="icard"><div class="faq-list">
+      <div class="faq-item"><button class="faq-q">Does the snake wrap around walls? <span class="faq-arrow">▼</span></button><div class="faq-a">No — in this version, hitting any wall <strong>ends the game instantly</strong>. The glowing green border is your reminder of the danger zone. This makes the game more challenging and rewards careful long-term planning.</div></div>
+      <div class="faq-item"><button class="faq-q">How fast does the snake get? <span class="faq-arrow">▼</span></button><div class="faq-a">The snake starts at one move every <strong>200ms</strong> and speeds up by 2ms per apple eaten. At maximum speed (80ms/move) the snake moves 12× per second. Even at max speed, smooth 60fps interpolation keeps movement fluid.</div></div>
+      <div class="faq-item"><button class="faq-q">What is the maximum possible score? <span class="faq-arrow">▼</span></button><div class="faq-a">The board is 20×20 = 400 cells. The snake starts with 3 segments, so the theoretical maximum is eating <strong>397 apples</strong> for a score of <strong>3,970 points</strong>. Achieving this requires perfect routing of the entire board — an extremely rare feat.</div></div>
+      <div class="faq-item"><button class="faq-q">Can I play Snake on mobile? <span class="faq-arrow">▼</span></button><div class="faq-a">Yes — swipe left, right, up, or down on the canvas to control direction. Tap the canvas once to start the game. The game is fully touch-optimized with swipe detection.</div></div>
+      <div class="faq-item"><button class="faq-q">Why does Snake train reaction time? <span class="faq-arrow">▼</span></button><div class="faq-a">Snake improves <strong>anticipatory reaction time</strong> — the ability to plan and execute decisions before a crisis arrives. Unlike pure reflex tests, Snake develops spatial working memory, decision-making under time pressure, and long-term trajectory planning.</div></div>
+      <div class="faq-item"><button class="faq-q">What keyboard keys control the snake? <span class="faq-arrow">▼</span></button><div class="faq-a">You can use <strong>Arrow Keys</strong> (↑ ↓ ← →) or <strong>WASD</strong>. Both work identically. You cannot reverse direction 180° — pressing the opposite direction of travel is ignored to prevent instant self-collision.</div></div>
+    </div></article>
+    </div>
+
     <footer class="sfooter">
       <div style="margin-bottom:10px">
         <span style="color:var(--yellow);font-size:0.9rem;letter-spacing:2px">★★★★★</span>
@@ -1645,7 +1749,7 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
       </p>
       <p>© <span id="footYear">2026</span> Reaction Speed Test — Free Online Brain &amp; Reflex Tests</p>
       <p style="margin-top:6px">Test your <strong>reaction time</strong>, <strong>number memory</strong>, <strong>typing speed</strong>, <strong>click speed (CPS)</strong>, and more — free, no download, works on any device.</p>
-      <p style="margin-top:6px;font-size:0.48rem">Keywords: reaction time test · number memory test · typing speed test · click speed test · CPS test · dino game · coreball · jitter click · spacebar test · stimulation clicker · working memory test · brain test online</p>
+      <p style="margin-top:6px;font-size:0.48rem">Keywords: reaction time test · number memory test · typing speed test · click speed test · CPS test · dino game · coreball · jitter click · spacebar test · stimulation clicker · snake game online · snake game free · working memory test · brain test online</p>
     </footer>
 
   </div>
@@ -1722,6 +1826,12 @@ const ROUTES = {
     title: 'Number Memory Test — Working Memory Test Online | Reflex Lab',
     desc:  'Free number memory test — how many digits can you memorize? Tests your working memory capacity. Average adults remember 5–7 digits (Miller\'s Law). Can you beat the average? No download needed.',
     h1:    'Number Memory Test'
+  },
+  'snake': {
+    path: '/snake-game',
+    title: 'Snake Game Online — Free Classic Snake | Reflex Lab',
+    desc:  'Play the classic Snake game online for free. Eat food to grow, avoid hitting yourself. Arrow keys or swipe to control. How long can you survive?',
+    h1:    'Snake Game'
   }
 };
 
@@ -1763,7 +1873,7 @@ function switchPanel(p, fromPopstate) {
   document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.panel === p));
 
   // Map jitter/kohi → cps panel
-  const allPanels = ['cps','spacebar','reaction','stimulation','typing','coreball','dino','memory'];
+  const allPanels = ['cps','spacebar','reaction','stimulation','typing','coreball','dino','memory','snake'];
   allPanels.forEach(id => {
     const el = document.getElementById('panel-' + id);
     if (el) el.style.display = 'none';
@@ -1774,7 +1884,7 @@ function switchPanel(p, fromPopstate) {
 
   // Row2: hide for reaction, stim, typing, coreball
   const row2 = document.getElementById('row2');
-  const hideRow2 = ['reaction','stimulation','typing','coreball','dino','memory'].includes(p);
+  const hideRow2 = ['reaction','stimulation','typing','coreball','dino','memory','snake'].includes(p);
   row2.classList.toggle('hidden', hideRow2);
   document.querySelector('.wrap').style.paddingTop =
     hideRow2 ? 'var(--row1-h)' : 'var(--header-h)';
@@ -1794,7 +1904,7 @@ function switchPanel(p, fromPopstate) {
   if (p === 'stimulation') resetStim();
 
   // Switch info section
-  const infoMap = { reaction:'reaction', stimulation:'stimulation', cps:'cps', jitter:'cps', spacebar:'spacebar', typing:'typing', coreball:'coreball', dino:'dino', memory:'memory' };
+  const infoMap = { reaction:'reaction', stimulation:'stimulation', cps:'cps', jitter:'cps', spacebar:'spacebar', typing:'typing', coreball:'coreball', dino:'dino', memory:'memory', snake:'snake' };
   document.querySelectorAll('.info-section').forEach(s => s.style.display = 'none');
   const infoKey = infoMap[p] || 'reaction';
   const infoEl = document.querySelector(`.info-section[data-info="${infoKey}"]`);
@@ -1962,8 +2072,11 @@ function cgFinish() {
   rScore.style.color = rank.color;
   rRank.textContent = rank.label;
   rRank.style.cssText = `color:${rank.color};background:${rank.color}20;border:1px solid ${rank.color}55`;
+  // New record badge
+  const prevBest = parseFloat(document.getElementById('cBest').textContent) || 0;
+  const newRecordEl = document.getElementById('cNewRecord');
+  if (newRecordEl) newRecordEl.style.display = final > prevBest ? 'block' : 'none';
   cResult.classList.add('show');
-  /* Fade out background elements so they don't bleed through the overlay */
   bigCPS.style.opacity = '0.07';
   cLabel.style.opacity = '0.04';
   cProg.style.opacity  = '0.04';
@@ -2459,8 +2572,10 @@ let currentLang = 'en';
 
 function setLang(l) {
   currentLang = l;
-  document.getElementById('lbtnTR').classList.toggle('active', l==='tr');
-  document.getElementById('lbtnEN').classList.toggle('active', l==='en');
+  const _lbtnTR = document.getElementById('lbtnTR');
+  const _lbtnEN = document.getElementById('lbtnEN');
+  if (_lbtnTR) _lbtnTR.classList.toggle('active', l==='tr');
+  if (_lbtnEN) _lbtnEN.classList.toggle('active', l==='en');
   document.documentElement.lang = l;
   const T = TRANSLATIONS[l];
 
@@ -2593,6 +2708,8 @@ function resetTyping() {
   document.getElementById('tInput').value = '';
   document.getElementById('tInput').disabled = false;
   renderWords();
+  // Auto-focus so user can start typing immediately
+  setTimeout(() => document.getElementById('tInput').focus(), 50);
 }
 
 function finishTyping() {
@@ -2605,6 +2722,9 @@ function finishTyping() {
   document.getElementById('tFinalWpm').textContent = wpm;
   document.getElementById('tFinalAcc').textContent = `Accuracy: ${acc}% — ${typing.correctCount} correct words`;
   document.getElementById('tResult').style.display = 'flex';
+  // Record stat + play sound
+  if (typeof recordStat !== 'undefined') recordStat('typing', wpm, 'WPM');
+  if (typeof SFX !== 'undefined') SFX.stimEnd();
 }
 
 document.getElementById('tInput').addEventListener('input', function() {
@@ -3300,6 +3420,315 @@ function memCheck() {
 document.getElementById('memInput').addEventListener('keydown', e => { if(e.key==='Enter') memCheck(); });
 
 /* ═══════════════════════════════════════════
+   SNAKE GAME ENGINE — smooth interpolated movement
+═══════════════════════════════════════════ */
+const snakeCanvas = document.getElementById('snakeCanvas');
+const sctx = snakeCanvas.getContext('2d');
+const SN_GRID = 20;
+const SN_CELL = snakeCanvas.width / SN_GRID;
+
+const SN_BASE_MS = 200;  // starting interval (ms per step)
+const SN_MIN_MS  = 80;   // fastest tick
+const SN_SPEEDUP = 2;    // ms reduction per apple
+
+let snake = {
+  body: [{x:10,y:10},{x:9,y:10},{x:8,y:10}],
+  prevBody: [{x:10,y:10},{x:9,y:10},{x:8,y:10}],
+  dir: {x:1,y:0}, nextDir: {x:1,y:0},
+  food: null, score: 0, best: 0,
+  alive: false, started: false,
+  tickMs: SN_BASE_MS,
+  lastTickTime: 0,
+  rafId: null, iv: null, touchStart: null
+};
+
+function snakeRandFood() {
+  let pos;
+  do { pos = { x: Math.floor(Math.random()*SN_GRID), y: Math.floor(Math.random()*SN_GRID) }; }
+  while (snake.body.some(s => s.x===pos.x && s.y===pos.y));
+  return pos;
+}
+
+function snakeReset() {
+  clearInterval(snake.iv);
+  cancelAnimationFrame(snake.rafId);
+  const best = snake.best;
+  const initBody = [{x:10,y:10},{x:9,y:10},{x:8,y:10}];
+  snake = {
+    body: initBody, prevBody: initBody.map(s=>({...s})),
+    dir: {x:1,y:0}, nextDir: {x:1,y:0},
+    food: snakeRandFood(), score: 0, best,
+    alive: false, started: false, tickMs: SN_BASE_MS,
+    lastTickTime: 0, rafId: null, iv: null, touchStart: null
+  };
+  document.getElementById('snakeScore').textContent = '0';
+  document.getElementById('snakeLen').textContent = '3';
+  document.getElementById('snakeStatus').textContent = 'Ready';
+  snakeDraw(1);
+}
+
+function lerpPos(prev, cur, t) {
+  if (!prev) return cur;
+  let dx = cur.x - prev.x, dy = cur.y - prev.y;
+  if (Math.abs(dx) > SN_GRID/2) dx = 0;
+  if (Math.abs(dy) > SN_GRID/2) dy = 0;
+  return { x: prev.x + dx*t, y: prev.y + dy*t };
+}
+
+function snakeDraw(t) {
+  const W = snakeCanvas.width, H = snakeCanvas.height;
+  sctx.fillStyle = '#0a0a14';
+  sctx.fillRect(0, 0, W, H);
+
+  // Subtle grid dots
+  sctx.fillStyle = 'rgba(255,255,255,0.025)';
+  for (let gx=0; gx<SN_GRID; gx++) for (let gy=0; gy<SN_GRID; gy++)
+    sctx.fillRect(gx*SN_CELL+SN_CELL/2-1, gy*SN_CELL+SN_CELL/2-1, 2, 2);
+
+  // Border walls — glowing green border
+  sctx.shadowColor = 'rgba(0,245,160,0.5)';
+  sctx.shadowBlur = 8;
+  sctx.strokeStyle = 'rgba(0,245,160,0.45)';
+  sctx.lineWidth = 2;
+  sctx.strokeRect(1, 1, W-2, H-2);
+  sctx.shadowBlur = 0;
+
+  // Food with pulse
+  if (snake.food) {
+    const pulse = 0.86 + 0.14*Math.sin(Date.now()/200);
+    const fx = snake.food.x*SN_CELL + SN_CELL/2;
+    const fy = snake.food.y*SN_CELL + SN_CELL/2;
+    const gr = sctx.createRadialGradient(fx,fy,1,fx,fy,SN_CELL*0.65*pulse);
+    gr.addColorStop(0,'rgba(255,45,85,1)');
+    gr.addColorStop(0.45,'rgba(255,45,85,0.5)');
+    gr.addColorStop(1,'rgba(255,45,85,0)');
+    sctx.fillStyle = gr;
+    sctx.beginPath(); sctx.arc(fx,fy,SN_CELL*0.65*pulse,0,Math.PI*2); sctx.fill();
+    sctx.shadowColor = '#ff2d55'; sctx.shadowBlur = 10;
+    sctx.fillStyle = '#ff2d55';
+    sctx.beginPath(); sctx.arc(fx,fy,SN_CELL*0.32*pulse,0,Math.PI*2); sctx.fill();
+    sctx.shadowBlur = 0;
+    sctx.fillStyle = 'rgba(255,255,255,0.55)';
+    sctx.beginPath(); sctx.arc(fx-SN_CELL*0.09,fy-SN_CELL*0.09,SN_CELL*0.08,0,Math.PI*2); sctx.fill();
+  }
+
+  // Draw snake body (back to front for correct layering)
+  const n = snake.body.length;
+  for (let i = n-1; i >= 0; i--) {
+    const cur  = snake.body[i];
+    const prev = (snake.prevBody && i < snake.prevBody.length) ? snake.prevBody[i] : cur;
+    const pos  = lerpPos(prev, cur, t);
+    const px = pos.x * SN_CELL;
+    const py = pos.y * SN_CELL;
+    const frac = 1 - i/n;
+
+    if (i === 0) {
+      // Head glow
+      const hcx = px+SN_CELL/2, hcy = py+SN_CELL/2;
+      const hg = sctx.createRadialGradient(hcx,hcy,0,hcx,hcy,SN_CELL);
+      hg.addColorStop(0, snake.alive ? 'rgba(0,245,160,0.3)' : 'rgba(255,45,85,0.3)');
+      hg.addColorStop(1,'rgba(0,0,0,0)');
+      sctx.fillStyle = hg;
+      sctx.beginPath(); sctx.arc(hcx,hcy,SN_CELL,0,Math.PI*2); sctx.fill();
+    }
+
+    const g = Math.round(130 + 115*frac);
+    const b = Math.round(80*frac);
+    const a = 0.45 + frac*0.55;
+    sctx.fillStyle = i===0
+      ? (snake.alive ? '#00f5a0' : '#ff2d55')
+      : `rgba(0,${g},${b},${a})`;
+    const pad = i===0 ? 1 : 2.5;
+    sctx.beginPath();
+    if (sctx.roundRect) sctx.roundRect(px+pad, py+pad, SN_CELL-pad*2, SN_CELL-pad*2, i===0?5:3);
+    else sctx.rect(px+pad, py+pad, SN_CELL-pad*2, SN_CELL-pad*2);
+    sctx.fill();
+
+    // Eyes on head
+    if (i===0 && snake.alive) {
+      const hcx=px+SN_CELL/2, hcy=py+SN_CELL/2;
+      const eOff=SN_CELL*0.22, eR=SN_CELL*0.1;
+      let ex1,ey1,ex2,ey2;
+      if      (snake.dir.x=== 1){ex1=hcx+SN_CELL*0.12;ey1=hcy-eOff;ex2=hcx+SN_CELL*0.12;ey2=hcy+eOff;}
+      else if (snake.dir.x===-1){ex1=hcx-SN_CELL*0.12;ey1=hcy-eOff;ex2=hcx-SN_CELL*0.12;ey2=hcy+eOff;}
+      else if (snake.dir.y===-1){ex1=hcx-eOff;ey1=hcy-SN_CELL*0.12;ex2=hcx+eOff;ey2=hcy-SN_CELL*0.12;}
+      else                      {ex1=hcx-eOff;ey1=hcy+SN_CELL*0.12;ex2=hcx+eOff;ey2=hcy+SN_CELL*0.12;}
+      sctx.fillStyle='#06060e';
+      sctx.beginPath();sctx.arc(ex1,ey1,eR,0,Math.PI*2);sctx.fill();
+      sctx.beginPath();sctx.arc(ex2,ey2,eR,0,Math.PI*2);sctx.fill();
+      sctx.fillStyle='rgba(255,255,255,0.7)';
+      sctx.beginPath();sctx.arc(ex1+eR*0.3,ey1-eR*0.3,eR*0.35,0,Math.PI*2);sctx.fill();
+      sctx.beginPath();sctx.arc(ex2+eR*0.3,ey2-eR*0.3,eR*0.35,0,Math.PI*2);sctx.fill();
+    }
+  }
+
+  // Idle overlay
+  if (!snake.started) {
+    sctx.fillStyle='rgba(6,6,14,0.62)'; sctx.fillRect(0,0,W,H);
+    sctx.fillStyle='#00f5a0'; sctx.font='bold 44px Bebas Neue,sans-serif'; sctx.textAlign='center';
+    sctx.fillText('SNAKE',W/2,H/2-22);
+    sctx.fillStyle='#b0b0d0'; sctx.font='13px monospace';
+    sctx.fillText('Tap / Arrow Key to Start',W/2,H/2+14);
+    sctx.textAlign='left';
+  }
+
+  // Game over overlay
+  if (snake.started && !snake.alive) {
+    sctx.fillStyle='rgba(6,6,14,0.72)'; sctx.fillRect(0,0,W,H);
+    sctx.fillStyle='#ff2d55'; sctx.font='bold 44px Bebas Neue,sans-serif'; sctx.textAlign='center';
+    sctx.fillText('GAME OVER',W/2,H/2-30);
+    sctx.fillStyle='#ffffff'; sctx.font='bold 24px Bebas Neue,sans-serif';
+    sctx.fillText('Score: '+snake.score,W/2,H/2+4);
+    if (snake.score>0 && snake.score>=snake.best) {
+      sctx.fillStyle='#ffe000'; sctx.font='16px Bebas Neue,sans-serif';
+      sctx.fillText('🏆 NEW BEST!',W/2,H/2+28);
+    }
+    sctx.fillStyle='#9090b8'; sctx.font='13px monospace';
+    sctx.fillText('Tap to Restart',W/2,H/2+56);
+    sctx.textAlign='left';
+  }
+}
+
+// rAF render loop — interpolates positions between logic ticks
+function snakeRenderLoop(now) {
+  if (curPanel !== 'snake') return;
+  snake.rafId = requestAnimationFrame(snakeRenderLoop);
+  if (!snake.started) return;
+  const elapsed = now - snake.lastTickTime;
+  const t = snake.alive ? Math.min(elapsed / snake.tickMs, 1) : 1;
+  snakeDraw(t);
+}
+
+function snakeTick() {
+  if (curPanel !== 'snake' || !snake.alive) return;
+
+  // Save previous positions for smooth interpolation
+  snake.prevBody = snake.body.map(s => ({...s}));
+  snake.lastTickTime = performance.now();
+
+  snake.dir = { ...snake.nextDir };
+  const head = { x: snake.body[0].x + snake.dir.x, y: snake.body[0].y + snake.dir.y };
+
+  // Wall collision = death
+  if (head.x < 0 || head.x >= SN_GRID || head.y < 0 || head.y >= SN_GRID) {
+    snake.alive = false;
+    if (snake.score > snake.best) { snake.best = snake.score; document.getElementById('snakeBest').textContent = snake.best; }
+    document.getElementById('snakeStatus').textContent = 'Dead 💀';
+    if (typeof recordStat !== 'undefined') recordStat('snake', snake.score, 'pts');
+    if (typeof SFX !== 'undefined') SFX.dinoDie();
+    snakeDraw(1); return;
+  }
+
+  // Self collision
+  if (snake.body.some(s => s.x===head.x && s.y===head.y)) {
+    snake.alive = false;
+    if (snake.score > snake.best) { snake.best = snake.score; document.getElementById('snakeBest').textContent = snake.best; }
+    document.getElementById('snakeStatus').textContent = 'Dead 💀';
+    if (typeof recordStat !== 'undefined') recordStat('snake', snake.score, 'pts');
+    if (typeof SFX !== 'undefined') SFX.dinoDie();
+    snakeDraw(1); return;
+  }
+
+  snake.body.unshift(head);
+
+  if (head.x === snake.food.x && head.y === snake.food.y) {
+    snake.score += 10;
+    snake.food = snakeRandFood();
+    // Slow acceleration: 2ms per apple, floor at 80ms
+    const apples = Math.floor(snake.score / 10);
+    snake.tickMs = Math.max(SN_MIN_MS, SN_BASE_MS - apples * SN_SPEEDUP);
+    clearInterval(snake.iv);
+    snake.iv = setInterval(snakeTick, snake.tickMs);
+    document.getElementById('snakeScore').textContent = snake.score;
+    document.getElementById('snakeLen').textContent = snake.body.length;
+    if (typeof SFX !== 'undefined') SFX.memCorrect();
+  } else {
+    snake.body.pop();
+    if (snake.prevBody.length > snake.body.length) snake.prevBody.pop();
+  }
+}
+
+function snakeStart() {
+  snakeReset();
+  snake.started = true; snake.alive = true;
+  snake.lastTickTime = performance.now();
+  document.getElementById('snakeStatus').textContent = 'Running';
+  snake.iv = setInterval(snakeTick, snake.tickMs);
+  snake.rafId = requestAnimationFrame(snakeRenderLoop);
+}
+
+snakeCanvas.addEventListener('click', () => {
+  if (!snake.started || !snake.alive) snakeStart();
+});
+snakeCanvas.addEventListener('touchstart', e => {
+  e.preventDefault();
+  snake.touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  if (!snake.started || !snake.alive) snakeStart();
+}, { passive:false });
+snakeCanvas.addEventListener('touchend', e => {
+  e.preventDefault();
+  if (!snake.touchStart) return;
+  const dx = e.changedTouches[0].clientX - snake.touchStart.x;
+  const dy = e.changedTouches[0].clientY - snake.touchStart.y;
+  if (Math.abs(dx) < 12 && Math.abs(dy) < 12) return;
+  if (Math.abs(dx) > Math.abs(dy)) {
+    if (dx > 0 && snake.dir.x !== -1) snake.nextDir = {x:1,y:0};
+    else if (dx < 0 && snake.dir.x !== 1) snake.nextDir = {x:-1,y:0};
+  } else {
+    if (dy > 0 && snake.dir.y !== -1) snake.nextDir = {x:0,y:1};
+    else if (dy < 0 && snake.dir.y !== 1) snake.nextDir = {x:0,y:-1};
+  }
+  snake.touchStart = null;
+}, { passive:false });
+
+document.addEventListener('keydown', e => {
+  if (curPanel !== 'snake') return;
+  const map = {
+    ArrowUp:{x:0,y:-1}, ArrowDown:{x:0,y:1}, ArrowLeft:{x:-1,y:0}, ArrowRight:{x:1,y:0},
+    KeyW:{x:0,y:-1}, KeyS:{x:0,y:1}, KeyA:{x:-1,y:0}, KeyD:{x:1,y:0}
+  };
+  const d = map[e.code];
+  if (d) {
+    e.preventDefault();
+    if (!snake.started || !snake.alive) { snakeStart(); return; }
+    if (!(d.x === -snake.dir.x && d.y === -snake.dir.y)) snake.nextDir = d;
+  }
+});
+
+
+/* ═══════════════════════════════════════════
+   TAB SCROLL ARROWS
+═══════════════════════════════════════════ */
+function scrollTabs(dir) {
+  const tabs = document.getElementById('tabsContainer');
+  tabs.scrollBy({ left: dir * 160, behavior: 'smooth' });
+}
+
+// Show/hide arrows based on scroll position
+function updateTabArrows() {
+  const tabs = document.getElementById('tabsContainer');
+  const btnL = document.getElementById('tabScrollLeft');
+  const btnR = document.getElementById('tabScrollRight');
+  if (!tabs || !btnL || !btnR) return;
+  const atStart = tabs.scrollLeft <= 4;
+  const atEnd   = tabs.scrollLeft + tabs.clientWidth >= tabs.scrollWidth - 4;
+  btnL.style.opacity = atStart ? '0.25' : '1';
+  btnR.style.opacity = atEnd   ? '0.25' : '1';
+}
+
+document.getElementById('tabsContainer').addEventListener('scroll', updateTabArrows, { passive: true });
+window.addEventListener('resize', updateTabArrows);
+setTimeout(updateTabArrows, 100);
+
+// Auto-scroll active tab into view when switching
+const _origSwitchPanel_scroll = switchPanel;
+switchPanel = function(p, fromPopstate) {
+  _origSwitchPanel_scroll(p, fromPopstate);
+  const activeTab = document.querySelector(`.tab[data-panel="${p}"]`);
+  if (activeTab) activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+};
+
+/* ═══════════════════════════════════════════
    INIT
 ═══════════════════════════════════════════ */
 setLang('en');
@@ -3307,6 +3736,7 @@ resetTyping();
 cbReset();
 dinoReset();
 memReset();
+snakeReset();
 // Read panel from current URL path, fall back to 'reaction'
 const _initPanel = panelFromPath(location.pathname);
 // fromPopstate=true → switchPanel skips pushState, no extra history entry
@@ -3323,5 +3753,421 @@ try {
 } catch(e) {}
 setDuration(5);
 </script>
+<!-- ═══════════════════════════════════════════════════
+     STATS MODAL
+═══════════════════════════════════════════════════ -->
+<div id="statsModal" style="
+  display:none;position:fixed;inset:0;z-index:9999;
+  background:rgba(6,6,14,0.88);backdrop-filter:blur(12px);
+  align-items:center;justify-content:center;
+">
+  <div style="
+    background:var(--surf);border:1px solid var(--border);border-radius:20px;
+    padding:28px 24px;max-width:500px;width:92%;max-height:85vh;overflow-y:auto;
+    position:relative;
+  ">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:0.15em;color:var(--accent);">📊 MY STATS</div>
+      <button onclick="closeStatsModal()" style="background:none;border:none;color:var(--muted);font-size:1.4rem;cursor:pointer;line-height:1;">✕</button>
+    </div>
+    <div id="statsContent" style="display:flex;flex-direction:column;gap:14px;"></div>
+    <button onclick="clearStats()" style="
+      margin-top:18px;width:100%;padding:11px;background:transparent;
+      border:1px solid var(--red);color:var(--red);border-radius:10px;
+      font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;
+      cursor:pointer;transition:all 0.2s;
+    " onmouseover="this.style.background='rgba(255,45,85,0.1)'" onmouseout="this.style.background='transparent'">
+      🗑 CLEAR ALL STATS
+    </button>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════
+   WEB AUDIO — SOUND ENGINE
+═══════════════════════════════════════════ */
+let audioCtx = null;
+let soundEnabled = true;
+
+function getAudioCtx() {
+  if (!audioCtx) {
+    try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) {}
+  }
+  return audioCtx;
+}
+
+function playTone(freq, type, duration, vol, decay) {
+  if (!soundEnabled) return;
+  const ctx = getAudioCtx(); if (!ctx) return;
+  try {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.type = type || 'sine';
+    osc.frequency.setValueAtTime(freq, ctx.currentTime);
+    gain.gain.setValueAtTime(vol || 0.18, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + (decay || duration));
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + (duration || 0.12));
+  } catch(e) {}
+}
+
+function playNoise(duration, vol) {
+  if (!soundEnabled) return;
+  const ctx = getAudioCtx(); if (!ctx) return;
+  try {
+    const bufLen = ctx.sampleRate * duration;
+    const buf = ctx.createBuffer(1, bufLen, ctx.sampleRate);
+    const data = buf.getChannelData(0);
+    for (let i = 0; i < bufLen; i++) data[i] = (Math.random() * 2 - 1);
+    const src = ctx.createBufferSource();
+    src.buffer = buf;
+    const gain = ctx.createGain();
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'bandpass'; filter.frequency.value = 200;
+    src.connect(filter); filter.connect(gain); gain.connect(ctx.destination);
+    gain.gain.setValueAtTime(vol || 0.1, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+    src.start(); src.stop(ctx.currentTime + duration);
+  } catch(e) {}
+}
+
+// Game sounds
+const SFX = {
+  click:      () => playTone(600, 'square', 0.06, 0.12),
+  clickFail:  () => playTone(180, 'sawtooth', 0.1, 0.15),
+  dinoJump:   () => { playTone(280, 'sine', 0.10, 0.08); playTone(420, 'sine', 0.07, 0.07); },
+  dinoDie:    () => { playTone(200,'sawtooth',0.06,0.08); setTimeout(()=>playTone(130,'sawtooth',0.07,0.15),70); playNoise(0.18, 0.04); },
+  dinoStep:   () => playTone(80, 'square', 0.04, 0.04),
+  reactionGo: () => playTone(880, 'sine', 0.15, 0.22, 0.3),
+  reactionHit:() => { playTone(660,'sine',0.08,0.14); setTimeout(()=>playTone(880,'sine',0.1,0.12),60); },
+  reactionEarly:() => { playTone(200,'sawtooth',0.15,0.18); setTimeout(()=>playTone(150,'sawtooth',0.12,0.2),100); },
+  reactionEnd:() => { [523,659,784,1047].forEach((f,i)=>setTimeout(()=>playTone(f,'sine',0.15,0.1),i*90)); },
+  stimHit:    () => playTone(660 + Math.random()*200, 'sine', 0.07, 0.12),
+  stimMiss:   () => playTone(200, 'sawtooth', 0.06, 0.08),
+  stimEnd:    () => { [392,494,659,784].forEach((f,i)=>setTimeout(()=>playTone(f,'sine',0.12,0.15),i*80)); },
+  cpsClick:   () => playTone(500 + Math.random()*200, 'square', 0.04, 0.08),
+  spacePress: () => playTone(350, 'sine', 0.05, 0.06),
+  memCorrect: () => { playTone(523,'sine',0.12,0.15); setTimeout(()=>playTone(659,'sine',0.12,0.15),120); },
+  memWrong:   () => { playTone(250,'sawtooth',0.15,0.2); setTimeout(()=>playTone(200,'sawtooth',0.12,0.2),120); },
+  cbHit:      () => playTone(440 + Math.random()*160, 'sine', 0.08, 0.1),
+  cbMiss:     () => playTone(160, 'sawtooth', 0.1, 0.12),
+  typingKey:  () => playTone(700 + Math.random()*300, 'square', 0.02, 0.025),
+};
+
+function toggleSound() {
+  soundEnabled = !soundEnabled;
+  document.getElementById('soundToggle').textContent = soundEnabled ? '🔊' : '🔇';
+  // Unlock audio ctx on first interaction
+  if (soundEnabled) { getAudioCtx(); playTone(440,'sine',0.05,0.1); }
+}
+
+/* ═══════════════════════════════════════════
+   PERSONAL STATS (localStorage)
+═══════════════════════════════════════════ */
+const STATS_KEY = 'reflexlab_stats_v1';
+
+function loadStats() {
+  try { return JSON.parse(localStorage.getItem(STATS_KEY)) || {}; } catch(e) { return {}; }
+}
+function saveStats(s) {
+  try { localStorage.setItem(STATS_KEY, JSON.stringify(s)); } catch(e) {}
+}
+function recordStat(game, value, unit) {
+  const s = loadStats();
+  if (!s[game]) s[game] = { sessions:0, best:null, history:[] };
+  s[game].sessions++;
+  s[game].history.push({ v: value, t: Date.now() });
+  if (s[game].history.length > 50) s[game].history.shift(); // keep last 50
+  const isBetter = s[game].best === null ||
+    (game === 'reaction' ? value < s[game].best : value > s[game].best);
+  if (isBetter) s[game].best = value;
+  saveStats(s);
+}
+
+function showStatsModal() {
+  const s = loadStats();
+  const modal = document.getElementById('statsModal');
+  const content = document.getElementById('statsContent');
+  const games = [
+    { key:'reaction', label:'⚡ Reaction Time', unit:'ms', lower:true },
+    { key:'cps',      label:'🔥 Click Speed',   unit:'CPS', lower:false },
+    { key:'spacebar', label:'⌨️ Spacebar',       unit:'HPS', lower:false },
+    { key:'stim',     label:'🎯 Stimulation',    unit:'pts', lower:false },
+    { key:'typing',   label:'📝 Typing Speed',   unit:'WPM', lower:false },
+    { key:'memory',   label:'🧠 Memory',         unit:'digits', lower:false },
+  ];
+  content.innerHTML = '';
+  let hasData = false;
+  games.forEach(g => {
+    const d = s[g.key];
+    if (!d) return;
+    hasData = true;
+    const avg = d.history.length ? Math.round(d.history.reduce((a,b)=>a+b.v,0)/d.history.length*10)/10 : '—';
+    content.innerHTML += `
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:14px 16px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <span style="font-size:0.7rem;font-weight:700;color:var(--text);">${g.label}</span>
+          <span style="font-size:0.55rem;color:var(--muted);letter-spacing:0.1em;">${d.sessions} sessions</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center;">
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--accent);">${d.best}${g.unit==='ms'?'':''}</div>
+            <div style="font-size:0.45rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;">Best (${g.unit})</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--yellow);">${avg}</div>
+            <div style="font-size:0.45rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;">Avg (${g.unit})</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--purple);">${d.sessions}</div>
+            <div style="font-size:0.45rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;">Sessions</div>
+          </div>
+        </div>
+      </div>`;
+  });
+  if (!hasData) {
+    content.innerHTML = '<div style="text-align:center;color:var(--muted);padding:32px 0;font-size:0.7rem;letter-spacing:0.1em;">No data yet — play some tests first!</div>';
+  }
+  modal.style.display = 'flex';
+}
+function closeStatsModal() { document.getElementById('statsModal').style.display = 'none'; }
+function clearStats() {
+  if (confirm('Clear all your saved stats?')) {
+    localStorage.removeItem(STATS_KEY);
+    showStatsModal();
+  }
+}
+document.getElementById('statsModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('statsModal')) closeStatsModal();
+});
+</script>
+
+<script>
+/* ═══════════════════════════════════════════
+   GAME SOUND & EFFECT HOOKS
+═══════════════════════════════════════════ */
+
+/* ────────────────────────────────────────
+   DINO — jump + softer die + footsteps
+──────────────────────────────────────── */
+const _origDinoJump = dinoJump;
+dinoJump = function() {
+  const wasJumping = dino.jumping;
+  _origDinoJump();
+  if (!wasJumping) SFX.dinoJump();
+};
+
+let _dinoPrevAlive = false;
+setInterval(() => {
+  if (_dinoPrevAlive && !dino.alive && dino.started) SFX.dinoDie();
+  _dinoPrevAlive = dino.alive;
+}, 50);
+
+/* ────────────────────────────────────────
+   REACTION — clean override approach
+   (don't double-wrap startRound, just
+    patch the go-signal directly inside
+    handleReactionTap's wait→go path)
+──────────────────────────────────────── */
+
+/* ────────────────────────────────────────
+   REACTION — stat tracking only (no sounds)
+──────────────────────────────────────── */
+
+// Patch endReaction — stat save only, no sounds
+const _origEndReaction = endReaction;
+endReaction = function() {
+  _origEndReaction();
+  const valid = rResults.filter(r => r !== 'early');
+  if (valid.length) recordStat('reaction', Math.round(valid.reduce((a,b)=>a+b,0)/valid.length), 'ms');
+};
+
+// When switching away from reaction panel, cancel pending rTimer
+const _origSwitchPanel_react = switchPanel;
+switchPanel = function(p, fromPopstate) {
+  if (curPanel === 'reaction' && p !== 'reaction') {
+    clearTimeout(rTimer);
+    rState = 'idle';
+  }
+  if (curPanel === 'snake' && p !== 'snake') {
+    clearInterval(snake.iv);
+  }
+  _origSwitchPanel_react(p, fromPopstate);
+};
+
+/* ────────────────────────────────────────
+   STIMULATION — proper event-based sounds
+   Only on: correct hit & wrong click (miss)
+   NOT on target expiry
+──────────────────────────────────────── */
+
+// Wrap spawnTarget to inject sound into the click handler of each target
+const _origSpawnTarget = spawnTarget;
+spawnTarget = function() {
+  // Call original — it appends targets to arena
+  _origSpawnTarget();
+  // Find the most recently appended target element and patch its click
+  const arena = document.getElementById('stimArena');
+  const targets = arena.querySelectorAll('.stim-target');
+  if (!targets.length) return;
+  const lastEl = targets[targets.length - 1];
+  // Wrap click to add sound — stopPropagation already handled inside original
+  lastEl.addEventListener('click', (e) => {
+    // Only fire if this target hasn't been hit yet (check via opacity not yet 0)
+    if (lastEl.style.opacity !== '0') SFX.stimHit();
+  }, true); // capture phase — runs before original
+};
+
+// Arena background click = miss sound
+document.getElementById('stimArena').addEventListener('click', (e) => {
+  if (!stim.running) return;
+  if (e.target.id === 'stimArena' || e.target === document.getElementById('stimArena')) {
+    SFX.stimMiss();
+  }
+});
+
+// Finish sound + stat
+const _origFinishStim = finishStim;
+finishStim = function() {
+  _origFinishStim();
+  SFX.stimEnd();
+  recordStat('stim', stim.score, 'pts');
+};
+
+/* ────────────────────────────────────────
+   CPS / JITTER — NO sound, ripple effect only
+──────────────────────────────────────── */
+function spawnClickRipple(container, clientX, clientY) {
+  const rect = container.getBoundingClientRect();
+  const x = clientX - rect.left;
+  const y = clientY - rect.top;
+  const ripple = document.createElement('div');
+  ripple.style.cssText = `
+    position:absolute;
+    left:${x}px; top:${y}px;
+    width:0; height:0;
+    border-radius:50%;
+    border:2px solid rgba(0,245,160,0.7);
+    transform:translate(-50%,-50%);
+    pointer-events:none;
+    animation:rippleGrow 0.5s ease-out forwards;
+    z-index:10;
+  `;
+  container.style.position = 'relative';
+  container.appendChild(ripple);
+  setTimeout(() => ripple.remove(), 500);
+}
+
+clickArena.addEventListener('click', (e) => {
+  spawnClickRipple(clickArena, e.clientX, e.clientY);
+});
+clickArena.addEventListener('touchstart', (e) => {
+  if (e.touches.length) spawnClickRipple(clickArena, e.touches[0].clientX, e.touches[0].clientY);
+}, { passive: true });
+
+// CPS finish → stat
+const _origCgFinish = cgFinish;
+cgFinish = function() {
+  _origCgFinish();
+  const elapsed = Math.min(curDuration, (Date.now() - cg.ts)/1000);
+  recordStat('cps', +(cg.clicks / Math.max(elapsed, 0.01)).toFixed(2), 'CPS');
+};
+
+/* ────────────────────────────────────────
+   SPACEBAR — mechanical key sound
+──────────────────────────────────────── */
+function playSpacebarSound() {
+  if (!soundEnabled) return;
+  const ctx = getAudioCtx(); if (!ctx) return;
+  try {
+    // Thump: low body
+    const bufLen = Math.floor(ctx.sampleRate * 0.04);
+    const buf = ctx.createBuffer(1, bufLen, ctx.sampleRate);
+    const data = buf.getChannelData(0);
+    for (let i = 0; i < bufLen; i++) data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufLen * 0.3));
+    const src = ctx.createBufferSource();
+    src.buffer = buf;
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'lowpass'; filter.frequency.value = 180;
+    const gain = ctx.createGain();
+    gain.gain.value = 0.4;
+    src.connect(filter); filter.connect(gain); gain.connect(ctx.destination);
+    src.start();
+    // Click transient
+    const osc = ctx.createOscillator();
+    const g2 = ctx.createGain();
+    osc.type = 'square'; osc.frequency.value = 1200;
+    g2.gain.setValueAtTime(0.07, ctx.currentTime);
+    g2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.015);
+    osc.connect(g2); g2.connect(ctx.destination);
+    osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.015);
+  } catch(e) {}
+}
+
+const _origSgClick = sgClick;
+sgClick = function() {
+  playSpacebarSound();
+  _origSgClick();
+};
+
+const _origSgFinish = sgFinish;
+sgFinish = function() {
+  _origSgFinish();
+  const elapsed = Math.min(curDuration, (Date.now() - sg.ts)/1000);
+  recordStat('spacebar', +(sg.clicks/Math.max(elapsed,0.01)).toFixed(2), 'HPS');
+};
+
+/* ────────────────────────────────────────
+   NUMBER MEMORY — correct / wrong sounds
+──────────────────────────────────────── */
+const _origMemCheck = memCheck;
+memCheck = function() {
+  const answer = document.getElementById('memInput').value.trim();
+  const wasCorrect = answer === mem.number;
+  _origMemCheck();
+  if (wasCorrect) SFX.memCorrect();
+  else SFX.memWrong();
+};
+
+let _lastMemBestRecorded = 0;
+setInterval(() => {
+  if (mem.phase === 'gameover' && mem.best > 0 && mem.best !== _lastMemBestRecorded) {
+    recordStat('memory', mem.best, 'digits');
+    _lastMemBestRecorded = mem.best;
+  }
+}, 500);
+
+/* ────────────────────────────────────────
+   COREBALL — hit sound
+──────────────────────────────────────── */
+cbCanvas.addEventListener('click', () => {
+  if (!cb.gameOver && !cb.flyBall && cb.ballsLeft > 0) SFX.cbHit();
+}, true);
+
+/* ────────────────────────────────────────
+   TYPING — keystroke sound
+──────────────────────────────────────── */
+const typingInput = document.getElementById('tInput');
+if (typingInput) typingInput.addEventListener('keydown', () => SFX.typingKey());
+
+/* ────────────────────────────────────────
+   RIPPLE CSS KEYFRAME (injected once)
+──────────────────────────────────────── */
+const _rippleStyle = document.createElement('style');
+_rippleStyle.textContent = `
+@keyframes rippleGrow {
+  0%   { width:0; height:0; opacity:0.9; }
+  100% { width:120px; height:120px; opacity:0; }
+}`;
+document.head.appendChild(_rippleStyle);
+
+/* ────────────────────────────────────────
+   Unlock AudioContext on first interaction
+──────────────────────────────────────── */
+document.addEventListener('click',   () => { if(soundEnabled) getAudioCtx(); }, { once:true });
+document.addEventListener('keydown', () => { if(soundEnabled) getAudioCtx(); }, { once:true });
+</script>
+
 </body>
 </html>
