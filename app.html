@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- ═══ PRIMARY SEO ═══ -->
-<title>Reaction Time Test — Free Online Brain & Reflex Games</title>
-<meta name="description" content="Test your reaction time, typing speed (WPM), click speed (CPS), number memory and more — free, instant, no download. Play Dino Game, Coreball, Stimulation Clicker and Spacebar Test online.">
+<title>Reaction Time Test — Measure Your Reflexes in Milliseconds | Reflex Lab</title>
+<meta name="description" content="Free online reaction time test. Measure how fast you respond in milliseconds. 5 rounds, instant scoring. Average human reaction time is 200–250ms — how do you compare?">
 <meta name="keywords" content="reaction time test, typing speed test, WPM test, dinosaur game, dino game, coreball game, click speed test, CPS test, free typing test, jitter click test, spacebar test, stimulation clicker, online reaction test, words per minute, typing test free, chrome dino game">
-<link rel="canonical" href="https://reactionspeedtest.com/">
+<link rel="canonical" href="https://reactionspeedtest.com/reaction-time-test">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <!-- Sitemap hints for crawlers — each game has its own URL -->
 <link rel="alternate" href="https://reactionspeedtest.com/reaction-time-test">
@@ -25,9 +25,14 @@
 
 <!-- ═══ OPEN GRAPH / SOCIAL ═══ -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Reaction Time Test & Click Speed Test — Free CPS Tester">
-<meta property="og:description" content="Test your reaction time and click speed for free. Reaction time in milliseconds, CPS test with 8 durations, jitter click, Kohi click, and stimulation clicker. No download needed.">
-<meta property="og:url" content="https://reactionspeedtest.com/">
+<meta property="og:title" content="Reaction Time Test — Measure Your Reflexes | Reflex Lab">
+<meta property="og:description" content="Free online reaction time test. Measure your reflexes in ms, test typing speed, click speed (CPS), number memory and more. No download needed.">
+<meta property="og:url" content="https://reactionspeedtest.com/reaction-time-test">
+<meta property="og:image" content="https://reactionspeedtest.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Reflex Lab">
 <meta property="og:image" content="https://reactionspeedtest.com/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -36,8 +41,8 @@
 
 <!-- ═══ TWITTER CARD ═══ -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Reaction Time Test & Click Speed Test — Free CPS Tester">
-<meta name="twitter:description" content="Test your reaction time and CPS for free. 6 modes, 8 durations, instant results.">
+<meta name="twitter:title" content="Reaction Time Test — Measure Your Reflexes | Reflex Lab">
+<meta name="twitter:description" content="Free reaction time test in ms. Test typing speed, CPS, number memory and more. Instant results, no download.">
 <meta name="twitter:image" content="https://reactionspeedtest.com/og-image.png">
 
 <!-- ═══ FAVICON ═══ -->
@@ -210,14 +215,25 @@ body::before {
 /* ─── ROW 1: logo + test type tabs + lang ─── */
 .row1 {
   height: var(--row1-h);
-  display: flex; align-items: stretch;
+  display: flex; align-items: center;
   border-bottom: 1px solid var(--border2);
-  overflow-x: auto; scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
+  gap: 0;
+  padding: 0 10px 0 0;
 }
 .row1::-webkit-scrollbar { display: none; }
 
 .logo { display: none; }
+
+.home-btn {
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 12px; border-radius: 8px; margin: 0 8px 0 10px;
+  background: var(--surf2); border: 1px solid var(--border);
+  color: #c0c0e0; font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  text-decoration: none; white-space: nowrap; flex-shrink: 0;
+  transition: border-color 0.15s, color 0.15s;
+}
+.home-btn:hover { border-color: var(--accent); color: var(--accent); }
 
 /* Test type tabs */
 .tabs {
@@ -885,6 +901,7 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
 
   <!-- ROW 1: tabs + lang toggle -->
   <div class="row1">
+    <a class="home-btn" href="/" aria-label="Back to homepage">⚡ Home</a>
 
     <div class="tabs" role="tablist">
       <button class="tab active" data-panel="reaction" onclick="switchPanel('reaction')" role="tab">
@@ -1540,7 +1557,7 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
         Price: <span>Free</span> &nbsp;·&nbsp;
         Rated: <span>4.8 / 5</span> by <span>2,347</span> users
       </p>
-      <p>© <span id="footYear"></span> Reaction Speed Test — Free Online Brain &amp; Reflex Tests</p>
+      <p>© <span id="footYear">2026</span> Reaction Speed Test — Free Online Brain &amp; Reflex Tests</p>
       <p style="margin-top:6px">Test your <strong>reaction time</strong>, <strong>number memory</strong>, <strong>typing speed</strong>, <strong>click speed (CPS)</strong>, and more — free, no download, works on any device.</p>
       <p style="margin-top:6px;font-size:0.48rem">Keywords: reaction time test · number memory test · typing speed test · click speed test · CPS test · dino game · coreball · jitter click · spacebar test · stimulation clicker · working memory test · brain test online</p>
     </footer>
