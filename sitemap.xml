@@ -1,48 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- ═══════════════════════════════════════════
+       REFLEX LAB — SITEMAP
+       Site: https://reactionspeedtest.com
+       Last Updated: 2026-02-25
+       Total URLs: 11
+  ═══════════════════════════════════════════ -->
+
+  <!-- ── HOMEPAGE ── -->
   <url>
-    <loc>https://reactionspeedtest.com/reaction-time-test</loc>
-    <changefreq>monthly</changefreq>
+    <loc>https://reactionspeedtest.com/</loc>
+    <lastmod>2026-02-25</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+
+  <!-- ── REACTION TIME TEST ── -->
+  <url>
+    <loc>https://reactionspeedtest.com/reaction-time-test</loc>
+    <lastmod>2026-02-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- ── CLICK SPEED TEST (CPS) ── -->
   <url>
     <loc>https://reactionspeedtest.com/click-speed-test</loc>
+    <lastmod>2026-02-25</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.90</priority>
   </url>
-  <url>
-    <loc>https://reactionspeedtest.com/jitter-click-test</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://reactionspeedtest.com/spacebar-speed-test</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://reactionspeedtest.com/stimulation-clicker</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
+
+  <!-- ── TYPING SPEED TEST ── -->
   <url>
     <loc>https://reactionspeedtest.com/typing-speed-test</loc>
+    <lastmod>2026-02-25</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.88</priority>
   </url>
-  <url>
-    <loc>https://reactionspeedtest.com/dinosaur-game</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://reactionspeedtest.com/coreball-game</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
+
+  <!-- ── NUMBER MEMORY TEST ── -->
   <url>
     <loc>https://reactionspeedtest.com/number-memory-test</loc>
+    <lastmod>2026-02-25</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
+
+  <!-- ── SNAKE GAME ── -->
+  <url>
+    <loc>https://reactionspeedtest.com/snake-game</loc>
+    <lastmod>2026-02-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- ── JITTER CLICK TEST ── -->
+  <url>
+    <loc>https://reactionspeedtest.com/jitter-click-test</loc>
+    <lastmod>2026-02-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+
+  <!-- ── SPACEBAR SPEED TEST ── -->
+  <url>
+    <loc>https://reactionspeedtest.com/spacebar-speed-test</loc>
+    <lastmod>2026-02-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- ── STIMULATION CLICKER ── -->
+  <url>
+    <loc>https://reactionspeedtest.com/stimulation-clicker</loc>
+    <lastmod>2026-02-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- ── DINOSAUR GAME ── -->
+  <url>
+    <loc>https://reactionspeedtest.com/dinosaur-game</loc>
+    <lastmod>2026-02-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+
+  <!-- ── COREBALL GAME ── -->
+  <url>
+    <loc>https://reactionspeedtest.com/coreball-game</loc>
+    <lastmod>2026-02-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
 </urlset>
