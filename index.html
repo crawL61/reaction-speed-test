@@ -1,1098 +1,702 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Reflex Lab — Free Online Reaction Time, Typing, Snake & Brain Tests</title>
-<meta name="description" content="Free online brain and reflex tests: reaction time, typing speed (WPM), click speed (CPS), number memory, snake game, dinosaur game, coreball and more. 10 games, no download, instant results.">
-<meta name="keywords" content="reaction time test, typing speed test, click speed test, CPS test, number memory test, snake game online, snake game free, online snake game, dinosaur game, coreball, jitter click, spacebar test, free brain test online, reflex test, WPM test">
+<!-- ═══════════════════════════════════════
+  🎯 TITLE — exact keyword match, compelling, under 60 chars
+  Target: "reaction time test" / "typing speed test" / "snake game"
+════════════════════════════════════════ -->
+<title>Reaction Time Test Online – Free Reflex Speed Game</title>
+
+<!-- ═══════════════════════════════════════
+  📝 META DESCRIPTION — 150–160 chars, includes CTA, emoji hook
+════════════════════════════════════════ -->
+<meta name="description" content="Free online reaction time test. Check your reflex speed, compare results, and track your performance with fun and interactive speed games.">
+
+<meta name="keywords" content="reaction time test, reaction time test online, free reaction time test, typing speed test, typing speed test free, WPM test, click speed test, CPS test, number memory test, snake game online, snake game free, online snake game, dinosaur game online, coreball game, jitter click test, spacebar speed test, aim trainer online, brain test online, reflex test online, how fast is my reaction time, free online games no download">
 <link rel="canonical" href="https://reactionspeedtest.com/">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <meta name="theme-color" content="#06060e">
-<meta name="author" content="Reflex Lab">
+<meta name="author" content="reactionspeedtest.com">
 
+<!-- Open Graph -->
 <meta property="og:type"        content="website">
-<meta property="og:title"       content="Reflex Lab — Free Online Reaction Time, Snake & Brain Tests">
-<meta property="og:description" content="Test your reflexes, memory, typing speed and click rate for free. 10 games including Snake, instant results, no download needed.">
+<meta property="og:title"       content="⚡ Reaction Time Test — Free Reflex, Typing & Brain Tests Online">
+<meta property="og:description" content="Test your reaction time in milliseconds, typing speed in WPM, click speed in CPS & more. 10 free games, instant results, no download. How do you compare?">
 <meta property="og:url"         content="https://reactionspeedtest.com/">
 <meta property="og:image"       content="https://reactionspeedtest.com/og-image.png">
 <meta property="og:image:width"  content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:site_name"   content="Reflex Lab">
+<meta property="og:site_name"   content="reactionspeedtest.com">
 
+<!-- Twitter -->
 <meta name="twitter:card"        content="summary_large_image">
-<meta name="twitter:title"       content="Reflex Lab — Free Online Reaction Time, Snake & Brain Tests">
-<meta name="twitter:description" content="10 free brain and reflex tests including Snake game. Instant results, no download.">
+<meta name="twitter:title"       content="⚡ Reaction Time Test — Free Online Reflex & Brain Tests">
+<meta name="twitter:description" content="How fast are you? Test reaction time, typing speed, CPS, memory & more — free, instant, no sign-up. 10 games in one place.">
 <meta name="twitter:image"       content="https://reactionspeedtest.com/og-image.png">
 
-<!-- ═══ FAVICON (inline SVG, no server needed) ═══ -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2306060e'/><text y='24' x='4' font-size='22'>⚡</text></svg>">
+<!-- ═══════════════════════════════════════
+  🎨 FAVICON — inline SVG, guaranteed to show in Google search results
+  No server file needed, works immediately
+════════════════════════════════════════ -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2306060e'/%3E%3Ctext y='48' x='8' font-size='46' font-family='system-ui'>⚡%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/png" sizes="32x32"   href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABiSURBVFhH7c0xCsAgEETR3f9cPYEBQRJ0nVbSKR6f0ixSZGDe6B8A8FREREREREREREREREREREREREREREREpETEzExEREREREREREREREREpETEzMzMRERERET0AAAAAAOA3B9l7y2kAAAAAElFTkSuQmCC">
+<link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='32' fill='%2306060e'/%3E%3Ctext y='135' x='18' font-size='130' font-family='system-ui'>⚡%3C/text%3E%3C/svg%3E">
 
-<!-- Schema: WebSite -->
+<!-- ═══════════════════════════════════════
+  📊 SCHEMA.ORG — WebSite + ItemList + FAQPage
+════════════════════════════════════════ -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "@id": "https://reactionspeedtest.com/#website",
-  "name": "Reflex Lab",
+  "name": "Reaction Time Test — reactionspeedtest.com",
   "url": "https://reactionspeedtest.com/",
-  "description": "Free online brain and reflex tests including reaction time, typing speed, click speed, number memory, and more.",
-  "publisher": {
-    "@type": "Organization",
-    "name": "Reflex Lab",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://reactionspeedtest.com/og-image.png"
-    }
-  },
+  "description": "Free online reaction time test, typing speed test (WPM), click speed test (CPS), snake game, number memory test, dinosaur game and more. 10 games, instant results, no download.",
   "potentialAction": {
     "@type": "SearchAction",
-    "target": "https://reactionspeedtest.com/?q={search_term_string}",
+    "target": { "@type": "EntryPoint", "urlTemplate": "https://reactionspeedtest.com/?q={search_term_string}" },
     "query-input": "required name=search_term_string"
   }
 }
 </script>
 
-<!-- Schema: ItemList of games -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  "name": "Free Online Brain & Reflex Tests",
-  "description": "A collection of free browser-based tests and games for reaction time, memory, typing speed, click speed, and classic arcade games.",
+  "name": "Free Online Reaction Time & Brain Tests",
+  "description": "10 free browser-based games and tests — reaction time, typing speed, click speed, memory, snake game, dino game and more.",
   "numberOfItems": 10,
   "itemListElement": [
-    {"@type":"ListItem","position":1,"name":"Reaction Time Test","url":"https://reactionspeedtest.com/reaction-time-test"},
-    {"@type":"ListItem","position":2,"name":"Click Speed Test","url":"https://reactionspeedtest.com/click-speed-test"},
-    {"@type":"ListItem","position":3,"name":"Typing Speed Test","url":"https://reactionspeedtest.com/typing-speed-test"},
-    {"@type":"ListItem","position":4,"name":"Number Memory Test","url":"https://reactionspeedtest.com/number-memory-test"},
-    {"@type":"ListItem","position":5,"name":"Jitter Click Test","url":"https://reactionspeedtest.com/jitter-click-test"},
-    {"@type":"ListItem","position":6,"name":"Spacebar Speed Test","url":"https://reactionspeedtest.com/spacebar-speed-test"},
-    {"@type":"ListItem","position":7,"name":"Stimulation Clicker","url":"https://reactionspeedtest.com/stimulation-clicker"},
-    {"@type":"ListItem","position":8,"name":"Dinosaur Game","url":"https://reactionspeedtest.com/dinosaur-game"},
-    {"@type":"ListItem","position":9,"name":"Coreball Game","url":"https://reactionspeedtest.com/coreball-game"},
-    {"@type":"ListItem","position":10,"name":"Snake Game","url":"https://reactionspeedtest.com/snake-game"}
+    {"@type":"ListItem","position":1,"name":"Reaction Time Test — Measure Reflexes in Milliseconds","url":"https://reactionspeedtest.com/reaction-time-test"},
+    {"@type":"ListItem","position":2,"name":"Snake Game Online — Free Classic Snake","url":"https://reactionspeedtest.com/snake-game"},
+    {"@type":"ListItem","position":3,"name":"Typing Speed Test — Free WPM Test Online","url":"https://reactionspeedtest.com/typing-speed-test"},
+    {"@type":"ListItem","position":4,"name":"Click Speed Test (CPS Test)","url":"https://reactionspeedtest.com/click-speed-test"},
+    {"@type":"ListItem","position":5,"name":"Number Memory Test — Working Memory Test","url":"https://reactionspeedtest.com/number-memory-test"},
+    {"@type":"ListItem","position":6,"name":"Dinosaur Game Online — Chrome T-Rex Runner","url":"https://reactionspeedtest.com/dinosaur-game"},
+    {"@type":"ListItem","position":7,"name":"Aim Trainer — Stimulation Clicker","url":"https://reactionspeedtest.com/stimulation-clicker"},
+    {"@type":"ListItem","position":8,"name":"Coreball Game Online","url":"https://reactionspeedtest.com/coreball-game"},
+    {"@type":"ListItem","position":9,"name":"Jitter Click Test — Max CPS Practice","url":"https://reactionspeedtest.com/jitter-click-test"},
+    {"@type":"ListItem","position":10,"name":"Spacebar Speed Test — Hits Per Second","url":"https://reactionspeedtest.com/spacebar-speed-test"}
   ]
 }
 </script>
 
-<!-- Schema: FAQ -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How accurate is an online reaction time test?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Browser-based tests are consistent but not lab-accurate. Hardware latency (monitor refresh rate and mouse delay) typically adds 10–20ms to your true neurological reaction time. Use the test for relative comparison and tracking improvement over time." }
-    },
-    {
-      "@type": "Question",
-      "name": "What is a good reaction time for gaming?",
-      "acceptedAnswer": { "@type": "Answer", "text": "For competitive gaming, anything under 200ms is considered good. Pro-level players typically score between 150–190ms. Game sense and aim training matter far more than raw reaction speed at most skill levels." }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the average human reaction time?",
-      "acceptedAnswer": { "@type": "Answer", "text": "The average human reaction time to a visual stimulus is 200–250ms. Pro gamers average 150–190ms, elite athletes around 200ms, and F1 drivers react in approximately 200ms." }
-    },
-    {
-      "@type": "Question",
-      "name": "Does reaction time get worse with age?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Yes, gradually. Reaction time peaks in the early 20s and increases by about 10–15ms per decade. Active training and healthy lifestyle habits significantly slow this decline." }
-    },
-    {
-      "@type": "Question",
-      "name": "Can caffeine improve reaction time?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Yes, in moderate amounts. Research shows 200–400mg of caffeine can improve reaction time by 10–30ms, particularly when fatigued. Effects peak around 30–60 minutes after consumption." }
-    },
-    {
-      "@type": "Question",
-      "name": "What is a good typing speed (WPM)?",
-      "acceptedAnswer": { "@type": "Answer", "text": "The average adult types 41 WPM. Professional typists reach 65–75 WPM. A score above 60 WPM is considered good, and above 100 WPM is exceptional." }
-    },
-    {
-      "@type": "Question",
-      "name": "What is a good CPS (clicks per second)?",
-      "acceptedAnswer": { "@type": "Answer", "text": "The average person clicks 6–7 times per second. Gamers using jitter clicking can reach 10–14 CPS. Above 14 CPS is exceptional and typically requires advanced clicking techniques." }
-    },
-    {
-      "@type": "Question",
-      "name": "Are these tests free?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Yes, all 10 tests on Reflex Lab are completely free. No download, no registration, no account needed. Everything runs directly in your browser and results are instant." }
-    },
-    {
-      "@type": "Question",
-      "name": "How do you play Snake online?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Use Arrow Keys or WASD to control the snake's direction. Eat red food orbs to grow longer and score points. Avoid hitting the walls or your own body — both end the game instantly. Tap the canvas or press any arrow key to start. On mobile, swipe to control direction." }
-    }
+    {"@type":"Question","name":"What is the average human reaction time?","acceptedAnswer":{"@type":"Answer","text":"The average human reaction time is 200–250 milliseconds. Pro gamers average 150–190ms. Elite athletes react in around 200ms. F1 drivers are around 200ms. Anything under 200ms is above average."}},
+    {"@type":"Question","name":"What is a good reaction time for gaming?","acceptedAnswer":{"@type":"Answer","text":"For competitive gaming, anything under 200ms is considered good. Professional esports players average 150–190ms. However, game sense, aim, and positioning matter far more than raw reaction speed at most skill levels."}},
+    {"@type":"Question","name":"What is a good typing speed in WPM?","acceptedAnswer":{"@type":"Answer","text":"The average adult types 38–41 WPM. Above 60 WPM is good. Above 80 WPM is professional level. Above 100 WPM is exceptional. The world record exceeds 220 WPM."}},
+    {"@type":"Question","name":"What is a good CPS (clicks per second)?","acceptedAnswer":{"@type":"Answer","text":"The average person clicks 6–7 CPS. Gamers reach 8–12 CPS with jitter clicking. Above 14 CPS requires advanced techniques. The world record is over 20 CPS."}},
+    {"@type":"Question","name":"How do you play Snake online?","acceptedAnswer":{"@type":"Answer","text":"Use Arrow Keys or WASD to control direction. On mobile, swipe in any direction. Eat red food orbs to grow and score 10 points each. Avoid hitting the walls or your own body — both end the game."}},
+    {"@type":"Question","name":"How many digits can the average person memorize?","acceptedAnswer":{"@type":"Answer","text":"Most adults can remember 5–7 digits in working memory — Miller's Law. This is why phone numbers were originally 7 digits. Memory athletes can exceed 50+ digits using chunking and memory palace techniques."}},
+    {"@type":"Question","name":"Are these tests accurate?","acceptedAnswer":{"@type":"Answer","text":"Our tests are browser-accurate. They add 10–20ms of hardware latency (monitor + mouse). Use results for relative comparison and progress tracking, not as absolute medical measurements."}},
+    {"@type":"Question","name":"Are all tests free?","acceptedAnswer":{"@type":"Answer","text":"Yes — all 10 tests are 100% free. No download, no registration, no account required. Everything runs in your browser. Results are calculated locally and never stored on servers."}}
   ]
 }
 </script>
+
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:      #06060e;
-  --surf:    #0d0d1a;
-  --surf2:   #111122;
-  --border:  #1c1c30;
-  --border2: #252540;
-  --accent:  #00f5a0;
-  --red:     #ff2d55;
-  --yellow:  #ffe000;
-  --purple:  #7b61ff;
-  --blue:    #00b4d8;
-  --text:    #ffffff;
-  --muted:   #a0a0cc;
+  --bg:     #06060e;
+  --surf:   #0d0d1a;
+  --surf2:  #111122;
+  --border: #1c1c30;
+  --b2:     #252540;
+  --accent: #00f5a0;
+  --red:    #ff2d55;
+  --yellow: #ffe000;
+  --purple: #7b61ff;
+  --blue:   #00b4d8;
+  --orange: #ff6b00;
+  --green:  #22aa4a;
+  --text:   #ffffff;
+  --muted:  #9090c0;
 }
 
 html { scroll-behavior: smooth; }
-
 body {
-  background: var(--bg);
-  color: var(--text);
+  background: var(--bg); color: var(--text);
   font-family: 'Inter', sans-serif;
-  min-height: 100vh;
-  overflow-x: hidden;
+  min-height: 100vh; overflow-x: hidden;
 }
-
-/* ── GRID BACKGROUND ── */
 body::before {
-  content: '';
-  position: fixed; inset: 0;
-  background-image:
-    linear-gradient(var(--border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 60px 60px;
-  opacity: 0.35;
-  pointer-events: none;
-  z-index: 0;
+  content: ''; position: fixed; inset: 0; z-index: 0;
+  background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 60px 60px; opacity: 0.18; pointer-events: none;
 }
 
-/* ── NAVBAR ── */
-nav {
+/* ── TOPBAR ── */
+.topbar {
   position: sticky; top: 0; z-index: 100;
-  height: 54px;
-  background: rgba(6,6,14,0.92);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
-  display: flex; align-items: center;
-  padding: 0 clamp(16px, 4vw, 48px);
-  gap: 24px;
+  height: 46px; background: rgba(6,6,14,0.96);
+  backdrop-filter: blur(14px); border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 16px;
+}
+.site-name {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem;
+  letter-spacing: 0.1em; color: var(--accent); text-decoration: none;
+}
+.topbar-tag {
+  font-size: 0.58rem; font-weight: 700; letter-spacing: 0.13em;
+  text-transform: uppercase; color: var(--muted);
+  border: 1px solid var(--border); border-radius: 100px; padding: 3px 10px;
 }
 
-.nav-logo {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.4rem; letter-spacing: 0.12em;
-  background: linear-gradient(135deg, var(--accent), var(--yellow));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-  text-decoration: none; white-space: nowrap; flex-shrink: 0;
-}
-
-.nav-links {
-  display: flex; gap: 4px;
-  overflow-x: auto; scrollbar-width: none; flex: 1;
-}
-.nav-links::-webkit-scrollbar { display: none; }
-
-.nav-link {
-  padding: 6px 14px; border-radius: 8px;
-  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em;
-  text-transform: uppercase; text-decoration: none;
-  color: #e0e0f0; white-space: nowrap;
-  transition: color 0.15s, background 0.15s;
-}
-.nav-link:hover { color: #ffffff; background: var(--surf2); }
-
-/* ── HERO ── */
-.hero {
+/* ── PAGE HEADER ── */
+.page-header {
   position: relative; z-index: 1;
-  padding: clamp(48px, 8vw, 96px) clamp(16px, 6vw, 80px) clamp(32px, 5vw, 64px);
-  text-align: center;
-  display: flex; flex-direction: column; align-items: center; gap: 20px;
+  text-align: center; padding: 30px 16px 18px;
 }
-
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 6px 16px; border-radius: 100px;
-  border: 1px solid var(--accent); background: rgba(0,245,160,0.06);
-  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--accent);
-}
-
-.hero h1 {
+.page-header h1 {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(2.8rem, 8vw, 6rem);
-  line-height: 0.95; letter-spacing: 0.04em;
-  max-width: 900px;
+  font-size: clamp(1.8rem, 5.5vw, 2.9rem);
+  letter-spacing: 0.04em; line-height: 1.05; margin-bottom: 8px;
 }
-
-.hero h1 .line-accent {
-  background: linear-gradient(135deg, var(--accent) 0%, var(--yellow) 60%, var(--purple) 100%);
+.page-header h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--yellow) 100%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
+.page-header p { font-size: 0.82rem; color: var(--muted); max-width: 400px; margin: 0 auto; line-height: 1.55; }
 
-.hero-sub {
-  font-size: clamp(0.95rem, 2vw, 1.15rem);
-  color: #c0c0e0; max-width: 600px; line-height: 1.65;
+/* ── GAMES GRID ── */
+.games-wrap {
+  position: relative; z-index: 1;
+  max-width: 880px; margin: 0 auto;
+  padding: 8px 12px 40px;
 }
+.featured-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+.grid-row     { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 10px; }
 
-.hero-cta {
-  display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 8px;
+/* ── TILE ── */
+.tile {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; text-align: center; text-decoration: none;
+  border-radius: 14px; border: 1.5px solid var(--border);
+  background: var(--surf); padding: 22px 12px 18px; gap: 8px;
+  position: relative; overflow: hidden;
+  transition: border-color 0.18s, box-shadow 0.18s, background 0.18s, transform 0.12s;
+  cursor: pointer; min-height: 118px;
+  -webkit-tap-highlight-color: rgba(0,245,160,0.08); user-select: none;
 }
-
-.btn-primary {
-  padding: 14px 36px; border-radius: 12px;
-  background: var(--accent); color: #000;
-  font-weight: 700; font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase;
-  text-decoration: none; border: none; cursor: pointer;
-  transition: transform 0.15s, box-shadow 0.15s;
-  box-shadow: 0 0 24px rgba(0,245,160,0.3);
+.tile::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse at 50% -10%, var(--tc,var(--accent)) 0%, transparent 65%);
+  opacity: 0; transition: opacity 0.22s;
 }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 36px rgba(0,245,160,0.45); }
-
-.btn-ghost {
-  padding: 14px 32px; border-radius: 12px;
-  background: transparent; color: var(--text);
-  font-weight: 600; font-size: 0.9rem; letter-spacing: 0.06em;
-  text-decoration: none; border: 1px solid var(--border2);
-  transition: border-color 0.15s, background 0.15s;
+.tile:hover  {
+  border-color: var(--tc,var(--accent));
+  background: color-mix(in srgb, var(--tc,var(--accent)) 6%, var(--surf));
+  box-shadow: 0 0 22px color-mix(in srgb, var(--tc,var(--accent)) 28%, transparent);
 }
-.btn-ghost:hover { border-color: var(--accent); background: rgba(0,245,160,0.05); }
+.tile:active { transform: scale(0.97); }
+.tile:hover::after { opacity: 1; }
+.tile-featured { min-height: 148px; padding: 28px 14px 24px; }
+.tile-icon { font-size: 2.2rem; line-height: 1; position: relative; z-index: 1; }
+.tile-featured .tile-icon { font-size: 2.6rem; }
+.tile-name {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1rem;
+  letter-spacing: 0.08em; color: var(--text); position: relative; z-index: 1;
+}
+.tile-featured .tile-name { font-size: 1.2rem; }
+.tile-sub { font-size: 0.62rem; color: var(--muted); letter-spacing: 0.05em; position: relative; z-index: 1; }
+.tile-badge {
+  position: absolute; top: 9px; right: 9px; z-index: 1;
+  font-size: 0.48rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--tc,var(--accent)); border: 1px solid currentColor;
+  padding: 2px 6px; border-radius: 100px;
+  background: color-mix(in srgb, var(--tc,var(--accent)) 14%, transparent);
+}
+.tile-placeholder { opacity: 0.3; pointer-events: none; border-style: dashed; }
 
-/* ── STATS ROW ── */
+/* ── STATS ── */
 .stats-row {
   position: relative; z-index: 1;
-  display: flex; justify-content: center; flex-wrap: wrap; gap: 12px;
-  padding: 0 clamp(16px, 4vw, 48px) 48px;
+  display: flex; justify-content: center; flex-wrap: wrap; gap: 8px;
+  padding: 4px 16px 40px;
 }
-
 .stat-pill {
-  display: flex; align-items: center; gap: 10px;
-  padding: 12px 20px; border-radius: 12px;
   background: var(--surf); border: 1px solid var(--border);
+  border-radius: 100px; padding: 7px 16px;
+  display: flex; align-items: center; gap: 8px;
 }
-.stat-val {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.5rem; letter-spacing: 0.06em;
-}
-.stat-lbl { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.stat-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; letter-spacing: 0.05em; }
+.stat-lbl { font-size: 0.58rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
 
-/* ── SECTION ── */
-.section {
+/* ── SEO CONTENT ── */
+.seo {
   position: relative; z-index: 1;
-  padding: 0 clamp(16px, 5vw, 64px) 80px;
-  max-width: 1280px; margin: 0 auto;
+  max-width: 820px; margin: 0 auto; padding: 0 20px 80px;
 }
+.seo-intro {
+  border: 1px solid var(--border); border-radius: 16px;
+  background: var(--surf); padding: 28px 28px 24px; margin-bottom: 40px;
+}
+.seo-intro-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px;
+}
+.seo-intro-stat {
+  background: var(--surf2); border: 1px solid var(--b2);
+  border-radius: 10px; padding: 14px 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.seo-intro-stat .si-icon { font-size: 1.4rem; }
+.si-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.35rem; letter-spacing: 0.05em; }
+.si-lbl { font-size: 0.65rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
 
-.section-label {
-  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--accent); margin-bottom: 10px;
-}
-.section-title {
+.seo h2 {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(1.8rem, 4vw, 2.8rem); letter-spacing: 0.06em;
-  margin-bottom: 8px;
+  font-size: clamp(1.3rem, 3.5vw, 1.85rem); letter-spacing: 0.06em;
+  margin: 44px 0 14px; display: flex; align-items: center; gap: 10px;
 }
-.section-desc {
-  font-size: 0.9rem; color: #b0b0d8; max-width: 560px; line-height: 1.6;
-  margin-bottom: 40px;
-}
+.seo h2::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.seo h3 { font-size: 0.95rem; font-weight: 700; color: #e0e0f8; margin: 22px 0 8px; }
+.seo p  { font-size: 0.88rem; color: #b8b8d8; line-height: 1.78; margin-bottom: 14px; }
+.seo strong { color: #fff; }
+.seo ul, .seo ol { padding-left: 20px; margin-bottom: 16px; }
+.seo li { font-size: 0.88rem; color: #b8b8d8; line-height: 1.68; margin-bottom: 7px; }
 
-/* ── GAME GRID ── */
-.game-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 16px;
-}
-
-.game-card {
-  display: block; text-decoration: none;
+.callout {
   background: var(--surf); border: 1px solid var(--border);
-  border-radius: 16px; padding: 24px;
-  transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
-  position: relative; overflow: hidden;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 12px 12px 0; padding: 14px 20px; margin: 20px 0;
 }
-.game-card::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(135deg, var(--card-color, var(--accent)) 0%, transparent 60%);
-  opacity: 0; transition: opacity 0.2s;
-  border-radius: 16px;
-}
-.game-card:hover { transform: translateY(-4px); border-color: var(--card-color, var(--accent)); box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
-.game-card:hover::before { opacity: 0.06; }
+.callout p { margin: 0; font-size: 0.85rem; color: #d0d0f0; }
 
-.card-icon {
-  width: 48px; height: 48px; border-radius: 12px;
-  background: rgba(255,255,255,0.05); border: 1px solid var(--border2);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.5rem; margin-bottom: 16px;
+/* benchmark table */
+.btable { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin: 20px 0; overflow-x: auto; display: block; }
+.btable th {
+  text-align: left; padding: 10px 14px;
+  color: var(--muted); font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  border-bottom: 1px solid var(--b2);
 }
-.card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; }
-.card-badge {
-  font-size: 0.58rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
-  padding: 3px 8px; border-radius: 100px;
-  background: rgba(255,255,255,0.06); color: var(--card-color, var(--accent));
-  border: 1px solid currentColor; opacity: 0.8;
-}
-.card-h2 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.3rem; letter-spacing: 0.06em;
-  color: var(--text); margin-bottom: 8px;
-}
-.card-desc { font-size: 0.78rem; color: #a8a8cc; line-height: 1.55; }
-.card-arrow {
-  position: absolute; bottom: 20px; right: 20px;
-  width: 32px; height: 32px; border-radius: 8px;
-  background: var(--surf2); border: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.9rem; opacity: 0; transition: opacity 0.18s;
-}
-.game-card:hover .card-arrow { opacity: 1; }
+.btable td { padding: 12px 14px; border-bottom: 1px solid var(--border); }
+.btable tr:last-child td { border-bottom: none; }
+.btable tr:hover td { background: var(--surf2); }
 
-/* ── FEATURED CARD (spans 2 cols) ── */
-.card-featured {
-  grid-column: span 2;
-  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
-  padding: 32px;
+/* faq */
+.faq-grid { display: flex; flex-direction: column; gap: 4px; }
+.faq-item {
+  background: var(--surf); border: 1px solid var(--border);
+  border-radius: 12px; overflow: hidden;
 }
-@media (max-width: 640px) {
-  .card-featured { grid-column: span 1; grid-template-columns: 1fr; }
+.faq-item summary {
+  padding: 16px 20px; font-weight: 600; font-size: 0.88rem;
+  cursor: pointer; list-style: none;
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
 }
-.card-featured .card-left {}
-.card-featured .card-right {
-  display: flex; align-items: center; justify-content: center;
-}
-.featured-stat {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 4rem; letter-spacing: 0.06em;
-  color: var(--card-color, var(--accent));
-  line-height: 1;
-}
-.featured-stat-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-arrow { color: var(--accent); font-size: 1rem; flex-shrink: 0; transition: transform 0.2s; }
+.faq-item[open] .faq-arrow { transform: rotate(45deg); }
+.faq-item[open] { border-color: var(--b2); }
+.faq-body { padding: 0 20px 16px; font-size: 0.84rem; color: #b8b8d8; line-height: 1.72; }
 
-/* ── ABOUT SECTION ── */
-.about-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;
+/* tips cards */
+.tips-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
+.tip-card {
+  background: var(--surf); border: 1px solid var(--border);
+  border-radius: 12px; padding: 18px 16px;
 }
-@media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; } }
+.tip-icon { font-size: 1.5rem; margin-bottom: 8px; }
+.tip-title { font-size: 0.82rem; font-weight: 700; color: #fff; margin-bottom: 5px; }
+.tip-body  { font-size: 0.76rem; color: var(--muted); line-height: 1.6; }
 
-.about-text h2 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(1.8rem, 4vw, 2.6rem); letter-spacing: 0.06em; margin-bottom: 16px;
+/* cta button */
+.cta-btn {
+  display: inline-block; padding: 14px 36px; border-radius: 12px;
+  background: var(--accent); color: #000;
+  font-weight: 700; font-size: 0.88rem; letter-spacing: 0.09em; text-transform: uppercase;
+  text-decoration: none; border: none;
+  box-shadow: 0 0 28px rgba(0,245,160,0.35);
+  transition: transform 0.15s, box-shadow 0.15s;
 }
-.about-text p {
-  font-size: 0.88rem; color: #b0b0d8; line-height: 1.7; margin-bottom: 14px;
-}
-.about-text p strong { color: #e0e0f0; }
-
-.about-facts {
-  display: flex; flex-direction: column; gap: 12px;
-}
-.fact-card {
-  background: var(--surf); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px;
-  display: flex; gap: 14px; align-items: flex-start;
-}
-.fact-icon { font-size: 1.2rem; margin-top: 2px; }
-.fact-title { font-size: 0.8rem; font-weight: 700; color: var(--text); margin-bottom: 3px; }
-.fact-desc  { font-size: 0.73rem; color: var(--muted); line-height: 1.5; }
-
-/* ── DIVIDER ── */
-.divider {
-  position: relative; z-index: 1;
-  height: 1px; background: var(--border);
-  margin: 0 clamp(16px, 5vw, 64px) 80px;
-}
+.cta-btn:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(0,245,160,0.5); }
 
 /* ── FOOTER ── */
 footer {
   position: relative; z-index: 1;
-  border-top: 1px solid var(--border);
-  padding: clamp(32px, 5vw, 56px) clamp(16px, 5vw, 64px);
-  text-align: center;
+  border-top: 1px solid var(--border); padding: 28px 16px; text-align: center;
 }
-.footer-logo {
-  font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.12em;
-  background: linear-gradient(135deg, var(--accent), var(--yellow));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-  margin-bottom: 12px;
-}
-.footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 4px; margin-bottom: 14px; }
 .footer-link {
-  padding: 5px 12px; border-radius: 6px;
-  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
-  text-decoration: none; color: #a0a0cc;
-  transition: color 0.15s;
+  padding: 4px 9px; border-radius: 6px; font-size: 0.62rem;
+  font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  text-decoration: none; color: #7070aa; transition: color 0.15s;
 }
 .footer-link:hover { color: var(--text); }
-.footer-copy { font-size: 0.65rem; color: #9090bb; line-height: 1.6; }
+.footer-copy { font-size: 0.6rem; color: #5050aa; line-height: 1.7; }
 
-/* ── SEO CONTENT SECTION ── */
-.seo-section {
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 0 clamp(16px, 5vw, 48px) 80px;
-  position: relative;
-  z-index: 1;
+/* ── RESPONSIVE ── */
+@media (max-width: 580px) {
+  .grid-row { grid-template-columns: repeat(2, 1fr); }
+  .tile { min-height: 100px; padding: 16px 8px 13px; gap: 6px; border-radius: 12px; }
+  .tile-featured { min-height: 126px; padding: 22px 10px 18px; }
+  .tile-icon { font-size: 1.85rem; }
+  .tile-featured .tile-icon { font-size: 2.2rem; }
+  .tile-name { font-size: 0.88rem; }
+  .tile-sub { font-size: 0.58rem; }
+  .seo-intro-grid { grid-template-columns: 1fr 1fr; }
+  .tips-grid { grid-template-columns: 1fr; }
 }
-.seo-section h2 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(1.4rem, 3.5vw, 2rem);
-  letter-spacing: 0.06em;
-  color: #ffffff;
-  margin: 52px 0 12px;
-  line-height: 1.15;
-}
-.seo-section h3 {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #e0e0f8;
-  margin: 28px 0 8px;
-}
-.seo-section p {
-  font-size: 0.92rem;
-  margin-bottom: 16px;
-  color: #c0c0e0;
-  line-height: 1.75;
-}
-.seo-section strong { color: #ffffff; font-weight: 600; }
-.seo-section ul, .seo-section ol { padding-left: 20px; margin-bottom: 20px; }
-.seo-section li { font-size: 0.92rem; color: #c0c0e0; margin-bottom: 8px; line-height: 1.65; }
-.seo-highlight {
-  background: #0d0d1a;
-  border: 1px solid #252540;
-  border-left: 3px solid #00f5a0;
-  border-radius: 0 10px 10px 0;
-  padding: 16px 20px;
-  margin: 24px 0;
-  position: relative; z-index: 1;
-}
-.seo-highlight p { margin: 0; font-size: 0.88rem; color: #d0d0f0; }
-.seo-stats {
-  display: flex; flex-wrap: wrap; gap: 12px; margin: 24px 0;
-}
-.seo-stat-chip {
-  background: #111122; border: 1px solid #252540;
-  border-radius: 8px; padding: 10px 16px;
-  font-size: 0.82rem; color: #c8c8e8;
-}
-.seo-stat-chip strong {
-  display: block; font-size: 1.1rem;
-  font-family: 'Bebas Neue', sans-serif;
-  letter-spacing: 0.06em; margin-bottom: 2px;
-}
-.seo-faq-item { border-bottom: 1px solid #1c1c30; padding: 20px 0; }
-.seo-faq-item:last-child { border-bottom: none; }
-.seo-faq-q { font-size: 0.95rem; font-weight: 700; color: #ffffff; margin-bottom: 8px; }
-.seo-faq-a { font-size: 0.88rem; color: #c0c0e0; line-height: 1.7; margin: 0; }
-
-/* ── MOBILE ── */
-@media (max-width: 640px) {
-  .nav-links { display: none; }
-  .game-grid { grid-template-columns: 1fr; }
-  .card-featured { grid-column: span 1; }
+@media (max-width: 360px) {
+  .tile-icon { font-size: 1.6rem; }
+  .tile-name { font-size: 0.8rem; }
+  .tile-sub { display: none; }
+  .seo-intro-grid { grid-template-columns: 1fr; }
 }
 
-/* ── ANIMATIONS ── */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from { opacity:0; transform:translateY(14px); }
+  to   { opacity:1; transform:translateY(0); }
 }
-.hero > * { animation: fadeUp 0.5s ease both; }
-.hero > *:nth-child(1) { animation-delay: 0.05s; }
-.hero > *:nth-child(2) { animation-delay: 0.12s; }
-.hero > *:nth-child(3) { animation-delay: 0.18s; }
-.hero > *:nth-child(4) { animation-delay: 0.24s; }
-.hero > *:nth-child(5) { animation-delay: 0.30s; }
+.page-header { animation: fadeUp 0.3s ease both; }
+.games-wrap  { animation: fadeUp 0.38s ease 0.05s both; }
+.stats-row   { animation: fadeUp 0.38s ease 0.1s both; }
 </style>
 </head>
 <body>
 
-<!-- ── NAVBAR ── -->
-<nav>
-  <a class="nav-logo" href="/">⚡ REFLEX LAB</a>
-  <div class="nav-links">
-    <a class="nav-link" href="/reaction-time-test">⚡ Reaction</a>
-    <a class="nav-link" href="/click-speed-test">🔥 Click Speed</a>
-    <a class="nav-link" href="/typing-speed-test">📝 Typing</a>
-    <a class="nav-link" href="/number-memory-test">🧠 Memory</a>
-    <a class="nav-link" href="/snake-game">🐍 Snake</a>
-    <a class="nav-link" href="/dinosaur-game">🦕 Dino Game</a>
-    <a class="nav-link" href="/coreball-game">🎮 Coreball</a>
-    <a class="nav-link" href="/jitter-click-test">🖱️ Jitter Click</a>
-    <a class="nav-link" href="/spacebar-speed-test">⌨️ Spacebar</a>
-    <a class="nav-link" href="/stimulation-clicker">🎯 Stimulation</a>
-  </div>
-</nav>
+<!-- TOPBAR -->
+<header class="topbar">
+  <a class="site-name" href="/">⚡ reactionspeedtest.com</a>
+  <span class="topbar-tag">Free · No Login</span>
+</header>
 
 <main>
-<!-- ── HERO ── -->
-<section class="hero">
-  <div class="hero-badge">⚡ Free · No Download · Instant Results</div>
-  <h1>
-    TEST YOUR<br>
-    <span class="line-accent">REFLEXES & BRAIN</span>
-  </h1>
-  <p class="hero-sub">
-    10 free browser-based tests and games measuring your reaction time, typing speed, click rate, working memory and more. Classic Snake, Dino Runner, and 8 reflex tests — instant results, no download.
-  </p>
-  <div class="hero-cta">
-    <a class="btn-primary" href="/reaction-time-test">⚡ Start Reaction Test</a>
-    <a class="btn-ghost"   href="#games">Browse All Tests →</a>
-  </div>
-</section>
 
-<!-- ── STATS ── -->
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <h1>Free <em>Tests & Games</em></h1>
+  <p>Click a game — instant results, no sign-up, no download</p>
+</div>
+
+<!-- GAME TILES -->
+<div class="games-wrap">
+
+  <div class="featured-row">
+    <a class="tile tile-featured" href="/reaction-time-test" style="--tc:#00f5a0">
+      <span class="tile-badge">🏆 #1 Most Played</span>
+      <div class="tile-icon">⚡</div>
+      <div class="tile-name">Reaction Time Test</div>
+      <div class="tile-sub">measure in ms · 5 rounds</div>
+    </a>
+    <a class="tile tile-featured" href="/snake-game" style="--tc:#00f5a0">
+      <span class="tile-badge">🐍 Classic</span>
+      <div class="tile-icon">🐍</div>
+      <div class="tile-name">Snake Game</div>
+      <div class="tile-sub">eat · grow · survive</div>
+    </a>
+  </div>
+
+  <div class="grid-row">
+    <a class="tile" href="/typing-speed-test" style="--tc:#00b4d8">
+      <div class="tile-icon">📝</div>
+      <div class="tile-name">Typing Speed</div>
+      <div class="tile-sub">WPM · accuracy</div>
+    </a>
+    <a class="tile" href="/click-speed-test" style="--tc:#ffe000">
+      <div class="tile-icon">🔥</div>
+      <div class="tile-name">Click Speed</div>
+      <div class="tile-sub">CPS · 1s–100s</div>
+    </a>
+    <a class="tile" href="/number-memory-test" style="--tc:#7b61ff">
+      <div class="tile-icon">🧠</div>
+      <div class="tile-name">Memory Test</div>
+      <div class="tile-sub">avg 7 digits</div>
+    </a>
+  </div>
+
+  <div class="grid-row">
+    <a class="tile" href="/dinosaur-game" style="--tc:#22aa4a">
+      <div class="tile-icon">🦕</div>
+      <div class="tile-name">Dino Game</div>
+      <div class="tile-sub">jump · dodge</div>
+    </a>
+    <a class="tile" href="/stimulation-clicker" style="--tc:#ff6b00">
+      <div class="tile-icon">🎯</div>
+      <div class="tile-name">Aim Trainer</div>
+      <div class="tile-sub">hit moving targets</div>
+    </a>
+    <a class="tile" href="/coreball-game" style="--tc:#7b61ff">
+      <div class="tile-icon">🎮</div>
+      <div class="tile-name">Coreball</div>
+      <div class="tile-sub">shoot · level up</div>
+    </a>
+  </div>
+
+  <div class="grid-row">
+    <a class="tile" href="/jitter-click-test" style="--tc:#ff2d55">
+      <div class="tile-icon">🖱️</div>
+      <div class="tile-name">Jitter Click</div>
+      <div class="tile-sub">max CPS technique</div>
+    </a>
+    <a class="tile" href="/spacebar-speed-test" style="--tc:#00b4d8">
+      <div class="tile-icon">⌨️</div>
+      <div class="tile-name">Spacebar Test</div>
+      <div class="tile-sub">hits per second</div>
+    </a>
+    <div class="tile tile-placeholder">
+      <div class="tile-icon">🔮</div>
+      <div class="tile-name">Coming Soon</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- QUICK STATS -->
 <div class="stats-row">
   <div class="stat-pill">
-    <div>
-      <div class="stat-val" style="color:var(--accent)">243ms</div>
-      <div class="stat-lbl">Avg Reaction Time</div>
-    </div>
+    <div class="stat-val" style="color:var(--accent)">243ms</div>
+    <div class="stat-lbl">Avg Reaction</div>
   </div>
   <div class="stat-pill">
-    <div>
-      <div class="stat-val" style="color:var(--yellow)">6.5</div>
-      <div class="stat-lbl">Avg CPS</div>
-    </div>
+    <div class="stat-val" style="color:var(--yellow)">6.5 CPS</div>
+    <div class="stat-lbl">Avg Click Speed</div>
   </div>
   <div class="stat-pill">
-    <div>
-      <div class="stat-val" style="color:var(--purple)">7</div>
-      <div class="stat-lbl">Avg Memory Digits</div>
-    </div>
+    <div class="stat-val" style="color:var(--purple)">7 digits</div>
+    <div class="stat-lbl">Avg Memory</div>
   </div>
   <div class="stat-pill">
-    <div>
-      <div class="stat-val" style="color:var(--blue)">41 WPM</div>
-      <div class="stat-lbl">Avg Typing Speed</div>
-    </div>
+    <div class="stat-val" style="color:var(--blue)">41 WPM</div>
+    <div class="stat-lbl">Avg Typing</div>
   </div>
 </div>
 
-<!-- ── GAMES GRID ── -->
-<section class="section" id="games">
-  <div class="section-label">All Tests & Games</div>
-  <div class="section-title">Choose Your Challenge</div>
-  <p class="section-desc">Every test runs instantly in your browser — no sign-up, no download. Results are shown immediately after each session.</p>
+<!-- ═══════════════════════════════════════════
+  SEO RICH CONTENT SECTION
+════════════════════════════════════════════ -->
+<section class="seo">
 
-  <div class="game-grid">
-
-    <!-- FEATURED: Reaction Time -->
-    <a class="game-card card-featured" href="/reaction-time-test" style="--card-color: var(--accent)">
-      <div class="card-left">
-        <div class="card-top">
-          <div class="card-icon">⚡</div>
-          <span class="card-badge">Most Popular</span>
-        </div>
-        <h2 class="card-h2">Reaction Time Test</h2>
-        <p class="card-desc">Measure how fast you respond to a visual stimulus in milliseconds. 5 rounds, automatic scoring, ratings from Slow to Legendary. The gold standard reflex test used by gamers and athletes worldwide.</p>
-        <div style="margin-top:16px">
-          <span style="display:inline-block;padding:10px 20px;background:var(--accent);color:#000;border-radius:8px;font-size:0.78rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase">Start Test →</span>
-        </div>
-      </div>
-      <div class="card-right">
-        <div style="text-align:center">
-          <div class="featured-stat">243<span style="font-size:2rem">ms</span></div>
-          <div class="featured-stat-label">World Average</div>
-          <div style="margin-top:16px;display:flex;flex-direction:column;gap:6px">
-            <div style="display:flex;justify-content:space-between;font-size:0.7rem;color:var(--muted)"><span>Pro Gamer</span><span style="color:var(--accent)">150–190ms</span></div>
-            <div style="display:flex;justify-content:space-between;font-size:0.7rem;color:var(--muted)"><span>Average Adult</span><span style="color:var(--yellow)">200–250ms</span></div>
-            <div style="display:flex;justify-content:space-between;font-size:0.7rem;color:var(--muted)"><span>F1 Driver</span><span style="color:var(--purple)">~200ms</span></div>
-          </div>
-        </div>
-      </div>
-    </a>
-
-    <!-- Typing -->
-    <a class="game-card" href="/typing-speed-test" style="--card-color: var(--blue)">
-      <div class="card-top">
-        <div class="card-icon">📝</div>
-        <span class="card-badge">WPM</span>
-      </div>
-      <h2 class="card-h2">Typing Speed Test</h2>
-      <p class="card-desc">Measure your typing speed in words per minute. Real-time WPM, accuracy percentage, and instant comparison to world averages.</p>
-      <div class="card-arrow">→</div>
-    </a>
-
-    <!-- Number Memory -->
-    <a class="game-card" href="/number-memory-test" style="--card-color: var(--purple)">
-      <div class="card-top">
-        <div class="card-icon">🧠</div>
-        <span class="card-badge">Brain Test</span>
-      </div>
-      <h2 class="card-h2">Number Memory Test</h2>
-      <p class="card-desc">How many digits can you memorize? Each level adds one more number. Average adults remember 5–7 digits — can you beat that?</p>
-      <div class="card-arrow">→</div>
-    </a>
-
-    <!-- Click Speed -->
-    <a class="game-card" href="/click-speed-test" style="--card-color: var(--yellow)">
-      <div class="card-top">
-        <div class="card-icon">🔥</div>
-        <span class="card-badge">CPS</span>
-      </div>
-      <h2 class="card-h2">Click Speed Test</h2>
-      <p class="card-desc">Test your clicks per second across 8 durations (1s–100s). See your raw CPS and compare against average and elite scores.</p>
-      <div class="card-arrow">→</div>
-    </a>
-
-    <!-- Jitter Click -->
-    <a class="game-card" href="/jitter-click-test" style="--card-color: var(--red)">
-      <div class="card-top">
-        <div class="card-icon">🖱️</div>
-        <span class="card-badge">Advanced</span>
-      </div>
-      <h2 class="card-h2">Jitter Click Test</h2>
-      <p class="card-desc">Practice the jitter clicking technique used by top Minecraft PvP players. Tense your arm muscles to achieve maximum CPS.</p>
-      <div class="card-arrow">→</div>
-    </a>
-
-    <!-- Spacebar -->
-    <a class="game-card" href="/spacebar-speed-test" style="--card-color: #00b4d8">
-      <div class="card-top">
-        <div class="card-icon">⌨️</div>
-        <span class="card-badge">Keyboard</span>
-      </div>
-      <h2 class="card-h2">Spacebar Speed Test</h2>
-      <p class="card-desc">How fast can you press the spacebar? Choose your duration and challenge your friends to beat your hits-per-second record.</p>
-      <div class="card-arrow">→</div>
-    </a>
-
-    <!-- Stimulation -->
-    <a class="game-card" href="/stimulation-clicker" style="--card-color: #ff6b00">
-      <div class="card-top">
-        <div class="card-icon">🎯</div>
-        <span class="card-badge">Aim Trainer</span>
-      </div>
-      <h2 class="card-h2">Stimulation Clicker</h2>
-      <p class="card-desc">Hit moving targets to train your mouse accuracy and click speed simultaneously. Perfect for FPS and battle royale gamers.</p>
-      <div class="card-arrow">→</div>
-    </a>
-
-    <!-- Dino Game -->
-    <a class="game-card" href="/dinosaur-game" style="--card-color: #22aa4a">
-      <div class="card-top">
-        <div class="card-icon">🦕</div>
-        <span class="card-badge">Game</span>
-      </div>
-      <h2 class="card-h2">Dinosaur Game</h2>
-      <p class="card-desc">The classic Chrome T-Rex runner — online, free, anytime. Jump over cacti, dodge pterodactyls, survive as long as you can.</p>
-      <div class="card-arrow">→</div>
-    </a>
-
-    <!-- Coreball -->
-    <a class="game-card" href="/coreball-game" style="--card-color: var(--purple)">
-      <div class="card-top">
-        <div class="card-icon">🎮</div>
-        <span class="card-badge">Puzzle</span>
-      </div>
-      <h2 class="card-h2">Coreball Game</h2>
-      <p class="card-desc">Shoot balls onto a rotating core without hitting existing ones. Progress through levels with increasing speed and danger balls.</p>
-      <div class="card-arrow">→</div>
-    </a>
-
-    <!-- Snake Game -->
-    <a class="game-card" href="/snake-game" style="--card-color: #00f5a0">
-      <div class="card-top">
-        <div class="card-icon">🐍</div>
-        <span class="card-badge">New</span>
-      </div>
-      <h2 class="card-h2">Snake Game</h2>
-      <p class="card-desc">The classic Nokia Snake — online, free, anytime. Eat food to grow, avoid walls and your own tail. How long can you survive?</p>
-      <div class="card-arrow">→</div>
-    </a>
-
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ── ABOUT ── -->
-<section class="section" id="about">
-  <div class="about-grid">
-    <div class="about-text">
-      <div class="section-label">About Reflex Lab</div>
-      <h2>Why Test Your Reflexes?</h2>
-      <p>Your <strong>reaction time</strong> is one of the most measurable aspects of cognitive performance. Research shows it correlates with athletic ability, gaming skill, and even general health markers.</p>
-      <p>Regular testing helps you track improvements, identify fatigue, and benchmark yourself against population averages. <strong>Elite gamers</strong> typically react 30–50ms faster than the general population — a difference that is trainable.</p>
-      <p>All our tests are browser-based, requiring no downloads or accounts. Results are calculated locally and displayed instantly — <strong>your data never leaves your device.</strong></p>
-      <div style="margin-top:24px">
-        <a class="btn-primary" href="/reaction-time-test">Start Your First Test →</a>
-      </div>
-    </div>
-    <div class="about-facts">
-      <div class="fact-card">
-        <div class="fact-icon">⚡</div>
+  <!-- INTRO STATS CARD -->
+  <div class="seo-intro">
+    <p style="font-size:0.82rem;color:var(--muted);margin-bottom:4px;letter-spacing:0.1em;text-transform:uppercase;font-weight:700">📊 World Averages</p>
+    <p style="font-size:1rem;font-weight:700;margin-bottom:0">How do you compare to the rest of the world?</p>
+    <div class="seo-intro-grid">
+      <div class="seo-intro-stat">
+        <div class="si-icon">⚡</div>
         <div>
-          <div class="fact-title">Average Human Reaction Time</div>
-          <div class="fact-desc">200–250ms for most adults. Visual stimulus takes ~180ms to reach the brain — the rest is neural processing and muscle response.</div>
+          <div class="si-val" style="color:var(--accent)">200–250ms</div>
+          <div class="si-lbl">Avg Reaction Time</div>
         </div>
       </div>
-      <div class="fact-card">
-        <div class="fact-icon">🎮</div>
+      <div class="seo-intro-stat">
+        <div class="si-icon">📝</div>
         <div>
-          <div class="fact-title">Pro Gamers vs Average</div>
-          <div class="fact-desc">Professional esports players average 150–190ms. This gap comes from training, high-refresh monitors, and low-latency peripherals.</div>
+          <div class="si-val" style="color:var(--blue)">41 WPM</div>
+          <div class="si-lbl">Avg Typing Speed</div>
         </div>
       </div>
-      <div class="fact-card">
-        <div class="fact-icon">🧠</div>
+      <div class="seo-intro-stat">
+        <div class="si-icon">🔥</div>
         <div>
-          <div class="fact-title">Working Memory Capacity</div>
-          <div class="fact-desc">George Miller's famous "7±2" rule: most adults can hold 5–9 items in working memory. Our number memory test measures exactly this.</div>
+          <div class="si-val" style="color:var(--yellow)">6–7 CPS</div>
+          <div class="si-lbl">Avg Click Speed</div>
         </div>
       </div>
-      <div class="fact-card">
-        <div class="fact-icon">📝</div>
+      <div class="seo-intro-stat">
+        <div class="si-icon">🧠</div>
         <div>
-          <div class="fact-title">Average Typing Speed</div>
-          <div class="fact-desc">41 WPM for average adults. Professional typists reach 65–75 WPM. Top speed typists exceed 150 WPM using specialized techniques.</div>
+          <div class="si-val" style="color:var(--purple)">5–7 digits</div>
+          <div class="si-lbl">Avg Memory Span</div>
         </div>
       </div>
     </div>
   </div>
-</section>
 
-<!-- ── FAQ SECTION ── -->
-<section class="section" id="faq" style="padding-bottom:80px">
-  <div class="section-label">Common Questions</div>
-  <div class="section-title">FAQ</div>
-  <p class="section-desc">Everything you need to know about reflex and brain testing.</p>
+  <!-- REACTION TIME -->
+  <h2>⚡ Reaction Time Test</h2>
+  <p>
+    The <strong>reaction time test</strong> measures how fast you respond to a visual stimulus — in milliseconds. The average adult reacts in <strong>200–250ms</strong>. Pro gamers achieve <strong>150–190ms</strong>. F1 drivers and elite athletes hover around <strong>200ms</strong>. Every session gives you 5 rounds and an automatic score rating.
+  </p>
+  <p>
+    Your reaction time is determined by how fast your visual cortex processes the stimulus (~80–100ms), how quickly your brain decides to act, and how fast your muscles respond. <strong>The faster you score, the sharper your reflexes.</strong>
+  </p>
 
-  <div style="display:flex;flex-direction:column;gap:12px;max-width:760px">
-
-    <details style="background:var(--surf);border:1px solid var(--border);border-radius:12px;overflow:hidden">
-      <summary style="padding:18px 20px;font-weight:600;font-size:0.9rem;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center">
-        What is a good reaction time? <span style="color:var(--accent);font-size:1.1rem">+</span>
-      </summary>
-      <p style="padding:0 20px 18px;font-size:0.82rem;color:#b0b0d8;line-height:1.65">
-        The average human reaction time is <strong style="color:var(--text)">200–250ms</strong>. Pro gamers typically achieve 150–190ms. Anything below 200ms is considered above average. Elite athletes and F1 drivers react in around 200ms. Hardware latency (mouse 5–15ms, monitor 1–8ms) also affects your measured score.
-      </p>
-    </details>
-
-    <details style="background:var(--surf);border:1px solid var(--border);border-radius:12px;overflow:hidden">
-      <summary style="padding:18px 20px;font-weight:600;font-size:0.9rem;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center">
-        What is a good typing speed (WPM)? <span style="color:var(--accent);font-size:1.1rem">+</span>
-      </summary>
-      <p style="padding:0 20px 18px;font-size:0.82rem;color:#b0b0d8;line-height:1.65">
-        The average adult types <strong style="color:var(--text)">41 WPM</strong>. Professional typists reach 65–75 WPM. A score above 60 WPM is considered good, and above 100 WPM is exceptional. The world record is over 220 WPM.
-      </p>
-    </details>
-
-    <details style="background:var(--surf);border:1px solid var(--border);border-radius:12px;overflow:hidden">
-      <summary style="padding:18px 20px;font-weight:600;font-size:0.9rem;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center">
-        What is a good CPS (clicks per second)? <span style="color:var(--accent);font-size:1.1rem">+</span>
-      </summary>
-      <p style="padding:0 20px 18px;font-size:0.82rem;color:#b0b0d8;line-height:1.65">
-        The average person clicks <strong style="color:var(--text)">6–7 times per second</strong>. Gamers using jitter clicking can reach 10–14 CPS. Above 14 CPS is exceptional and typically requires advanced techniques like butterfly or drag clicking.
-      </p>
-    </details>
-
-    <details style="background:var(--surf);border:1px solid var(--border);border-radius:12px;overflow:hidden">
-      <summary style="padding:18px 20px;font-weight:600;font-size:0.9rem;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center">
-        How many digits can the average person memorize? <span style="color:var(--accent);font-size:1.1rem">+</span>
-      </summary>
-      <p style="padding:0 20px 18px;font-size:0.82rem;color:#b0b0d8;line-height:1.65">
-        Most adults can hold <strong style="color:var(--text)">5–7 digits</strong> in working memory — this is Miller's Law ("The Magical Number Seven"). This is why phone numbers were originally 7 digits long. Memory athletes can far exceed this using chunking and the memory palace technique.
-      </p>
-    </details>
-
-    <details style="background:var(--surf);border:1px solid var(--border);border-radius:12px;overflow:hidden">
-      <summary style="padding:18px 20px;font-weight:600;font-size:0.9rem;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center">
-        Are these tests accurate? <span style="color:var(--accent);font-size:1.1rem">+</span>
-      </summary>
-      <p style="padding:0 20px 18px;font-size:0.82rem;color:#b0b0d8;line-height:1.65">
-        Our tests are <strong style="color:var(--text)">browser-accurate</strong> but not lab-grade. Browser timing has ~1–4ms variance. For reaction time specifically, your monitor refresh rate and mouse polling rate introduce an additional 5–15ms of hardware latency. Results are consistent and great for relative comparison and improvement tracking.
-      </p>
-    </details>
-
-    <details style="background:var(--surf);border:1px solid var(--border);border-radius:12px;overflow:hidden">
-      <summary style="padding:18px 20px;font-weight:600;font-size:0.9rem;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center">
-        Are all tests completely free? <span style="color:var(--accent);font-size:1.1rem">+</span>
-      </summary>
-      <p style="padding:0 20px 18px;font-size:0.82rem;color:#b0b0d8;line-height:1.65">
-        Yes — all 10 tests are <strong style="color:var(--text)">100% free</strong>. No download, no registration, no account needed. Everything runs in your browser. Your results are calculated locally and never stored on our servers.
-      </p>
-    </details>
-
-  </div>
-</section>
-
-<!-- ── BENCHMARK TABLE ── -->
-<section class="section" style="padding-bottom:80px">
-  <div class="section-label">Score Reference</div>
-  <div class="section-title">Performance Benchmarks</div>
-  <p class="section-desc">How do you compare? Here's what scores mean across our most popular tests.</p>
-
-  <div style="overflow-x:auto">
-  <table style="width:100%;max-width:800px;border-collapse:collapse;font-size:0.82rem">
+  <div style="overflow-x:auto;margin:20px 0">
+  <table class="btable">
     <thead>
-      <tr style="border-bottom:1px solid var(--border2)">
-        <th style="text-align:left;padding:12px 16px;color:#b0b0d8;font-weight:600;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase">Test</th>
-        <th style="text-align:center;padding:12px 16px;color:#b0b0d8;font-weight:600;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase">Below Average</th>
-        <th style="text-align:center;padding:12px 16px;color:#b0b0d8;font-weight:600;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase">Average</th>
-        <th style="text-align:center;padding:12px 16px;color:#b0b0d8;font-weight:600;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase">Good</th>
-        <th style="text-align:center;padding:12px 16px;color:#b0b0d8;font-weight:600;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase">Elite</th>
+      <tr>
+        <th>⚡ Reaction Time</th>
+        <th>🏅 Rating</th>
+        <th>👥 Who?</th>
       </tr>
     </thead>
     <tbody>
-      <tr style="border-bottom:1px solid var(--border)">
-        <td style="padding:14px 16px;font-weight:600"><a href="/reaction-time-test" style="color:var(--accent);text-decoration:none">⚡ Reaction Time</a></td>
-        <td style="text-align:center;padding:14px 16px;color:#9898c0">&gt;300ms</td>
-        <td style="text-align:center;padding:14px 16px;color:var(--yellow)">200–250ms</td>
-        <td style="text-align:center;padding:14px 16px;color:var(--accent)">150–200ms</td>
-        <td style="text-align:center;padding:14px 16px;color:var(--red)">&lt;150ms</td>
-      </tr>
-      <tr style="border-bottom:1px solid var(--border)">
-        <td style="padding:14px 16px;font-weight:600"><a href="/click-speed-test" style="color:var(--yellow);text-decoration:none">🔥 Click Speed</a></td>
-        <td style="text-align:center;padding:14px 16px;color:#9898c0">&lt;5 CPS</td>
-        <td style="text-align:center;padding:14px 16px;color:var(--yellow)">6–7 CPS</td>
-        <td style="text-align:center;padding:14px 16px;color:var(--accent)">8–10 CPS</td>
-        <td style="text-align:center;padding:14px 16px;color:var(--red)">&gt;14 CPS</td>
-      </tr>
-      <tr style="border-bottom:1px solid var(--border)">
-        <td style="padding:14px 16px;font-weight:600"><a href="/typing-speed-test" style="color:#00b4d8;text-decoration:none">📝 Typing Speed</a></td>
-        <td style="text-align:center;padding:14px 16px;color:#9898c0">&lt;30 WPM</td>
-        <td style="text-align:center;padding:14px 16px;color:var(--yellow)">40–55 WPM</td>
-        <td style="text-align:center;padding:14px 16px;color:var(--accent)">60–80 WPM</td>
-        <td style="text-align:center;padding:14px 16px;color:var(--red)">&gt;100 WPM</td>
-      </tr>
-      <tr style="border-bottom:1px solid var(--border)">
-        <td style="padding:14px 16px;font-weight:600"><a href="/number-memory-test" style="color:var(--purple);text-decoration:none">🧠 Number Memory</a></td>
-        <td style="text-align:center;padding:14px 16px;color:#9898c0">&lt;5 digits</td>
-        <td style="text-align:center;padding:14px 16px;color:var(--yellow)">5–7 digits</td>
-        <td style="text-align:center;padding:14px 16px;color:var(--accent)">8–10 digits</td>
-        <td style="text-align:center;padding:14px 16px;color:var(--red)">&gt;11 digits</td>
-      </tr>
-      <tr>
-        <td style="padding:14px 16px;font-weight:600"><a href="/spacebar-speed-test" style="color:#00b4d8;text-decoration:none">⌨️ Spacebar</a></td>
-        <td style="text-align:center;padding:14px 16px;color:#9898c0">&lt;5 HPS</td>
-        <td style="text-align:center;padding:14px 16px;color:var(--yellow)">7–9 HPS</td>
-        <td style="text-align:center;padding:14px 16px;color:var(--accent)">10–13 HPS</td>
-        <td style="text-align:center;padding:14px 16px;color:var(--red)">&gt;15 HPS</td>
-      </tr>
-      <tr>
-        <td style="padding:14px 16px;font-weight:600"><a href="/snake-game" style="color:#00f5a0;text-decoration:none">🐍 Snake</a></td>
-        <td style="text-align:center;padding:14px 16px;color:#9898c0">&lt;50 pts</td>
-        <td style="text-align:center;padding:14px 16px;color:var(--yellow)">50–100 pts</td>
-        <td style="text-align:center;padding:14px 16px;color:var(--accent)">110–200 pts</td>
-        <td style="text-align:center;padding:14px 16px;color:var(--red)">&gt;360 pts</td>
-      </tr>
+      <tr><td style="color:#b0b0d0">&gt; 300ms</td><td>🐢 Slow</td><td style="color:var(--muted)">Below average, fatigue or distraction</td></tr>
+      <tr><td style="color:var(--yellow)">250–300ms</td><td>👍 Average</td><td style="color:var(--muted)">Normal untrained adults</td></tr>
+      <tr><td style="color:var(--accent)">200–250ms</td><td>⚡ Good</td><td style="color:var(--muted)">Healthy, alert adults</td></tr>
+      <tr><td style="color:var(--blue)">150–200ms</td><td>🎮 Pro</td><td style="color:var(--muted)">Competitive gamers, athletes</td></tr>
+      <tr><td style="color:var(--red)">&lt; 150ms</td><td>👑 Legendary</td><td style="color:var(--muted)">Elite esports athletes (top 1%)</td></tr>
     </tbody>
   </table>
   </div>
-</section>
 
-<div class="divider"></div>
-
-<!-- ── SEO LONG-FORM CONTENT ── -->
-<section class="seo-section" aria-label="Reaction time guide">
-
-  <h2>What Is the Average Human Reaction Time?</h2>
-
-  <p>
-    The <strong>average human reaction time</strong> to a visual stimulus sits between <strong>200 and 250 milliseconds</strong> — roughly one-quarter of a second. That gap between seeing something and responding to it is where reflexes live, and it's measurable down to the millisecond.
-  </p>
-  <p>
-    The delay happens in layers: light hits your retina, the signal travels along the optic nerve (~20–40ms), your visual cortex processes the image (~80–100ms), your brain decides to act, and finally your muscles fire. Every step adds time.
-  </p>
-
-  <div class="seo-stats">
-    <div class="seo-stat-chip"><strong style="color:#00f5a0">150–190ms</strong>Pro Gamers</div>
-    <div class="seo-stat-chip"><strong style="color:#ffe000">200–250ms</strong>Average Adults</div>
-    <div class="seo-stat-chip"><strong style="color:#a99fff">~200ms</strong>F1 Drivers</div>
-    <div class="seo-stat-chip"><strong style="color:#33ccee">~200ms</strong>Elite Athletes</div>
-    <div class="seo-stat-chip"><strong style="color:#ff6b85">&gt;300ms</strong>Below Average</div>
+  <div class="callout">
+    <p>🔬 <strong>Hardware note:</strong> Browser tests add ~10–20ms of latency (monitor + mouse). A 144Hz monitor reduces this by ~5ms vs a 60Hz screen. Your true neurological reaction time is likely faster than your score.</p>
   </div>
 
+  <!-- TYPING TEST -->
+  <h2>📝 Typing Speed Test (WPM)</h2>
   <p>
-    Age is the biggest natural factor. Reaction time peaks in your early 20s and gradually increases from there. Fatigue, caffeine intake, screen brightness, and time of day can shift your score by 20–40ms on any given session.
+    The <strong>typing speed test</strong> measures how many words you type per minute (WPM) with real-time accuracy tracking. <strong>The average adult types 38–41 WPM.</strong> Professional typists reach 65–75 WPM. Top competitive typists exceed 150 WPM — the world record is over 220 WPM.
   </p>
-
-  <div class="seo-highlight">
-    <p><strong>Fun fact:</strong> The fastest recorded human reaction time in a controlled setting is around 101ms. The theoretical minimum — limited by nerve conduction speed — is approximately 80–100ms. No human can react faster than their neurons allow.</p>
-  </div>
-
-  <h2>What Is a Good Reaction Time in ms?</h2>
-
-  <p>
-    "Good" depends entirely on your context. Here's how scores break down across different populations:
-  </p>
-
   <ul>
-    <li><strong>Under 150ms</strong> — Exceptional. Seen only in elite esports athletes with dedicated training.</li>
-    <li><strong>150–190ms</strong> — Pro-level. This is the range where professional gamers operate.</li>
-    <li><strong>190–220ms</strong> — Above average. You're faster than most people.</li>
-    <li><strong>220–250ms</strong> — Average. Exactly where most healthy adults land.</li>
-    <li><strong>250–300ms</strong> — Slightly below average. Sleep and consistent training can push this down.</li>
-    <li><strong>300ms+</strong> — Below average. Often linked to fatigue, stress, or poor sleep.</li>
+    <li>🐣 <strong>Under 30 WPM</strong> — Beginner. Two-finger typing or just starting out.</li>
+    <li>👍 <strong>30–50 WPM</strong> — Average adult. Most email and general use falls here.</li>
+    <li>⚡ <strong>50–70 WPM</strong> — Good. Comfortable touch typist.</li>
+    <li>🔥 <strong>70–100 WPM</strong> — Fast. Professional level, great for most jobs.</li>
+    <li>👑 <strong>100+ WPM</strong> — Elite. Top 5% of typists worldwide.</li>
   </ul>
 
+  <!-- CLICK SPEED -->
+  <h2>🔥 Click Speed Test (CPS)</h2>
   <p>
-    One important note: <strong>browser-based reaction time tests read slightly higher than lab conditions</strong>. Monitor refresh rate (60Hz adds ~8ms, 144Hz adds ~3ms) and mouse latency (5–15ms) both inflate your result. Your true neurological reaction time is likely 10–20ms faster than your score.
+    The <strong>CPS test</strong> measures clicks per second across 8 time durations (1s, 2s, 5s, 10s, 20s, 30s, 60s, 100s). The average person clicks <strong>6–7 CPS</strong>. Minecraft PvP gamers use <em>jitter clicking</em> to reach 10–14 CPS by tensing forearm muscles. Butterfly clicking can reach 16–20+ CPS.
   </p>
 
-  <h2>Gamer Reaction Time — Does It Actually Matter?</h2>
-
+  <!-- SNAKE -->
+  <h2>🐍 Snake Game Online — Free Classic Snake</h2>
   <p>
-    Short answer: yes — but not as much as most people think, and it's more trainable than most people believe.
+    <strong>Snake</strong> is one of the most iconic games ever made. Guide your snake to eat red food orbs, grow longer, and survive without hitting the walls or your own body. First popularized on <strong>Nokia 6110 in 1998</strong>, it's now free in your browser with <strong>smooth 60fps animation</strong>.
   </p>
   <p>
-    Studies on professional esports players consistently show average reaction times between <strong>150 and 190ms</strong>, compared to 220–250ms for non-gamers. The gap is real. But the reason isn't entirely genetic — it's largely <strong>pattern recognition and anticipation</strong>. Pro players don't just react faster; they predict better.
+    Use <strong>Arrow Keys / WASD</strong> on keyboard or <strong>swipe</strong> on mobile. The snake starts at 200ms/step and speeds up by 2ms per apple — max speed 80ms/step. Hitting the glowing green walls ends the game. The theoretical maximum score is <strong>3,970 points</strong> (eating all 397 possible apples on a 20×20 grid).
   </p>
 
-  <h3>Raw speed vs. game sense</h3>
+  <!-- MEMORY -->
+  <h2>🧠 Number Memory Test</h2>
   <p>
-    A 30ms difference in reaction time equals about 1–2 frames on a 60fps monitor. That's real, but it won't win games on its own. What separates ranks is the ability to pre-aim, read rotations, and reduce cognitive load so your reactions become closer to reflexes than decisions.
+    The <strong>number memory test</strong> measures your <em>working memory capacity</em> — how many random digits you can memorize and recall. George Miller's famous 1956 paper established that most humans can hold <strong>7 ± 2 chunks</strong> of information in working memory. Phone numbers were originally 7 digits for exactly this reason.
   </p>
-  <p>
-    That said: <strong>faster reaction time gives a measurable edge</strong> in clutch moments — 1v1 duels, peeker's advantage scenarios, and close-range fights where the first click wins. Every millisecond is real.
-  </p>
-
-  <h2>How to Improve Your Reaction Time</h2>
-
-  <p>Reaction time is trainable. Research shows meaningful improvements are possible with consistent practice, especially under 30 — but people of all ages see real results.</p>
-
-  <h3>1. Practice consistently</h3>
-  <p>Use our reaction time test daily as a warm-up. 5–10 minutes of focused reaction training before a gaming session beats hours of passive play. Consistency over weeks beats intensity over days.</p>
-
-  <h3>2. Upgrade your hardware</h3>
-  <p>A <strong>144Hz or higher monitor</strong> reduces input lag significantly. A wired mouse with 1000Hz polling rate adds real responsiveness. These don't improve your neurology — but they cut the gap between intention and on-screen action.</p>
-
-  <h3>3. Sleep is a performance tool</h3>
-  <p>Sleep deprivation is one of the most reliable ways to slow your reaction time. Studies show 24 hours without sleep impairs reaction time by the same margin as a 0.1% blood alcohol level. Eight hours isn't optional for peak performance.</p>
-
-  <h3>4. Reduce cognitive load</h3>
-  <p>Decision time is part of reaction time. The more options your brain evaluates, the slower the response. Practice until actions become automatic — muscle memory is just reaction time minus the thinking step.</p>
-
-  <h3>5. Exercise and stay hydrated</h3>
-  <p>Cardiovascular exercise increases blood flow to the brain. Even a 20-minute walk before a session can improve your scores. Dehydration slows neural transmission — drink water before you test.</p>
-
-  <div class="seo-highlight">
-    <p><strong>Quick tip:</strong> Test yourself at the same time each day for the most consistent data. Reaction time naturally dips in the morning, peaks in early afternoon, and drops again late at night.</p>
-  </div>
-
-  <h2>Frequently Asked Questions</h2>
-
-  <div class="seo-faq-item">
-    <p class="seo-faq-q">How accurate is an online reaction time test?</p>
-    <p class="seo-faq-a">Browser-based tests are consistent but not lab-accurate. Hardware latency (monitor refresh rate + mouse delay) typically adds 10–20ms to your true neurological reaction time. Use it for relative comparison and tracking progress — not as an absolute medical figure.</p>
-  </div>
-
-  <div class="seo-faq-item">
-    <p class="seo-faq-q">What is a good reaction time for gaming?</p>
-    <p class="seo-faq-a">For competitive gaming, anything under 200ms is considered good. Pro-level players typically score 150–190ms. Game sense, positioning, and aim training matter far more than raw speed at most skill levels.</p>
-  </div>
-
-  <div class="seo-faq-item">
-    <p class="seo-faq-q">Does reaction time get worse with age?</p>
-    <p class="seo-faq-a">Yes, gradually. Reaction time peaks in the early 20s and increases by about 10–15ms per decade. Active training and a healthy lifestyle significantly slow this decline — many 40-year-olds who train outperform sedentary 20-year-olds.</p>
-  </div>
-
-  <div class="seo-faq-item">
-    <p class="seo-faq-q">Why is my reaction time different each session?</p>
-    <p class="seo-faq-a">Time of day, sleep quality, caffeine, stress, and even hand temperature all affect your score. Track your average across 5+ sessions rather than judging yourself on a single result.</p>
-  </div>
-
-  <div class="seo-faq-item">
-    <p class="seo-faq-q">Can caffeine improve reaction time?</p>
-    <p class="seo-faq-a">Yes, in moderate amounts. Research shows 200–400mg of caffeine (roughly 2 cups of coffee) can improve reaction time by 10–30ms, particularly when you're fatigued. Effects peak around 30–60 minutes after consumption.</p>
-  </div>
-
-  <div class="seo-faq-item">
-    <p class="seo-faq-q">What's the difference between simple and choice reaction time?</p>
-    <p class="seo-faq-a">Simple reaction time: one stimulus, one response (click when you see green). Choice reaction time: multiple stimuli, different responses. Choice RT is always 50–100ms slower and is more relevant to real gaming scenarios.</p>
-  </div>
-
-  <div style="text-align:center; margin-top:40px">
-    <a href="/reaction-time-test" style="display:inline-block;padding:14px 36px;background:#00f5a0;color:#000;font-weight:700;font-size:0.88rem;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;border-radius:10px;box-shadow:0 0 24px rgba(0,245,160,0.3)">⚡ Test Your Reaction Time Now</a>
-  </div>
-
-  <h2>Play Classic Snake Game Online — Free, No Download</h2>
-
-  <p>
-    <strong>Snake</strong> is one of the most iconic games ever made. The concept is deceptively simple: guide your snake to eat food, grow longer, and survive as long as possible without hitting the walls or your own body. First popularized as an arcade game in 1976, Snake became a global phenomenon when Nokia pre-installed it on the <strong>Nokia 6110 in 1998</strong> — reaching hundreds of millions of players worldwide.
-  </p>
-  <p>
-    Our free online Snake game runs directly in your browser with <strong>smooth 60fps animation</strong>, wall boundaries, and a scoring system that rewards speed and precision. No download, no Flash, no accounts. Just press an arrow key and play.
-  </p>
-
-  <div class="seo-stats">
-    <div class="seo-stat-chip"><strong style="color:#00f5a0">200ms</strong>Starting Speed</div>
-    <div class="seo-stat-chip"><strong style="color:#ffe000">80ms</strong>Max Speed</div>
-    <div class="seo-stat-chip"><strong style="color:#a99fff">20×20</strong>Grid Size</div>
-    <div class="seo-stat-chip"><strong style="color:#ff6b85">3,970</strong>Max Possible Score</div>
-  </div>
-
-  <h3>How to Play Snake</h3>
-  <p>
-    Use <strong>Arrow Keys</strong> or <strong>WASD</strong> to change your snake's direction. On mobile, <strong>swipe</strong> in any direction. Eat the glowing red food orbs to grow longer and score 10 points each. The snake speeds up slightly with every apple — plan your path ahead or you'll run out of room.
-  </p>
-  <p>
-    This version uses <strong>wall boundaries</strong> — hitting any edge ends the game instantly. The glowing green border serves as a constant visual reminder of the danger zone. There is no wrap-through; survival requires genuine spatial awareness and route planning.
-  </p>
-
-  <div class="seo-highlight">
-    <p><strong>Why Snake trains your brain:</strong> Unlike pure reaction tests, Snake builds <strong>anticipatory spatial reasoning</strong> — the ability to plan multiple moves ahead while executing the current one. This is the same cognitive skill used in chess, driving, and first-person shooters. Regular Snake play measurably improves working memory and decision-making speed.</p>
-  </div>
-
-  <h3>Snake High Score Tips</h3>
   <ul>
-    <li><strong>Hug the walls early</strong> — moving along edges keeps the center open as your snake grows.</li>
-    <li><strong>Plan in loops</strong> — an S-shaped or U-shaped path covering the whole board prevents dead ends.</li>
-    <li><strong>Don't rush to food</strong> — a longer safe path beats a short dangerous one. Survival earns more points than aggression.</li>
-    <li><strong>Watch your tail move</strong> — cells your body occupies now will be free in a few steps. Advanced players thread through gaps as the tail clears.</li>
+    <li>📉 <strong>1–4 digits</strong> — Below average</li>
+    <li>👍 <strong>5–7 digits</strong> — Average adult (most people)</li>
+    <li>⚡ <strong>8–10 digits</strong> — Excellent — top 20%</li>
+    <li>👑 <strong>11+ digits</strong> — Memory athlete territory (top 1%)</li>
   </ul>
 
-  <div class="seo-faq-item">
-    <p class="seo-faq-q">How do you play Snake online?</p>
-    <p class="seo-faq-a">Use Arrow Keys or WASD on keyboard to control the snake. On mobile, swipe to change direction. Eat the red food orbs to grow and score points. Avoid hitting the walls or your own body — both end the game. Tap the canvas or press any arrow key to start.</p>
+  <!-- HOW TO IMPROVE -->
+  <h2>💡 How to Improve Your Reaction Time</h2>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <div class="tip-icon">🎮</div>
+      <div class="tip-title">Practice Daily</div>
+      <div class="tip-body">5–10 minutes of focused reaction training before gaming beats hours of passive play. Consistency over 2–4 weeks yields measurable improvement.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">😴</div>
+      <div class="tip-title">Sleep First</div>
+      <div class="tip-body">24 hours without sleep impairs reaction time as much as 0.1% blood alcohol. 8 hours of quality sleep is a performance multiplier.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">☕</div>
+      <div class="tip-title">Caffeine Boost</div>
+      <div class="tip-body">200–400mg of caffeine (2 cups of coffee) improves reaction time by 10–30ms, especially when fatigued. Peak effect at 30–60 minutes.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🖥️</div>
+      <div class="tip-title">Better Hardware</div>
+      <div class="tip-body">A 144Hz+ monitor and wired mouse with 1000Hz polling cut 10–20ms of system latency — real performance gains with zero brain training required.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🏃</div>
+      <div class="tip-title">Exercise</div>
+      <div class="tip-body">Cardiovascular exercise increases blood flow to the prefrontal cortex. Even a 20-minute walk before a session can improve your scores measurably.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">💧</div>
+      <div class="tip-title">Stay Hydrated</div>
+      <div class="tip-body">Dehydration slows neural transmission. Even mild dehydration (~2% body water loss) measurably impairs cognitive performance and reaction speed.</div>
+    </div>
   </div>
 
-  <div class="seo-faq-item">
-    <p class="seo-faq-q">Does Snake get faster over time?</p>
-    <p class="seo-faq-a">Yes. The snake starts at one step every 200ms and speeds up by 2ms per apple eaten. At maximum speed (80ms/step) the snake makes 12 moves per second. Even at max speed, smooth interpolated animation keeps movement visually fluid at 60fps.</p>
+  <!-- FAQ -->
+  <h2>❓ Frequently Asked Questions</h2>
+  <div class="faq-grid">
+
+    <details class="faq-item">
+      <summary>What is a good reaction time? <span class="faq-arrow">+</span></summary>
+      <p class="faq-body">Under <strong>200ms</strong> is above average. Pro gamers score <strong>150–190ms</strong>. Most healthy adults land between 200–250ms. Under 150ms is exceptional and rare outside elite esports. Your score may read 10–20ms high due to hardware latency.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>How accurate is an online reaction time test? <span class="faq-arrow">+</span></summary>
+      <p class="faq-body">Browser-based tests are consistent but not lab-accurate. Monitor refresh rate and mouse latency add 10–20ms. Use results for <strong>relative comparison and progress tracking</strong> — not as an absolute measurement. Test at the same time of day for best consistency.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>What is a good typing speed (WPM)? <span class="faq-arrow">+</span></summary>
+      <p class="faq-body">The average adult types <strong>38–41 WPM</strong>. Above 60 WPM is good. Above 80 WPM is professional level. Above 100 WPM is exceptional. The world record exceeds 220 WPM using specialized techniques and hardware.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>What is a good CPS (clicks per second)? <span class="faq-arrow">+</span></summary>
+      <p class="faq-body">The average person clicks <strong>6–7 CPS</strong> in normal clicking. Gamers using jitter clicking reach 10–14 CPS. Butterfly clicking can push 16–20+ CPS. Above 14 CPS in normal clicking is exceptional and requires significant practice.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>How do you play Snake online? <span class="faq-arrow">+</span></summary>
+      <p class="faq-body">Use <strong>Arrow Keys or WASD</strong> on keyboard, or <strong>swipe</strong> on mobile. Eat red food orbs to grow and score 10 points each. Avoid hitting the walls or your own body — both end the game instantly. Tap or press any arrow to start.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>How many digits can the average person memorize? <span class="faq-arrow">+</span></summary>
+      <p class="faq-body">Most adults hold <strong>5–7 digits</strong> in working memory (Miller's Law). Memory athletes using chunking and memory palace techniques can memorize 50–100+ random digits. Daily practice with our memory test measurably improves your span within 2–4 weeks.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Does reaction time get worse with age? <span class="faq-arrow">+</span></summary>
+      <p class="faq-body">Gradually, yes. Reaction time peaks in the <strong>early 20s</strong> and increases ~10–15ms per decade. Active training and healthy lifestyle habits (sleep, exercise, hydration) significantly slow this decline. Many trained 40-year-olds outperform sedentary 20-year-olds.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Are all tests completely free? <span class="faq-arrow">+</span></summary>
+      <p class="faq-body">Yes — all <strong>10 tests are 100% free</strong>. No download, no registration, no account required. Everything runs directly in your browser. Your results are calculated locally and never stored on our servers. No ads, no subscriptions.</p>
+    </details>
+
   </div>
 
-  <div class="seo-faq-item">
-    <p class="seo-faq-q">What is the maximum score in Snake?</p>
-    <p class="seo-faq-a">The board is 20×20 = 400 cells. Starting with 3 segments, you can eat up to 397 apples for a theoretical maximum of 3,970 points. Achieving this requires perfectly routing your snake across the entire board without any mistakes — an extremely rare feat requiring expert-level play.</p>
-  </div>
-
-  <div style="text-align:center; margin-top:40px">
-    <a href="/snake-game" style="display:inline-block;padding:14px 36px;background:#00f5a0;color:#000;font-weight:700;font-size:0.88rem;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;border-radius:10px;box-shadow:0 0 24px rgba(0,245,160,0.3)">🐍 Play Snake Now</a>
+  <div style="text-align:center;margin-top:48px">
+    <a class="cta-btn" href="/reaction-time-test">⚡ Test Your Reaction Time Now</a>
   </div>
 
 </section>
 
 </main>
 
-<!-- ── FOOTER ── -->
+<!-- FOOTER -->
 <footer>
-  <div class="footer-logo">⚡ REFLEX LAB</div>
   <div class="footer-links">
-    <a class="footer-link" href="/reaction-time-test">Reaction Time</a>
-    <a class="footer-link" href="/click-speed-test">Click Speed</a>
-    <a class="footer-link" href="/typing-speed-test">Typing Test</a>
-    <a class="footer-link" href="/number-memory-test">Number Memory</a>
-    <a class="footer-link" href="/snake-game">Snake Game</a>
-    <a class="footer-link" href="/jitter-click-test">Jitter Click</a>
-    <a class="footer-link" href="/spacebar-speed-test">Spacebar</a>
-    <a class="footer-link" href="/stimulation-clicker">Stimulation</a>
-    <a class="footer-link" href="/dinosaur-game">Dino Game</a>
-    <a class="footer-link" href="/coreball-game">Coreball</a>
+    <a class="footer-link" href="/reaction-time-test">⚡ Reaction Time</a>
+    <a class="footer-link" href="/snake-game">🐍 Snake</a>
+    <a class="footer-link" href="/typing-speed-test">📝 Typing</a>
+    <a class="footer-link" href="/click-speed-test">🔥 Click Speed</a>
+    <a class="footer-link" href="/number-memory-test">🧠 Memory</a>
+    <a class="footer-link" href="/dinosaur-game">🦕 Dino</a>
+    <a class="footer-link" href="/stimulation-clicker">🎯 Aim Trainer</a>
+    <a class="footer-link" href="/coreball-game">🎮 Coreball</a>
+    <a class="footer-link" href="/jitter-click-test">🖱️ Jitter Click</a>
+    <a class="footer-link" href="/spacebar-speed-test">⌨️ Spacebar</a>
   </div>
   <p class="footer-copy">
-    © <span id="yr"></span> Reflex Lab — Free Online Reaction Time, Snake & Brain Tests<br>
-    <span style="font-size:0.6rem;color:#7878aa">Keywords: reaction time test · typing speed test · click speed test · number memory test · CPS test · snake game online · snake game free · jitter click · spacebar test · dino game · coreball · brain test online</span>
+    © <span id="yr"></span> reactionspeedtest.com — Free Online Reaction Time, Typing Speed & Brain Tests<br>
+    <span style="opacity:0.65">reaction time test · typing speed test WPM · click speed test CPS · snake game online free · number memory test · dinosaur game · jitter click · spacebar test · aim trainer · coreball</span>
   </p>
   <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
 </footer>
