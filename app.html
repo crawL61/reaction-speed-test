@@ -5350,86 +5350,93 @@ let ctSoundOn = true;
   }
 })();
 
-// ── WORLD CANVAS ENGINE  v3 — Beautiful City ─────────────
+// ── WORLD CANVAS ENGINE  v4 — Skyscraper City ────────────
 (function(){
   const WCV = document.getElementById('ctWorldCanvas');
   if(!WCV) return;
   const WCX = WCV.getContext('2d');
 
-  /* Each upgrade contributes height to the skyscraper.
-     More expensive = more floors. */
-  const UPG_CONTRIB = {
-    cursor:  { h:3,   floor:'#3a5a8a', window:'#a0d0ff', glow:'#60aaff', label:'Cursor'  },
-    intern:  { h:6,   floor:'#5a7a2a', window:'#c0ff80', glow:'#80ff40', label:'Intern'  },
-    miner:   { h:11,  floor:'#7a5020', window:'#ffc080', glow:'#ff9040', label:'Miner'   },
-    factory: { h:18,  floor:'#8a3a20', window:'#ffa060', glow:'#ff6020', label:'Factory' },
-    bank:    { h:30,  floor:'#206050', window:'#60ffc0', glow:'#00ffaa', label:'Bank'    },
-    lab:     { h:48,  floor:'#502080', window:'#d090ff', glow:'#c060ff', label:'Lab'     },
-    rocket:  { h:75,  floor:'#802020', window:'#ff8080', glow:'#ff4040', label:'Rocket'  },
-    ai:      { h:115, floor:'#106060', window:'#40ffff', glow:'#00e8ff', label:'AI'      },
-    portal:  { h:170, floor:'#602060', window:'#ff80ff', glow:'#ff40ff', label:'Portal'  },
+  // Height contribution per upgrade purchase
+  const UPG_H = {
+    cursor:  { h:3,   fc:'#1a2a4a', wc:'#60a8e8', glow:'#4090ff', accent:'#2040a0' },
+    intern:  { h:6,   fc:'#1a2e10', wc:'#80e050', glow:'#50d020', accent:'#1a4010' },
+    miner:   { h:11,  fc:'#2e1e08', wc:'#e09040', glow:'#d06010', accent:'#4a2808' },
+    factory: { h:18,  fc:'#2e1008', wc:'#ff8050', glow:'#e04010', accent:'#601008' },
+    bank:    { h:30,  fc:'#082e22', wc:'#40f0a0', glow:'#00e080', accent:'#085028' },
+    lab:     { h:48,  fc:'#1a0830', wc:'#c080ff', glow:'#a040ff', accent:'#30086a' },
+    rocket:  { h:75,  fc:'#2e0808', wc:'#ff6060', glow:'#ff2020', accent:'#600808' },
+    ai:      { h:115, fc:'#082828', wc:'#30f0f0', glow:'#00d8ff', accent:'#085050' },
+    portal:  { h:170, fc:'#280828', wc:'#ff60ff', glow:'#ff00ff', accent:'#500850' },
   };
 
-  let wW=400, wH=420;
-  let wRaf=null;
-  let cityH=0, targetH=0;           // animated height
+  let wW=400, wH=420, wRaf=null;
+  let cityH=0, targetH=0;
   let stars=[], clouds=[];
-  let particles=[];
+  let sparks=[];
   let lastOwned={}, lastCheck=0;
+  let t=0; // frame counter for animations
 
-  /* Crane state */
-  const crane={
-    x:0, topY:0,                    // base position (right edge of roof)
-    jibAngle: -0.18,                // horizontal arm angle (radians from horizontal)
-    jibDir: 1,
-    hookY: 0,                       // rope length (animated)
-    hookTargetY: 40,
-    active: false,
-    activeTimer: 0,
+  // Crane state
+  let crane = {
+    jibAng: -0.12, jibDir: 1,
+    trolleyT: 0,
+    hookLen: 35, hookTarget: 35,
+    activeFrames: 0,
   };
 
   function calcTarget(){
     let h=0;
-    CT_UPG.forEach(u=>{ const d=UPG_CONTRIB[u.id]; if(d) h+=(ct.own[u.id]||0)*d.h; });
-    return Math.min(h, wH*0.86);
+    CT_UPG.forEach(u=>{ const d=UPG_H[u.id]; if(d) h+=(ct.own[u.id]||0)*d.h; });
+    return Math.min(h, wH*0.84);
+  }
+
+  function getDom(){
+    let best=0, dom=UPG_H.cursor;
+    CT_UPG.forEach(u=>{
+      const d=UPG_H[u.id]; if(!d) return;
+      const s=(ct.own[u.id]||0)*d.h;
+      if(s>best){ best=s; dom=d; }
+    });
+    return dom;
   }
 
   function initStars(){
     stars=[];
-    for(let i=0;i<100;i++) stars.push({
-      x:Math.random()*wW, y:Math.random()*wH*0.72,
-      r:Math.random()*1.5+0.2, a:0.3+Math.random()*0.7,
-      da:(Math.random()-0.5)*0.007,
+    for(let i=0;i<110;i++) stars.push({
+      x:Math.random()*wW, y:Math.random()*wH*0.78,
+      r:Math.random()*1.4+0.2,
+      phase:Math.random()*Math.PI*2,
+      spd:0.003+Math.random()*0.006,
     });
   }
   function initClouds(){
     clouds=[];
-    for(let i=0;i<3;i++) clouds.push({
-      x:-80+Math.random()*wW, y:15+Math.random()*wH*0.22,
-      w:50+Math.random()*70, h:14+Math.random()*16,
-      spd:0.08+Math.random()*0.14,
+    for(let i=0;i<4;i++) clouds.push({
+      x:Math.random()*wW, y:10+Math.random()*wH*0.18,
+      w:55+Math.random()*65, h:12+Math.random()*14,
+      spd:0.07+Math.random()*0.12,
+      a:0.05+Math.random()*0.07,
     });
   }
 
   function resize(){
-    const p=WCV.parentElement;
-    const r=p.getBoundingClientRect();
-    const nW=Math.max(160, Math.round(r.width)||280);
-    // Use fixed height matching CSS (420px) — never read from canvas itself
-    const nH=420;
-    if(nW===wW && nH===wH) return; // nothing changed, skip
+    const p = WCV.parentElement;
+    if(!p) return;
+    const r = p.getBoundingClientRect();
+    const nW = Math.round(Math.max(150, r.width||280));
+    const nH = 420;
+    if(nW===wW && nH===wH) return;
     wW=nW; wH=nH;
     WCV.width=wW; WCV.height=wH;
     initStars(); initClouds();
   }
 
-  function spawnSparks(x,y){
-    const cols=['#ffd700','#ff9800','#ffffff','#ffee58','#ff7043'];
-    for(let i=0;i<14;i++){
-      const a=Math.random()*Math.PI*2, s=1.5+Math.random()*3;
-      particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,
-        life:1, dec:0.03+Math.random()*0.04,
-        r:1.5+Math.random()*3, col:cols[~~(Math.random()*cols.length)]});
+  function spawnSparks(x,y,col){
+    for(let i=0;i<16;i++){
+      const a=Math.random()*Math.PI*2, s=1.2+Math.random()*3.5;
+      sparks.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-1,
+        life:1, dec:0.028+Math.random()*0.035,
+        r:1.5+Math.random()*2.8, col:col||'#ffd700'});
     }
   }
 
@@ -5437,384 +5444,445 @@ let ctSoundOn = true;
     let changed=false;
     CT_UPG.forEach(u=>{
       const n=ct.own[u.id]||0;
-      if((lastOwned[u.id]||0)!==n){ changed=true; lastOwned[u.id]=n; }
+      if((lastOwned[u.id]||0)!==n){
+        changed=true; lastOwned[u.id]=n;
+      }
     });
     if(changed){
       targetH=calcTarget();
-      crane.active=true; crane.activeTimer=180;
-      // sparks near top
-      const bx=wW*0.5+(Math.random()-0.5)*wW*0.3;
-      const by=wH-cityH-5;
-      spawnSparks(bx,by);
+      crane.activeFrames=240;
+      const dom=getDom();
+      const bTop=wH-10-Math.min(cityH,targetH);
+      spawnSparks((wW/2)+(Math.random()-0.5)*80, bTop+Math.random()*16, dom.glow);
     }
   }
 
-  /* ── Draw starfield background ── */
+  /* ─── BACKGROUND ─── */
   function drawBg(){
     const bg=WCX.createLinearGradient(0,0,0,wH);
-    bg.addColorStop(0,'#010108');
-    bg.addColorStop(0.55,'#030510');
-    bg.addColorStop(1,'#050a08');
+    bg.addColorStop(0,'#010106');
+    bg.addColorStop(0.5,'#020410');
+    bg.addColorStop(1,'#040a06');
     WCX.fillStyle=bg; WCX.fillRect(0,0,wW,wH);
 
+    // Moon + halo
+    const mx=wW*0.82, my=30+Math.sin(t*0.0005)*4;
+    WCX.save();
+    const mh=WCX.createRadialGradient(mx,my,0,mx,my,32);
+    mh.addColorStop(0,'rgba(255,252,220,0.18)');
+    mh.addColorStop(1,'transparent');
+    WCX.fillStyle=mh; WCX.beginPath(); WCX.arc(mx,my,32,0,Math.PI*2); WCX.fill();
+    WCX.fillStyle='rgba(255,252,215,0.92)';
+    WCX.shadowColor='rgba(255,248,200,0.6)'; WCX.shadowBlur=14;
+    WCX.beginPath(); WCX.arc(mx,my,11,0,Math.PI*2); WCX.fill();
+    WCX.restore();
+
+    // Stars (twinkle)
     stars.forEach(s=>{
-      s.a+=s.da; if(s.a<0.15) s.da=Math.abs(s.da); if(s.a>1) s.da=-Math.abs(s.da);
-      WCX.globalAlpha=s.a; WCX.fillStyle='#fff';
+      const a=0.25+Math.sin(t*s.spd+s.phase)*0.55;
+      WCX.globalAlpha=Math.max(0,a);
+      WCX.fillStyle='#ffffff';
       WCX.beginPath(); WCX.arc(s.x,s.y,s.r,0,Math.PI*2); WCX.fill();
     });
     WCX.globalAlpha=1;
 
-    // Moon
-    const mx=wW*0.8, my=wH*0.1;
-    const mg=WCX.createRadialGradient(mx,my,1,mx,my,22);
-    mg.addColorStop(0,'rgba(255,252,220,1)');
-    mg.addColorStop(0.5,'rgba(255,248,200,0.5)');
-    mg.addColorStop(1,'transparent');
-    WCX.fillStyle=mg; WCX.beginPath(); WCX.arc(mx,my,22,0,Math.PI*2); WCX.fill();
-    WCX.fillStyle='rgba(255,252,220,0.95)';
-    WCX.beginPath(); WCX.arc(mx,my,10,0,Math.PI*2); WCX.fill();
-
     // Clouds
     clouds.forEach(cl=>{
       cl.x+=cl.spd; if(cl.x>wW+cl.w) cl.x=-cl.w;
-      WCX.globalAlpha=0.07;
+      WCX.save();
+      WCX.globalAlpha=cl.a;
       WCX.fillStyle='#b0c8ff';
-      WCX.beginPath(); WCX.ellipse(cl.x,cl.y,cl.w*0.5,cl.h*0.4,0,0,Math.PI*2); WCX.fill();
-      WCX.beginPath(); WCX.ellipse(cl.x-cl.w*0.22,cl.y+4,cl.w*0.3,cl.h*0.32,0,0,Math.PI*2); WCX.fill();
-      WCX.beginPath(); WCX.ellipse(cl.x+cl.w*0.2,cl.y+5,cl.w*0.24,cl.h*0.28,0,0,Math.PI*2); WCX.fill();
+      WCX.beginPath(); WCX.ellipse(cl.x,cl.y,cl.w*0.5,cl.h*0.5,0,0,Math.PI*2); WCX.fill();
+      WCX.beginPath(); WCX.ellipse(cl.x-cl.w*0.25,cl.y+3,cl.w*0.3,cl.h*0.38,0,0,Math.PI*2); WCX.fill();
+      WCX.beginPath(); WCX.ellipse(cl.x+cl.w*0.22,cl.y+4,cl.w*0.26,cl.h*0.32,0,0,Math.PI*2); WCX.fill();
+      WCX.restore();
     });
-    WCX.globalAlpha=1;
   }
 
-  /* ── Draw ground & road ── */
+  /* ─── GROUND ─── */
   function drawGround(){
-    const gy=wH-10;
-    const gg=WCX.createLinearGradient(0,gy,0,wH);
-    gg.addColorStop(0,'#1a2e14'); gg.addColorStop(1,'#060c04');
-    WCX.fillStyle=gg; WCX.fillRect(0,gy,wW,wH-gy);
-    // Road
-    const rg=WCX.createLinearGradient(0,wH-10,0,wH);
-    rg.addColorStop(0,'#222222'); rg.addColorStop(1,'#141414');
-    WCX.fillStyle=rg; WCX.fillRect(0,wH-10,wW,10);
-    // Center line
+    const gy=wH-12;
+    // Sidewalk
+    const sg=WCX.createLinearGradient(0,gy,0,wH);
+    sg.addColorStop(0,'#1c1c20'); sg.addColorStop(1,'#0c0c10');
+    WCX.fillStyle=sg; WCX.fillRect(0,gy,wW,12);
+    // Ground reflection glow
+    const dom=getDom();
     WCX.save();
-    WCX.setLineDash([14,16]); WCX.strokeStyle='rgba(255,220,50,0.22)'; WCX.lineWidth=2;
-    WCX.beginPath(); WCX.moveTo(0,wH-5); WCX.lineTo(wW,wH-5); WCX.stroke();
-    WCX.setLineDash([]);
+    WCX.globalAlpha=0.25;
+    const rg=WCX.createLinearGradient(0,0,wW,0);
+    rg.addColorStop(0,'transparent'); rg.addColorStop(0.5,dom.glow); rg.addColorStop(1,'transparent');
+    WCX.fillStyle=rg; WCX.fillRect(0,gy-2,wW,4);
     WCX.restore();
-    // Pavement reflection
+    // Road markings
     WCX.save();
-    WCX.globalAlpha=0.12;
-    const ref=WCX.createLinearGradient(0,wH-10,wW,wH-10);
-    ref.addColorStop(0,'transparent'); ref.addColorStop(0.5,'#6080ff'); ref.addColorStop(1,'transparent');
-    WCX.fillStyle=ref; WCX.fillRect(0,wH-10,wW,3);
-    WCX.restore();
+    WCX.setLineDash([12,18]); WCX.strokeStyle='rgba(255,220,50,0.18)'; WCX.lineWidth=2;
+    WCX.beginPath(); WCX.moveTo(0,wH-6); WCX.lineTo(wW,wH-6); WCX.stroke();
+    WCX.setLineDash([]); WCX.restore();
   }
 
-  /* ── Determine dominant color from owned upgrades ── */
-  function getDomColor(){
-    let bestH=0, col={floor:'#304060',window:'#80a0d0',glow:'#6080ff'};
-    CT_UPG.forEach(u=>{
-      const d=UPG_CONTRIB[u.id]; if(!d) return;
-      const contribution=(ct.own[u.id]||0)*d.h;
-      if(contribution>bestH){ bestH=contribution; col=d; }
-    });
-    return col;
-  }
+  /* ─── MAIN BUILDING ─── */
+  function drawBuilding(dom, bX, bW, bTop, bBot){
+    const h=bBot-bTop;
+    const taper=Math.min(bW*0.06, 8); // slight inward taper at top
+    const flH=16; // floor height px
 
-  /* ── MAIN BUILDING ── */
-  function drawBuilding(){
-    if(cityH<4) return;
-    const dom=getDomColor();
+    /* Outer atmospheric glow on ground */
+    const groundGlow=WCX.createRadialGradient(wW/2,bBot,0,wW/2,bBot,bW*0.8);
+    groundGlow.addColorStop(0,dom.glow+'50');
+    groundGlow.addColorStop(0.5,dom.glow+'18');
+    groundGlow.addColorStop(1,'transparent');
+    WCX.fillStyle=groundGlow;
+    WCX.beginPath(); WCX.ellipse(wW/2,bBot,bW*0.8,24,0,0,Math.PI*2); WCX.fill();
 
-    const bW  = wW*0.56;              // building width
-    const bX  = (wW-bW)/2;           // centered
-    const bTop= wH-10-cityH;         // top of building (above ground)
-    const bBot= wH-10;               // bottom (ground level)
-    const flH = 18;                   // floor height in pixels
+    /* Building silhouette path (tapered) */
+    const path2d = ()=>{
+      WCX.beginPath();
+      WCX.moveTo(bX+taper, bTop);
+      WCX.lineTo(bX+bW-taper, bTop);
+      WCX.lineTo(bX+bW, bBot);
+      WCX.lineTo(bX, bBot);
+      WCX.closePath();
+    };
 
-    /* ── Ambient ground glow (reflection on road) ── */
-    const glow=WCX.createRadialGradient(wW/2,bBot,10,wW/2,bBot,bW*0.7);
-    glow.addColorStop(0,dom.glow+'40');
-    glow.addColorStop(1,'transparent');
-    WCX.fillStyle=glow;
-    WCX.beginPath(); WCX.ellipse(wW/2,bBot,bW*0.7,20,0,0,Math.PI*2); WCX.fill();
+    /* Face gradient — lit from upper-left */
+    const fg=WCX.createLinearGradient(bX,bTop,bX+bW,bBot);
+    fg.addColorStop(0,   dom.fc+'ff');
+    fg.addColorStop(0.25,dom.accent+'ff');
+    fg.addColorStop(0.6, dom.fc+'ee');
+    fg.addColorStop(1,   '#0a0a14');
 
-    /* ── Building body ── */
-    // Slight perspective taper: top is 8% narrower than base
-    const taper=bW*0.08;
     WCX.save();
-    WCX.beginPath();
-    WCX.moveTo(bX+taper, bTop);
-    WCX.lineTo(bX+bW-taper, bTop);
-    WCX.lineTo(bX+bW, bBot);
-    WCX.lineTo(bX, bBot);
-    WCX.closePath();
-
-    // Face gradient
-    const faceG=WCX.createLinearGradient(bX,bTop,bX+bW,bBot);
-    faceG.addColorStop(0,  dom.floor+'cc');
-    faceG.addColorStop(0.3,dom.floor+'ee');
-    faceG.addColorStop(0.7,dom.floor+'bb');
-    faceG.addColorStop(1,  dom.floor+'99');
-    WCX.fillStyle=faceG;
-    // Outer glow
-    WCX.shadowColor=dom.glow; WCX.shadowBlur=30;
+    path2d();
+    WCX.fillStyle=fg;
+    WCX.shadowColor=dom.glow; WCX.shadowBlur=40;
     WCX.fill();
     WCX.restore();
 
-    /* ── Floor lines ── */
+    /* Clip for interior details */
     WCX.save();
-    WCX.beginPath();
-    WCX.moveTo(bX+taper, bTop);
-    WCX.lineTo(bX+bW-taper, bTop);
-    WCX.lineTo(bX+bW, bBot);
-    WCX.lineTo(bX, bBot);
-    WCX.closePath();
-    WCX.clip();
-    const floors=Math.floor(cityH/flH);
-    WCX.strokeStyle=dom.glow+'25'; WCX.lineWidth=1;
-    for(let f=1;f<=floors+1;f++){
-      const y=bBot-f*flH;
-      WCX.beginPath(); WCX.moveTo(bX-4,y); WCX.lineTo(bX+bW+4,y); WCX.stroke();
+    path2d(); WCX.clip();
+
+    /* Horizontal floor bands */
+    const nFloors=Math.floor(h/flH);
+    for(let i=1;i<=nFloors;i++){
+      const y=bBot-i*flH;
+      const isMain=(i%5===0);
+      WCX.strokeStyle=isMain ? dom.glow+'55' : dom.glow+'1a';
+      WCX.lineWidth=isMain?1.5:0.8;
+      WCX.beginPath(); WCX.moveTo(bX,y); WCX.lineTo(bX+bW,y); WCX.stroke();
     }
-    WCX.restore();
 
-    /* ── Vertical pillar lines ── */
-    WCX.save();
-    WCX.strokeStyle=dom.glow+'30'; WCX.lineWidth=1;
-    const cols=Math.max(3,Math.floor(bW/32));
-    for(let col=1;col<cols;col++){
-      const px=bX+(bW/cols)*col;
-      WCX.beginPath(); WCX.moveTo(px,bTop+4); WCX.lineTo(px,bBot); WCX.stroke();
+    /* Vertical structural columns */
+    const nCols=Math.max(4, Math.floor(bW/30));
+    for(let i=1;i<nCols;i++){
+      const x=bX+bW*i/nCols;
+      WCX.strokeStyle=dom.glow+'22'; WCX.lineWidth=0.8;
+      WCX.beginPath(); WCX.moveTo(x,bTop); WCX.lineTo(x,bBot); WCX.stroke();
     }
+
+    /* Windows — grid, lit/unlit */
+    const wCols=Math.max(3, Math.floor(bW/26));
+    const wRows=Math.max(1, Math.floor(h/flH));
+    for(let row=0;row<wRows;row++){
+      for(let col=0;col<wCols;col++){
+        const wx=bX+10+col*((bW-20)/Math.max(1,wCols-1));
+        const wy=bBot-flH*(row+1)+4;
+        const seed=(row*41+col*17+row*col)%11;
+        const lit=seed<7;
+        const flicker=lit ? 0.55+Math.sin(t*0.04+row*col*0.7)*0.2 : 0.08;
+        WCX.globalAlpha=flicker;
+        if(lit){
+          WCX.fillStyle=dom.wc;
+          WCX.shadowColor=dom.wc; WCX.shadowBlur=7;
+        } else {
+          WCX.fillStyle='#10182a'; WCX.shadowBlur=0;
+        }
+        WCX.fillRect(wx-4,wy,8,flH-6);
+      }
+    }
+    WCX.globalAlpha=1; WCX.shadowBlur=0;
     WCX.restore();
 
-    /* ── Left/right façade depth strips ── */
-    // Left dark face
+    /* Left side face (depth) */
     WCX.save();
-    const sideW=bW*0.07;
-    const sideG=WCX.createLinearGradient(bX-sideW,0,bX,0);
-    sideG.addColorStop(0,'transparent');
-    sideG.addColorStop(1,dom.floor+'88');
-    WCX.fillStyle=sideG; WCX.shadowColor='transparent'; WCX.shadowBlur=0;
+    const lf=WCX.createLinearGradient(bX-14,0,bX,0);
+    lf.addColorStop(0,'transparent'); lf.addColorStop(1,dom.accent+'cc');
+    WCX.fillStyle=lf;
     WCX.beginPath();
-    WCX.moveTo(bX-sideW, bBot-2);
-    WCX.lineTo(bX+taper, bTop);
-    WCX.lineTo(bX, bBot);
-    WCX.closePath();
-    WCX.fill();
-    // Right dark face
-    const sideG2=WCX.createLinearGradient(bX+bW,0,bX+bW+sideW,0);
-    sideG2.addColorStop(0,dom.floor+'66');
-    sideG2.addColorStop(1,'transparent');
-    WCX.fillStyle=sideG2;
-    WCX.beginPath();
-    WCX.moveTo(bX+bW-taper, bTop);
-    WCX.lineTo(bX+bW+sideW, bBot-2);
-    WCX.lineTo(bX+bW, bBot);
-    WCX.closePath();
+    WCX.moveTo(bX-12,bBot-2); WCX.lineTo(bX+taper,bTop);
+    WCX.lineTo(bX,bBot); WCX.closePath();
     WCX.fill();
     WCX.restore();
 
-    /* ── Bright edge lines ── */
+    /* Right side face */
     WCX.save();
-    WCX.shadowColor=dom.glow; WCX.shadowBlur=14;
+    const rf=WCX.createLinearGradient(bX+bW,0,bX+bW+14,0);
+    rf.addColorStop(0,dom.accent+'aa'); rf.addColorStop(1,'transparent');
+    WCX.fillStyle=rf;
+    WCX.beginPath();
+    WCX.moveTo(bX+bW-taper,bTop); WCX.lineTo(bX+bW+12,bBot-2);
+    WCX.lineTo(bX+bW,bBot); WCX.closePath();
+    WCX.fill();
+    WCX.restore();
+
+    /* Neon edge lines */
+    WCX.save();
+    WCX.shadowColor=dom.glow; WCX.shadowBlur=18;
     WCX.strokeStyle=dom.glow+'cc'; WCX.lineWidth=2;
     WCX.beginPath(); WCX.moveTo(bX+taper,bTop); WCX.lineTo(bX,bBot); WCX.stroke();
     WCX.beginPath(); WCX.moveTo(bX+bW-taper,bTop); WCX.lineTo(bX+bW,bBot); WCX.stroke();
     WCX.restore();
 
-    /* ── Roof edge bright line ── */
+    /* Roof edge bright line */
     WCX.save();
-    WCX.shadowColor=dom.glow; WCX.shadowBlur=20;
+    WCX.shadowColor=dom.glow; WCX.shadowBlur=24;
     WCX.strokeStyle=dom.glow; WCX.lineWidth=2.5;
     WCX.beginPath(); WCX.moveTo(bX+taper,bTop); WCX.lineTo(bX+bW-taper,bTop); WCX.stroke();
     WCX.restore();
 
-    /* ── Windows ── */
-    WCX.save();
-    WCX.beginPath();
-    WCX.moveTo(bX+taper,bTop); WCX.lineTo(bX+bW-taper,bTop);
-    WCX.lineTo(bX+bW,bBot); WCX.lineTo(bX,bBot); WCX.closePath();
-    WCX.clip();
-    const wCols=Math.max(2,Math.floor(bW/28));
-    const wRows=Math.max(1,Math.floor(cityH/flH));
-    const wPadX=14, wPadY=5, wW2=9, wH2=11;
-    for(let row=0;row<wRows;row++){
-      for(let col=0;col<wCols;col++){
-        const wx=bX+wPadX+col*((bW-wPadX*2)/Math.max(1,wCols-1));
-        const wy=bBot-flH*row-wPadY-wH2;
-        // Random seed per window
-        const seed=(row*37+col*13)%7;
-        const lit=seed<5;
-        if(!lit){ WCX.globalAlpha=0.12; WCX.fillStyle='#203060'; }
-        else {
-          WCX.globalAlpha=0.6+Math.sin(Date.now()*0.002+row*col*0.4)*0.12;
-          WCX.fillStyle=dom.window;
-          WCX.shadowColor=dom.window; WCX.shadowBlur=8;
-        }
-        WCX.fillRect(wx-wW2/2, wy, wW2, wH2);
-        WCX.shadowBlur=0;
-      }
-    }
-    WCX.restore();
-
-    /* ── Setback / step on top 25% of building if tall enough ── */
-    if(cityH>80){
-      const stepH=cityH*0.22;
-      const stepW=bW*0.55;
-      const stepX=(wW-stepW)/2;
-      const stepTop=bTop;
+    /* Setback (penthouse) if building tall */
+    if(h>70){
+      const phW=bW*0.5, phX=(wW-phW)/2, phH=Math.min(h*0.22,40);
       WCX.save();
-      WCX.fillStyle=dom.floor+'dd';
-      WCX.shadowColor=dom.glow; WCX.shadowBlur=20;
-      WCX.fillRect(stepX, stepTop, stepW, stepH);
-      WCX.strokeStyle=dom.glow+'aa'; WCX.lineWidth=2;
-      WCX.strokeRect(stepX, stepTop, stepW, stepH);
+      WCX.fillStyle=dom.fc+'dd';
+      WCX.shadowColor=dom.glow; WCX.shadowBlur=16;
+      WCX.fillRect(phX,bTop,phW,phH);
+      WCX.strokeStyle=dom.glow+'88'; WCX.lineWidth=1.5;
+      WCX.strokeRect(phX,bTop,phW,phH);
       WCX.restore();
     }
 
-    /* ── Antenna & blinking light ── */
-    const antX=wW/2, antBot=bTop, antTop=bTop-22-Math.min(cityH*0.1,30);
+    /* Antenna + blinking beacon */
+    const antX=wW/2;
+    const antH=20+Math.min(h*0.08,25);
     WCX.save();
-    WCX.strokeStyle=dom.glow+'bb'; WCX.lineWidth=2; WCX.shadowColor=dom.glow; WCX.shadowBlur=10;
-    WCX.beginPath(); WCX.moveTo(antX,antBot); WCX.lineTo(antX,antTop); WCX.stroke();
-    // Blinking red beacon
-    const blink=Math.sin(Date.now()*0.0035)>0;
-    WCX.fillStyle=blink?'#ff3030':'#880000';
-    WCX.shadowColor=blink?'#ff3030':'transparent'; WCX.shadowBlur=blink?12:0;
-    WCX.beginPath(); WCX.arc(antX,antTop,3.5,0,Math.PI*2); WCX.fill();
-    WCX.restore();
-
-    /* ── "YOUR EMPIRE" label ── */
-    WCX.save();
-    WCX.textAlign='center'; WCX.textBaseline='middle';
-    WCX.font='bold 12px "Bebas Neue",sans-serif';
-    WCX.shadowColor='rgba(255,220,60,1)'; WCX.shadowBlur=20;
-    WCX.fillStyle='rgba(255,235,100,0.98)';
-    WCX.fillText('YOUR EMPIRE', wW/2, 18);
-    if(targetH>0){
-      WCX.font='10px sans-serif'; WCX.shadowBlur=8; WCX.fillStyle='rgba(160,200,255,0.8)';
-      const lvl=Math.max(1,~~(targetH/8));
-      WCX.fillText('Level '+lvl, wW/2, 32);
-    }
+    WCX.shadowColor=dom.glow; WCX.shadowBlur=10;
+    WCX.strokeStyle=dom.glow+'99'; WCX.lineWidth=2;
+    WCX.beginPath(); WCX.moveTo(antX,bTop); WCX.lineTo(antX,bTop-antH); WCX.stroke();
+    const blink=Math.sin(t*0.05)>0;
+    WCX.fillStyle=blink?'#ff2020':'#660000';
+    WCX.shadowColor=blink?'#ff2020':'transparent'; WCX.shadowBlur=blink?16:0;
+    WCX.beginPath(); WCX.arc(antX,bTop-antH,3.5,0,Math.PI*2); WCX.fill();
     WCX.restore();
   }
 
-  /* ── CRANE — proper tower crane ── */
-  function drawCrane(){
-    if(cityH<8) return;
-    if(crane.activeTimer>0) crane.activeTimer--;
-    else crane.active=false;
+  /* ─── TOWER CRANE ─── */
+  function drawCrane(dom, bX, bW, bTop){
+    // Crane stands on right corner of the roof
+    const baseX = bX+bW+2;
+    const baseY = bTop;
+    const mastH = Math.min(52, 20+cityH*0.25);
+    const mastTop = baseY-mastH;
+    const jibLen = Math.min(82, bW*0.7+18);
+    const backJib = jibLen*0.32;
 
-    // Crane sits on right edge of roof
-    const bW=wW*0.56, bX=(wW-bW)/2;
-    const bTop=wH-10-cityH;
-    const cx=bX+bW-4;   // base X (right edge)
-    const cy=bTop;       // base Y (roof level)
-
-    // Mast height: 45px or 30% of building, whichever is smaller
-    const mastH=Math.min(48, cityH*0.32+16);
-    const mastTop=cy-mastH;
+    // Animate
+    if(crane.activeFrames>0){ crane.activeFrames--; }
+    const isActive = crane.activeFrames>0;
+    if(isActive){
+      crane.jibAng += 0.006*crane.jibDir;
+      if(crane.jibAng>0.14||crane.jibAng<-0.28) crane.jibDir*=-1;
+      crane.trolleyT += 0.012;
+      crane.hookTarget = 28+Math.sin(crane.trolleyT*0.6)*22;
+    }
+    crane.hookLen += (crane.hookTarget-crane.hookLen)*0.045;
 
     WCX.save();
-    WCX.shadowColor='#aaaacc'; WCX.shadowBlur=6;
 
-    // ── Mast (vertical tower) ──
-    // Double-beam lattice mast
-    WCX.strokeStyle='#8888bb'; WCX.lineWidth=3.5;
-    WCX.beginPath(); WCX.moveTo(cx-3,cy); WCX.lineTo(cx-3,mastTop); WCX.stroke();
-    WCX.beginPath(); WCX.moveTo(cx+3,cy); WCX.lineTo(cx+3,mastTop); WCX.stroke();
-    // Cross braces on mast
-    WCX.strokeStyle='#7070aa'; WCX.lineWidth=1.5;
-    const braces=Math.max(2,~~(mastH/12));
-    for(let i=0;i<braces;i++){
-      const by=cy-i*(mastH/braces)-mastH/braces/2;
-      WCX.beginPath();
-      WCX.moveTo(cx-3,by); WCX.lineTo(cx+3,by-mastH/braces); WCX.stroke();
-      WCX.beginPath();
-      WCX.moveTo(cx+3,by); WCX.lineTo(cx-3,by-mastH/braces); WCX.stroke();
+    /* ── MAST ── lattice tower */
+    const mL=baseX-3.5, mR=baseX+3.5;
+
+    // Mast outline fill (solid back)
+    WCX.fillStyle='#4a4a70';
+    WCX.fillRect(mL,mastTop,7,mastH);
+
+    // Left and right chords
+    WCX.strokeStyle='#8888bb'; WCX.lineWidth=2.5;
+    WCX.beginPath(); WCX.moveTo(mL,baseY); WCX.lineTo(mL,mastTop); WCX.stroke();
+    WCX.beginPath(); WCX.moveTo(mR,baseY); WCX.lineTo(mR,mastTop); WCX.stroke();
+
+    // Diagonal braces (alternating Z pattern)
+    WCX.strokeStyle='#6666aa'; WCX.lineWidth=1.2;
+    const nBraces=Math.max(3,Math.floor(mastH/12));
+    const bStep=mastH/nBraces;
+    for(let i=0;i<nBraces;i++){
+      const y1=baseY-i*bStep, y2=baseY-(i+1)*bStep;
+      if(i%2===0){
+        WCX.beginPath(); WCX.moveTo(mL,y1); WCX.lineTo(mR,y2); WCX.stroke();
+      } else {
+        WCX.beginPath(); WCX.moveTo(mR,y1); WCX.lineTo(mL,y2); WCX.stroke();
+      }
     }
-    // Mast cap
-    WCX.fillStyle='#aaaace'; WCX.beginPath(); WCX.arc(cx,mastTop,4,0,Math.PI*2); WCX.fill();
-
-    // ── Operator cabin ──
-    WCX.fillStyle='#4466aa';
-    WCX.strokeStyle='#6688cc'; WCX.lineWidth=1;
-    WCX.fillRect(cx-9,mastTop+2,10,9);
-    WCX.strokeRect(cx-9,mastTop+2,10,9);
-    // Cabin window
-    WCX.fillStyle='rgba(140,220,255,0.6)';
-    WCX.fillRect(cx-7,mastTop+4,4,5);
-
-    // ── Counter-jib (short rear arm) ──
-    WCX.strokeStyle='#9999cc'; WCX.lineWidth=3;
-    WCX.beginPath(); WCX.moveTo(cx,mastTop); WCX.lineTo(cx+22,mastTop); WCX.stroke();
-    // Counter-weight block
-    WCX.fillStyle='#555577';
-    WCX.fillRect(cx+14,mastTop-5,12,8);
-
-    // ── Main jib (long arm — swings) ──
-    if(crane.active){
-      crane.jibAngle+=0.006*crane.jibDir;
-      if(crane.jibAngle>0.12||crane.jibAngle<-0.3) crane.jibDir*=-1;
+    // Horizontal rungs on mast
+    WCX.strokeStyle='#5555aa44'; WCX.lineWidth=1;
+    for(let i=0;i<nBraces;i++){
+      const y=baseY-i*bStep-bStep/2;
+      WCX.beginPath(); WCX.moveTo(mL,y); WCX.lineTo(mR,y); WCX.stroke();
     }
-    const jibLen=Math.min(70, bW*0.55+20);
 
+    /* Mast base plate */
+    WCX.fillStyle='#555580';
+    WCX.fillRect(mL-3,baseY,13,5);
+
+    /* Mast cap triangle */
+    WCX.fillStyle='#7070a0';
+    WCX.beginPath();
+    WCX.moveTo(baseX,mastTop-8); WCX.lineTo(mL-2,mastTop+2); WCX.lineTo(mR+2,mastTop+2);
+    WCX.closePath(); WCX.fill();
+
+    /* ── OPERATOR CABIN ── */
+    WCX.fillStyle='#2244aa';
+    WCX.strokeStyle='#4466cc'; WCX.lineWidth=1;
+    WCX.fillRect(mL-6, mastTop+2, 8, 10);
+    WCX.strokeRect(mL-6, mastTop+2, 8, 10);
+    // Cabin windows
+    WCX.fillStyle='rgba(120,210,255,0.55)';
+    WCX.fillRect(mL-5,mastTop+3,3,4);
+    WCX.fillRect(mL-1,mastTop+3,2,4);
+
+    /* ── JIB (main arm) — swings, drawn from pivot ── */
     WCX.save();
-    WCX.translate(cx, mastTop);
-    WCX.rotate(crane.jibAngle);
+    WCX.translate(baseX, mastTop);
+    WCX.rotate(crane.jibAng);
 
-    // Jib double-beam
-    WCX.strokeStyle='#8888bb'; WCX.lineWidth=3;
-    WCX.beginPath(); WCX.moveTo(0,-2.5); WCX.lineTo(-jibLen,-2.5); WCX.stroke();
-    WCX.beginPath(); WCX.moveTo(0, 2.5); WCX.lineTo(-jibLen, 2.5); WCX.stroke();
-    // Jib cross braces
-    WCX.strokeStyle='#7070aa'; WCX.lineWidth=1.2;
-    const jbr=Math.max(3,~~(jibLen/18));
-    for(let i=0;i<jbr;i++){
-      const bx2=-i*(jibLen/jbr)-jibLen/jbr/2;
-      WCX.beginPath(); WCX.moveTo(bx2,-2.5); WCX.lineTo(bx2-jibLen/jbr,2.5); WCX.stroke();
+    // Jib top chord
+    WCX.strokeStyle='#8888bb'; WCX.lineWidth=2.8;
+    WCX.beginPath(); WCX.moveTo(0,-3); WCX.lineTo(-jibLen,-3); WCX.stroke();
+    // Jib bottom chord
+    WCX.beginPath(); WCX.moveTo(0,3); WCX.lineTo(-jibLen,3); WCX.stroke();
+    // Jib vertical struts
+    WCX.strokeStyle='#6666aa'; WCX.lineWidth=1.2;
+    const nStruts=Math.max(4,Math.floor(jibLen/16));
+    for(let i=1;i<=nStruts;i++){
+      const x=-jibLen*i/nStruts;
+      WCX.beginPath(); WCX.moveTo(x,-3); WCX.lineTo(x,3); WCX.stroke();
     }
-    // Jib tip
-    WCX.fillStyle='#aaaace'; WCX.beginPath(); WCX.arc(-jibLen,0,3,0,Math.PI*2); WCX.fill();
+    // Jib diagonal braces
+    WCX.lineWidth=1;
+    for(let i=0;i<nStruts;i++){
+      const x1=-jibLen*i/nStruts, x2=-jibLen*(i+1)/nStruts;
+      WCX.beginPath(); WCX.moveTo(x1,-3); WCX.lineTo(x2,3); WCX.stroke();
+    }
+    // Jib tip plate
+    WCX.fillStyle='#9999cc'; WCX.fillRect(-jibLen-3,-4,6,8);
 
-    // Support cable from mast top to jib tip
-    WCX.strokeStyle='#aaaacc88'; WCX.lineWidth=1.2;
-    WCX.beginPath(); WCX.moveTo(0,-4); WCX.lineTo(-jibLen,-2.5); WCX.stroke();
+    // Tension cable from mast top down to jib (king post style)
+    WCX.strokeStyle='#aaaacc88'; WCX.lineWidth=1.3;
+    WCX.beginPath(); WCX.moveTo(0,-14); WCX.lineTo(-jibLen*0.5,-3); WCX.stroke();
+    WCX.beginPath(); WCX.moveTo(0,-14); WCX.lineTo(-jibLen,-3); WCX.stroke();
+    // King post
+    WCX.strokeStyle='#9999bb'; WCX.lineWidth=1.8;
+    WCX.beginPath(); WCX.moveTo(0,3); WCX.lineTo(0,-16); WCX.stroke();
 
-    // Trolley on jib (travels along arm)
-    const trolleyX=crane.active ? -jibLen*(0.4+Math.sin(Date.now()*0.0008)*0.3) : -jibLen*0.55;
-    WCX.fillStyle='#cc8844';
-    WCX.fillRect(trolleyX-5,-6,10,6);
+    // Trolley (slides along jib bottom)
+    const trolleyX = -jibLen*(0.3+Math.sin(crane.trolleyT)*0.28);
+    WCX.fillStyle='#cc9944';
+    WCX.strokeStyle='#ee aa44'; WCX.lineWidth=0.8;
+    WCX.fillRect(trolleyX-6,3,12,6); WCX.strokeRect(trolleyX-6,3,12,6);
+    // Trolley wheels
+    WCX.fillStyle='#333355';
+    WCX.beginPath(); WCX.arc(trolleyX-3,3,2,0,Math.PI*2); WCX.fill();
+    WCX.beginPath(); WCX.arc(trolleyX+3,3,2,0,Math.PI*2); WCX.fill();
 
     // Hook rope
-    crane.hookY+=(crane.hookTargetY-crane.hookY)*0.04;
-    if(crane.active && Math.random()<0.02){
-      crane.hookTargetY = 25+Math.random()*40;
-    }
-    WCX.strokeStyle='#aaaacc'; WCX.lineWidth=1.5;
-    WCX.beginPath(); WCX.moveTo(trolleyX,0); WCX.lineTo(trolleyX,crane.hookY); WCX.stroke();
+    WCX.strokeStyle='#ccccee'; WCX.lineWidth=1.5;
+    WCX.beginPath(); WCX.moveTo(trolleyX,9); WCX.lineTo(trolleyX,9+crane.hookLen); WCX.stroke();
 
-    // Hook (J-shaped)
-    const hx=trolleyX, hy=crane.hookY;
-    WCX.strokeStyle='#ccccee'; WCX.lineWidth=2.5;
-    WCX.lineCap='round';
+    // Hook (J shape)
+    const hx=trolleyX, hy=9+crane.hookLen;
+    WCX.strokeStyle='#ddddff'; WCX.lineWidth=2.2; WCX.lineCap='round';
     WCX.beginPath();
-    WCX.moveTo(hx,hy);
-    WCX.lineTo(hx,hy+6);
-    WCX.arc(hx+2,hy+6,3,Math.PI,-0.2,false);
-    WCX.stroke();
+    WCX.moveTo(hx,hy-2); WCX.lineTo(hx,hy+5);
+    WCX.arc(hx+3,hy+5,3,Math.PI,0,false);
+    WCX.stroke(); WCX.lineCap='butt';
 
-    WCX.restore(); // end jib transform
-    WCX.restore(); // end crane shadow
+    WCX.restore(); // end jib rotate
+
+    /* ── COUNTER JIB (back arm) ── */
+    WCX.save();
+    WCX.translate(baseX, mastTop);
+    // Counter-jib is opposite direction (+ rotation offset π)
+    WCX.rotate(crane.jibAng + Math.PI);
+    WCX.strokeStyle='#7777aa'; WCX.lineWidth=2.2;
+    WCX.beginPath(); WCX.moveTo(0,-2); WCX.lineTo(-backJib,-2); WCX.stroke();
+    WCX.beginPath(); WCX.moveTo(0,2); WCX.lineTo(-backJib,2); WCX.stroke();
+    // Counterweight block
+    WCX.fillStyle='#555577';
+    WCX.strokeStyle='#7777aa'; WCX.lineWidth=1;
+    WCX.fillRect(-backJib-8,-7,16,12);
+    WCX.strokeRect(-backJib-8,-7,16,12);
+    // CW detail lines
+    WCX.strokeStyle='#44446688'; WCX.lineWidth=0.7;
+    WCX.beginPath(); WCX.moveTo(-backJib-4,-7); WCX.lineTo(-backJib-4,5); WCX.stroke();
+    WCX.beginPath(); WCX.moveTo(-backJib+0,-7); WCX.lineTo(-backJib+0,5); WCX.stroke();
+    WCX.restore();
+
+    WCX.restore(); // end global shadow
   }
 
-  /* ── Sparks ── */
-  function drawSparks(){
-    particles=particles.filter(p=>{
-      p.x+=p.vx; p.y+=p.vy; p.vy+=0.09; p.vx*=0.97;
+  /* ─── LABELS ─── */
+  function drawLabels(){
+    WCX.save();
+    WCX.textAlign='center'; WCX.textBaseline='middle';
+    WCX.shadowColor='rgba(255,220,60,1)'; WCX.shadowBlur=22;
+    WCX.fillStyle='rgba(255,235,100,1)';
+    WCX.font='bold 13px "Bebas Neue",sans-serif';
+    WCX.fillText('YOUR EMPIRE', wW/2, 17);
+    if(targetH>0){
+      WCX.font='10px sans-serif'; WCX.shadowBlur=8;
+      WCX.fillStyle='rgba(160,200,255,0.8)';
+      WCX.fillText('Level '+Math.max(1,~~(targetH/9)), wW/2, 31);
+    }
+    WCX.restore();
+  }
+
+  /* ─── EMPTY PLACEHOLDER ─── */
+  function drawEmpty(){
+    WCX.save();
+    WCX.globalAlpha=0.28; WCX.textAlign='center'; WCX.textBaseline='middle';
+    WCX.font='bold 13px sans-serif'; WCX.fillStyle='#7080c0';
+    WCX.fillText('Buy upgrades to build your city!', wW/2, wH/2-10);
+    WCX.font='30px serif'; WCX.fillText('🏗️', wW/2, wH/2+28);
+    WCX.restore();
+  }
+
+  /* ─── MAIN TICK ─── */
+  function tick(){
+    wRaf=requestAnimationFrame(tick);
+    t++;
+
+    // Check ownership changes every 300ms
+    const now=Date.now();
+    if(now-lastCheck>300){ lastCheck=now; checkOwned(); }
+
+    // Smooth height grow
+    if(cityH<targetH){
+      const gap=targetH-cityH;
+      cityH+=Math.max(0.06, gap*0.014);
+      if(cityH>targetH) cityH=targetH;
+    }
+
+    drawBg();
+    drawGround();
+
+    if(cityH>3){
+      const dom=getDom();
+      const bW=Math.min(wW*0.6, 220);
+      const bX=(wW-bW)/2;
+      const bBot=wH-12;
+      const bTop=bBot-cityH;
+      drawBuilding(dom, bX, bW, bTop, bBot);
+      drawCrane(dom, bX, bW, bTop);
+    } else {
+      drawEmpty();
+    }
+
+    drawLabels();
+
+    // Sparks
+    sparks=sparks.filter(p=>{
+      p.x+=p.vx; p.y+=p.vy; p.vy+=0.08; p.vx*=0.97;
       p.life-=p.dec; if(p.life<=0) return false;
       WCX.save();
       WCX.globalAlpha=p.life;
@@ -5824,43 +5892,13 @@ let ctSoundOn = true;
     });
   }
 
-  /* ── Empty placeholder ── */
-  function drawEmpty(){
-    WCX.save();
-    WCX.globalAlpha=0.3;
-    WCX.textAlign='center'; WCX.textBaseline='middle';
-    WCX.font='bold 13px sans-serif'; WCX.fillStyle='#7080c0';
-    WCX.fillText('Buy upgrades to build your city!', wW/2, wH/2-10);
-    WCX.font='32px serif'; WCX.fillText('🏗️', wW/2, wH/2+28);
-    WCX.restore();
-  }
-
-  /* ── Main tick ── */
-  function tick(){
-    wRaf=requestAnimationFrame(tick);
-
-    drawBg();
-
-    const now=Date.now();
-    if(now-lastCheck>280){ lastCheck=now; checkOwned(); }
-
-    // Smooth height animation — accelerates when far, decelerates near target
-    if(cityH<targetH){
-      const gap=targetH-cityH;
-      cityH+=Math.max(0.08, gap*0.016);
-      if(cityH>targetH) cityH=targetH;
-    }
-
-    drawGround();
-    if(cityH>2){ drawBuilding(); drawCrane(); } else { drawEmpty(); }
-    drawSparks();
-  }
-
+  /* ─── START / STOP ─── */
   function startWorld(){
     if(wRaf) return;
     resize();
     targetH=calcTarget();
-    cityH=Math.min(targetH*0.05,5);
+    // If coming from a non-zero save, show building immediately (no animation from 0)
+    cityH = targetH > 0 ? targetH * 0.92 : 0;
     tick();
   }
   function stopWorld(){
@@ -5871,17 +5909,14 @@ let ctSoundOn = true;
   window.ctWorldStop   = stopWorld;
   window.ctWorldResize = resize;
 
-  // ResizeObserver with debounce to prevent feedback loop.
-  // Canvas.width/height assignment does NOT trigger ResizeObserver on the parent div,
-  // but we debounce anyway to be safe.
+  // ResizeObserver — debounced, won't loop because height is CSS-fixed
   if(window.ResizeObserver){
-    let _roTimer=null;
-    const ro=new ResizeObserver(()=>{
+    let _rt=null;
+    new ResizeObserver(()=>{
       if(!wRaf) return;
-      clearTimeout(_roTimer);
-      _roTimer=setTimeout(()=>{ resize(); },120);
-    });
-    ro.observe(WCV.parentElement||document.getElementById('ctWorldCanvas').parentElement);
+      clearTimeout(_rt);
+      _rt=setTimeout(resize, 150);
+    }).observe(WCV.parentElement||WCV);
   }
 })();
 
@@ -5900,16 +5935,26 @@ ctRefresh();
   pb.addEventListener('keydown',function(e){ e.preventDefault(); });
 })();
 
-// Start world when clicker panel becomes visible
+// ── HOOK INTO switchPanel (safe — runs after switchPanel is defined) ──────
 const _origSwitchForCT = switchPanel;
 switchPanel = function(p, fromPop){
   _origSwitchForCT(p, fromPop);
   if(p==='clicker'){
-    if(typeof ctWorldStart==='function') setTimeout(ctWorldStart, 50);
+    if(typeof ctWorldStart==='function') setTimeout(ctWorldStart, 60);
   } else {
     if(typeof ctWorldStop==='function') ctWorldStop();
   }
 };
+
+// ── IF PAGE LOADED DIRECTLY ON /clicker-tycoon ─────────
+// switchPanel('clicker') already ran (line ~4480) but ctWorldStart
+// didn't exist yet. Now that it does, start it if clicker is active.
+if(typeof curPanel!=='undefined' && curPanel==='clicker'){
+  setTimeout(function(){
+    if(typeof ctWorldStart==='function') ctWorldStart();
+    ctRefresh(); // re-render shop + stats with loaded save data
+  }, 80);
+}
 
 // Extra CSS
 (function(){
