@@ -962,7 +962,7 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
 /* 3-column main layout */
 .ct-main {
   display:grid;
-  grid-template-columns:220px 1fr 260px;
+  grid-template-columns:200px minmax(360px,1fr) 340px;
   gap:14px; width:100%;
   align-items:start;
 }
@@ -1064,19 +1064,17 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
 .ct-auto-row b { color:#00f5a0; font-weight:700; font-size:0.8rem; }
 
 /* ── MID COL — World Canvas ── */
-.ct-col-mid { align-self:start; }
+.ct-col-mid { align-self:stretch; }
 .ct-world-label {
   font-size:0.58rem; font-weight:700; letter-spacing:0.18em;
   text-transform:uppercase; color:#404060; text-align:center;
   margin-bottom:4px;
 }
 .ct-world-canvas {
-  width:100%; height:420px;
-  border-radius:16px;
-  border:1px solid #181828;
-  background:#06060f;
-  display:block;
-  box-sizing:border-box;
+  width:100%; height:500px;
+  display:block; border-radius:18px;
+  background:#010108;
+  box-shadow:0 0 50px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.04);
 }
 
 /* ── RIGHT COL — Shop ── */
@@ -1086,44 +1084,14 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
   text-transform:uppercase; color:#505080; padding:2px 0;
 }
 .ct-shop-list {
-  display:flex; flex-direction:column; gap:6px;
-  overflow-y:auto; height:420px;
-  scrollbar-width:thin; scrollbar-color:#181828 transparent;
+  display:flex; flex-direction:column; gap:8px;
+  overflow-y:auto; height:500px; padding:4px 6px 12px 4px;
+  scrollbar-width:thin; scrollbar-color:#3a3a5a transparent;
 }
-.ct-upg {
-  display:flex; align-items:center; gap:8px;
-  background:#0a0a18; border:1.5px solid #181828;
-  border-radius:12px; padding:9px 10px;
-  cursor:pointer; text-align:left; width:100%;
-  transition:border-color 0.15s, background 0.15s, transform 0.08s;
-  position:relative; overflow:hidden; outline:none;
-  min-width:0; box-sizing:border-box;
-}
-.ct-upg.can-afford {
-  border-color:rgba(255,214,0,0.3);
-  background:rgba(255,214,0,0.035);
-}
-.ct-upg.can-afford:hover {
-  border-color:rgba(255,214,0,0.65);
-  background:rgba(255,214,0,0.07);
-  transform:translateX(3px);
-}
-.ct-upg:active { transform:scale(0.97) !important; }
-.ct-upg.can-afford::after {
-  content:''; position:absolute; top:0; left:-100%; width:55%; height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,214,0,0.05),transparent);
-  animation:ctShimmer 3s ease-in-out infinite;
-}
-@keyframes ctShimmer { 0%{left:-100%} 60%,100%{left:160%} }
-
-.ct-upg-icon {
-  width:40px; height:40px; flex-shrink:0;
-  background:#0d0d20; border:1px solid #222240;
-  border-radius:10px; display:flex; align-items:center;
-  justify-content:center; font-size:1.4rem;
-}
-.ct-upg-body { flex:1; min-width:0; }
-.ct-upg-cost { text-align:right; flex-shrink:0; min-width:56px; }
+.ct-shop-list::-webkit-scrollbar { width:5px; }
+.ct-shop-list::-webkit-scrollbar-track { background:transparent; }
+.ct-shop-list::-webkit-scrollbar-thumb { background:#3a3a5a; border-radius:10px; }
+/* ct-upg styles consolidated → see bottom of stylesheet */
 
 /* Milestones */
 .ct-milestones-wrap {
@@ -1156,6 +1124,7 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
 @media(max-width:800px){
   .ct-main { grid-template-columns:1fr 1fr; }
   .ct-col-mid { grid-column:1/-1; order:-1; }
+  .ct-col-right { min-width:0; }
   .ct-world-canvas { height:260px; }
 }
 @media(max-width:520px){
@@ -1312,69 +1281,7 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
 }
 
 /* Individual upgrade card */
-.ct-upg {
-  display:flex; align-items:center; gap:10px;
-  background:#0d0d1a; border:1.5px solid #1c1c30;
-  border-radius:12px; padding:10px 12px;
-  cursor:pointer; text-align:left; width:100%;
-  transition:border-color 0.15s, background 0.15s, transform 0.08s;
-  position:relative; overflow:hidden;
-  outline:none;
-}
-.ct-upg:focus { outline:none; }
-.ct-upg.can-afford {
-  border-color:rgba(255,214,0,0.35);
-  background:rgba(255,214,0,0.04);
-}
-.ct-upg.can-afford:hover {
-  border-color:rgba(255,214,0,0.7);
-  background:rgba(255,214,0,0.08);
-  transform:translateX(2px);
-}
-.ct-upg:active { transform:scale(0.97); }
-.ct-upg.locked { opacity:0.35; cursor:not-allowed; }
-
-.ct-upg-icon {
-  width:38px; height:38px; flex-shrink:0;
-  background:#111130; border:1px solid #252545;
-  border-radius:10px;
-  display:flex; align-items:center; justify-content:center;
-  font-size:1.3rem;
-}
-.ct-upg-body { flex:1; min-width:0; }
-.ct-upg-name {
-  font-size:0.82rem; font-weight:700; color:#e0e0f8;
-  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-  margin-bottom:2px;
-}
-.ct-upg-desc { font-size:0.62rem; color:#555580; line-height:1.3; }
-.ct-upg-owned {
-  font-size:0.65rem; color:#00f5a0; font-weight:700;
-  margin-top:2px;
-}
-.ct-upg-cost {
-  text-align:right; flex-shrink:0; min-width:52px;
-}
-.ct-upg-cost-val {
-  font-family:'Bebas Neue',sans-serif;
-  font-size:1rem; letter-spacing:0.06em;
-  color:#ffd600;
-}
-.ct-upg-cost-val.cant { color:#404060; }
-.ct-upg-cps {
-  font-size:0.58rem; color:#555580;
-}
-/* shimmer on affordable upgrades */
-.ct-upg.can-afford::after {
-  content:'';
-  position:absolute; top:0; left:-100%; width:60%; height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,214,0,0.06),transparent);
-  animation:ctShimmer 2.5s ease-in-out infinite;
-}
-@keyframes ctShimmer {
-  0%   { left:-100%; }
-  60%,100% { left:150%; }
-}
+/* ct-upg styles consolidated → see bottom */
 
 /* MILESTONES */
 .ct-milestones-wrap {
@@ -1419,6 +1326,144 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
   .ct-shop-list { height:280px; }
   .ct-stat-val { font-size:1.2rem; }
 }
+
+/* ── CLICKER EXTRA FEATURES ────────────────────────────── */
+.ct-frenzy-banner {
+  padding:6px 14px; border-radius:8px; font-size:0.78rem; font-weight:700;
+  letter-spacing:0.06em; background:rgba(255,80,0,0.25); border:1px solid #ff5000aa;
+  color:#ff9060; animation:ctFrenzyPulse 0.4s ease-in-out infinite alternate;
+}
+@keyframes ctFrenzyPulse { from{opacity:0.7} to{opacity:1;box-shadow:0 0 18px #ff500088} }
+
+.ct-golden-coin {
+  position:absolute; font-size:2rem;
+  cursor:pointer; z-index:30;
+  animation:ctGoldenBounce 0.7s ease-in-out infinite alternate;
+  filter:drop-shadow(0 0 10px #ffd700);
+  user-select:none; -webkit-user-select:none;
+  pointer-events:all;
+  transform-origin:center;
+}
+@keyframes ctGoldenBounce { from{transform:scale(1) rotate(-8deg)} to{transform:scale(1.15) rotate(8deg)} }
+
+/* Fortune Spin */
+.ct-spin-box {
+  background:#0a0a18; border:1px solid #1e1e3a;
+  border-radius:12px; padding:12px 14px; display:flex;
+  flex-direction:column; gap:7px;
+}
+.ct-spin-title { font-size:0.6rem; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:#606090; }
+.ct-spin-result { font-size:0.78rem; color:#aaaacc; min-height:1.2em; }
+.ct-spin-btn {
+  padding:9px; border-radius:10px; border:1.5px solid #7b61ff55;
+  background:rgba(123,97,255,0.12); color:#c4b5fd;
+  font-size:0.82rem; font-weight:700; cursor:pointer;
+  transition:all 0.2s; letter-spacing:0.04em;
+}
+.ct-spin-btn:hover { background:rgba(123,97,255,0.28); border-color:#7b61ffaa; }
+.ct-spin-btn:disabled { opacity:0.4; cursor:not-allowed; }
+.ct-spin-cd { font-size:0.72rem; color:#505080; text-align:center; }
+
+/* Quests */
+.ct-quest-box {
+  background:#0a0a18; border:1px solid #1a1a30;
+  border-radius:12px; padding:12px 14px; display:flex;
+  flex-direction:column; gap:6px;
+}
+.ct-quest-title { font-size:0.6rem; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:#606090; }
+.ct-quest-item {
+  display:flex; align-items:center; gap:8px;
+  font-size:0.74rem; color:#8888b0;
+}
+.ct-quest-bar-bg { flex:1; height:5px; background:#111128; border-radius:100px; overflow:hidden; }
+.ct-quest-bar { height:100%; background:linear-gradient(90deg,#00f5a0,#00c880); border-radius:100px; transition:width 0.4s; }
+.ct-quest-done { color:#ffd600; font-size:0.7rem; font-weight:700; }
+.ct-quest-claim {
+  padding:3px 9px; border-radius:6px; border:1px solid #ffd60055;
+  background:rgba(255,214,0,0.1); color:#ffd600; font-size:0.7rem;
+  font-weight:700; cursor:pointer; flex-shrink:0;
+  transition:all 0.15s;
+}
+.ct-quest-claim:hover { background:rgba(255,214,0,0.25); }
+
+/* Shop tabs */
+.ct-tabs-bar {
+  display:flex; gap:6px; margin-bottom:6px;
+}
+.ct-tab-btn {
+  flex:1; padding:7px 4px; border-radius:8px; font-size:0.68rem; font-weight:700;
+  letter-spacing:0.06em; border:1.5px solid #1e1e3a;
+  background:#0a0a18; color:#505080; cursor:pointer; transition:all 0.15s;
+}
+.ct-tab-btn.active {
+  border-color:#ffd60055; background:rgba(255,214,0,0.07); color:#ffd600;
+}
+
+/* Research cards */
+.ct-res-card {
+  background:#0a0a18; border:1.5px solid #181830;
+  border-radius:12px; padding:10px 12px;
+  display:flex; flex-direction:column; gap:5px;
+  margin-bottom:6px;
+}
+.ct-res-name { font-size:0.84rem; font-weight:700; color:#c8c8f0; }
+.ct-res-desc { font-size:0.66rem; color:#50507a; line-height:1.3; }
+.ct-res-tiers { display:flex; gap:6px; flex-wrap:wrap; margin-top:2px; }
+.ct-res-tier {
+  padding:5px 10px; border-radius:8px; font-size:0.7rem; font-weight:700;
+  border:1px solid #282848; background:#0d0d22; color:#7070a0;
+  cursor:pointer; transition:all 0.15s; white-space:nowrap;
+}
+.ct-res-tier.buyable { border-color:#00f5a055; color:#00f5a0; background:rgba(0,245,160,0.07); }
+.ct-res-tier.bought  { border-color:#ffd60044; color:#ffd600; background:rgba(255,214,0,0.06); cursor:default; }
+.ct-res-tier.locked  { opacity:0.35; cursor:not-allowed; }
+
+/* ── NEW FEATURES CSS ──────────────────────────────────── */
+.ct-combo-display {
+  text-align:center; font-size:0.9rem; font-weight:800;
+  letter-spacing:0.06em; padding:4px 0; border-radius:8px;
+  background:rgba(255,255,255,0.04);
+  animation:ctComboPop 0.2s ease-out;
+}
+@keyframes ctComboPop { from{transform:scale(1.2)} to{transform:scale(1)} }
+
+.ct-offline-msg {
+  padding:8px 10px; border-radius:10px; font-size:0.74rem; font-weight:600;
+  background:rgba(0,200,130,0.12); border:1px solid #00c88044; color:#00f5a0;
+  text-align:center; line-height:1.4;
+}
+
+.ct-weather-banner {
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  padding:7px 14px; border-radius:10px; border:1px solid #444460;
+  background:#08081a; font-size:0.78rem; font-weight:700;
+  margin-bottom:8px; animation:ctWeatherIn 0.4s ease-out;
+  flex-wrap:wrap;
+}
+@keyframes ctWeatherIn { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:none} }
+
+.ct-build-notif {
+  position:fixed; bottom:24px; right:24px; z-index:999;
+  padding:14px 20px; border-radius:14px;
+  background:linear-gradient(135deg,#1a1030,#0c0820);
+  border:1.5px solid #a78bfa66; color:#e0d0ff;
+  font-size:0.82rem; font-weight:700; line-height:1.5;
+  text-align:center; max-width:240px;
+  box-shadow:0 0 30px rgba(100,60,200,0.4);
+}
+.ct-notif-pop { animation:ctNotifIn 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+@keyframes ctNotifIn { from{opacity:0;transform:translateY(20px) scale(0.9)} to{opacity:1;transform:none} }
+
+.ct-stats-panel {
+  flex-direction:column; gap:5px; padding:10px 4px;
+  overflow-y:auto; height:420px;
+}
+.ct-stat-row {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:6px 10px; border-radius:8px; font-size:0.74rem;
+  background:#08081a; border:1px solid #141428; color:#8888b0;
+}
+.ct-stat-row b { color:#d8d8f0; font-weight:700; }
 </style>
 </head>
 <body>
@@ -1922,13 +1967,16 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
   ━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
   <div id="panel-clicker" class="game-zone ct-panel" style="display:none">
 
-    <!-- TITLE ROW with sound toggle -->
+    <!-- TITLE ROW -->
     <div class="ct-titlerow">
       <div>
         <h1 class="gtitle ct-gtitle">💰 Clicker Tycoon</h1>
-        <span class="gsub">Click to earn · buy upgrades · prestige for ×2</span>
+        <span class="gsub">Click · upgrade · prestige · research · events</span>
       </div>
-      <button id="ctSoundBtn" class="ct-sound-btn" tabindex="-1" title="Toggle click sound">🔊 Sound ON</button>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <div id="ctFrenzyBanner" class="ct-frenzy-banner" style="display:none">⚡ CLICK FRENZY! <span id="ctFrenzyTimer">30</span>s ×10</div>
+        <button id="ctSoundBtn" class="ct-sound-btn" tabindex="-1">🔊 ON</button>
+      </div>
     </div>
 
     <!-- STATS BAR -->
@@ -1950,15 +1998,19 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
         <div class="ct-stat-val ct-purple" id="ctPrestige">×1</div>
       </div>
       <div class="ct-stat">
-        <div class="ct-stat-lbl">🏆 TOTAL EARNED</div>
+        <div class="ct-stat-lbl">🏆 ALL TIME</div>
         <div class="ct-stat-val" id="ctTotal">0</div>
+      </div>
+      <div class="ct-stat">
+        <div class="ct-stat-lbl">🔬 RESEARCH</div>
+        <div class="ct-stat-val ct-gold" id="ctResearchPts">0 RP</div>
       </div>
     </div>
 
     <!-- 3-COLUMN MAIN LAYOUT -->
     <div class="ct-main">
 
-      <!-- COL 1: Coin click -->
+      <!-- COL 1: Coin + events -->
       <div class="ct-col ct-col-left">
         <div class="ct-coin-wrap" id="ctCoinWrap">
           <canvas id="ctParticleCanvas"></canvas>
@@ -1971,32 +2023,31 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
                   <stop offset="70%"  stop-color="#ff9800"/>
                   <stop offset="100%" stop-color="#bf6000"/>
                 </radialGradient>
-                <filter id="coinGlow">
-                  <feGaussianBlur stdDeviation="3" result="blur"/>
-                  <feComposite in="SourceGraphic" in2="blur" operator="over"/>
-                </filter>
               </defs>
               <circle cx="60" cy="60" r="57" fill="url(#cg1)" stroke="#b8860b" stroke-width="2.5"/>
               <circle cx="60" cy="60" r="48" fill="none" stroke="rgba(255,255,180,0.25)" stroke-width="1.5"/>
-              <circle cx="60" cy="60" r="42" fill="none" stroke="rgba(255,255,180,0.12)" stroke-width="1"/>
               <text x="60" y="80" text-anchor="middle" font-family="Georgia,serif"
                     font-size="54" font-weight="bold" fill="#7a4000">$</text>
               <ellipse cx="40" cy="36" rx="13" ry="7" fill="rgba(255,255,255,0.28)" transform="rotate(-30 40 36)"/>
             </svg>
           </div>
+          <!-- Golden coin event -->
+          <div id="ctGoldenCoin" class="ct-golden-coin" style="display:none" tabindex="-1">🌟</div>
           <div id="ctFloatLayer" style="position:absolute;inset:0;pointer-events:none;overflow:visible"></div>
         </div>
 
         <div class="ct-click-info">
           <span>Clicks: <b id="ctClicks">0</b></span>
-          <span><b id="ctClicksPerSec" style="color:#ffd600">0</b> CPS</span>
+          <span>All-time: <b id="ctTotalClicks" style="color:#aaa">0</b></span>
         </div>
+        <div id="ctComboDisplay" class="ct-combo-display" style="display:none"></div>
+        <div id="ctOfflineMsg" class="ct-offline-msg" style="display:none"></div>
 
         <!-- Prestige progress -->
         <div class="ct-progress-wrap">
           <div class="ct-progress-label">
-            <span style="color:#7070a0">Next prestige</span>
-            <span id="ctPrestigeGoal" style="color:#555">100K needed</span>
+            <span style="color:#7070a0">Prestige</span>
+            <span id="ctPrestigeGoal" style="color:#555">—</span>
           </div>
           <div class="ct-progress-bg">
             <div id="ctProgressBar" class="ct-progress-fill" style="width:0%"></div>
@@ -2006,6 +2057,20 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
         <button id="ctPrestigeBtn" class="ct-prestige-btn" tabindex="-1" style="display:none">
           ⭐ PRESTIGE — Reset &amp; Get ×2 Forever
         </button>
+
+        <!-- Fortune Spin -->
+        <div class="ct-spin-box">
+          <div class="ct-spin-title">🎰 FORTUNE SPIN</div>
+          <div id="ctSpinResult" class="ct-spin-result">Spin every 2 min for free!</div>
+          <button id="ctSpinBtn" class="ct-spin-btn" tabindex="-1">🎰 SPIN!</button>
+          <div id="ctSpinTimer" class="ct-spin-cd" style="display:none"></div>
+        </div>
+
+        <!-- Daily Quests -->
+        <div class="ct-quest-box">
+          <div class="ct-quest-title">📋 QUESTS</div>
+          <div id="ctQuestList" class="ct-quest-list"></div>
+        </div>
 
         <!-- Passive list -->
         <div class="ct-auto-box">
@@ -2018,14 +2083,19 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
 
       <!-- COL 2: Animated world scene -->
       <div class="ct-col ct-col-mid">
-        <div class="ct-world-label">YOUR EMPIRE</div>
         <canvas id="ctWorldCanvas" class="ct-world-canvas"></canvas>
       </div>
 
-      <!-- COL 3: Shop -->
+      <!-- COL 3: Shop tabs (Upgrades / Research) -->
       <div class="ct-col ct-col-right">
-        <div class="ct-shop-header">🛒 UPGRADES</div>
+        <div class="ct-tabs-bar">
+          <button class="ct-tab-btn active" id="ctTabUpg" tabindex="-1">🛒 Buy</button>
+          <button class="ct-tab-btn" id="ctTabRes" tabindex="-1">🔬 Research</button>
+          <button class="ct-tab-btn" id="ctTabStats" tabindex="-1">📊 Stats</button>
+        </div>
         <div id="ctUpgradeList" class="ct-shop-list"></div>
+        <div id="ctResearchList" class="ct-shop-list" style="display:none"></div>
+        <div id="ctStatsPanel" class="ct-stats-panel" style="display:none"></div>
       </div>
 
     </div><!-- /ct-main -->
@@ -4920,67 +4990,137 @@ document.addEventListener('click',   () => { if(soundEnabled) getAudioCtx(); }, 
 document.addEventListener('keydown', () => { if(soundEnabled) getAudioCtx(); }, { once:true });
 
 /* ═══════════════════════════════════════════════════════════
-   💰 CLICKER TYCOON ENGINE  v4
-   FIXES:
-     • Enter/Space key can NEVER trigger coin or shop buttons
-     • pointerdown on shop cards — no click/touch ambiguity
-     • No render caching that skips real state changes
-   FEATURES:
-     • Canvas particle bursts on click
-     • Floating +N text with random drift
-     • SVG coin with glow ring animation
-     • Smooth prestige flash + fanfare sound
+   💰 CLICKER TYCOON ENGINE  v5
+   New: Research tree · Fortune Spin · Click Frenzy · Golden Coin · Quests
 ═══════════════════════════════════════════════════════════ */
 
-// ── DATA ──────────────────────────────────────────────────
+// ── UPGRADE DATA ──────────────────────────────────────────
 const CT_UPG = [
-  {id:'cursor',  name:'Auto Cursor',  ico:'🖱️', base:10,      cps:0.1,   info:'Clicks for you while you rest'},
-  {id:'intern',  name:'Intern',       ico:'👶', base:80,      cps:0.5,   info:'Very keen, learning the ropes'},
-  {id:'miner',   name:'Coin Miner',   ico:'⛏️', base:300,     cps:2,     info:'Digs gold from the earth'},
-  {id:'factory', name:'Factory',      ico:'🏭', base:1200,    cps:8,     info:'Mass-produces coins 24/7'},
-  {id:'bank',    name:'Bank',         ico:'🏦', base:5000,    cps:25,    info:'Compound interest never sleeps'},
-  {id:'lab',     name:'Research Lab', ico:'🔬', base:20000,   cps:80,    info:'Science-powered income engine'},
-  {id:'rocket',  name:'Rocket',       ico:'🚀', base:80000,   cps:250,   info:'Mining asteroids for profit'},
-  {id:'ai',      name:'AI System',    ico:'🤖', base:300000,  cps:800,   info:'Self-optimizing money printer'},
-  {id:'portal',  name:'Coin Portal',  ico:'🌀', base:1000000, cps:2500,  info:'Siphons coins from other dims'},
+  {id:'cursor',  name:'Auto Cursor',  ico:'🖱️', base:25,         cps:0.08,   info:'Clicks for you while you rest'},
+  {id:'intern',  name:'Intern',       ico:'👶', base:300,        cps:0.4,    info:'Very keen, learning the ropes'},
+  {id:'miner',   name:'Coin Miner',   ico:'⛏️', base:2000,       cps:2,      info:'Digs gold from the earth'},
+  {id:'factory', name:'Factory',      ico:'🏭', base:12000,      cps:8,      info:'Mass-produces coins 24/7'},
+  {id:'bank',    name:'Bank',         ico:'🏦', base:60000,      cps:25,     info:'Compound interest never sleeps'},
+  {id:'lab',     name:'Research Lab', ico:'🔬', base:350000,     cps:80,     info:'Science-powered income engine'},
+  {id:'rocket',  name:'Rocket',       ico:'🚀', base:2000000,    cps:250,    info:'Mining asteroids for profit'},
+  {id:'ai',      name:'AI System',    ico:'🤖', base:12000000,   cps:800,    info:'Self-optimizing money printer'},
+  {id:'portal',  name:'Coin Portal',  ico:'🌀', base:70000000,   cps:2500,   info:'Siphons coins from other dims'},
+  {id:'nexus',   name:'Coin Nexus',   ico:'💠', base:500000000,  cps:8000,   info:'Interdimensional coin hub'},
+  {id:'titan',   name:'Titan Mine',   ico:'⛰️', base:3e9,        cps:25000,  info:'A mountain of pure gold'},
+  {id:'omega',   name:'Omega Engine', ico:'🌠', base:25e9,       cps:80000,  info:'Reality-bending wealth generator'},
 ];
 
+// ── RESEARCH DATA ─────────────────────────────────────────
+const CT_RES = [
+  { id:'click1', name:'Better Fingers',    ico:'👆', desc:'Click power +50% base',
+    tiers:[{label:'+50% click',rp:5,mult:1.5},{label:'+100% click',rp:15,mult:2},{label:'+200% click',rp:40,mult:3}] },
+  { id:'idle1',  name:'Efficient Systems', ico:'⚙️', desc:'All passive income +25% per tier',
+    tiers:[{label:'+25% CPS',rp:8,mult:1.25},{label:'+50% CPS',rp:20,mult:1.5},{label:'+100% CPS',rp:50,mult:2}] },
+  { id:'cost1',  name:'Bulk Discount',     ico:'🏷️', desc:'Upgrade costs -10% per tier',
+    tiers:[{label:'-10% cost',rp:10,mult:0.9},{label:'-20% cost',rp:25,mult:0.8},{label:'-30% cost',rp:60,mult:0.7}] },
+  { id:'pres1',  name:'Prestige Mastery',  ico:'⭐', desc:'Prestige multiplier +25% bonus per tier',
+    tiers:[{label:'+25% pres',rp:20,mult:1.25},{label:'+50% pres',rp:50,mult:1.5},{label:'+100% pres',rp:120,mult:2}] },
+  { id:'spin1',  name:'Lucky Spinner',     ico:'🎰', desc:'Fortune spin cooldown -30s per tier',
+    tiers:[{label:'-30s cd',rp:6,cd:-30},{label:'-60s cd',rp:16,cd:-60},{label:'-90s cd',rp:35,cd:-90}] },
+  { id:'gold1',  name:'Golden Touch',      ico:'🌟', desc:'Golden coin value ×2 per tier',
+    tiers:[{label:'×2 gold',rp:12,mult:2},{label:'×4 gold',rp:30,mult:4},{label:'×8 gold',rp:70,mult:8}] },
+];
+
+// ── MILESTONES ────────────────────────────────────────────
 const CT_MS = [
-  {id:'c1',   lbl:'First Coin',     ico:'🪙',  chk:s=>s.te>=1          },
-  {id:'c100', lbl:'100 Coins',      ico:'💯',  chk:s=>s.te>=100         },
-  {id:'c1k',  lbl:'1K Coins',       ico:'🥉',  chk:s=>s.te>=1000        },
-  {id:'c10k', lbl:'10K Club',       ico:'🥈',  chk:s=>s.te>=10000       },
-  {id:'c100k',lbl:'100K Big Shot',  ico:'🥇',  chk:s=>s.te>=100000      },
-  {id:'c1m',  lbl:'Millionaire',    ico:'💎',  chk:s=>s.te>=1e6         },
-  {id:'c1b',  lbl:'Billionaire',    ico:'👑',  chk:s=>s.te>=1e9         },
-  {id:'p1',   lbl:'First Prestige', ico:'⭐',  chk:s=>s.pres>=1         },
-  {id:'p5',   lbl:'5 Prestiges',    ico:'🌟',  chk:s=>s.pres>=5         },
-  {id:'u10',  lbl:'10 Upgrades',    ico:'🛒',  chk:s=>ctOwned(s)>=10    },
-  {id:'u100', lbl:'100 Upgrades',   ico:'🏪',  chk:s=>ctOwned(s)>=100   },
+  {id:'c1',    lbl:'First Coin',       ico:'🪙',  chk:s=>s.te>=1},
+  {id:'c1k',   lbl:'1K Coins',         ico:'💰',  chk:s=>s.te>=1e3},
+  {id:'c100k', lbl:'100K Big Shot',    ico:'🥇',  chk:s=>s.te>=1e5},
+  {id:'c1m',   lbl:'Millionaire',      ico:'💎',  chk:s=>s.te>=1e6},
+  {id:'c1b',   lbl:'Billionaire',      ico:'👑',  chk:s=>s.te>=1e9},
+  {id:'c1t',   lbl:'Trillionaire',     ico:'🌌',  chk:s=>s.te>=1e12},
+  {id:'p1',    lbl:'First Prestige',   ico:'⭐',  chk:s=>s.pres>=1},
+  {id:'p5',    lbl:'5× Prestige',      ico:'🌟',  chk:s=>s.pres>=5},
+  {id:'p10',   lbl:'10× Prestige',     ico:'🌠',  chk:s=>s.pres>=10},
+  {id:'r1',    lbl:'First Research',   ico:'🔬',  chk:s=>(s.resSpent||0)>=1},
+  {id:'r50',   lbl:'50 RP Spent',      ico:'🧪',  chk:s=>(s.resSpent||0)>=50},
+  {id:'u25',   lbl:'25 Upgrades',      ico:'🛒',  chk:s=>ctOwned(s)>=25},
+  {id:'u100',  lbl:'100 Upgrades',     ico:'🏪',  chk:s=>ctOwned(s)>=100},
+  {id:'fren1', lbl:'First Frenzy',     ico:'⚡',  chk:s=>(s.frenzyCount||0)>=1},
+  {id:'gold1x',lbl:'Golden Catch',     ico:'🌟',  chk:s=>(s.goldenCaught||0)>=1},
+  {id:'gold10',lbl:'10 Golden Coins',  ico:'✨',  chk:s=>(s.goldenCaught||0)>=10},
+  {id:'q10',   lbl:'10 Quests Done',   ico:'📋',  chk:s=>(s.questsDone||0)>=10},
+  {id:'spin10',lbl:'10 Spins',         ico:'🎰',  chk:s=>(s.spins||0)>=10},
+  {id:'tc1k',  lbl:'1K Clicks',        ico:'👆',  chk:s=>s.tc>=1000},
+  {id:'tc100k',lbl:'100K Clicks',      ico:'🖱️',  chk:s=>s.tc>=100000},
+];
+
+// ── QUEST TEMPLATES ───────────────────────────────────────
+const CT_QUEST_POOL = [
+  {id:'q_clicks',   lbl:'Click {n} times',     stat:'tc',    ns:[50,200,500,1000]},
+  {id:'q_earn',     lbl:'Earn {n} coins',       stat:'te',    ns:[1000,10000,100000,1e6], rel:true},
+  {id:'q_buy',      lbl:'Buy {n} upgrades',     stat:'owned', ns:[3,10,25,50], rel:true},
+  {id:'q_cps',      lbl:'Reach {n}/s income',   stat:'cps',   ns:[1,10,100,1000,10000]},
+  {id:'q_pres',     lbl:'Prestige {n} times',   stat:'pres',  ns:[1,3,5,10]},
+  {id:'q_golden',   lbl:'Catch {n} golden coins',stat:'goldenCaught',ns:[1,3,10]},
+  {id:'q_spin',     lbl:'Spin the wheel {n}×',  stat:'spins', ns:[1,3,5,10], rel:true},
 ];
 
 // ── STATE ─────────────────────────────────────────────────
 let ct = {
-  c:0,          // current coins
-  te:0,         // total earned (lifetime, resets on prestige)
-  tc:0,         // total clicks
-  pres:0,       // prestige count
-  mult:1,       // prestige multiplier
-  own:{},       // { upgId: count }
-  ms:new Set(), // unlocked milestone ids
+  c:0, te:0, tc:0, pres:0, mult:1, own:{}, ms:new Set(),
+  rp:0,          // research points (earned from prestige + playtime)
+  resLevel:{},   // { resId: tierIndex (0=none, 1/2/3 bought) }
+  resSpent:0,    // total RP spent
+  spinCd:0,      // unix ms when next free spin available
+  spins:0,       // total spins done
+  frenzy:0,      // frenzy end timestamp (ms)
+  frenzyCount:0, // total frenzies triggered
+  goldenCaught:0,
+  goldenNext:0,  // unix ms when next golden coin appears
+  quests:[],     // active quests [{id,lbl,target,current,reward,done,claimed,baseVal}]
+  questsDone:0,
+  questsLastRefresh:0,
   iv:null, tick:0,
 };
 
 function ctOwned(s){ return Object.values(s.own).reduce((a,b)=>a+b,0); }
 
 // ── MATH ──────────────────────────────────────────────────
-function ctCost(u){ return Math.ceil(u.base * Math.pow(1.15, ct.own[u.id]||0)); }
-function ctCPS(){   let s=0; CT_UPG.forEach(u=>{ s+=(ct.own[u.id]||0)*u.cps; }); return s*ct.mult; }
-function ctEPC(){   let b=1; CT_UPG.forEach(u=>{ b+=(ct.own[u.id]||0)*u.cps*0.1; }); return Math.max(1,Math.floor(b*ct.mult)); }
+function ctResBonus(id){ // returns multiplicative factor from research
+  const l=ct.resLevel[id]||0; if(!l) return 1;
+  const res=CT_RES.find(r=>r.id===id); if(!res) return 1;
+  let m=1;
+  for(let i=0;i<l;i++) m*=(res.tiers[i].mult||1);
+  return m;
+}
+function ctCostDiscount(){ return ctResBonus('cost1'); }
+function ctClickBonus(){   return ctResBonus('click1'); }
+function ctIdleBonus(){    return ctResBonus('idle1'); }
+function ctPresBonus(){    return ctResBonus('pres1'); }
+function ctGoldBonus(){    return ctResBonus('gold1'); }
+function ctSpinCdBase(){
+  const l=ct.resLevel['spin1']||0;
+  const res=CT_RES.find(r=>r.id==='spin1');
+  let cd=120000; // 2 min default
+  if(res) for(let i=0;i<l;i++) cd+=res.tiers[i].cd*1000;
+  return Math.max(cd,30000);
+}
+
+function ctCost(u){
+  const base=Math.ceil(u.base * Math.pow(1.20, ct.own[u.id]||0));
+  return Math.ceil(base * ctCostDiscount());
+}
+function ctCPS(){
+  let s=0; CT_UPG.forEach(u=>{ s+=(ct.own[u.id]||0)*u.cps; });
+  return s * ct.mult * ctPresBonus() * ctIdleBonus();
+}
+function ctEPC(){
+  let b=1; CT_UPG.forEach(u=>{ b+=(ct.own[u.id]||0)*u.cps*0.025; });
+  let base=Math.max(1,Math.floor(b * ct.mult * ctPresBonus() * ctClickBonus()));
+  if(Date.now()<ct.frenzy) base*=10;
+  return base;
+}
 
 // ── FORMAT ────────────────────────────────────────────────
 function ctF(n){
-  n = Math.floor(n);
+  n=Math.floor(n);
+  if(n>=1e15) return (n/1e15).toFixed(2)+'Qa';
   if(n>=1e12) return (n/1e12).toFixed(2)+'T';
   if(n>=1e9)  return (n/1e9).toFixed(2)+'B';
   if(n>=1e6)  return (n/1e6).toFixed(2)+'M';
@@ -4990,81 +5130,64 @@ function ctF(n){
 
 // ── CANVAS PARTICLES ──────────────────────────────────────
 (function(){
-  const cv = document.getElementById('ctParticleCanvas');
+  const cv=document.getElementById('ctParticleCanvas');
   if(!cv) return;
-  const ctx = cv.getContext('2d');
-  let parts = [], raf = null;
-
+  const ctx=cv.getContext('2d');
+  let parts=[],raf=null;
   function resize(){
-    const w = document.getElementById('ctCoinWrap');
-    if(!w) return;
-    cv.width  = w.offsetWidth  || 200;
-    cv.height = w.offsetHeight || 200;
+    const w=document.getElementById('ctCoinWrap'); if(!w) return;
+    cv.width=w.offsetWidth||200; cv.height=w.offsetHeight||200;
   }
-  resize();
-  window.addEventListener('resize', resize);
-
-  function spawn(n){
-    const cx=cv.width/2, cy=cv.height/2;
-    const cols=['#ffd600','#ffee58','#fff9c4','#ff9800','#ffb300','#fff'];
+  resize(); window.addEventListener('resize',resize);
+  function spawn(n,cols){
+    const cx=cv.width/2,cy=cv.height/2;
+    const dc=cols||['#ffd600','#ffee58','#fff9c4','#ff9800','#ffb300','#fff'];
     for(let i=0;i<n;i++){
-      const a=Math.random()*Math.PI*2, spd=1.8+Math.random()*4;
+      const a=Math.random()*Math.PI*2,spd=1.8+Math.random()*4;
       parts.push({x:cx,y:cy,vx:Math.cos(a)*spd,vy:Math.sin(a)*spd,
-        r:1.8+Math.random()*3.2, col:cols[Math.floor(Math.random()*cols.length)],
-        life:1, dec:0.022+Math.random()*0.028});
+        r:1.8+Math.random()*3.2,col:dc[Math.floor(Math.random()*dc.length)],
+        life:1,dec:0.022+Math.random()*0.028});
     }
   }
-
   function tick(){
     ctx.clearRect(0,0,cv.width,cv.height);
-    parts = parts.filter(p=>{
+    parts=parts.filter(p=>{
       p.x+=p.vx; p.y+=p.vy; p.vy+=0.14; p.life-=p.dec;
       if(p.life<=0) return false;
       ctx.globalAlpha=p.life;
       ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle=p.col; ctx.fill();
-      return true;
+      ctx.fillStyle=p.col; ctx.fill(); return true;
     });
     ctx.globalAlpha=1;
-    if(parts.length) raf=requestAnimationFrame(tick);
-    else raf=null;
+    if(parts.length) raf=requestAnimationFrame(tick); else raf=null;
   }
-
-  window.ctBurst = function(n=12){
-    spawn(n);
-    if(!raf) raf=requestAnimationFrame(tick);
-  };
-  window.ctResizeParticles = resize;
+  window.ctBurst=function(n=12,cols){spawn(n,cols); if(!raf) raf=requestAnimationFrame(tick);};
+  window.ctResizeParticles=resize;
 })();
 
 // ── FLOAT TEXT ────────────────────────────────────────────
-function ctFloat(txt){
-  const layer=document.getElementById('ctFloatLayer');
-  if(!layer) return;
+function ctFloat(txt,col){
+  const layer=document.getElementById('ctFloatLayer'); if(!layer) return;
   const el=document.createElement('div');
   el.className='ct-float';
-  const dx=(Math.random()-.5)*50;
-  el.style.cssText=`left:calc(50% + ${dx}px);top:35%`;
-  el.textContent='+'+txt;
-  layer.appendChild(el);
-  setTimeout(()=>el.remove(), 900);
+  el.style.cssText=`left:calc(50% + ${(Math.random()-.5)*50}px);top:35%;${col?'color:'+col+';text-shadow:0 0 8px '+col:''}`;
+  el.textContent='+'+txt; layer.appendChild(el);
+  setTimeout(()=>el.remove(),900);
 }
 
-// ── CLICK (called only by pointer events, never keyboard) ─
+// ── CLICK ─────────────────────────────────────────────────
 function ctDoClick(){
   if(curPanel!=='clicker') return;
   const earn=ctEPC();
   ct.c+=earn; ct.te+=earn; ct.tc++;
-  ctFloat(ctF(earn));
-  if(typeof ctBurst==='function') ctBurst(earn>500?24:earn>50?16:10);
-  // Squeeze animation
+  ctFloat(ctF(earn), Date.now()<ct.frenzy?'#ff9060':null);
+  const frenzyOn=Date.now()<ct.frenzy;
+  if(typeof ctBurst==='function') ctBurst(earn>5000?28:earn>500?18:10, frenzyOn?['#ff6000','#ff9800','#ffb300','#fff']:null);
   const btn=document.getElementById('ctCoinBtn');
   if(btn){ btn.style.transform='scale(0.89)'; setTimeout(()=>btn.style.transform='',90); }
-  // Sound (respects ctSoundOn toggle)
-  if(typeof ctSoundOn==='undefined' || ctSoundOn){
+  if(typeof ctSoundOn==='undefined'||ctSoundOn){
     try{
-      const a=getAudioCtx();
-      const o=a.createOscillator(),g=a.createGain();
+      const a=getAudioCtx(),o=a.createOscillator(),g=a.createGain();
       o.connect(g); g.connect(a.destination);
       o.frequency.value=350+Math.random()*220+(ct.tc%4)*30;
       g.gain.setValueAtTime(0.07,a.currentTime);
@@ -5072,162 +5195,522 @@ function ctDoClick(){
       o.start(); o.stop(a.currentTime+0.13);
     }catch(e){}
   }
+  ctUpdateQuests();
   ctRefresh();
 }
 
 // ── BUY ───────────────────────────────────────────────────
 function ctDoBuy(id){
-  const u=CT_UPG.find(x=>x.id===id);
-  if(!u) return;
+  const u=CT_UPG.find(x=>x.id===id); if(!u) return;
   const cost=ctCost(u);
   if(ct.c<cost) return;
-  ct.c-=cost;
-  ct.own[id]=(ct.own[id]||0)+1;
-  // Buy sound (respects ctSoundOn toggle)
-  if(typeof ctSoundOn==='undefined' || ctSoundOn){
+  ct.c-=cost; ct.own[id]=(ct.own[id]||0)+1;
+  if(typeof ctSoundOn==='undefined'||ctSoundOn){
     try{
-      const a=getAudioCtx();
-      const o=a.createOscillator(),g=a.createGain();
+      const a=getAudioCtx(),o=a.createOscillator(),g=a.createGain();
       o.type='triangle'; o.connect(g); g.connect(a.destination);
       o.frequency.setValueAtTime(500,a.currentTime);
       o.frequency.linearRampToValueAtTime(850,a.currentTime+0.1);
-      g.gain.setValueAtTime(0.09,a.currentTime);
-      g.gain.exponentialRampToValueAtTime(0.0001,a.currentTime+0.18);
+      g.gain.setValueAtTime(0.09,a.currentTime); g.gain.exponentialRampToValueAtTime(0.0001,a.currentTime+0.18);
       o.start(); o.stop(a.currentTime+0.18);
     }catch(e){}
   }
-  ctSave();
-  ctRefresh();
+  // RP reward for buying (small trickle)
+  ct.rp+=Math.max(1,Math.floor(Math.log10(ctCost(u))));
+  ctUpdateQuests();
+  ctSave(); ctRefresh();
+}
+
+// ── RESEARCH BUY ──────────────────────────────────────────
+function ctDoResearch(resId,tierIdx){
+  const res=CT_RES.find(r=>r.id===resId); if(!res) return;
+  const current=ct.resLevel[resId]||0;
+  if(tierIdx!==current) return; // must buy in order
+  const tier=res.tiers[tierIdx]; if(!tier) return;
+  if(ct.rp<tier.rp) return;
+  ct.rp-=tier.rp; ct.resSpent=(ct.resSpent||0)+tier.rp;
+  ct.resLevel[resId]=(ct.resLevel[resId]||0)+1;
+  if(typeof ctSoundOn==='undefined'||ctSoundOn){
+    try{
+      const a=getAudioCtx();
+      [600,800,1000].forEach((f,i)=>{
+        const o=a.createOscillator(),g=a.createGain();
+        o.type='triangle'; o.connect(g); g.connect(a.destination);
+        o.frequency.value=f; g.gain.setValueAtTime(0.07,a.currentTime+i*0.07);
+        g.gain.exponentialRampToValueAtTime(0.0001,a.currentTime+i*0.07+0.15);
+        o.start(a.currentTime+i*0.07); o.stop(a.currentTime+i*0.07+0.15);
+      });
+    }catch(e){}
+  }
+  ctSave(); ctRefresh();
 }
 
 // ── PRESTIGE ──────────────────────────────────────────────
 function ctPrestige(){
-  const thresh=Math.pow(10,5+ct.pres);
+  const thresh=Math.pow(10,7+ct.pres);
   if(ct.te<thresh) return;
+  // RP reward for prestige (big reward)
+  const rpGain=10+ct.pres*5;
+  ct.rp+=rpGain;
   ct.pres++; ct.mult=Math.pow(2,ct.pres);
+  ct.frenzyCount=(ct.frenzyCount||0); // keep
+  ct.goldenCaught=(ct.goldenCaught||0);
+  ct.questsDone=(ct.questsDone||0);
+  ct.spins=(ct.spins||0);
+  ct.resSpent=(ct.resSpent||0);
   ct.c=0; ct.te=0; ct.own={};
-  // Fanfare
-  try{
-    const a=getAudioCtx();
-    [300,450,600,750,1000,1400].forEach((f,i)=>{
-      const o=a.createOscillator(),g=a.createGain();
-      o.type='sine'; o.connect(g); g.connect(a.destination);
-      o.frequency.value=f;
-      g.gain.setValueAtTime(0.08,a.currentTime+i*0.06);
-      g.gain.exponentialRampToValueAtTime(0.0001,a.currentTime+i*0.06+0.22);
-      o.start(a.currentTime+i*0.06); o.stop(a.currentTime+i*0.06+0.22);
-    });
-  }catch(e){}
-  const btn=document.getElementById('ctCoinBtn');
-  if(btn){
-    btn.style.filter='brightness(5) saturate(0)';
-    setTimeout(()=>btn.style.filter='',600);
+  ctFloat('+'+rpGain+' RP','#c4b5fd');
+  if(typeof ctSoundOn==='undefined'||ctSoundOn){
+    try{
+      const a=getAudioCtx();
+      [300,450,600,750,1000,1400].forEach((f,i)=>{
+        const o=a.createOscillator(),g=a.createGain();
+        o.type='sine'; o.connect(g); g.connect(a.destination);
+        o.frequency.value=f;
+        g.gain.setValueAtTime(0.08,a.currentTime+i*0.06);
+        g.gain.exponentialRampToValueAtTime(0.0001,a.currentTime+i*0.06+0.22);
+        o.start(a.currentTime+i*0.06); o.stop(a.currentTime+i*0.06+0.22);
+      });
+    }catch(e){}
   }
-  if(typeof ctBurst==='function') ctBurst(50);
-  ctSave();
-  ctRefresh();
+  const btn=document.getElementById('ctCoinBtn');
+  if(btn){ btn.style.filter='brightness(5) saturate(0)'; setTimeout(()=>btn.style.filter='',600); }
+  if(typeof ctBurst==='function') ctBurst(60,['#a78bfa','#c4b5fd','#fff','#ffd600']);
+  ctGenerateQuests();
+  // Show new theme notification
+  setTimeout(()=>{
+    const themes=['🌆 City','🏰 Kingdom','🌲 Village','🏭 Industry'];
+    const next=themes[ct.pres%4];
+    let el=document.getElementById('ctBuildNotif');
+    if(!el){ el=document.createElement('div'); el.id='ctBuildNotif'; el.className='ct-build-notif'; document.getElementById('panel-clicker').prepend(el); }
+    el.innerHTML=`<span style="font-size:1.5rem">⭐ Prestige ${ct.pres}</span><div>New theme: ${next}</div><div style="color:#c4b5fd;font-size:0.7rem">×${ct.mult} multiplier forever!</div>`;
+    el.style.display='block'; el.classList.add('ct-notif-pop');
+    setTimeout(()=>{ el.classList.remove('ct-notif-pop'); el.style.display='none'; },4500);
+  },300);
+  ctSave(); ctRefresh();
 }
+
+// ── FORTUNE SPIN ──────────────────────────────────────────
+const CT_SPIN_REWARDS = [
+  {label:'×2 coins!',     weight:25, fn:()=>{ ct.c*=2; ct.te+=ct.c; ctFloat('DOUBLE!','#ffd600'); }},
+  {label:'10 min income', weight:20, fn:()=>{ const g=ctCPS()*600; ct.c+=g; ct.te+=g; ctFloat('+'+ctF(g),'#00f5a0'); }},
+  {label:'Click Frenzy!', weight:12, fn:()=>{ ct.frenzy=Date.now()+30000; ct.frenzyCount=(ct.frenzyCount||0)+1; }},
+  {label:'+20 RP',        weight:18, fn:()=>{ ct.rp+=20; ctFloat('+20 RP','#c4b5fd'); }},
+  {label:'+50 RP',        weight:8,  fn:()=>{ ct.rp+=50; ctFloat('+50 RP','#a78bfa'); }},
+  {label:'×3 coins!',     weight:8,  fn:()=>{ ct.c*=3; ct.te+=ct.c*2; ctFloat('TRIPLE!','#ff9800'); }},
+  {label:'1hr income!',   weight:5,  fn:()=>{ const g=ctCPS()*3600; ct.c+=g; ct.te+=g; ctFloat('+'+ctF(g),'#ffee58'); }},
+  {label:'JACKPOT! ×10',  weight:4,  fn:()=>{ ct.c*=10; ct.te+=ct.c*9; if(typeof ctBurst==='function') ctBurst(80,['#ffd700','#ff9800','#fff','#ff6000']); ctFloat('JACKPOT!!','#ffd700'); }},
+];
+function ctSpin(){
+  const now=Date.now();
+  if(ct.spinCd>now) return;
+  const total=CT_SPIN_REWARDS.reduce((a,r)=>a+r.weight,0);
+  let r=Math.random()*total, chosen;
+  for(const rw of CT_SPIN_REWARDS){ r-=rw.weight; if(r<=0){ chosen=rw; break; } }
+  chosen=chosen||CT_SPIN_REWARDS[0];
+  chosen.fn();
+  ct.spins=(ct.spins||0)+1;
+  ct.spinCd=now+ctSpinCdBase();
+  const res=document.getElementById('ctSpinResult');
+  if(res) res.textContent='🎉 '+chosen.label;
+  if(typeof ctSoundOn==='undefined'||ctSoundOn){
+    try{
+      const a=getAudioCtx();
+      [400,600,800,1000].forEach((f,i)=>{
+        const o=a.createOscillator(),g=a.createGain();
+        o.type='sine'; o.connect(g); g.connect(a.destination);
+        o.frequency.value=f; g.gain.setValueAtTime(0.07,a.currentTime+i*0.08);
+        g.gain.exponentialRampToValueAtTime(0.0001,a.currentTime+i*0.08+0.18);
+        o.start(a.currentTime+i*0.08); o.stop(a.currentTime+i*0.08+0.18);
+      });
+    }catch(e){}
+  }
+  ctUpdateQuests();
+  ctSave(); ctRefresh();
+}
+
+// ── GOLDEN COIN EVENT ─────────────────────────────────────
+function ctScheduleGolden(){
+  // Appears every 90–240 seconds
+  ct.goldenNext=Date.now()+(90+Math.random()*150)*1000;
+}
+function ctCheckGolden(){
+  const el=document.getElementById('ctGoldenCoin'); if(!el) return;
+  const now=Date.now();
+  if(ct.frenzy>now) return; // no golden during frenzy
+  if(now>=ct.goldenNext && el.style.display==='none'){
+    // Place at random spot within coin wrap
+    const maxX=100, maxY=80;
+    el.style.left=(20+Math.random()*maxX)+'%';
+    el.style.top=(15+Math.random()*maxY)+'%';
+    el.style.display='block';
+    // Auto-disappear after 8s
+    el._hideTimer=setTimeout(()=>{ el.style.display='none'; ctScheduleGolden(); },8000);
+  }
+}
+function ctClickGolden(){
+  const el=document.getElementById('ctGoldenCoin'); if(!el) return;
+  clearTimeout(el._hideTimer);
+  el.style.display='none';
+  const base=Math.max(100, ctCPS()*60||1000);
+  const reward=Math.floor(base*ctGoldBonus());
+  ct.c+=reward; ct.te+=reward;
+  ct.goldenCaught=(ct.goldenCaught||0)+1;
+  ctFloat('🌟 '+ctF(reward),'#ffd700');
+  if(typeof ctBurst==='function') ctBurst(40,['#ffd700','#ffee58','#fff9c4','#ff9800']);
+  ctScheduleGolden();
+  ctUpdateQuests();
+  ctSave(); ctRefresh();
+}
+
+// ── QUESTS ────────────────────────────────────────────────
+function ctGenerateQuests(){
+  const now=Date.now();
+  ct.questsLastRefresh=now;
+  // Pick 3 random quests scaled to current game state
+  const pool=[...CT_QUEST_POOL];
+  ctShuffle(pool);
+  ct.quests=pool.slice(0,3).map(tmpl=>{
+    // Pick appropriate n based on game state
+    const ns=tmpl.ns;
+    let n=ns[0];
+    if(ct.pres>8) n=ns[Math.min(3,ns.length-1)];
+    else if(ct.pres>4) n=ns[Math.min(2,ns.length-1)];
+    else if(ct.pres>1) n=ns[Math.min(1,ns.length-1)];
+    const reward=Math.max(5,Math.floor(Math.log10(n+1)*3+ct.pres*2));
+    const baseVal = tmpl.rel ? ctGetStat(tmpl.stat) : 0;
+    return {
+      id:tmpl.id+'_'+Date.now()+'_'+Math.random(),
+      tmplId:tmpl.id, lbl:tmpl.lbl.replace('{n}',ctF(n)),
+      stat:tmpl.stat, target:n, baseVal,
+      current:0, reward, done:false, claimed:false
+    };
+  });
+}
+function ctGetStat(stat){
+  if(stat==='tc') return ct.tc;
+  if(stat==='te') return ct.te;
+  if(stat==='owned') return ctOwned(ct);
+  if(stat==='cps') return ctCPS();
+  if(stat==='pres') return ct.pres;
+  if(stat==='goldenCaught') return ct.goldenCaught||0;
+  if(stat==='spins') return ct.spins||0;
+  return 0;
+}
+function ctUpdateQuests(){
+  if(!ct.quests||!ct.quests.length) return;
+  let changed=false;
+  ct.quests.forEach(q=>{
+    if(q.done) return;
+    const raw=ctGetStat(q.stat);
+    const val=raw-q.baseVal;
+    q.current=Math.min(q.target, q.stat==='cps'?raw:val);
+    if(q.current>=q.target){ q.done=true; changed=true; }
+  });
+  if(changed) ctRefresh();
+}
+function ctClaimQuest(idx){
+  const q=ct.quests[idx]; if(!q||!q.done||q.claimed) return;
+  q.claimed=true; ct.rp+=q.reward;
+  ct.questsDone=(ct.questsDone||0)+1;
+  ctFloat('+'+q.reward+' RP','#c4b5fd');
+  // Check if all claimed → generate new set after delay
+  if(ct.quests.every(q2=>q2.claimed)) setTimeout(()=>{ ctGenerateQuests(); ctRefresh(); },1500);
+  ctSave(); ctRefresh();
+}
+function ctShuffle(arr){ for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]; } }
+
+// ── CLICK FRENZY CHECK ────────────────────────────────────
+function ctCheckFrenzy(){
+  const el=document.getElementById('ctFrenzyBanner'); if(!el) return;
+  const now=Date.now();
+  const on=now<ct.frenzy;
+  el.style.display=on?'flex':'none';
+  if(on){
+    const sec=Math.ceil((ct.frenzy-now)/1000);
+    const t=document.getElementById('ctFrenzyTimer'); if(t) t.textContent=sec;
+  }
+}
+// Random frenzy trigger (every 5-10 min, 15% chance per minute)
+let _ctFrenzyChk=0;
+function ctMaybeTriggerFrenzy(){
+  const now=Date.now();
+  if(now-_ctFrenzyChk<60000) return;
+  _ctFrenzyChk=now;
+  if(ct.frenzy>now) return;
+  if(Math.random()<0.15 && ctCPS()>0){
+    ct.frenzy=now+30000;
+    ct.frenzyCount=(ct.frenzyCount||0)+1;
+    const el=document.getElementById('ctFrenzyBanner');
+    if(el){ el.style.display='flex'; }
+    ctFloat('⚡ FRENZY!','#ff9060');
+    if(typeof ctBurst==='function') ctBurst(30,['#ff6000','#ff9800','#fff']);
+    ctSave();
+  }
+}
+
+// ── SAVE / LOAD ───────────────────────────────────────────
+function ctSave(){
+  try{
+    localStorage.setItem('ct_v5',JSON.stringify({
+      c:ct.c,te:ct.te,tc:ct.tc,pres:ct.pres,mult:ct.mult,own:ct.own,
+      ms:[...ct.ms],rp:ct.rp,resLevel:ct.resLevel,resSpent:ct.resSpent||0,
+      spinCd:ct.spinCd,spins:ct.spins||0,
+      frenzy:ct.frenzy,frenzyCount:ct.frenzyCount||0,
+      goldenCaught:ct.goldenCaught||0,goldenNext:ct.goldenNext||0,
+      quests:ct.quests,questsDone:ct.questsDone||0,
+      questsLastRefresh:ct.questsLastRefresh||0,
+    }));
+  }catch(e){}
+}
+function ctLoad(){
+  try{
+    // Try v5 first, then fall back to v4
+    let raw=localStorage.getItem('ct_v5');
+    let d;
+    if(raw){ d=JSON.parse(raw); }
+    else {
+      const old=localStorage.getItem('ct_v4');
+      if(old){ d=JSON.parse(old); }
+    }
+    if(!d) return;
+    ct.c=d.c||0; ct.te=d.te||0; ct.tc=d.tc||0;
+    ct.pres=d.pres||0; ct.mult=d.mult||1; ct.own=d.own||{};
+    ct.ms=new Set(d.ms||[]);
+    ct.rp=d.rp||0; ct.resLevel=d.resLevel||{}; ct.resSpent=d.resSpent||0;
+    ct.spinCd=d.spinCd||0; ct.spins=d.spins||0;
+    ct.frenzy=d.frenzy||0; ct.frenzyCount=d.frenzyCount||0;
+    ct.goldenCaught=d.goldenCaught||0; ct.goldenNext=d.goldenNext||0;
+    ct.quests=d.quests||[]; ct.questsDone=d.questsDone||0;
+    ct.questsLastRefresh=d.questsLastRefresh||0;
+  }catch(e){}
+  if(!ct.goldenNext||ct.goldenNext<Date.now()) ctScheduleGolden();
+  if(!ct.quests||ct.quests.length===0) ctGenerateQuests();
+}
+
+// ── PASSIVE TICK ─────────────────────────────────────────
+function ctStartTick(){
+  if(ct.iv) clearInterval(ct.iv);
+  ct.iv=setInterval(()=>{
+    if(curPanel!=='clicker') return;
+    const cps=ctCPS();
+    if(cps>0){ const g=cps/10; ct.c+=g; ct.te+=g; }
+    // Tiny RP drip from active play
+    if(ct.tick%600===0 && cps>0) ct.rp+=1;
+    ct.tick++;
+    if(ct.tick%2===0){
+      ctUpdateQuests();
+      ctCheckFrenzy();
+      ctCheckGolden();
+      ctMaybeTriggerFrenzy();
+      ctRefresh();
+    }
+    if(ct.tick%100===0) ctSave();
+  },100);
+}
+
+// ── SHOP WIRE-UP ──────────────────────────────────────────
+(function wireCoinBtn(){
+  const btn=document.getElementById('ctCoinBtn'); if(!btn) return;
+  btn.setAttribute('tabindex','-1'); btn.removeAttribute('onclick');
+  let _down=false;
+  btn.addEventListener('pointerdown',e=>{ if(e.button!==undefined&&e.button!==0) return; e.preventDefault(); e.stopPropagation(); _down=true; ctDoClick(); });
+  btn.addEventListener('pointerup',  e=>{ _down=false; });
+  btn.addEventListener('touchend',   e=>{ e.preventDefault(); if(!_down){ ctDoClick(); } _down=false; },{passive:false});
+  ['keydown','keyup','keypress'].forEach(ev=>btn.addEventListener(ev,e=>{e.preventDefault();e.stopPropagation();}));
+})();
+
+// Wire golden coin
+(function(){
+  const gc=document.getElementById('ctGoldenCoin'); if(!gc) return;
+  gc.addEventListener('pointerdown',e=>{ e.preventDefault(); e.stopPropagation(); ctClickGolden(); });
+  gc.addEventListener('touchend',e=>{ e.preventDefault(); ctClickGolden(); },{passive:false});
+})();
+
+// Wire fortune spin
+(function(){
+  const sb=document.getElementById('ctSpinBtn'); if(!sb) return;
+  sb.addEventListener('pointerdown',e=>{ e.preventDefault(); e.stopPropagation(); ctSpin(); });
+  sb.addEventListener('touchend',e=>{ e.preventDefault(); ctSpin(); },{passive:false});
+  sb.addEventListener('keydown',e=>e.preventDefault());
+})();
+
+// Wire shop tab switching (3 tabs: Upgrades, Research, Stats)
+(function(){
+  const tu=document.getElementById('ctTabUpg');
+  const tr=document.getElementById('ctTabRes');
+  const ts=document.getElementById('ctTabStats');
+  if(!tu) return;
+  const upgl=document.getElementById('ctUpgradeList');
+  const resl=document.getElementById('ctResearchList');
+  const stsl=document.getElementById('ctStatsPanel');
+  function showTab(tab){
+    [tu,tr,ts].forEach(b=>b&&b.classList.remove('active'));
+    if(tab==='upg'&&tu) tu.classList.add('active');
+    if(tab==='res'&&tr) tr.classList.add('active');
+    if(tab==='sta'&&ts) ts.classList.add('active');
+    if(upgl) upgl.style.display=tab==='upg'?'flex':'none';
+    if(resl) resl.style.display=tab==='res'?'flex':'none';
+    if(stsl){ stsl.style.display=tab==='sta'?'flex':'none'; if(tab==='sta') ctRenderStats(); }
+  }
+  tu&&tu.addEventListener('pointerdown',e=>{e.preventDefault();showTab('upg');});
+  tr&&tr.addEventListener('pointerdown',e=>{e.preventDefault();showTab('res');});
+  ts&&ts.addEventListener('pointerdown',e=>{e.preventDefault();showTab('sta');});
+  [tu,tr,ts].forEach(b=>b&&b.addEventListener('keydown',e=>e.preventDefault()));
+})();
 
 // ── RENDER SHOP ───────────────────────────────────────────
 function ctRenderShop(){
-  const list=document.getElementById('ctUpgradeList');
-  if(!list) return;
-
-  // Build skeleton cards once — listeners attached ONCE, never re-attached
-  if(list.children.length !== CT_UPG.length){
+  const list=document.getElementById('ctUpgradeList'); if(!list) return;
+  if(list.children.length!==CT_UPG.length){
     list.innerHTML='';
     CT_UPG.forEach(u=>{
       const card=document.createElement('div');
-      card.className='ct-upg';
-      card.dataset.cid=u.id;
-      card.setAttribute('tabindex','-1');
-      card.addEventListener('pointerdown', function(e){
-        e.preventDefault(); e.stopPropagation(); ctDoBuy(u.id);
-      });
-      card.addEventListener('touchend', function(e){
-        e.preventDefault(); e.stopPropagation(); ctDoBuy(u.id);
-      });
-      card.addEventListener('keydown',  e=>{e.preventDefault();e.stopPropagation();});
-      card.addEventListener('keyup',    e=>{e.preventDefault();e.stopPropagation();});
+      card.className='ct-upg'; card.dataset.cid=u.id; card.setAttribute('tabindex','-1');
+      card.addEventListener('pointerdown',e=>{ e.preventDefault(); e.stopPropagation(); ctDoBuy(u.id); });
+      card.addEventListener('touchend',   e=>{ e.preventDefault(); e.stopPropagation(); ctDoBuy(u.id); });
+      card.addEventListener('keydown',    e=>{ e.preventDefault(); e.stopPropagation(); });
       list.appendChild(card);
     });
   }
-
-  // Update content — innerHTML wipe is safe because listeners are on outer div
   CT_UPG.forEach((u,i)=>{
-    const card=list.children[i];
-    if(!card) return;
-    const owned  = ct.own[u.id]||0;
-    const cost   = ctCost(u);
-    const afford = ct.c >= cost;
-    const hidden = cost > ct.te*6+200 && owned===0;
-    const newKey = owned+'|'+(afford?1:0)+'|'+(hidden?1:0);
-    if(card.dataset.key === newKey) return; // skip if nothing changed
-    card.dataset.key = newKey;
-    card.className = 'ct-upg'+(afford?' can-afford':'')+(hidden?' ct-hidden':'');
-    card.style.cursor = afford ? 'pointer' : 'default';
-    const nextCPS=(u.cps*ct.mult).toFixed(2);
-    const totCPS=(owned*u.cps*ct.mult).toFixed(1);
-    card.innerHTML=
-      '<div class="ct-upg-icon" style="pointer-events:none">'+u.ico+'</div>'+
-      '<div class="ct-upg-body" style="pointer-events:none">'+
-        '<div class="ct-upg-name">'+u.name+(owned>0?' <span class="ct-owned-count">×'+owned+'</span>':'')+'</div>'+
-        '<div class="ct-upg-info">'+u.info+'</div>'+
-        (owned>0?'<div class="ct-upg-total">'+totCPS+'/s total</div>':'')+
-      '</div>'+
-      '<div class="ct-upg-cost" style="pointer-events:none">'+
-        '<div class="ct-cost-num '+(afford?'yes':'no')+'">🪙 '+ctF(cost)+'</div>'+
-        '<div class="ct-cost-cps">+'+nextCPS+'/s each</div>'+
-      '</div>';
+    const card=list.children[i]; if(!card) return;
+    const owned=ct.own[u.id]||0, cost=ctCost(u), afford=ct.c>=cost;
+    const hidden=cost>ct.te*6+200&&owned===0;
+    const key=owned+'|'+(afford?1:0)+'|'+(hidden?1:0);
+    if(card.dataset.key===key) return;
+    card.dataset.key=key;
+    card.className='ct-upg'+(afford?' can-afford':'')+(hidden?' ct-hidden':'');
+    const cps=(u.cps*ct.mult*ctPresBonus()*ctIdleBonus()).toFixed(2);
+    const tot=(owned*u.cps*ct.mult*ctPresBonus()*ctIdleBonus()).toFixed(1);
+    // Compact row: icon | name + info + owned-cps | cost
+    const nameRow = u.name + (owned ? ` <span class="ct-owned-count">×${owned}</span>` : '');
+    const subRow  = owned
+      ? `<span class="ct-upg-total">${tot}/s</span>&nbsp;<span class="ct-upg-info">${u.info}</span>`
+      : `<span class="ct-upg-info">${u.info}</span>`;
+    card.innerHTML =
+      `<div class="ct-upg-icon" style="pointer-events:none">${u.ico}</div>`+
+      `<div class="ct-upg-body" style="pointer-events:none">`+
+        `<div class="ct-upg-name">${nameRow}</div>`+
+        `<div class="ct-upg-sub">${subRow}</div>`+
+      `</div>`+
+      `<div class="ct-upg-cost" style="pointer-events:none">`+
+        `<div class="ct-cost-num ${afford?'yes':'no'}">🪙${ctF(cost)}</div>`+
+        `<div class="ct-cost-cps">+${cps}/s</div>`+
+      `</div>`;
   });
 }
 
-
-// ── RENDER PASSIVE LIST ───────────────────────────────────
-function ctRenderPassive(){
-  const el=document.getElementById('ctAutoList');
-  if(!el) return;
-  const active=CT_UPG.filter(u=>(ct.own[u.id]||0)>0);
-  if(!active.length){
-    el.innerHTML='<span style="color:#444;font-size:0.78rem">Buy upgrades to earn coins passively</span>';
+// ── RENDER RESEARCH ───────────────────────────────────────
+function ctRenderResearch(){
+  const list=document.getElementById('ctResearchList'); if(!list) return;
+  if(list.children.length===CT_RES.length){
+    // Just update affordability classes
+    CT_RES.forEach((res,i)=>{
+      const card=list.children[i]; if(!card) return;
+      const lvl=ct.resLevel[res.id]||0;
+      const key=lvl+'|'+ct.rp;
+      if(card.dataset.key===key) return;
+      card.dataset.key=key;
+      // Update tier buttons
+      res.tiers.forEach((_,ti)=>{
+        const btn=card.querySelector(`.ct-res-tier[data-ti="${ti}"]`); if(!btn) return;
+        const bought=lvl>ti, canBuy=lvl===ti&&ct.rp>=res.tiers[ti].rp, locked=lvl<ti;
+        btn.className='ct-res-tier'+(bought?' bought':canBuy?' buyable':' locked');
+      });
+    });
     return;
   }
+  list.innerHTML='';
+  CT_RES.forEach((res,ri)=>{
+    const card=document.createElement('div');
+    card.className='ct-res-card';
+    const tiersHTML=res.tiers.map((tier,ti)=>
+      `<button class="ct-res-tier locked" data-ti="${ti}" tabindex="-1">${tier.label}<br><span style="font-size:0.62rem;opacity:0.8">${tier.rp} RP</span></button>`
+    ).join('');
+    card.innerHTML=
+      `<div class="ct-res-name">${res.ico} ${res.name}</div>`+
+      `<div class="ct-res-desc">${res.desc}</div>`+
+      `<div class="ct-res-tiers">${tiersHTML}</div>`;
+    // Wire tier buttons
+    card.querySelectorAll('.ct-res-tier').forEach((btn,ti)=>{
+      btn.addEventListener('pointerdown',e=>{
+        e.preventDefault(); e.stopPropagation();
+        ctDoResearch(res.id,ti);
+      });
+      btn.addEventListener('keydown',e=>e.preventDefault());
+    });
+    list.appendChild(card);
+  });
+  ctRenderResearch(); // do a render pass for affordability
+}
+
+// ── RENDER PASSIVE ────────────────────────────────────────
+function ctRenderPassive(){
+  const el=document.getElementById('ctAutoList'); if(!el) return;
+  const active=CT_UPG.filter(u=>(ct.own[u.id]||0)>0);
+  if(!active.length){ el.innerHTML='<span style="color:#444;font-size:0.78rem">Buy upgrades to earn passively</span>'; return; }
   el.innerHTML=active.map(u=>{
-    const cps=((ct.own[u.id]||0)*u.cps*ct.mult).toFixed(1);
-    return `<div class="ct-auto-row"><span>${u.ico} ${u.name} ×${ct.own[u.id]}</span><b style="color:#00f5a0">${cps}/s</b></div>`;
+    const cps=((ct.own[u.id]||0)*u.cps*ct.mult*ctPresBonus()*ctIdleBonus()).toFixed(1);
+    return `<div class="ct-auto-row"><span>${u.ico} ${u.name} ×${ct.own[u.id]}</span><b>${cps}/s</b></div>`;
   }).join('');
 }
 
 // ── RENDER MILESTONES ─────────────────────────────────────
 function ctRenderMS(){
-  const el=document.getElementById('ctMilestones');
-  if(!el) return;
+  const el=document.getElementById('ctMilestones'); if(!el) return;
   if(!el.children.length){
     CT_MS.forEach(m=>{
       const s=document.createElement('span');
-      s.id='ctms-'+m.id;
-      s.className='ct-badge';
+      s.id='ctms-'+m.id; s.className='ct-badge';
       s.innerHTML=`<span>${m.ico}</span> ${m.lbl}`;
       el.appendChild(s);
     });
   }
   CT_MS.forEach(m=>{
-    const b=document.getElementById('ctms-'+m.id);
-    if(!b) return;
+    const b=document.getElementById('ctms-'+m.id); if(!b) return;
     const done=m.chk(ct);
-    if(done && !ct.ms.has(m.id)){
-      ct.ms.add(m.id);
-      b.classList.add('earned','ct-pop');
-      setTimeout(()=>b.classList.remove('ct-pop'),400);
-    } else if(done){
-      b.classList.add('earned');
-    }
+    if(done&&!ct.ms.has(m.id)){ ct.ms.add(m.id); b.classList.add('earned','ct-pop'); setTimeout(()=>b.classList.remove('ct-pop'),400); }
+    else if(done) b.classList.add('earned');
   });
+}
+
+// ── RENDER QUESTS ─────────────────────────────────────────
+function ctRenderQuests(){
+  const el=document.getElementById('ctQuestList'); if(!el) return;
+  if(!ct.quests||!ct.quests.length){ el.innerHTML='<span style="color:#444;font-size:0.74rem">Loading quests…</span>'; return; }
+  el.innerHTML=ct.quests.map((q,i)=>{
+    const pct=Math.min(100,q.target>0?(q.current/q.target*100):0);
+    if(q.claimed) return `<div class="ct-quest-item" style="opacity:0.4"><span style="font-size:0.9rem">✓</span><span style="flex:1">${q.lbl}</span><span class="ct-quest-done">+${q.reward}RP</span></div>`;
+    if(q.done) return `<div class="ct-quest-item"><span style="font-size:0.9rem">🎉</span><span style="flex:1">${q.lbl}</span><button class="ct-quest-claim" data-qi="${i}">+${q.reward}RP</button></div>`;
+    return `<div class="ct-quest-item"><span style="font-size:0.75rem;flex:1">${q.lbl}</span><div class="ct-quest-bar-bg"><div class="ct-quest-bar" style="width:${pct}%"></div></div><span style="font-size:0.65rem;color:#505078;min-width:32px;text-align:right">${pct>=100?'✓':Math.floor(pct)+'%'}</span></div>`;
+  }).join('');
+  el.querySelectorAll('.ct-quest-claim').forEach(btn=>{
+    btn.addEventListener('pointerdown',e=>{ e.preventDefault(); ctClaimQuest(+btn.dataset.qi); });
+  });
+}
+
+// ── RENDER SPIN TIMER ─────────────────────────────────────
+function ctRenderSpin(){
+  const btn=document.getElementById('ctSpinBtn');
+  const cd=document.getElementById('ctSpinTimer');
+  const now=Date.now();
+  if(!btn||!cd) return;
+  if(ct.spinCd>now){
+    const sec=Math.ceil((ct.spinCd-now)/1000);
+    const m=Math.floor(sec/60), s=sec%60;
+    btn.disabled=true;
+    cd.style.display='block';
+    cd.textContent=`Next spin in ${m}:${String(s).padStart(2,'0')}`;
+  } else {
+    btn.disabled=false;
+    cd.style.display='none';
+  }
 }
 
 // ── PROGRESS BAR ─────────────────────────────────────────
 function ctRenderProgress(){
-  const thresh=Math.pow(10,5+ct.pres);
+  const thresh=Math.pow(10,7+ct.pres);
   const pct=Math.min(100,ct.te/thresh*100);
   const bar=document.getElementById('ctProgressBar');
   const goal=document.getElementById('ctPrestigeGoal');
@@ -5238,701 +5721,1028 @@ function ctRenderProgress(){
   }
 }
 
-// ── FULL REFRESH (called after every state change) ────────
+// ── FULL REFRESH ─────────────────────────────────────────
 function ctRefresh(){
   const g=id=>document.getElementById(id);
   if(!g('ctCoins')) return;
-  g('ctCoins').textContent    = ctF(ct.c);
-  g('ctPerClick').textContent = ctF(ctEPC());
-  g('ctPerSec').textContent   = ctF(ctCPS())+'/s';
-  g('ctPrestige').textContent = '×'+ct.mult;
-  g('ctTotal').textContent    = ctF(ct.te);
-  if(g('ctClicks')) g('ctClicks').textContent = ctF(ct.tc);
+  g('ctCoins').textContent    =ctF(ct.c);
+  g('ctPerClick').textContent =ctF(ctEPC());
+  g('ctPerSec').textContent   =ctF(ctCPS())+'/s';
+  g('ctPrestige').textContent ='×'+ct.mult;
+  g('ctTotal').textContent    =ctF(ct.te);
+  if(g('ctResearchPts')) g('ctResearchPts').textContent=ct.rp+' RP';
+  if(g('ctClicks')) g('ctClicks').textContent=ctF(ct.tc);
 
-  const thresh=Math.pow(10,5+ct.pres);
+  const thresh=Math.pow(10,7+ct.pres);
   const pb=g('ctPrestigeBtn');
   if(pb){
     const show=ct.te>=thresh;
     pb.style.display=show?'block':'none';
-    if(show) pb.textContent=`⭐ PRESTIGE — Reset & Earn ×${ct.mult*2} Forever`;
+    if(show) pb.textContent=`⭐ PRESTIGE — Reset & Earn ×${Math.floor(ct.mult*2)} Forever (+${10+ct.pres*5}RP)`;
   }
   ctRenderProgress();
   ctRenderShop();
+  ctRenderResearch();
   ctRenderPassive();
   ctRenderMS();
+  ctRenderQuests();
+  ctRenderSpin();
 }
 
-// ── SAVE / LOAD ───────────────────────────────────────────
-function ctSave(){
-  try{
-    localStorage.setItem('ct_v4',JSON.stringify({
-      c:ct.c, te:ct.te, tc:ct.tc,
-      pres:ct.pres, mult:ct.mult,
-      own:ct.own, ms:[...ct.ms]
-    }));
-  }catch(e){}
-}
-function ctLoad(){
-  try{
-    const raw=localStorage.getItem('ct_v4');
-    if(!raw) return;
-    const d=JSON.parse(raw);
-    ct.c=d.c||0; ct.te=d.te||0; ct.tc=d.tc||0;
-    ct.pres=d.pres||0; ct.mult=d.mult||1;
-    ct.own=d.own||{}; ct.ms=new Set(d.ms||[]);
-  }catch(e){}
-}
-
-// ── PASSIVE TICK ─────────────────────────────────────────
-function ctStartTick(){
-  if(ct.iv) clearInterval(ct.iv);
-  ct.iv=setInterval(()=>{
-    if(curPanel!=='clicker') return;
-    const cps=ctCPS();
-    if(cps>0){ const g=cps/10; ct.c+=g; ct.te+=g; }
-    ct.tick++;
-    // Full refresh every 200ms (every 2 ticks)
-    if(ct.tick%2===0) ctRefresh();
-    // Autosave every 10s
-    if(ct.tick%100===0) ctSave();
-  },100);
-}
-
-// ── COIN BUTTON WIRE-UP ───────────────────────────────────
-// Done here (after DOM ready) — pointer only, no keyboard path
-(function wireCoinBtn(){
-  const btn=document.getElementById('ctCoinBtn');
-  if(!btn) return;
-  btn.setAttribute('tabindex','-1');
-  // Remove any onclick attribute binding to be sure
-  btn.removeAttribute('onclick');
-
-  let _pointerDown=false;
-  btn.addEventListener('pointerdown', e=>{
-    if(e.button!==undefined && e.button!==0) return; // left only
-    e.preventDefault(); e.stopPropagation();
-    _pointerDown=true;
-    ctDoClick();
-  });
-  btn.addEventListener('pointerup',   e=>{ _pointerDown=false; });
-  btn.addEventListener('touchstart',  e=>{ e.preventDefault(); },  {passive:false});
-  btn.addEventListener('touchend',    e=>{ e.preventDefault(); ctDoClick(); },{passive:false});
-  btn.addEventListener('keydown',     e=>{ e.preventDefault(); });
-  btn.addEventListener('keyup',       e=>{ e.preventDefault(); });
-})();
-
-// ── PRESTIGE BUTTON: no keyboard ─────────────────────────
-(function(){
-  const pb=document.getElementById('ctPrestigeBtn');
-  if(!pb) return;
-  pb.setAttribute('tabindex','-1');
-  pb.addEventListener('keydown', e=>e.preventDefault());
-})();
-
-// ── GLOBAL ENTER GUARD ────────────────────────────────────
-// Nuke Enter/Space completely while clicker panel is active
-document.addEventListener('keydown', function ctKeyGuard(e){
+// Global keyguard for clicker panel
+document.addEventListener('keydown',function ctKeyGuard(e){
   const panel=document.getElementById('panel-clicker');
-  if(!panel || panel.style.display==='none') return;
-  if(e.key==='Enter' || e.key===' '){
-    e.preventDefault();
-    e.stopImmediatePropagation();
-  }
-}, true); // capture phase — fires before any other handler
+  if(!panel||panel.style.display==='none') return;
+  if(e.key==='Enter'||e.key===' '){ e.preventDefault(); e.stopImmediatePropagation(); }
+},true);
 
-// ── SOUND TOGGLE ──────────────────────────────────────────
-let ctSoundOn = true;
-(function(){
-  try { ctSoundOn = localStorage.getItem('ct_snd') !== '0'; } catch(e){}
-  function updateBtn(){
-    const b=document.getElementById('ctSoundBtn');
-    if(!b) return;
-    if(ctSoundOn){ b.textContent='🔊 Sound ON';  b.className='ct-sound-btn on'; }
-    else          { b.textContent='🔇 Sound OFF'; b.className='ct-sound-btn off'; }
-  }
-  updateBtn();
-  const b=document.getElementById('ctSoundBtn');
-  if(b){
-    b.addEventListener('pointerdown',function(e){
-      e.preventDefault(); e.stopPropagation();
-      ctSoundOn=!ctSoundOn;
-      try{ localStorage.setItem('ct_snd', ctSoundOn?'1':'0'); }catch(e2){}
-      updateBtn();
-    });
-    b.addEventListener('touchend',function(e){ e.preventDefault(); });
-    b.addEventListener('keydown',function(e){ e.preventDefault(); });
-  }
-})();
 
-// ── WORLD CANVAS ENGINE  v4 — Skyscraper City ────────────
+// ══════════════════════════════════════════════════════════
+//  CLICKER TYCOON — EXTRA FEATURES
+//  • Combo Click system (rapid clicking = multiplier)
+//  • Offline earnings (passive income while away)
+//  • Weather Events (coin rain, golden hour, tax, etc.)
+//  • Building milestone unlocks (visual + bonus)
+//  • Stats tracker
+// ══════════════════════════════════════════════════════════
+
+// ── COMBO SYSTEM ─────────────────────────────────────────
+let _ctCombo = 0, _ctComboTimer = null, _ctLastClickTs = 0;
+const CT_COMBO_WINDOW = 600; // ms between clicks to chain combo
+const CT_COMBO_MAX = 20;
+
+function ctComboTick(){
+  // Called on each click
+  const now = Date.now();
+  if(now - _ctLastClickTs < CT_COMBO_WINDOW){
+    _ctCombo = Math.min(_ctCombo + 1, CT_COMBO_MAX);
+  } else {
+    _ctCombo = 1;
+  }
+  _ctLastClickTs = now;
+  clearTimeout(_ctComboTimer);
+  _ctComboTimer = setTimeout(()=>{ _ctCombo = 0; ctRenderCombo(); }, CT_COMBO_WINDOW + 100);
+  ctRenderCombo();
+}
+function ctComboMult(){ return _ctCombo >= 10 ? 3 : _ctCombo >= 5 ? 2 : _ctCombo >= 3 ? 1.5 : 1; }
+function ctRenderCombo(){
+  const el = document.getElementById('ctComboDisplay'); if(!el) return;
+  if(_ctCombo >= 3){
+    el.style.display = 'block';
+    const mult = ctComboMult();
+    el.textContent = `${_ctCombo}× COMBO! ${mult>1?'(×'+mult+' coins)':''}`;
+    el.style.color = _ctCombo >= 10 ? '#ff9800' : _ctCombo >= 5 ? '#ffd600' : '#00f5a0';
+    el.style.textShadow = `0 0 12px ${_ctCombo>=10?'#ff9800':_ctCombo>=5?'#ffd600':'#00f5a0'}`;
+  } else {
+    el.style.display = 'none';
+  }
+}
+
+// Patch ctDoClick to apply combo
+const _origDoClick = ctDoClick;
+window.ctDoClick = function(){
+  ctComboTick();
+  // Apply combo multiplier inside
+  const origEPC = window.ctEPC;
+  window.ctEPC = function(){ return Math.floor((origEPC||ctEPC).call(this) * ctComboMult()); };
+  _origDoClick();
+  window.ctEPC = origEPC;
+};
+
+// ── OFFLINE EARNINGS ─────────────────────────────────────
+function ctApplyOffline(){
+  try {
+    const lastSave = parseInt(localStorage.getItem('ct_v5_ts') || '0');
+    if(!lastSave) return;
+    const elapsedSec = Math.min((Date.now() - lastSave) / 1000, 8 * 3600); // cap 8h
+    if(elapsedSec < 30) return;
+    const cps = ctCPS();
+    if(cps <= 0) return;
+    const earned = Math.floor(cps * elapsedSec * 0.3); // 30% efficiency offline
+    if(earned <= 0) return;
+    ct.c += earned; ct.te += earned;
+    // Show notification
+    setTimeout(()=>{
+      const msg = document.getElementById('ctOfflineMsg');
+      if(msg){
+        msg.textContent = `⏰ While away: +${ctF(earned)} coins (${Math.floor(elapsedSec/60)}m offline)`;
+        msg.style.display = 'block';
+        setTimeout(()=>{ msg.style.display='none'; }, 6000);
+      }
+    }, 800);
+  } catch(e){}
+}
+function ctSaveTimestamp(){
+  try { localStorage.setItem('ct_v5_ts', Date.now().toString()); } catch(e){}
+}
+// Patch ctSave
+const _origSave = ctSave;
+window.ctSave = function(){
+  _origSave(); ctSaveTimestamp();
+};
+setInterval(ctSaveTimestamp, 10000);
+
+// ── WEATHER EVENTS ───────────────────────────────────────
+const CT_WEATHER = [
+  { id:'rain',    name:'🌧️ Coin Rain',      dur:45, desc:'+100% passive income',  color:'#60a8ff',
+    apply:()=>{ ct._wMult=(ct._wMult||1)*2; },
+    remove:()=>{ ct._wMult=Math.max(1,(ct._wMult||2)/2); } },
+  { id:'golden',  name:'✨ Golden Hour',    dur:60, desc:'Golden coins ×5',        color:'#ffd700',
+    apply:()=>{ ct._wGold=(ct._wGold||1)*5; },
+    remove:()=>{ ct._wGold=Math.max(1,(ct._wGold||5)/5); } },
+  { id:'frenzy2', name:'⚡ Mega Frenzy',   dur:20, desc:'Click power ×20!',       color:'#ff6030',
+    apply:()=>{ ct._wClick=(ct._wClick||1)*20; },
+    remove:()=>{ ct._wClick=Math.max(1,(ct._wClick||20)/20); } },
+  { id:'tax',     name:'🏛️ Tax Collection', dur:30, desc:'-50% passive income',    color:'#ff6060',
+    apply:()=>{ ct._wMult=(ct._wMult||1)*0.5; },
+    remove:()=>{ ct._wMult=Math.min(1,(ct._wMult||0.5)/0.5)*((ct._wMult||1)<=0.5?2:1); ct._wMult=ct._wMult||1; } },
+  { id:'rush',    name:'🚀 Market Rush',    dur:40, desc:'+50% all income',        color:'#80ff80',
+    apply:()=>{ ct._wMult=(ct._wMult||1)*1.5; },
+    remove:()=>{ ct._wMult=Math.max(1,(ct._wMult||1.5)/1.5); } },
+];
+
+let _ctActiveWeather = null, _ctWeatherEndTime = 0, _ctWeatherCheck = 0, _ctNextWeather = 0;
+
+function ctWeatherCPSMult(){ return Math.max(0.1, ct._wMult||1); }
+function ctWeatherClickMult(){ return ct._wClick||1; }
+function ctWeatherGoldMult(){ return ct._wGold||1; }
+
+function ctCheckWeather(){
+  const now = Date.now();
+  if(now < _ctNextWeather) return;
+  _ctNextWeather = now + (120 + Math.random()*180)*1000; // 2-5 min between events
+
+  if(_ctActiveWeather){ // end current event
+    _ctActiveWeather.remove();
+    _ctActiveWeather = null;
+    ctHideWeather();
+    return;
+  }
+  // Start new event (70% chance)
+  if(Math.random() > 0.7) return;
+  const ev = CT_WEATHER[Math.floor(Math.random()*CT_WEATHER.length)];
+  _ctActiveWeather = ev;
+  _ctWeatherEndTime = now + ev.dur * 1000;
+  _ctNextWeather = _ctWeatherEndTime + 1000;
+  ev.apply();
+  ctShowWeather(ev);
+}
+function ctShowWeather(ev){
+  let el = document.getElementById('ctWeatherBanner');
+  if(!el){ el=document.createElement('div'); el.id='ctWeatherBanner'; el.className='ct-weather-banner'; document.getElementById('panel-clicker').prepend(el); }
+  el.style.borderColor = ev.color+'66';
+  el.style.color = ev.color;
+  el.style.display = 'flex';
+  el.innerHTML = `<span>${ev.name}</span><span style="opacity:0.7;font-size:0.72rem">${ev.desc}</span><span id="ctWeatherTimer">${ev.dur}s</span>`;
+}
+function ctHideWeather(){
+  const el = document.getElementById('ctWeatherBanner');
+  if(el) el.style.display = 'none';
+}
+function ctTickWeather(){
+  if(!_ctActiveWeather) return;
+  const rem = Math.ceil((_ctWeatherEndTime - Date.now())/1000);
+  if(rem <= 0){
+    _ctActiveWeather.remove(); _ctActiveWeather = null; ctHideWeather(); return;
+  }
+  const t = document.getElementById('ctWeatherTimer');
+  if(t) t.textContent = rem+'s';
+}
+
+// Patch ctCPS to apply weather
+const _origCPS = ctCPS;
+window.ctCPS = function(){ return (_origCPS()||0) * ctWeatherCPSMult(); };
+
+// Patch ctEPC to apply weather click mult
+const _origEPC = ctEPC;
+window.ctEPC = function(){ return Math.floor((_origEPC()||1) * ctWeatherClickMult()); };
+
+// Patch ctGoldBonus
+const _origGoldBonus = ctGoldBonus;
+window.ctGoldBonus = function(){ return (_origGoldBonus()||1) * ctWeatherGoldMult(); };
+
+// ── BUILDING MILESTONES (visual unlocks) ──────────────────
+const CT_BUILD_MS = [
+  { minH:20,  label:'🏗️ Foundation',  desc:'Your building breaks ground!',    rp:0  },
+  { minH:60,  label:'🏢 Office Tower', desc:'First floors complete!',           rp:2  },
+  { minH:130, label:'🏙️ Skyscraper',  desc:'Rising above the city!',           rp:5  },
+  { minH:210, label:'🌆 Supertall',   desc:'You\'re in the clouds!',            rp:8  },
+  { minH:310, label:'🚀 Megatower',   desc:'A monument to your empire!',        rp:15 },
+  { minH:380, label:'🌌 Arcology',    desc:'An entire world in one building!',  rp:25 },
+];
+let _ctBuildMSReached = new Set();
+
+function ctCheckBuildMS(currentH){
+  CT_BUILD_MS.forEach(ms=>{
+    if(currentH >= ms.minH && !_ctBuildMSReached.has(ms.minH)){
+      _ctBuildMSReached.add(ms.minH);
+      if(ms.rp>0) ct.rp += ms.rp;
+      ctShowBuildNotif(ms);
+    }
+  });
+}
+function ctShowBuildNotif(ms){
+  let el = document.getElementById('ctBuildNotif');
+  if(!el){ el=document.createElement('div'); el.id='ctBuildNotif'; el.className='ct-build-notif'; document.getElementById('panel-clicker').prepend(el); }
+  el.innerHTML = `<span style="font-size:1.4rem">${ms.label}</span><div>${ms.desc}</div>${ms.rp>0?`<div style="color:#c4b5fd;font-size:0.7rem">+${ms.rp} RP rewarded!</div>`:''}`;
+  el.style.display = 'block';
+  el.classList.add('ct-notif-pop');
+  setTimeout(()=>{ el.classList.remove('ct-notif-pop'); el.style.display='none'; }, 4000);
+}
+
+// Hook into world canvas to check building milestones
+const _origStartWorld = window.ctWorldStart;
+window.ctWorldStart = function(){
+  if(_origStartWorld) _origStartWorld();
+};
+
+// ── STATS TRACKER ─────────────────────────────────────────
+const _ctSessionStart = Date.now();
+let _ctSessionClicks = 0, _ctSessionEarned = 0;
+
+const _origDoClick2 = window.ctDoClick;
+window.ctDoClick = function(){
+  _ctSessionClicks++; _ctSessionEarned += ctEPC();
+  _origDoClick2();
+};
+
+function ctRenderStats(){
+  const el = document.getElementById('ctStatsPanel'); if(!el) return;
+  const sessionMin = Math.floor((Date.now()-_ctSessionStart)/60000);
+  const cps = ctCPS();
+  el.innerHTML =
+    `<div class="ct-stat-row"><span>Session time</span><b>${sessionMin}m</b></div>`+
+    `<div class="ct-stat-row"><span>Session clicks</span><b>${ctF(_ctSessionClicks)}</b></div>`+
+    `<div class="ct-stat-row"><span>Session earned</span><b>${ctF(_ctSessionEarned)}</b></div>`+
+    `<div class="ct-stat-row"><span>Total clicks ever</span><b>${ctF(ct.tc)}</b></div>`+
+    `<div class="ct-stat-row"><span>Passive/sec</span><b>${ctF(cps)}</b></div>`+
+    `<div class="ct-stat-row"><span>Passive/hour</span><b>${ctF(cps*3600)}</b></div>`+
+    `<div class="ct-stat-row"><span>Prestige count</span><b>${ct.pres}</b></div>`+
+    `<div class="ct-stat-row"><span>Research spent</span><b>${ct.resSpent||0} RP</b></div>`+
+    `<div class="ct-stat-row"><span>Quests done</span><b>${ct.questsDone||0}</b></div>`+
+    `<div class="ct-stat-row"><span>Golden caught</span><b>${ct.goldenCaught||0}</b></div>`;
+}
+
+// ── PATCH ctRefresh to include new renders ─────────────────
+const _origRefresh = ctRefresh;
+window.ctRefresh = function(){
+  _origRefresh();
+  ctRenderCombo();
+  ctRenderStats();
+};
+
+// ── PATCH ctStartTick to include new ticks ─────────────────
+const _origStartTick = ctStartTick;
+window.ctStartTick = function(){
+  _origStartTick();
+  // Additional tick for weather + building MS check
+  setInterval(()=>{
+    if(curPanel!=='clicker') return;
+    ctCheckWeather();
+    ctTickWeather();
+    const _th=typeof ctWorldTargetH!=='undefined'?ctWorldTargetH:0; if(_th>0) ctCheckBuildMS(_th);
+  }, 1000);
+};
+
+// ── APPLY OFFLINE on load ─────────────────────────────────
+setTimeout(ctApplyOffline, 300);
+
+// ── WORLD CANVAS ENGINE  v5 — Living City ─────────────────
 (function(){
   const WCV = document.getElementById('ctWorldCanvas');
   if(!WCV) return;
   const WCX = WCV.getContext('2d');
 
-  // Height contribution per upgrade purchase
-  const UPG_H = {
-    cursor:  { h:3,   fc:'#1a2a4a', wc:'#60a8e8', glow:'#4090ff', accent:'#2040a0' },
-    intern:  { h:6,   fc:'#1a2e10', wc:'#80e050', glow:'#50d020', accent:'#1a4010' },
-    miner:   { h:11,  fc:'#2e1e08', wc:'#e09040', glow:'#d06010', accent:'#4a2808' },
-    factory: { h:18,  fc:'#2e1008', wc:'#ff8050', glow:'#e04010', accent:'#601008' },
-    bank:    { h:30,  fc:'#082e22', wc:'#40f0a0', glow:'#00e080', accent:'#085028' },
-    lab:     { h:48,  fc:'#1a0830', wc:'#c080ff', glow:'#a040ff', accent:'#30086a' },
-    rocket:  { h:75,  fc:'#2e0808', wc:'#ff6060', glow:'#ff2020', accent:'#600808' },
-    ai:      { h:115, fc:'#082828', wc:'#30f0f0', glow:'#00d8ff', accent:'#085050' },
-    portal:  { h:170, fc:'#280828', wc:'#ff60ff', glow:'#ff00ff', accent:'#500850' },
+  // ── Building themes per prestige level (cycles every 4) ──
+  // 0=Skyscraper city, 1=Medieval castle, 2=Forest village, 3=Industrial
+  const THEMES = [
+    { name:'City',     sky1:'#010108', sky2:'#030512', sky3:'#060a08', ground:'#1a1a20', road:'#222' },
+    { name:'Castle',   sky1:'#06020a', sky2:'#120416', sky3:'#0a020a', ground:'#1a1208', road:'#2a1a08' },
+    { name:'Village',  sky1:'#010a04', sky2:'#021208', sky3:'#010a02', ground:'#0a1e08', road:'#1a2a0a' },
+    { name:'Factory',  sky1:'#080400', sky2:'#100800', sky3:'#060200', ground:'#181008', road:'#201408' },
+  ];
+
+  // Per-theme building specs (for each upgrade id)
+  const BLDG = {
+    // theme 0: City — modern towers
+    0: {
+      cursor:  { w:18, color:'#1a2a50', win:'#4080ff', roof:'flat',  label:'Office' },
+      intern:  { w:22, color:'#1e3040', win:'#40a0e0', roof:'flat',  label:'Startup' },
+      miner:   { w:26, color:'#2a1e10', win:'#d08040', roof:'flat',  label:'Depot' },
+      factory: { w:32, color:'#201830', win:'#9060e0', roof:'flat',  label:'HQ' },
+      bank:    { w:28, color:'#0e2820', win:'#40e0a0', roof:'point', label:'Bank' },
+      lab:     { w:24, color:'#1a1040', win:'#8040ff', roof:'dome',  label:'Lab' },
+      rocket:  { w:20, color:'#2a0808', win:'#ff4040', roof:'point', label:'Launch' },
+      ai:      { w:30, color:'#081828', win:'#00f0ff', roof:'dome',  label:'AI Hub' },
+      portal:  { w:36, color:'#180828', win:'#e040ff', roof:'spire', label:'Portal' },
+      nexus:   { w:40, color:'#082028', win:'#00ffee', roof:'spire', label:'Nexus' },
+      titan:   { w:44, color:'#1a1a1a', win:'#ffffff', roof:'flat',  label:'Titan' },
+      omega:   { w:50, color:'#080818', win:'#ffffff', roof:'spire', label:'Omega' },
+    },
+    // theme 1: Castle — stone towers
+    1: {
+      cursor:  { w:20, color:'#2a2018', win:'#e08820', roof:'merlon', label:'Watchtower' },
+      intern:  { w:26, color:'#281e14', win:'#f0a030', roof:'merlon', label:'Barracks' },
+      miner:   { w:28, color:'#302010', win:'#c07030', roof:'merlon', label:'Mine' },
+      factory: { w:34, color:'#242016', win:'#d09040', roof:'merlon', label:'Keep' },
+      bank:    { w:30, color:'#2a1e10', win:'#e0b050', roof:'cone',   label:'Treasury' },
+      lab:     { w:22, color:'#1a1830', win:'#8080ff', roof:'cone',   label:'Alchemy' },
+      rocket:  { w:18, color:'#301010', win:'#ff4040', roof:'merlon', label:'Arsenal' },
+      ai:      { w:32, color:'#101828', win:'#40e0ff', roof:'cone',   label:'Oracle' },
+      portal:  { w:38, color:'#201020', win:'#e040ff', roof:'spire',  label:'Sanctum' },
+      nexus:   { w:42, color:'#0a1820', win:'#40ffee', roof:'spire',  label:'Citadel' },
+      titan:   { w:46, color:'#181214', win:'#fff0d0', roof:'merlon', label:'Fortress' },
+      omega:   { w:52, color:'#0a0810', win:'#ffd700', roof:'spire',  label:'Cathedral' },
+    },
+    // theme 2: Village — cozy cottages & trees
+    2: {
+      cursor:  { w:22, color:'#2a1808', win:'#ffe080', roof:'gable', label:'Cottage' },
+      intern:  { w:26, color:'#1e2808', win:'#80e040', roof:'gable', label:'Farm' },
+      miner:   { w:24, color:'#2a1e08', win:'#f0a020', roof:'gable', label:'Mill' },
+      factory: { w:30, color:'#1a2010', win:'#a0e860', roof:'gable', label:'Barn' },
+      bank:    { w:28, color:'#1e1a08', win:'#ffd040', roof:'gable', label:'Inn' },
+      lab:     { w:20, color:'#101a10', win:'#80ff80', roof:'gable', label:'Herbalist' },
+      rocket:  { w:18, color:'#181008', win:'#ff8040', roof:'cone',  label:'Forge' },
+      ai:      { w:34, color:'#0a180a', win:'#40ff80', roof:'gable', label:'Market' },
+      portal:  { w:38, color:'#120a20', win:'#e040ff', roof:'spire', label:'Temple' },
+      nexus:   { w:40, color:'#0a1408', win:'#c0ff80', roof:'spire', label:'Tree of Life' },
+      titan:   { w:44, color:'#080e04', win:'#ffffff', roof:'gable', label:'Castle' },
+      omega:   { w:48, color:'#041004', win:'#ffe0a0', roof:'spire', label:'World Tree' },
+    },
+    // theme 3: Industrial — chimneys, factories
+    3: {
+      cursor:  { w:20, color:'#181008', win:'#e08020', roof:'flat',    label:'Workshop' },
+      intern:  { w:24, color:'#201008', win:'#ff8020', roof:'flat',    label:'Depot' },
+      miner:   { w:28, color:'#1a1008', win:'#c06010', roof:'flat',    label:'Refinery' },
+      factory: { w:36, color:'#161006', win:'#ff6010', roof:'chimney', label:'Factory' },
+      bank:    { w:28, color:'#1a1206', win:'#ffa020', roof:'flat',    label:'Exchange' },
+      lab:     { w:22, color:'#100a18', win:'#8060ff', roof:'flat',    label:'R&D' },
+      rocket:  { w:20, color:'#180404', win:'#ff3030', roof:'chimney', label:'Smelter' },
+      ai:      { w:30, color:'#08101a', win:'#20c0ff', roof:'flat',    label:'Control' },
+      portal:  { w:38, color:'#180818', win:'#e020ff', roof:'chimney', label:'Power Plant' },
+      nexus:   { w:40, color:'#0a1018', win:'#20ffee', roof:'chimney', label:'Mega Plant' },
+      titan:   { w:44, color:'#101018', win:'#ffffff', roof:'flat',    label:'Complex' },
+      omega:   { w:48, color:'#080808', win:'#ffd700', roof:'chimney', label:'Omega Core' },
+    },
   };
 
-  let wW=400, wH=420, wRaf=null;
-  let cityH=0, targetH=0;
+  // ── State ──────────────────────────────────────────────
+  let wW=900, wH=500, wRaf=null;
+  let t=0;
   let stars=[], clouds=[];
   let sparks=[];
   let lastOwned={}, lastCheck=0;
-  let t=0; // frame counter for animations
+  let lastPres=-1; // detect prestige changes
+  let cityH=0, targetH=0; // overall city "level" drives building heights
 
   // Crane state
-  let crane = {
-    jibAng: -0.12, jibDir: 1,
-    trolleyT: 0,
-    hookLen: 35, hookTarget: 35,
-    activeFrames: 0,
-  };
+  let crane={ jibAng:-0.06, jibDir:1, trolleyT:0, hookLen:30, hookTarget:30, activeFrames:0 };
+
+  // Theme derived from prestige
+  function getThemeIdx(){ return (typeof ct!=='undefined'?ct.pres:0)%4; }
+  function getTheme(){ return THEMES[getThemeIdx()]; }
+  function getBldg(id){ return (BLDG[getThemeIdx()]||BLDG[0])[id]||BLDG[0].cursor; }
+
+  // Per-upgrade contribution height
+  const UPG_H = { cursor:2, intern:4, miner:7, factory:12, bank:18, lab:28, rocket:40, ai:60, portal:85, nexus:110, titan:145, omega:185 };
 
   function calcTarget(){
     let h=0;
-    CT_UPG.forEach(u=>{ const d=UPG_H[u.id]; if(d) h+=(ct.own[u.id]||0)*d.h; });
-    return Math.min(h, wH*0.84);
+    if(typeof CT_UPG==='undefined') return 0;
+    CT_UPG.forEach(u=>{ h+=(ct.own[u.id]||0)*(UPG_H[u.id]||5); });
+    return Math.min(h, 600);
   }
 
-  function getDom(){
-    let best=0, dom=UPG_H.cursor;
-    CT_UPG.forEach(u=>{
-      const d=UPG_H[u.id]; if(!d) return;
-      const s=(ct.own[u.id]||0)*d.h;
-      if(s>best){ best=s; dom=d; }
-    });
-    return dom;
-  }
-
+  // ── Init stars / clouds ────────────────────────────────
   function initStars(){
     stars=[];
-    for(let i=0;i<110;i++) stars.push({
-      x:Math.random()*wW, y:Math.random()*wH*0.78,
-      r:Math.random()*1.4+0.2,
-      phase:Math.random()*Math.PI*2,
-      spd:0.003+Math.random()*0.006,
+    for(let i=0;i<130;i++) stars.push({
+      x:Math.random()*wW, y:Math.random()*wH*0.72,
+      r:Math.random()*1.5+0.2, ph:Math.random()*Math.PI*2, sp:0.003+Math.random()*0.007
     });
   }
   function initClouds(){
     clouds=[];
-    for(let i=0;i<4;i++) clouds.push({
-      x:Math.random()*wW, y:10+Math.random()*wH*0.18,
-      w:55+Math.random()*65, h:12+Math.random()*14,
-      spd:0.07+Math.random()*0.12,
-      a:0.05+Math.random()*0.07,
+    for(let i=0;i<5;i++) clouds.push({
+      x:Math.random()*wW, y:8+Math.random()*wH*0.2,
+      w:60+Math.random()*90, h:14+Math.random()*18,
+      spd:0.05+Math.random()*0.1, a:0.04+Math.random()*0.07
     });
   }
 
   function resize(){
-    const p = WCV.parentElement;
-    if(!p) return;
-    const r = p.getBoundingClientRect();
-    const nW = Math.round(Math.max(150, r.width||280));
-    const nH = 420;
-    if(nW===wW && nH===wH) return;
-    wW=nW; wH=nH;
-    WCV.width=wW; WCV.height=wH;
+    const p=WCV.parentElement; if(!p) return;
+    const r=p.getBoundingClientRect();
+    const nW=Math.round(Math.max(200,r.width||400));
+    const nH=500;
+    if(nW===wW&&nH===wH) return;
+    wW=nW; wH=nH; WCV.width=wW; WCV.height=wH;
     initStars(); initClouds();
   }
 
   function spawnSparks(x,y,col){
-    for(let i=0;i<16;i++){
-      const a=Math.random()*Math.PI*2, s=1.2+Math.random()*3.5;
-      sparks.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-1,
-        life:1, dec:0.028+Math.random()*0.035,
-        r:1.5+Math.random()*2.8, col:col||'#ffd700'});
+    for(let i=0;i<18;i++){
+      const a=Math.random()*Math.PI*2, s=1.5+Math.random()*4;
+      sparks.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-1.5,
+        life:1, dec:0.025+Math.random()*0.03, r:1.5+Math.random()*3, col:col||'#ffd700'});
     }
   }
 
   function checkOwned(){
     let changed=false;
+    if(typeof CT_UPG==='undefined') return;
     CT_UPG.forEach(u=>{
       const n=ct.own[u.id]||0;
-      if((lastOwned[u.id]||0)!==n){
-        changed=true; lastOwned[u.id]=n;
-      }
+      if((lastOwned[u.id]||0)!==n){ changed=true; lastOwned[u.id]=n; }
     });
+    // Prestige reset detection
+    const pres=ct.pres||0;
+    if(lastPres!==-1 && pres!==lastPres){
+      // Prestige happened! reset city height animation
+      cityH=0; crane.activeFrames=300;
+      spawnSparks(wW*0.5, wH*0.4, '#c4b5fd');
+    }
+    lastPres=pres;
     if(changed){
       targetH=calcTarget();
-      crane.activeFrames=240;
-      const dom=getDom();
-      const bTop=wH-10-Math.min(cityH,targetH);
-      spawnSparks((wW/2)+(Math.random()-0.5)*80, bTop+Math.random()*16, dom.glow);
+      crane.activeFrames=220;
+      spawnSparks(wW*0.5+(Math.random()-0.5)*80, wH-80, getBldg('cursor').win||'#ffd700');
     }
   }
 
-  /* ─── BACKGROUND ─── */
+  // ── DRAW BACKGROUND ───────────────────────────────────
   function drawBg(){
+    const th=getTheme();
     const bg=WCX.createLinearGradient(0,0,0,wH);
-    bg.addColorStop(0,'#010106');
-    bg.addColorStop(0.5,'#020410');
-    bg.addColorStop(1,'#040a06');
+    bg.addColorStop(0, th.sky1);
+    bg.addColorStop(0.5,th.sky2);
+    bg.addColorStop(1, th.sky3);
     WCX.fillStyle=bg; WCX.fillRect(0,0,wW,wH);
 
-    // Moon + halo
-    const mx=wW*0.82, my=30+Math.sin(t*0.0005)*4;
-    WCX.save();
-    const mh=WCX.createRadialGradient(mx,my,0,mx,my,32);
-    mh.addColorStop(0,'rgba(255,252,220,0.18)');
-    mh.addColorStop(1,'transparent');
-    WCX.fillStyle=mh; WCX.beginPath(); WCX.arc(mx,my,32,0,Math.PI*2); WCX.fill();
-    WCX.fillStyle='rgba(255,252,215,0.92)';
-    WCX.shadowColor='rgba(255,248,200,0.6)'; WCX.shadowBlur=14;
-    WCX.beginPath(); WCX.arc(mx,my,11,0,Math.PI*2); WCX.fill();
-    WCX.restore();
+    // Moon / Sun depending on theme
+    const mx=wW*0.8, my=wH*0.08;
+    if(getThemeIdx()===2){ // village: warm sun
+      const sg=WCX.createRadialGradient(mx,my,0,mx,my,28);
+      sg.addColorStop(0,'rgba(255,240,150,0.9)'); sg.addColorStop(0.5,'rgba(255,200,80,0.3)'); sg.addColorStop(1,'transparent');
+      WCX.fillStyle=sg; WCX.beginPath(); WCX.arc(mx,my,28,0,Math.PI*2); WCX.fill();
+      WCX.fillStyle='rgba(255,240,150,0.95)'; WCX.beginPath(); WCX.arc(mx,my,12,0,Math.PI*2); WCX.fill();
+    } else {
+      // Moon
+      const mg=WCX.createRadialGradient(mx,my,0,mx,my,28);
+      mg.addColorStop(0,'rgba(255,252,220,0.18)'); mg.addColorStop(1,'transparent');
+      WCX.fillStyle=mg; WCX.beginPath(); WCX.arc(mx,my,28,0,Math.PI*2); WCX.fill();
+      WCX.fillStyle='rgba(255,252,215,0.92)'; WCX.shadowColor='rgba(255,248,200,0.5)'; WCX.shadowBlur=14;
+      WCX.beginPath(); WCX.arc(mx,my,11,0,Math.PI*2); WCX.fill(); WCX.shadowBlur=0;
+    }
 
-    // Stars (twinkle)
-    stars.forEach(s=>{
-      const a=0.25+Math.sin(t*s.spd+s.phase)*0.55;
-      WCX.globalAlpha=Math.max(0,a);
-      WCX.fillStyle='#ffffff';
-      WCX.beginPath(); WCX.arc(s.x,s.y,s.r,0,Math.PI*2); WCX.fill();
-    });
-    WCX.globalAlpha=1;
+    // Stars (skip for village daytime)
+    if(getThemeIdx()!==2){
+      stars.forEach(s=>{
+        const a=Math.max(0,0.25+Math.sin(t*s.sp+s.ph)*0.55);
+        WCX.globalAlpha=a; WCX.fillStyle='#fff';
+        WCX.beginPath(); WCX.arc(s.x,s.y,s.r,0,Math.PI*2); WCX.fill();
+      });
+      WCX.globalAlpha=1;
+    } else {
+      // Birds for village
+      for(let i=0;i<3;i++){
+        const bx=(t*0.3+i*300)%wW, by=wH*0.15+i*20+Math.sin(t*0.04+i)*8;
+        WCX.strokeStyle='rgba(0,0,0,0.4)'; WCX.lineWidth=1.2;
+        WCX.beginPath(); WCX.arc(bx,by,5,Math.PI,0,false); WCX.stroke();
+        WCX.beginPath(); WCX.arc(bx+10,by,5,Math.PI,0,false); WCX.stroke();
+      }
+    }
 
     // Clouds
     clouds.forEach(cl=>{
       cl.x+=cl.spd; if(cl.x>wW+cl.w) cl.x=-cl.w;
-      WCX.save();
-      WCX.globalAlpha=cl.a;
-      WCX.fillStyle='#b0c8ff';
+      WCX.save(); WCX.globalAlpha=cl.a;
+      WCX.fillStyle=getThemeIdx()===2?'#fffde8':'#b0c8ff';
       WCX.beginPath(); WCX.ellipse(cl.x,cl.y,cl.w*0.5,cl.h*0.5,0,0,Math.PI*2); WCX.fill();
-      WCX.beginPath(); WCX.ellipse(cl.x-cl.w*0.25,cl.y+3,cl.w*0.3,cl.h*0.38,0,0,Math.PI*2); WCX.fill();
-      WCX.beginPath(); WCX.ellipse(cl.x+cl.w*0.22,cl.y+4,cl.w*0.26,cl.h*0.32,0,0,Math.PI*2); WCX.fill();
+      WCX.beginPath(); WCX.ellipse(cl.x-cl.w*0.25,cl.y+4,cl.w*0.3,cl.h*0.38,0,0,Math.PI*2); WCX.fill();
+      WCX.beginPath(); WCX.ellipse(cl.x+cl.w*0.22,cl.y+5,cl.w*0.24,cl.h*0.32,0,0,Math.PI*2); WCX.fill();
       WCX.restore();
     });
   }
 
-  /* ─── GROUND ─── */
+  // ── DRAW GROUND ────────────────────────────────────────
   function drawGround(){
-    const gy=wH-12;
-    // Sidewalk
-    const sg=WCX.createLinearGradient(0,gy,0,wH);
-    sg.addColorStop(0,'#1c1c20'); sg.addColorStop(1,'#0c0c10');
-    WCX.fillStyle=sg; WCX.fillRect(0,gy,wW,12);
+    const th=getTheme();
+    const gy=wH-14;
+    const gg=WCX.createLinearGradient(0,gy,0,wH);
+    gg.addColorStop(0,th.ground); gg.addColorStop(1,'#050505');
+    WCX.fillStyle=gg; WCX.fillRect(0,gy,wW,wH-gy);
+
+    // Road / path
+    const rg=WCX.createLinearGradient(0,wH-14,0,wH);
+    const thIdx=getThemeIdx();
+    if(thIdx===2){ // village: dirt path
+      rg.addColorStop(0,'#3a2a10'); rg.addColorStop(1,'#201408');
+    } else if(thIdx===1){ // castle: stone path
+      rg.addColorStop(0,'#302820'); rg.addColorStop(1,'#181410');
+    } else if(thIdx===3){ // industrial: concrete
+      rg.addColorStop(0,'#282018'); rg.addColorStop(1,'#181008');
+    } else { // city: asphalt
+      rg.addColorStop(0,'#1e1e22'); rg.addColorStop(1,'#101012');
+    }
+    WCX.fillStyle=rg; WCX.fillRect(0,wH-14,wW,14);
+
     // Ground reflection glow
-    const dom=getDom();
-    WCX.save();
-    WCX.globalAlpha=0.25;
-    const rg=WCX.createLinearGradient(0,0,wW,0);
-    rg.addColorStop(0,'transparent'); rg.addColorStop(0.5,dom.glow); rg.addColorStop(1,'transparent');
-    WCX.fillStyle=rg; WCX.fillRect(0,gy-2,wW,4);
+    WCX.save(); WCX.globalAlpha=0.22;
+    const dom=getDomBldg();
+    const rfl=WCX.createLinearGradient(0,0,wW,0);
+    rfl.addColorStop(0,'transparent'); rfl.addColorStop(0.5,dom.win); rfl.addColorStop(1,'transparent');
+    WCX.fillStyle=rfl; WCX.fillRect(0,wH-14,wW,4);
     WCX.restore();
-    // Road markings
-    WCX.save();
-    WCX.setLineDash([12,18]); WCX.strokeStyle='rgba(255,220,50,0.18)'; WCX.lineWidth=2;
-    WCX.beginPath(); WCX.moveTo(0,wH-6); WCX.lineTo(wW,wH-6); WCX.stroke();
-    WCX.setLineDash([]); WCX.restore();
   }
 
-  /* ─── MAIN BUILDING ─── */
-  function drawBuilding(dom, bX, bW, bTop, bBot){
-    const h=bBot-bTop;
-    const taper=Math.min(bW*0.06, 8); // slight inward taper at top
-    const flH=16; // floor height px
+  // Get dominant building spec (most owned high-tier)
+  function getDomBldg(){
+    let best=0, dom=getBldg('cursor');
+    if(typeof CT_UPG==='undefined') return dom;
+    CT_UPG.forEach(u=>{
+      const s=(ct.own[u.id]||0)*(UPG_H[u.id]||5);
+      if(s>best){ best=s; dom=getBldg(u.id); }
+    });
+    return dom;
+  }
 
-    /* Outer atmospheric glow on ground */
-    const groundGlow=WCX.createRadialGradient(wW/2,bBot,0,wW/2,bBot,bW*0.8);
-    groundGlow.addColorStop(0,dom.glow+'50');
-    groundGlow.addColorStop(0.5,dom.glow+'18');
-    groundGlow.addColorStop(1,'transparent');
-    WCX.fillStyle=groundGlow;
-    WCX.beginPath(); WCX.ellipse(wW/2,bBot,bW*0.8,24,0,0,Math.PI*2); WCX.fill();
-
-    /* Building silhouette path (tapered) */
-    const path2d = ()=>{
-      WCX.beginPath();
-      WCX.moveTo(bX+taper, bTop);
-      WCX.lineTo(bX+bW-taper, bTop);
-      WCX.lineTo(bX+bW, bBot);
-      WCX.lineTo(bX, bBot);
-      WCX.closePath();
-    };
-
-    /* Face gradient — lit from upper-left */
-    const fg=WCX.createLinearGradient(bX,bTop,bX+bW,bBot);
-    fg.addColorStop(0,   dom.fc+'ff');
-    fg.addColorStop(0.25,dom.accent+'ff');
-    fg.addColorStop(0.6, dom.fc+'ee');
-    fg.addColorStop(1,   '#0a0a14');
+  // ── DRAW A SINGLE BUILDING ────────────────────────────
+  function drawSingleBuilding(spec, bX, bH, bW, bBot, owned, idx){
+    if(bH<4) return;
+    const bTop=bBot-bH;
+    const thIdx=getThemeIdx();
 
     WCX.save();
-    path2d();
-    WCX.fillStyle=fg;
-    WCX.shadowColor=dom.glow; WCX.shadowBlur=40;
-    WCX.fill();
-    WCX.restore();
 
-    /* Clip for interior details */
+    // Atmospheric base glow
+    WCX.shadowColor=spec.win; WCX.shadowBlur=0;
+    WCX.globalAlpha=0.15;
+    WCX.fillStyle=spec.win;
+    WCX.beginPath(); WCX.ellipse(bX+bW/2,bBot,bW*0.7,10,0,0,Math.PI*2); WCX.fill();
+    WCX.globalAlpha=1;
+
+    // ── BUILDING BODY ──
+    const bodyG=WCX.createLinearGradient(bX,bTop,bX+bW,bBot);
+    bodyG.addColorStop(0, spec.color+'ff');
+    bodyG.addColorStop(0.3, spec.color+'ee');
+    bodyG.addColorStop(0.7, spec.color+'cc');
+    bodyG.addColorStop(1, '#06060c');
+    WCX.shadowColor=spec.win; WCX.shadowBlur=12;
+    WCX.fillStyle=bodyG;
+    WCX.fillRect(bX,bTop,bW,bH);
+    WCX.shadowBlur=0;
+
+    // ── SIDE DEPTH ──
+    WCX.fillStyle='rgba(0,0,0,0.35)';
+    WCX.fillRect(bX+bW,bTop,3,bH);
+    WCX.fillStyle='rgba(255,255,255,0.04)';
+    WCX.fillRect(bX,bTop,3,bH);
+
+    // ── WINDOWS ──
     WCX.save();
-    path2d(); WCX.clip();
-
-    /* Horizontal floor bands */
-    const nFloors=Math.floor(h/flH);
-    for(let i=1;i<=nFloors;i++){
-      const y=bBot-i*flH;
-      const isMain=(i%5===0);
-      WCX.strokeStyle=isMain ? dom.glow+'55' : dom.glow+'1a';
-      WCX.lineWidth=isMain?1.5:0.8;
-      WCX.beginPath(); WCX.moveTo(bX,y); WCX.lineTo(bX+bW,y); WCX.stroke();
-    }
-
-    /* Vertical structural columns */
-    const nCols=Math.max(4, Math.floor(bW/30));
-    for(let i=1;i<nCols;i++){
-      const x=bX+bW*i/nCols;
-      WCX.strokeStyle=dom.glow+'22'; WCX.lineWidth=0.8;
-      WCX.beginPath(); WCX.moveTo(x,bTop); WCX.lineTo(x,bBot); WCX.stroke();
-    }
-
-    /* Windows — grid, lit/unlit */
-    const wCols=Math.max(3, Math.floor(bW/26));
-    const wRows=Math.max(1, Math.floor(h/flH));
+    WCX.beginPath(); WCX.rect(bX+2,bTop,bW-4,bH); WCX.clip();
+    const flH=thIdx===2?16:14; // village: taller floors
+    const wCols=Math.max(2,Math.floor((bW-8)/12));
+    const wRows=Math.max(1,Math.floor(bH/flH));
     for(let row=0;row<wRows;row++){
       for(let col=0;col<wCols;col++){
-        const wx=bX+10+col*((bW-20)/Math.max(1,wCols-1));
-        const wy=bBot-flH*(row+1)+4;
-        const seed=(row*41+col*17+row*col)%11;
+        const wx=bX+4+col*((bW-8)/Math.max(1,wCols-1));
+        const wy=bBot-flH*(row+1)+3;
+        const seed=(row*43+col*17+idx*7)%11;
         const lit=seed<7;
-        const flicker=lit ? 0.55+Math.sin(t*0.04+row*col*0.7)*0.2 : 0.08;
+        const flicker=lit?(0.55+Math.sin(t*0.03+row*col*0.5+idx)*0.2):0.06;
         WCX.globalAlpha=flicker;
-        if(lit){
-          WCX.fillStyle=dom.wc;
-          WCX.shadowColor=dom.wc; WCX.shadowBlur=7;
+        if(lit){ WCX.fillStyle=spec.win; WCX.shadowColor=spec.win; WCX.shadowBlur=5; }
+        else    { WCX.fillStyle='#0c0c22'; WCX.shadowBlur=0; }
+        if(thIdx===2){ // village: arched windows
+          WCX.fillRect(wx-3,wy,6,flH-5);
+          WCX.beginPath(); WCX.arc(wx,wy,3,Math.PI,0); WCX.fill();
         } else {
-          WCX.fillStyle='#10182a'; WCX.shadowBlur=0;
+          WCX.fillRect(wx-3,wy,6,flH-5);
         }
-        WCX.fillRect(wx-4,wy,8,flH-6);
+        WCX.shadowBlur=0;
       }
     }
-    WCX.globalAlpha=1; WCX.shadowBlur=0;
+    WCX.globalAlpha=1;
     WCX.restore();
 
-    /* Left side face (depth) */
+    // ── ROOF by type ──
+    WCX.shadowColor=spec.win; WCX.shadowBlur=10;
+    if(spec.roof==='flat'){
+      WCX.strokeStyle=spec.win+'cc'; WCX.lineWidth=2;
+      WCX.beginPath(); WCX.moveTo(bX,bTop); WCX.lineTo(bX+bW,bTop); WCX.stroke();
+      // Rooftop details
+      WCX.fillStyle=spec.win+'66';
+      WCX.fillRect(bX+bW*0.2,bTop-3,bW*0.6,3);
+    }
+    else if(spec.roof==='point'||spec.roof==='spire'){
+      const sH=spec.roof==='spire'?bW*0.7:bW*0.45;
+      WCX.fillStyle=spec.color;
+      WCX.beginPath();
+      WCX.moveTo(bX,bTop); WCX.lineTo(bX+bW,bTop); WCX.lineTo(bX+bW/2,bTop-sH); WCX.closePath();
+      WCX.shadowBlur=16; WCX.fill();
+      WCX.strokeStyle=spec.win+'aa'; WCX.lineWidth=1.5;
+      WCX.beginPath(); WCX.moveTo(bX,bTop); WCX.lineTo(bX+bW/2,bTop-sH); WCX.lineTo(bX+bW,bTop); WCX.stroke();
+      if(spec.roof==='spire'){
+        // Blinking beacon
+        const blink=Math.sin(t*0.05)>0;
+        WCX.fillStyle=blink?'#ff2020':'#660000';
+        WCX.shadowColor=blink?'#ff2020':'transparent'; WCX.shadowBlur=blink?14:0;
+        WCX.beginPath(); WCX.arc(bX+bW/2,bTop-sH,3.5,0,Math.PI*2); WCX.fill();
+      }
+    }
+    else if(spec.roof==='dome'){
+      WCX.fillStyle=spec.color;
+      WCX.beginPath(); WCX.ellipse(bX+bW/2,bTop,bW/2,bW*0.3,0,Math.PI,0); WCX.fill();
+      WCX.strokeStyle=spec.win+'88'; WCX.lineWidth=1.5;
+      WCX.beginPath(); WCX.ellipse(bX+bW/2,bTop,bW/2,bW*0.3,0,Math.PI,0); WCX.stroke();
+    }
+    else if(spec.roof==='merlon'){
+      // Castle battlement
+      const mW=Math.max(4,Math.floor(bW/6)), mH=7, mN=Math.floor(bW/mW/2);
+      WCX.fillStyle=spec.color;
+      for(let m=0;m<=mN;m++){
+        const mx=bX+m*(bW/(mN));
+        WCX.fillRect(mx,bTop-mH,mW,mH);
+      }
+      WCX.strokeStyle=spec.win+'88'; WCX.lineWidth=1;
+      WCX.beginPath(); WCX.moveTo(bX,bTop); WCX.lineTo(bX+bW,bTop); WCX.stroke();
+    }
+    else if(spec.roof==='gable'){
+      // House roof triangle
+      const rH=bW*0.45;
+      WCX.fillStyle=thIdx===2?'#5a1a10':'#3a2010';
+      WCX.beginPath(); WCX.moveTo(bX-4,bTop); WCX.lineTo(bX+bW/2,bTop-rH); WCX.lineTo(bX+bW+4,bTop); WCX.closePath(); WCX.fill();
+      WCX.strokeStyle='#80300888'; WCX.lineWidth=1.5; WCX.beginPath();
+      WCX.moveTo(bX-4,bTop); WCX.lineTo(bX+bW/2,bTop-rH); WCX.lineTo(bX+bW+4,bTop); WCX.stroke();
+      // Chimney
+      if(owned>2){
+        WCX.fillStyle='#3a2010'; WCX.fillRect(bX+bW*0.65,bTop-rH+4,6,rH*0.6);
+        const smk=Math.sin(t*0.04)*2;
+        WCX.fillStyle='rgba(180,180,180,0.18)';
+        WCX.beginPath(); WCX.ellipse(bX+bW*0.65+3,bTop-rH-8+smk,5,3,0,0,Math.PI*2); WCX.fill();
+      }
+    }
+    else if(spec.roof==='cone'){
+      const cH=bW*0.6;
+      WCX.fillStyle=thIdx===1?'#600808':'#2a0a40';
+      WCX.beginPath(); WCX.moveTo(bX,bTop); WCX.lineTo(bX+bW/2,bTop-cH); WCX.lineTo(bX+bW,bTop); WCX.closePath(); WCX.fill();
+      WCX.strokeStyle=spec.win+'66'; WCX.lineWidth=1.5;
+      WCX.beginPath(); WCX.moveTo(bX,bTop); WCX.lineTo(bX+bW/2,bTop-cH); WCX.lineTo(bX+bW,bTop); WCX.stroke();
+    }
+    else if(spec.roof==='chimney'){
+      // Industrial: flat + chimneys
+      WCX.strokeStyle=spec.win+'aa'; WCX.lineWidth=2;
+      WCX.beginPath(); WCX.moveTo(bX,bTop); WCX.lineTo(bX+bW,bTop); WCX.stroke();
+      // Chimneys
+      const nC=Math.min(3,1+Math.floor(owned/5));
+      for(let ci=0;ci<nC;ci++){
+        const cx=bX+bW*(ci+1)/(nC+1);
+        WCX.fillStyle='#2a1808';
+        WCX.fillRect(cx-4,bTop-22,8,22);
+        WCX.strokeStyle='#3a2010'; WCX.lineWidth=1;
+        WCX.strokeRect(cx-4,bTop-22,8,22);
+        // Smoke
+        const phase=t*0.02+ci*2;
+        WCX.globalAlpha=0.18+Math.sin(phase)*0.08;
+        WCX.fillStyle='rgba(150,120,100,0.8)';
+        WCX.beginPath(); WCX.arc(cx+Math.sin(phase)*3,bTop-30+Math.sin(phase)*2,6,0,Math.PI*2); WCX.fill();
+        WCX.beginPath(); WCX.arc(cx+Math.sin(phase+1)*5,bTop-42+Math.sin(phase+1)*3,8,0,Math.PI*2); WCX.fill();
+        WCX.globalAlpha=1;
+      }
+    }
+    WCX.shadowBlur=0;
+    WCX.restore();
+  }
+
+  // ── LAYOUT: decide which buildings to show & positions ─
+  function getBuildingLayout(){
+    if(typeof CT_UPG==='undefined') return [];
+    const groundY=wH-14;
+    const buildings=[];
+    const thIdx=getThemeIdx();
+    const spacing=thIdx===2?8:6; // village: more spacing
+
+    // Gather owned upgrades
+    const owned=CT_UPG.filter(u=>(ct.own[u.id]||0)>0);
+    if(!owned.length) return [];
+
+    // Scale factor so all buildings fit
+    const totalW=owned.reduce((s,u)=>{ const b=getBldg(u.id); return s+b.w+spacing; },0);
+    const availW=wW*0.88;
+    const scale=Math.min(1, availW/Math.max(1,totalW));
+
+    // Heights: each unit of "h" corresponds to about 1.5px per owned
+    // But cap at 90% of canvas height
+    const maxH=wH*0.78;
+
+    let curX=wW*0.06; // start from left with margin
+    owned.forEach((u,i)=>{
+      const b=getBldg(u.id);
+      const cnt=ct.own[u.id]||0;
+      const bW=Math.round(b.w*scale);
+      const raw_h=cnt*(UPG_H[u.id]||5)*0.8;
+      const bH=Math.min(maxH, Math.max(16, raw_h));
+      buildings.push({ spec:b, bX:curX, bW, bH, bBot:groundY, owned:cnt, id:u.id, idx:i });
+      curX+=bW+Math.round(spacing*scale);
+    });
+
+    return buildings;
+  }
+
+  // ── DRAW ALL BUILDINGS ────────────────────────────────
+  function drawBuildings(){
+    const layout=getBuildingLayout();
+    layout.forEach(b=>{ drawSingleBuilding(b.spec,b.bX,b.bH,b.bW,b.bBot,b.owned,b.idx); });
+    return layout;
+  }
+
+  // ── DRAW CRANE (correct: jib tip over tallest building) ─
+  function drawCrane(layout){
+    if(!layout||!layout.length) return;
+    // Find tallest building
+    let tallest=layout.reduce((a,b)=>b.bH>a.bH?b:a,layout[0]);
+
+    // Crane base: right of tallest building
+    const craneX=tallest.bX+tallest.bW+8;
+    const groundY=tallest.bBot;
+
+    const clearance=10;
+    const roofY=tallest.bBot-tallest.bH;
+    const mastH=Math.max(18, (groundY-roofY)+clearance);
+    if(mastH<14) return;
+    if(craneX>wW-10) return; // no room
+
+    const mastTopY=groundY-mastH;
+    const mL=craneX-3.5, mR=craneX+3.5;
+
+    // Jib points LEFT toward tallest building top center
+    const jibTipX=tallest.bX+tallest.bW*0.5;
+    const jibLen=Math.max(16, craneX-jibTipX);
+
+    if(crane.activeFrames>0){ crane.activeFrames--; }
+    if(crane.activeFrames>0){
+      crane.jibAng+=0.005*crane.jibDir;
+      if(crane.jibAng>0.07||crane.jibAng<-0.07) crane.jibDir*=-1;
+      crane.trolleyT+=0.01;
+      crane.hookTarget=20+Math.sin(crane.trolleyT*0.5)*16;
+    }
+    crane.hookLen+=(crane.hookTarget-crane.hookLen)*0.04;
+
     WCX.save();
-    const lf=WCX.createLinearGradient(bX-14,0,bX,0);
-    lf.addColorStop(0,'transparent'); lf.addColorStop(1,dom.accent+'cc');
-    WCX.fillStyle=lf;
-    WCX.beginPath();
-    WCX.moveTo(bX-12,bBot-2); WCX.lineTo(bX+taper,bTop);
-    WCX.lineTo(bX,bBot); WCX.closePath();
-    WCX.fill();
-    WCX.restore();
+    // Footing
+    WCX.fillStyle='#44445a'; WCX.fillRect(mL-4,groundY,15,6);
+    WCX.strokeStyle='#666680'; WCX.lineWidth=1; WCX.strokeRect(mL-4,groundY,15,6);
 
-    /* Right side face */
+    // Mast fill + chords
+    WCX.fillStyle='#2e2e48'; WCX.fillRect(mL,mastTopY,7,mastH);
+    WCX.strokeStyle='#7878b8'; WCX.lineWidth=2.5;
+    WCX.beginPath(); WCX.moveTo(mL,groundY); WCX.lineTo(mL,mastTopY); WCX.stroke();
+    WCX.beginPath(); WCX.moveTo(mR,groundY); WCX.lineTo(mR,mastTopY); WCX.stroke();
+    // Braces
+    const nBr=Math.max(3,Math.floor(mastH/10));
+    const bSt=mastH/nBr;
+    WCX.strokeStyle='#5858a0'; WCX.lineWidth=1.2;
+    for(let i=0;i<nBr;i++){
+      const y1=groundY-i*bSt, y2=groundY-(i+1)*bSt;
+      WCX.beginPath();
+      if(i%2===0){ WCX.moveTo(mL,y1); WCX.lineTo(mR,y2); } else { WCX.moveTo(mR,y1); WCX.lineTo(mL,y2); }
+      WCX.stroke();
+    }
+    // Cap + cabin
+    WCX.fillStyle='#6060a0';
+    WCX.beginPath(); WCX.moveTo(craneX,mastTopY-9); WCX.lineTo(mL-2,mastTopY+2); WCX.lineTo(mR+2,mastTopY+2); WCX.closePath(); WCX.fill();
+    WCX.fillStyle='#1a3a90'; WCX.fillRect(mL-8,mastTopY+2,9,10);
+    WCX.fillStyle='rgba(100,200,255,0.5)'; WCX.fillRect(mL-7,mastTopY+3,3,4); WCX.fillRect(mL-3,mastTopY+3,2.5,4);
+
+    // Jib
     WCX.save();
-    const rf=WCX.createLinearGradient(bX+bW,0,bX+bW+14,0);
-    rf.addColorStop(0,dom.accent+'aa'); rf.addColorStop(1,'transparent');
-    WCX.fillStyle=rf;
-    WCX.beginPath();
-    WCX.moveTo(bX+bW-taper,bTop); WCX.lineTo(bX+bW+12,bBot-2);
-    WCX.lineTo(bX+bW,bBot); WCX.closePath();
-    WCX.fill();
+    WCX.translate(craneX,mastTopY);
+    WCX.rotate(crane.jibAng);
+    WCX.strokeStyle='#7878b8'; WCX.lineWidth=2.8;
+    WCX.beginPath(); WCX.moveTo(0,-3); WCX.lineTo(-jibLen,-3); WCX.stroke();
+    WCX.beginPath(); WCX.moveTo(0, 3); WCX.lineTo(-jibLen, 3); WCX.stroke();
+    const nS=Math.max(3,Math.floor(jibLen/14));
+    WCX.strokeStyle='#5858a0'; WCX.lineWidth=1.1;
+    for(let i=1;i<=nS;i++){ const x=-jibLen*i/nS; WCX.beginPath(); WCX.moveTo(x,-3); WCX.lineTo(x,3); WCX.stroke(); }
+    WCX.lineWidth=0.9;
+    for(let i=0;i<nS;i++){ const x1=-jibLen*i/nS, x2=-jibLen*(i+1)/nS; WCX.beginPath(); WCX.moveTo(x1,-3); WCX.lineTo(x2,3); WCX.stroke(); }
+    WCX.fillStyle='#8888c0'; WCX.fillRect(-jibLen-3,-4,6,8);
+    // King post + stays
+    WCX.strokeStyle='#9090c0'; WCX.lineWidth=1.8;
+    WCX.beginPath(); WCX.moveTo(0,3); WCX.lineTo(0,-16); WCX.stroke();
+    WCX.strokeStyle='#aaaacc44'; WCX.lineWidth=1.1;
+    WCX.beginPath(); WCX.moveTo(0,-16); WCX.lineTo(-jibLen*0.45,-3); WCX.stroke();
+    WCX.beginPath(); WCX.moveTo(0,-16); WCX.lineTo(-jibLen,-3); WCX.stroke();
+    // Trolley
+    const tx=-jibLen*(0.28+Math.sin(crane.trolleyT)*0.22);
+    WCX.fillStyle='#cc9933'; WCX.fillRect(tx-5,3,10,6);
+    WCX.fillStyle='#1a1a38';
+    WCX.beginPath(); WCX.arc(tx-2.5,3,1.8,0,Math.PI*2); WCX.fill();
+    WCX.beginPath(); WCX.arc(tx+2.5,3,1.8,0,Math.PI*2); WCX.fill();
+    // Hook rope + J-hook
+    WCX.strokeStyle='#ccccee'; WCX.lineWidth=1.3;
+    WCX.beginPath(); WCX.moveTo(tx,9); WCX.lineTo(tx,9+crane.hookLen); WCX.stroke();
+    const hx=tx, hy=9+crane.hookLen;
+    WCX.strokeStyle='#ddddff'; WCX.lineWidth=2.0; WCX.lineCap='round';
+    WCX.beginPath(); WCX.moveTo(hx,hy-2); WCX.lineTo(hx,hy+5); WCX.arc(hx+3,hy+5,3,Math.PI,0,false); WCX.stroke();
+    WCX.lineCap='butt';
+    // Counter-jib
     WCX.restore();
-
-    /* Neon edge lines */
     WCX.save();
-    WCX.shadowColor=dom.glow; WCX.shadowBlur=18;
-    WCX.strokeStyle=dom.glow+'cc'; WCX.lineWidth=2;
-    WCX.beginPath(); WCX.moveTo(bX+taper,bTop); WCX.lineTo(bX,bBot); WCX.stroke();
-    WCX.beginPath(); WCX.moveTo(bX+bW-taper,bTop); WCX.lineTo(bX+bW,bBot); WCX.stroke();
+    WCX.translate(craneX,mastTopY);
+    WCX.rotate(crane.jibAng+Math.PI);
+    const backLen=jibLen*0.28;
+    WCX.strokeStyle='#6868a0'; WCX.lineWidth=2.2;
+    WCX.beginPath(); WCX.moveTo(0,-2); WCX.lineTo(-backLen,-2); WCX.stroke();
+    WCX.beginPath(); WCX.moveTo(0, 2); WCX.lineTo(-backLen, 2); WCX.stroke();
+    WCX.fillStyle='#404060'; WCX.fillRect(-backLen-8,-7,18,12);
     WCX.restore();
 
-    /* Roof edge bright line */
-    WCX.save();
-    WCX.shadowColor=dom.glow; WCX.shadowBlur=24;
-    WCX.strokeStyle=dom.glow; WCX.lineWidth=2.5;
-    WCX.beginPath(); WCX.moveTo(bX+taper,bTop); WCX.lineTo(bX+bW-taper,bTop); WCX.stroke();
     WCX.restore();
+  }
 
-    /* Setback (penthouse) if building tall */
-    if(h>70){
-      const phW=bW*0.5, phX=(wW-phW)/2, phH=Math.min(h*0.22,40);
+  // ── DRAW SCENE DECORATIONS ────────────────────────────
+  function drawDecorations(layout){
+    const thIdx=getThemeIdx();
+    const groundY=wH-14;
+
+    // Village: trees between buildings
+    if(thIdx===2){
+      layout.forEach((b,i)=>{
+        if(i===layout.length-1) return;
+        const tx=b.bX+b.bW+4;
+        const tH=20+Math.random()*10; // deterministic via i
+        const seedH=16+((i*17)%12);
+        WCX.save();
+        WCX.fillStyle='#1a3008';
+        WCX.fillRect(tx+2,groundY-seedH,4,seedH);
+        WCX.fillStyle='#2a5010';
+        WCX.beginPath(); WCX.arc(tx+4,groundY-seedH,10,0,Math.PI*2); WCX.fill();
+        WCX.fillStyle='#3a6820';
+        WCX.beginPath(); WCX.arc(tx+4,groundY-seedH-6,7,0,Math.PI*2); WCX.fill();
+        WCX.restore();
+      });
+    }
+
+    // City: street lights
+    if(thIdx===0){
+      layout.forEach((b,i)=>{
+        if(i%2!==0) return;
+        const lx=b.bX-6, ly=groundY-30;
+        WCX.save();
+        WCX.strokeStyle='#3a3a50'; WCX.lineWidth=1.5;
+        WCX.beginPath(); WCX.moveTo(lx,groundY); WCX.lineTo(lx,ly); WCX.stroke();
+        WCX.beginPath(); WCX.moveTo(lx,ly); WCX.lineTo(lx+8,ly-4); WCX.stroke();
+        WCX.fillStyle='rgba(255,240,150,0.8)';
+        WCX.shadowColor='rgba(255,240,150,0.9)'; WCX.shadowBlur=10;
+        WCX.beginPath(); WCX.arc(lx+8,ly-4,2.5,0,Math.PI*2); WCX.fill();
+        WCX.restore();
+      });
+    }
+
+    // Industrial: ground pipes
+    if(thIdx===3){
       WCX.save();
-      WCX.fillStyle=dom.fc+'dd';
-      WCX.shadowColor=dom.glow; WCX.shadowBlur=16;
-      WCX.fillRect(phX,bTop,phW,phH);
-      WCX.strokeStyle=dom.glow+'88'; WCX.lineWidth=1.5;
-      WCX.strokeRect(phX,bTop,phW,phH);
+      WCX.strokeStyle='#3a2808'; WCX.lineWidth=6;
+      WCX.beginPath(); WCX.moveTo(0,groundY-4); WCX.lineTo(wW,groundY-4); WCX.stroke();
+      WCX.strokeStyle='#4a3010'; WCX.lineWidth=2;
+      WCX.beginPath(); WCX.moveTo(0,groundY-4); WCX.lineTo(wW,groundY-4); WCX.stroke();
       WCX.restore();
     }
 
-    /* Antenna + blinking beacon */
-    const antX=wW/2;
-    const antH=20+Math.min(h*0.08,25);
-    WCX.save();
-    WCX.shadowColor=dom.glow; WCX.shadowBlur=10;
-    WCX.strokeStyle=dom.glow+'99'; WCX.lineWidth=2;
-    WCX.beginPath(); WCX.moveTo(antX,bTop); WCX.lineTo(antX,bTop-antH); WCX.stroke();
-    const blink=Math.sin(t*0.05)>0;
-    WCX.fillStyle=blink?'#ff2020':'#660000';
-    WCX.shadowColor=blink?'#ff2020':'transparent'; WCX.shadowBlur=blink?16:0;
-    WCX.beginPath(); WCX.arc(antX,bTop-antH,3.5,0,Math.PI*2); WCX.fill();
-    WCX.restore();
+    // Castle: banner flags
+    if(thIdx===1){
+      layout.filter(b=>b.bH>60).forEach(b=>{
+        const fx=b.bX+b.bW*0.5, fy=b.bBot-b.bH-14;
+        const wave=Math.sin(t*0.06)*6;
+        WCX.save();
+        WCX.strokeStyle='#8a6020'; WCX.lineWidth=1.5;
+        WCX.beginPath(); WCX.moveTo(fx,fy); WCX.lineTo(fx,fy-20); WCX.stroke();
+        WCX.fillStyle='#cc2020';
+        WCX.beginPath(); WCX.moveTo(fx,fy-20); WCX.lineTo(fx+14+wave,fy-15); WCX.lineTo(fx,fy-10); WCX.closePath(); WCX.fill();
+        WCX.restore();
+      });
+    }
   }
 
-  /* ─── TOWER CRANE ─── (free-standing, right of building) */
-  function drawCrane(dom, bX, bW, bTop, bBot){
-    // Crane stands on the GROUND, to the RIGHT of the building — independent
-    // Its mast height scales with cityH so it "grows" alongside the building
-    const craneGroundX = bX + bW + 14;  // just right of building, gap
-    const groundY = bBot;
-
-    // Mast height: proportional to building height, capped
-    const mastH = Math.min(cityH * 0.55 + 14, cityH - 5, wH * 0.5);
-    if(mastH < 12) return; // too short to draw
-
-    const mastBot = groundY;
-    const mastTopY = groundY - mastH;
-    const mL = craneGroundX - 3.5;
-    const mR = craneGroundX + 3.5;
-
-    // Animate
-    if(crane.activeFrames>0){ crane.activeFrames--; }
-    const isActive = crane.activeFrames>0;
-    if(isActive){
-      crane.jibAng += 0.006*crane.jibDir;
-      if(crane.jibAng > 0.1 || crane.jibAng < -0.22) crane.jibDir*=-1;
-      crane.trolleyT += 0.012;
-      crane.hookTarget = 26+Math.sin(crane.trolleyT*0.55)*20;
-    }
-    crane.hookLen += (crane.hookTarget - crane.hookLen)*0.045;
-
-    WCX.save();
-
-    /* ── BASE FOOTING ── */
-    WCX.fillStyle='#44445a';
-    WCX.fillRect(mL-5, mastBot, 17, 6);
-    WCX.strokeStyle='#666680'; WCX.lineWidth=1;
-    WCX.strokeRect(mL-5, mastBot, 17, 6);
-    // Anchor bolts
-    WCX.fillStyle='#888899';
-    [-3,0,4,8].forEach(ox=>{
-      WCX.beginPath(); WCX.arc(mL+ox, mastBot+5, 1.5, 0, Math.PI*2); WCX.fill();
-    });
-
-    /* ── MAST — lattice tower ── */
-    // Background fill
-    WCX.fillStyle='#3a3a58';
-    WCX.fillRect(mL, mastTopY, 7, mastH);
-
-    // Left and right chords
-    WCX.strokeStyle='#8080bb'; WCX.lineWidth=2.5;
-    WCX.beginPath(); WCX.moveTo(mL, mastBot); WCX.lineTo(mL, mastTopY); WCX.stroke();
-    WCX.beginPath(); WCX.moveTo(mR, mastBot); WCX.lineTo(mR, mastTopY); WCX.stroke();
-
-    // Z-pattern diagonal braces
-    const nBraces = Math.max(3, Math.floor(mastH/11));
-    const bStep = mastH/nBraces;
-    WCX.strokeStyle='#6060a8'; WCX.lineWidth=1.2;
-    for(let i=0;i<nBraces;i++){
-      const y1=mastBot-i*bStep, y2=mastBot-(i+1)*bStep;
-      WCX.beginPath();
-      if(i%2===0){ WCX.moveTo(mL,y1); WCX.lineTo(mR,y2); }
-      else        { WCX.moveTo(mR,y1); WCX.lineTo(mL,y2); }
-      WCX.stroke();
-    }
-    // Horizontal rungs
-    WCX.strokeStyle='#5050a840'; WCX.lineWidth=1;
-    for(let i=1;i<nBraces;i++){
-      const y=mastBot-i*bStep;
-      WCX.beginPath(); WCX.moveTo(mL,y); WCX.lineTo(mR,y); WCX.stroke();
-    }
-
-    /* ── MAST CAP TRIANGLE ── */
-    WCX.fillStyle='#6868a0';
-    WCX.beginPath();
-    WCX.moveTo(craneGroundX, mastTopY-9);
-    WCX.lineTo(mL-2, mastTopY+2);
-    WCX.lineTo(mR+2, mastTopY+2);
-    WCX.closePath(); WCX.fill();
-
-    /* ── OPERATOR CABIN ── */
-    WCX.fillStyle='#1e3d9a';
-    WCX.strokeStyle='#3a60cc'; WCX.lineWidth=1;
-    WCX.fillRect(mL-7, mastTopY+2, 9, 11); WCX.strokeRect(mL-7, mastTopY+2, 9, 11);
-    WCX.fillStyle='rgba(100,200,255,0.5)';
-    WCX.fillRect(mL-6, mastTopY+3, 3, 5); WCX.fillRect(mL-2, mastTopY+3, 2.5, 5);
-
-    /* ── JIB (main arm) — swings left toward building ── */
-    const jibLen = Math.min(bW * 0.7 + 10, 80);
-    const backJib = jibLen*0.3;
-
-    WCX.save();
-    WCX.translate(craneGroundX, mastTopY);
-    WCX.rotate(crane.jibAng);  // swings slightly up/down
-
-    // Jib — double chord with struts + braces
-    WCX.strokeStyle='#8080bb'; WCX.lineWidth=2.8;
-    WCX.beginPath(); WCX.moveTo(0,-3); WCX.lineTo(-jibLen,-3); WCX.stroke();
-    WCX.beginPath(); WCX.moveTo(0, 3); WCX.lineTo(-jibLen, 3); WCX.stroke();
-
-    const nStruts = Math.max(4, Math.floor(jibLen/15));
-    WCX.strokeStyle='#6060a8'; WCX.lineWidth=1.2;
-    for(let i=1;i<=nStruts;i++){
-      const x=-jibLen*i/nStruts;
-      WCX.beginPath(); WCX.moveTo(x,-3); WCX.lineTo(x,3); WCX.stroke();
-    }
-    WCX.lineWidth=1;
-    for(let i=0;i<nStruts;i++){
-      const x1=-jibLen*i/nStruts, x2=-jibLen*(i+1)/nStruts;
-      WCX.beginPath(); WCX.moveTo(x1,-3); WCX.lineTo(x2,3); WCX.stroke();
-    }
-    // Jib tip plate
-    WCX.fillStyle='#9090c0'; WCX.fillRect(-jibLen-3,-4,6,8);
-
-    // King post + tension cables
-    WCX.strokeStyle='#9898c0'; WCX.lineWidth=1.8;
-    WCX.beginPath(); WCX.moveTo(0,3); WCX.lineTo(0,-16); WCX.stroke();
-    WCX.strokeStyle='#aaaacc66'; WCX.lineWidth=1.2;
-    WCX.beginPath(); WCX.moveTo(0,-16); WCX.lineTo(-jibLen*0.5,-3); WCX.stroke();
-    WCX.beginPath(); WCX.moveTo(0,-16); WCX.lineTo(-jibLen,-3); WCX.stroke();
-
-    // Trolley
-    const tx = -jibLen*(0.28 + Math.sin(crane.trolleyT)*0.26);
-    WCX.fillStyle='#cc9944'; WCX.strokeStyle='#ddaa55'; WCX.lineWidth=0.8;
-    WCX.fillRect(tx-5,3,10,6); WCX.strokeRect(tx-5,3,10,6);
-    WCX.fillStyle='#222240';
-    WCX.beginPath(); WCX.arc(tx-2.5,3,1.8,0,Math.PI*2); WCX.fill();
-    WCX.beginPath(); WCX.arc(tx+2.5,3,1.8,0,Math.PI*2); WCX.fill();
-
-    // Hook rope
-    WCX.strokeStyle='#ccccee'; WCX.lineWidth=1.4;
-    WCX.beginPath(); WCX.moveTo(tx,9); WCX.lineTo(tx,9+crane.hookLen); WCX.stroke();
-    // J-hook
-    const hx=tx, hy=9+crane.hookLen;
-    WCX.strokeStyle='#ddddff'; WCX.lineWidth=2.2; WCX.lineCap='round';
-    WCX.beginPath();
-    WCX.moveTo(hx,hy-2); WCX.lineTo(hx,hy+5);
-    WCX.arc(hx+3,hy+5,3,Math.PI,0,false);
-    WCX.stroke(); WCX.lineCap='butt';
-
-    WCX.restore(); // end jib rotate
-
-    /* ── COUNTER JIB (back arm, right direction) ── */
-    WCX.save();
-    WCX.translate(craneGroundX, mastTopY);
-    WCX.rotate(crane.jibAng + Math.PI);
-    WCX.strokeStyle='#7070a8'; WCX.lineWidth=2.2;
-    WCX.beginPath(); WCX.moveTo(0,-2); WCX.lineTo(-backJib,-2); WCX.stroke();
-    WCX.beginPath(); WCX.moveTo(0, 2); WCX.lineTo(-backJib, 2); WCX.stroke();
-    WCX.fillStyle='#484864'; WCX.strokeStyle='#6666a0'; WCX.lineWidth=1;
-    WCX.fillRect(-backJib-8,-7,16,12); WCX.strokeRect(-backJib-8,-7,16,12);
-    WCX.strokeStyle='#44446660'; WCX.lineWidth=0.7;
-    for(let ox of [-4,0,4]){
-      WCX.beginPath(); WCX.moveTo(-backJib+ox,-7); WCX.lineTo(-backJib+ox,5); WCX.stroke();
-    }
-    WCX.restore();
-
-    WCX.restore(); // end global
-  }
-  /* ─── LABELS ─── */
-  function drawLabels(){
+  // ── LABELS ─────────────────────────────────────────────
+  function drawLabels(layout){
+    const thIdx=getThemeIdx();
+    const themeNames=['🌆 City','🏰 Kingdom','🌲 Village','🏭 Industry'];
     WCX.save();
     WCX.textAlign='center'; WCX.textBaseline='middle';
-    WCX.shadowColor='rgba(255,220,60,1)'; WCX.shadowBlur=22;
+    WCX.shadowColor='rgba(255,220,60,1)'; WCX.shadowBlur=20;
     WCX.fillStyle='rgba(255,235,100,1)';
-    WCX.font='bold 13px "Bebas Neue",sans-serif';
-    WCX.fillText('YOUR EMPIRE', wW/2, 17);
+    WCX.font=`bold ${Math.max(11,wW*0.032)}px "Bebas Neue",sans-serif`;
+    WCX.fillText(themeNames[thIdx], wW/2, 18);
     if(targetH>0){
       WCX.font='10px sans-serif'; WCX.shadowBlur=8;
       WCX.fillStyle='rgba(160,200,255,0.8)';
-      WCX.fillText('Level '+Math.max(1,~~(targetH/9)), wW/2, 31);
+      WCX.fillText('Level '+Math.max(1,~~(targetH/10))+'  —  Prestige '+((typeof ct!=='undefined'?ct.pres:0)||0)+'×', wW/2, 33);
     }
     WCX.restore();
+
+    // Building name tags (for small number of buildings, show labels)
+    if(layout&&layout.length<=8){
+      layout.forEach(b=>{
+        const tx=b.bX+b.bW/2;
+        const ty=b.bBot-b.bH-(b.spec.roof==='flat'?8:18);
+        WCX.save();
+        WCX.globalAlpha=0.6; WCX.textAlign='center'; WCX.textBaseline='bottom';
+        WCX.font='8px sans-serif'; WCX.fillStyle=b.spec.win;
+        WCX.fillText(b.spec.label, tx, ty);
+        WCX.restore();
+      });
+    }
   }
 
-  /* ─── EMPTY PLACEHOLDER ─── */
+  // ── EMPTY STATE ────────────────────────────────────────
   function drawEmpty(){
     WCX.save();
     WCX.globalAlpha=0.28; WCX.textAlign='center'; WCX.textBaseline='middle';
     WCX.font='bold 13px sans-serif'; WCX.fillStyle='#7080c0';
-    WCX.fillText('Buy upgrades to build your city!', wW/2, wH/2-10);
-    WCX.font='30px serif'; WCX.fillText('🏗️', wW/2, wH/2+28);
+    WCX.fillText('Buy upgrades to build your city!', wW/2, wH/2-12);
+    WCX.font='34px serif'; WCX.fillText('🏗️', wW/2, wH/2+26);
     WCX.restore();
   }
 
-  /* ─── MAIN TICK ─── */
+  // ── MAIN TICK ─────────────────────────────────────────
   function tick(){
     wRaf=requestAnimationFrame(tick);
     t++;
-
-    // Check ownership changes every 300ms
     const now=Date.now();
-    if(now-lastCheck>300){ lastCheck=now; checkOwned(); }
+    if(now-lastCheck>280){ lastCheck=now; checkOwned(); }
 
-    // Smooth height grow
-    if(cityH<targetH){
-      const gap=targetH-cityH;
-      cityH+=Math.max(0.06, gap*0.014);
-      if(cityH>targetH) cityH=targetH;
-    }
+    if(cityH<targetH){ const gap=targetH-cityH; cityH+=Math.max(0.05,gap*0.012); if(cityH>targetH) cityH=targetH; }
 
     drawBg();
     drawGround();
 
-    if(cityH>3){
-      const dom=getDom();
-      const bW=Math.min(wW*0.6, 220);
-      const bX=(wW-bW)/2;
-      const bBot=wH-12;
-      const bTop=bBot-cityH;
-      drawBuilding(dom, bX, bW, bTop, bBot);
-      drawCrane(dom, bX, bW, bTop, bBot);
+    const hasBuildings=typeof CT_UPG!=='undefined'&&CT_UPG.some(u=>(ct.own[u.id]||0)>0);
+    let layout=[];
+    if(hasBuildings){
+      layout=drawBuildings();
+      drawDecorations(layout);
+      drawCrane(layout);
     } else {
       drawEmpty();
     }
-
-    drawLabels();
+    drawLabels(layout);
 
     // Sparks
     sparks=sparks.filter(p=>{
-      p.x+=p.vx; p.y+=p.vy; p.vy+=0.08; p.vx*=0.97;
-      p.life-=p.dec; if(p.life<=0) return false;
-      WCX.save();
-      WCX.globalAlpha=p.life;
-      WCX.fillStyle=p.col; WCX.shadowColor=p.col; WCX.shadowBlur=6;
-      WCX.beginPath(); WCX.arc(p.x,p.y,p.r,0,Math.PI*2); WCX.fill();
-      WCX.restore(); return true;
+      p.x+=p.vx; p.y+=p.vy; p.vy+=0.08; p.vx*=0.97; p.life-=p.dec; if(p.life<=0) return false;
+      WCX.save(); WCX.globalAlpha=p.life; WCX.fillStyle=p.col; WCX.shadowColor=p.col; WCX.shadowBlur=6;
+      WCX.beginPath(); WCX.arc(p.x,p.y,p.r,0,Math.PI*2); WCX.fill(); WCX.restore(); return true;
     });
   }
 
-  /* ─── START / STOP ─── */
+  // ── START / STOP ──────────────────────────────────────
   function startWorld(){
     if(wRaf) return;
     resize();
     targetH=calcTarget();
-    // If coming from a non-zero save, show building immediately (no animation from 0)
-    cityH = targetH > 0 ? targetH * 0.92 : 0;
+    cityH=targetH>0?targetH*0.9:0;
+    lastPres=typeof ct!=='undefined'?(ct.pres||0):-1;
     tick();
   }
-  function stopWorld(){
-    if(wRaf){ cancelAnimationFrame(wRaf); wRaf=null; }
-  }
+  function stopWorld(){ if(wRaf){ cancelAnimationFrame(wRaf); wRaf=null; } }
 
   window.ctWorldStart  = startWorld;
   window.ctWorldStop   = stopWorld;
   window.ctWorldResize = resize;
 
-  // ResizeObserver — debounced, won't loop because height is CSS-fixed
+  // Expose targetH for milestone system
+  Object.defineProperty(window,'ctWorldTargetH',{get:()=>targetH});
+
   if(window.ResizeObserver){
     let _rt=null;
-    new ResizeObserver(()=>{
-      if(!wRaf) return;
-      clearTimeout(_rt);
-      _rt=setTimeout(resize, 150);
-    }).observe(WCV.parentElement||WCV);
+    new ResizeObserver(()=>{ if(!wRaf) return; clearTimeout(_rt); _rt=setTimeout(resize,150); }).observe(WCV.parentElement||WCV);
   }
+})();
+
+
+// ── SOUND BUTTON ─────────────────────────────────────────
+let ctSoundOn = true;
+(function(){
+  const btn = document.getElementById('ctSoundBtn');
+  if(!btn) return;
+  function syncBtn(){
+    btn.textContent = ctSoundOn ? '🔊 ON' : '🔇 OFF';
+    btn.className   = 'ct-sound-btn ' + (ctSoundOn ? 'on' : 'off');
+  }
+  // Restore saved pref
+  try { const s=localStorage.getItem('ct_sound'); if(s!==null) ctSoundOn=(s==='1'); } catch(e){}
+  syncBtn();
+  btn.addEventListener('pointerdown',function(e){
+    e.preventDefault(); e.stopPropagation();
+    ctSoundOn=!ctSoundOn; syncBtn();
+    try{ localStorage.setItem('ct_sound',ctSoundOn?'1':'0'); }catch(e){}
+  });
+  btn.addEventListener('touchend',function(e){ e.preventDefault(); });
+  btn.addEventListener('keydown', function(e){ e.preventDefault(); e.stopPropagation(); });
 })();
 
 // ── INIT ─────────────────────────────────────────────────
@@ -5976,20 +6786,114 @@ if(typeof curPanel!=='undefined' && curPanel==='clicker'){
   const s=document.createElement('style');
   s.textContent=`
 .ct-hidden { display:none !important; }
-.ct-coin   { outline:none !important; }
-.ct-upg    { outline:none !important; }
+.ct-coin,
+.ct-upg,
 .ct-prestige-btn { outline:none !important; }
-.ct-owned-count  { color:#00f5a0; font-weight:700; font-size:0.8rem; }
-.ct-upg-total    { font-size:0.63rem; color:#00c880; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.ct-upg-info     { font-size:0.67rem; color:#50507a; line-height:1.3; margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.ct-upg-name     { font-size:0.86rem; font-weight:700; color:#d8d8f0; margin-bottom:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.ct-upg-body     { min-width:0; flex:1; overflow:hidden; }
-.ct-upg-icon     { flex-shrink:0; }
-.ct-upg-cost     { flex-shrink:0; text-align:right; min-width:54px; }
-.ct-cost-num     { font-family:'Bebas Neue',sans-serif; font-size:1.05rem; letter-spacing:.04em; white-space:nowrap; }
-.ct-cost-num.yes { color:#ffd600; }
-.ct-cost-num.no  { color:#333355; }
-.ct-cost-cps     { font-size:0.6rem; color:#50507a; margin-top:1px; white-space:nowrap; }
+
+/* ══════════════════════════════════════════════════
+   UPGRADE CARD — tek kaynak, kompakt tasarım
+   Her kart sabit yükseklik → liste sıkışmaz
+   ══════════════════════════════════════════════════ */
+
+/* Ana kart kutusu */
+.ct-upg {
+  display:flex; align-items:center; gap:8px;
+  background:#0a0a1c; border:1.5px solid #1a1a32;
+  border-radius:10px; padding:8px 10px;
+  cursor:pointer; width:100%; box-sizing:border-box;
+  position:relative; overflow:hidden;
+  transition:border-color 0.15s, background 0.15s, transform 0.08s;
+  min-height:54px;          /* sabit min yükseklik */
+}
+.ct-upg:focus  { outline:none; }
+.ct-upg:active { transform:scale(0.97) !important; }
+.ct-upg.locked { opacity:0.35; cursor:not-allowed; }
+
+/* Satın alınabilir vurgusu */
+.ct-upg.can-afford {
+  border-color:rgba(255,214,0,0.4);
+  background:rgba(255,214,0,0.05);
+  box-shadow:0 0 8px rgba(255,214,0,0.07);
+}
+.ct-upg.can-afford:hover {
+  border-color:rgba(255,214,0,0.8);
+  background:rgba(255,214,0,0.1);
+  transform:translateX(3px);
+}
+/* Shimmer */
+.ct-upg.can-afford::after {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(90deg,transparent 0%,rgba(255,214,0,0.07) 50%,transparent 100%);
+  animation:ctShimmer 2.5s ease-in-out infinite;
+}
+@keyframes ctShimmer {
+  0%   { transform:translateX(-100%); }
+  100% { transform:translateX(200%); }
+}
+
+/* İkon kutusu */
+.ct-upg-icon {
+  width:36px; height:36px; flex-shrink:0;
+  background:#0f0f22; border:1px solid #26264a;
+  border-radius:9px; display:flex; align-items:center;
+  justify-content:center; font-size:1.25rem; line-height:1;
+}
+
+/* Orta metin alanı */
+.ct-upg-body {
+  flex:1; min-width:0; overflow:hidden;
+  display:flex; flex-direction:column; gap:1px;
+}
+
+/* Upgrade adı */
+.ct-upg-name {
+  font-size:0.85rem; font-weight:700; color:#e8e8ff;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  line-height:1.25;
+}
+
+/* Alt satır: owned CPS + açıklama — tek satır */
+.ct-upg-sub {
+  font-size:0.65rem; color:#8080b0; line-height:1.2;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  display:flex; align-items:baseline; gap:4px;
+}
+
+/* Açıklama — tek satır, kesilir */
+.ct-upg-info {
+  font-size:0.67rem; color:#8888b8; line-height:1.2;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+
+/* Toplam CPS (owned > 0 ise) */
+.ct-upg-total {
+  font-size:0.65rem; color:#00cc80; line-height:1.2;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+
+/* ×N owned rozeti */
+.ct-owned-count {
+  color:#00f5a0; font-weight:800; font-size:0.72rem;
+  margin-left:3px; opacity:0.9;
+}
+
+/* Sağ taraf: fiyat + CPS */
+.ct-upg-cost {
+  flex-shrink:0; text-align:right;
+  min-width:62px; padding-left:4px;
+  display:flex; flex-direction:column;
+  align-items:flex-end; gap:2px;
+}
+.ct-cost-num {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1rem; letter-spacing:.04em; white-space:nowrap;
+  line-height:1.1;
+}
+.ct-cost-num.yes { color:#ffd600; text-shadow:0 0 8px rgba(255,214,0,0.5); }
+.ct-cost-num.no  { color:#3a3a58; }
+.ct-cost-cps {
+  font-size:0.6rem; color:#6060a0; white-space:nowrap; line-height:1;
+}
 `;
   document.head.appendChild(s);
 })();
