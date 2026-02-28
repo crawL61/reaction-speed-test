@@ -225,6 +225,11 @@ body::before {
   transition: border-color 0.15s, color 0.15s;
 }
 .home-btn:hover { border-color: var(--accent); color: var(--accent); }
+/* Mobilde home-btn kısalt */
+@media(max-width:480px){
+  .home-btn { padding:5px 8px; font-size:0.64rem; gap:4px; margin:0 4px 0 6px; }
+  .home-btn .home-label { display:none; }
+}
 
 /* Test type tabs */
 .tabs {
@@ -276,10 +281,11 @@ body::before {
 /* Language */
 .lang {
   display: flex; align-items: center;
-  padding: 0 16px; gap: 4px;
+  padding: 0 10px; gap: 3px;
   flex-shrink: 0; margin-left: auto;
   border-left: 1px solid var(--border2);
 }
+@media(max-width:400px){ .lang { padding:0 6px; gap:2px; } .lbtn { padding:3px 7px; font-size:0.48rem; } }
 .lbtn {
   padding: 4px 10px; border: 1px solid var(--border2); border-radius: 6px;
   font-size: 0.55rem; font-weight: 700; letter-spacing: 0.1em;
@@ -799,113 +805,102 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
 ════════════════════════════════════════════════ */
 
 /* Tablet */
+/* ════════════════════════════════
+   RESPONSIVE — ANA SAYFA
+════════════════════════════════ */
+
+/* Tablet */
 @media(max-width:768px){
-  .game-zone { padding:16px 14px 0; gap:12px; }
-  .info-wrap  { padding:0 14px 60px; gap:20px; }
-  .gtitle { font-size:clamp(1.6rem,6vw,2.4rem); }
-  .icard  { padding:18px 16px; }
-  .go-stats { grid-template-columns:1fr 1fr 1fr; }
+  .game-zone  { padding:12px 12px 0; gap:10px; }
+  .info-wrap  { padding:0 12px 60px; gap:16px; }
+  .gtitle     { font-size:clamp(1.4rem,5vw,2.2rem); }
+  .icard      { padding:16px 14px; }
+  .go-stats   { grid-template-columns:repeat(3,1fr); }
+  .stats-bar  { gap:6px; }
+  .scard      { padding:10px 10px; }
 }
 
-/* Mobile */
+/* Telefon */
 @media(max-width:520px){
-  /* ── HEADER ── */
   :root {
-    --row1-h: 48px;
-    --row2-h: 40px;
-    --header-h: 88px;
+    --row1-h:44px;
+    --row2-h:36px;
+    --header-h:80px;
   }
-  .tab  {
-    padding:0 12px;
-    font-size:0.65rem;
-    min-width:80px;
-    white-space:nowrap;
-  }
-  .tab .ticon { font-size:0.85rem; }
 
-  /* Duration buttons smaller */
-  .tbtn { padding:4px 10px; font-size:0.55rem; }
-  .mbtn { padding:4px 10px; font-size:0.55rem; }
-  .row2 { padding:0 10px; gap:4px; }
-  .row2-label { font-size:0.45rem; padding-right:4px; }
+  /* ─ Header ─ */
+  .home-btn { padding:5px 8px; font-size:0.62rem; margin:0 4px 0 6px; }
+  .tabs     { gap:3px; padding:0 2px; }
+  .tab      { height:28px; padding:0 9px; font-size:0.58rem; min-width:0; border-radius:6px; }
+  .tab .ticon { font-size:0.78rem; }
+  .row2     { padding:0 8px; gap:3px; }
+  .row2-label { font-size:0.4rem; padding-right:3px; }
+  .tbtn,.mbtn { padding:3px 8px; font-size:0.5rem; border-radius:6px; }
 
-  /* ── GAME AREAS ── */
-  .game-zone { padding:12px 10px 0; gap:10px; }
+  /* ─ Sayfa başlığı ─ */
+  .game-zone  { padding:8px 8px 0; gap:8px; }
+  .gtitle-row { gap:5px; }
+  .gtitle     { font-size:clamp(1.25rem,6vw,1.9rem); }
+  .gsub       { font-size:0.46rem; letter-spacing:0.09em; }
 
-  .click-arena {
-    height: clamp(200px, 38vh, 340px);
-    max-width: 100%;
-  }
-  .reaction-arena {
-    height: clamp(240px, 38vh, 380px);
-    max-width: 100%;
-  }
-  .stim-arena {
-    height: clamp(260px, 44vh, 400px);
-  }
-  .big-cps { font-size:clamp(4rem,20vw,8rem); }
-  .arena-icon { font-size:2.5rem; }
-  .arena-text { font-size:clamp(1.8rem,7vw,3rem); }
+  /* ─ Oyun alanları ─ */
+  .click-arena    { height:clamp(180px,50vw,300px); max-width:100%; border-radius:14px; }
+  .reaction-arena { height:clamp(200px,52vw,320px); max-width:100%; border-radius:14px; }
+  .stim-arena     { height:clamp(220px,54vw,360px); border-radius:14px; }
+  .big-cps        { font-size:clamp(3.5rem,18vw,7rem); }
+  .arena-icon     { font-size:2rem; }
+  .arena-text     { font-size:clamp(1.5rem,6vw,2.6rem); }
+  .space-key      { height:48px; font-size:0.52rem; }
 
-  /* Stats bar: 2 cols on phone */
-  .stats-bar { grid-template-columns:1fr 1fr; gap:8px; }
-  .scard { padding:10px 8px; }
-  .sval  { font-size:clamp(1.4rem,6vw,1.9rem); }
-  .slbl  { font-size:0.42rem; }
+  /* ─ Stats bar: 2 sütun ─ */
+  .stats-bar  { grid-template-columns:1fr 1fr; gap:5px; }
+  .scard      { padding:8px 7px; border-radius:10px; }
+  .sval       { font-size:clamp(1.2rem,5vw,1.7rem); }
+  .slbl       { font-size:0.38rem; letter-spacing:0.12em; }
 
-  /* Title row */
-  .gtitle-row { gap:8px; }
-  .gtitle { font-size:clamp(1.5rem,7vw,2.2rem); }
-  .gsub   { font-size:0.5rem; letter-spacing:0.12em; }
+  /* ─ Gameover ─ */
+  .go-stats { grid-template-columns:repeat(3,1fr); gap:5px; }
+  .go-sval  { font-size:1rem; }
+  .go-slbl  { font-size:0.38rem; }
+  .r-score  { font-size:clamp(2.8rem,15vw,5.5rem); }
+  .r-rank   { font-size:0.95rem; }
 
-  /* Space key smaller on phone */
-  .space-key { height:56px; font-size:0.58rem; }
+  /* ─ Stim ─ */
+  .stim-idle-title { font-size:clamp(1.2rem,5vw,2rem); }
+  .diff-btn        { padding:6px 13px; font-size:0.54rem; }
 
-  /* Reaction gameover */
-  .go-stats { grid-template-columns:1fr 1fr 1fr; gap:8px; }
-  .go-sval  { font-size:1.2rem; }
-  .go-slbl  { font-size:0.42rem; }
+  /* ─ Info / makale ─ */
+  .info-wrap   { padding:0 8px 48px; gap:12px; }
+  .icard       { padding:11px 10px; border-radius:11px; }
+  .icard-title { font-size:clamp(0.86rem,3.6vw,1.05rem); }
+  .ibody       { font-size:0.6rem; line-height:1.68; }
+  .sec-divider { font-size:0.46rem; }
 
-  /* Result overlay score */
-  .r-score { font-size:clamp(3.5rem,18vw,7rem); }
-  .r-rank  { font-size:1.1rem; }
+  /* ─ Tablolar yatay scroll ─ */
+  .rtable,.ctable       { font-size:0.5rem; display:block; overflow-x:auto; }
+  .rtable th,.rtable td { padding:6px 5px; }
 
-  /* Stim idle */
-  .stim-idle-title { font-size:clamp(1.5rem,6vw,2.5rem); }
-  .diff-btn { padding:7px 16px; font-size:0.58rem; }
-
-  /* Info section */
-  .info-wrap { padding:0 10px 50px; gap:16px; }
-  .icard     { padding:14px 12px; }
-  .icard-title { font-size:clamp(0.95rem,4vw,1.2rem); }
-  .ibody     { font-size:0.63rem; line-height:1.75; }
-
-  /* Tables scroll */
-  .rtable, .ctable { font-size:0.55rem; }
-  .rtable th, .rtable td { padding:8px 6px; }
-
-  /* Factors grid: 1 col */
+  /* ─ Grid'ler ─ */
   .fgrid { grid-template-columns:1fr; }
-
-  /* Records grid: 2 col */
   .rgrid { grid-template-columns:1fr 1fr; }
 
-  /* Tips */
-  .tip { font-size:0.52rem; padding:5px 10px; }
+  /* ─ FAQ ─ */
+  .tip   { font-size:0.48rem; padding:5px 8px; }
+  .faq-q { font-size:0.52rem; padding:10px 10px; }
+  .faq-a { font-size:0.54rem; line-height:1.58; }
 
-  /* FAQ */
-  .faq-q { font-size:0.56rem; padding:12px 12px; }
-  .faq-a { font-size:0.58rem; }
-
-  /* Footer */
-  .sfooter { font-size:0.48rem; padding:20px 0 10px; }
+  /* ─ Footer ─ */
+  .sfooter { font-size:0.44rem; padding:16px 0 8px; }
 }
 
-/* Very small phones */
+/* Çok küçük telefon */
 @media(max-width:360px){
-  .tab  { padding:0 8px; font-size:0.5rem; min-width:65px; }
-  .click-arena, .reaction-arena { height:clamp(170px,35vh,280px); }
-  .stim-arena { height:clamp(220px,42vh,340px); }
+  .tab { padding:0 6px; font-size:0.46rem; }
+  .click-arena,.reaction-arena { height:clamp(155px,48vw,240px); }
+  .stim-arena { height:clamp(185px,50vw,280px); }
+  .gtitle { font-size:clamp(1.05rem,5.5vw,1.5rem); }
+  .scard  { padding:6px 5px; }
+  .sval   { font-size:clamp(1.1rem,4.5vw,1.5rem); }
 }
 
 /* ══════════════════════════════════════════
@@ -943,9 +938,9 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
   display:flex; flex-wrap:wrap; gap:8px; width:100%;
 }
 .ct-stat {
-  flex:1; min-width:100px;
+  flex:1; min-width:90px;
   background:#0a0a18; border:1px solid #181828;
-  border-radius:12px; padding:10px 14px; text-align:center;
+  border-radius:12px; padding:10px 12px; text-align:center;
 }
 .ct-stat-lbl {
   font-size:0.58rem; font-weight:700; letter-spacing:0.14em;
@@ -1051,6 +1046,8 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
 .ct-auto-box {
   background:#0a0a18; border:1px solid #181828;
   border-radius:12px; padding:12px 14px;
+  max-height:200px; overflow-y:auto;
+  scrollbar-width:thin; scrollbar-color:#252545 transparent;
 }
 .ct-auto-title {
   font-size:0.58rem; font-weight:700; letter-spacing:0.16em;
@@ -1120,17 +1117,152 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
 }
 .ct-pop { animation:ctPop 0.4s ease-out forwards; }
 
-/* Responsive */
-@media(max-width:800px){
-  .ct-main { grid-template-columns:1fr 1fr; }
-  .ct-col-mid { grid-column:1/-1; order:-1; }
+/* ════════════════════════════════
+   RESPONSIVE — CLİCKER TYCOON
+════════════════════════════════ */
+
+/* Geniş tablet (900px altı) */
+@media(max-width:900px){
+  .ct-main { grid-template-columns:1fr 1fr; gap:10px; }
+  .ct-col-mid   { grid-column:1/-1; order:-1; }
   .ct-col-right { min-width:0; }
-  .ct-world-canvas { height:260px; }
+  .ct-world-canvas { height:340px; }
 }
-@media(max-width:520px){
-  .ct-main { grid-template-columns:1fr; }
-  .ct-coin-wrap { width:min(160px,55vw); height:min(160px,55vw); }
-  .ct-stat-val { font-size:1.2rem; }
+
+/* Dar tablet / büyük telefon */
+@media(max-width:680px){
+  .ct-world-canvas { height:300px; }
+  .ct-shop-list   { height:420px; }
+}
+
+/* Telefon — tam mobil layout */
+@media(max-width:560px){
+
+  /* Panel padding azalt */
+  .ct-panel { padding:8px 8px 0 !important; gap:6px !important; }
+
+  /* Başlık */
+  .ct-titlerow { flex-direction:column; gap:6px; align-items:flex-start; }
+  .ct-gtitle   { font-size:clamp(1.3rem,6vw,1.9rem) !important; }
+  .ct-sound-btn { align-self:flex-start; padding:5px 10px; font-size:0.64rem; }
+
+  /* Stats şeridi: 3 col, kompakt */
+  .ct-stats { gap:4px; }
+  .ct-stat  {
+    flex:1 1 calc(33.3% - 4px); min-width:0;
+    padding:6px 5px; border-radius:8px;
+  }
+  .ct-stat-lbl { font-size:0.42rem; letter-spacing:0.08em; margin-bottom:2px; }
+  .ct-stat-val { font-size:1rem; }
+
+  /* Ana 3-kolon → 1 kolon, sıralama değişir */
+  .ct-main {
+    display:flex; flex-direction:column; gap:8px;
+  }
+
+  /* Canvas en ÜSTE — tam genişlik, iyi yükseklik */
+  .ct-col-mid {
+    order:0; width:100%;
+  }
+  .ct-world-canvas {
+    width:100%;
+    height:clamp(220px,64vw,360px);   /* 375px telefonda ≈240px, 414px ≈265px */
+    border-radius:14px;
+  }
+
+  /* Sol kolon (coin + kontroller) */
+  .ct-col-left {
+    order:1; width:100%;
+    display:grid;
+    grid-template-columns:120px 1fr;
+    grid-template-rows:auto auto auto;
+    gap:6px;
+    align-items:start;
+  }
+
+  /* Coin butonu — sol, 2 satır yüksekliğinde */
+  .ct-coin-wrap {
+    grid-column:1; grid-row:1/3;
+    width:110px; height:110px;
+    align-self:start;
+  }
+
+  /* Click info sağda */
+  .ct-click-info {
+    grid-column:2; grid-row:1;
+    flex-direction:column; gap:3px; font-size:0.6rem;
+  }
+
+  /* Progress + prestige sağda alt */
+  .ct-progress-wrap  { grid-column:2; grid-row:2; }
+  .ct-prestige-btn   { grid-column:1/-1; grid-row:3; width:100%; }
+
+  /* Combo / offline: tam genişlik */
+  #ctComboDisplay,#ctOfflineMsg { grid-column:1/-1; font-size:0.75rem; }
+
+  /* Spin, quest, auto: tam genişlik */
+  .ct-spin-box,.ct-quest-box,.ct-auto-box { width:100%; }
+
+  /* Spin kompakt */
+  .ct-spin-box   { padding:8px 10px; gap:5px; }
+  .ct-spin-btn   { padding:8px; font-size:0.78rem; }
+  .ct-spin-result{ font-size:0.7rem; }
+  .ct-spin-cd    { font-size:0.62rem; }
+
+  /* Quest kompakt */
+  .ct-quest-box  { padding:8px 10px; gap:5px; }
+  .ct-quest-item { font-size:0.66rem; }
+  .ct-quest-bar-bg { height:4px; }
+
+  /* Auto list */
+  .ct-auto-box   { padding:8px 10px; max-height:120px; }
+  .ct-auto-row   { font-size:0.64rem; }
+
+  /* Sağ kolon (shop) */
+  .ct-col-right { order:2; width:100%; min-width:0; }
+
+  /* Tab butonlar */
+  .ct-tabs-bar { gap:4px; }
+  .ct-tab-btn  { font-size:0.6rem; padding:6px 6px; border-radius:8px; }
+
+  /* Shop list: makul yükseklik */
+  .ct-shop-list   { height:360px; }
+  .ct-stats-panel { height:280px; }
+  .ct-res-card    { padding:10px; }
+
+  /* Upgrade kartları mobilde biraz daha kompakt */
+  .ct-upg      { padding:7px 8px; gap:7px; min-height:48px; }
+  .ct-upg-icon { width:32px; height:32px; font-size:1.15rem; border-radius:8px; }
+  .ct-upg-name { font-size:0.78rem; }
+  .ct-upg-sub  { font-size:0.6rem; }
+  .ct-cost-num { font-size:0.9rem; }
+  .ct-cost-cps { font-size:0.55rem; }
+  .ct-upg-cost { min-width:54px; }
+
+  /* Progress label */
+  .ct-progress-label { font-size:0.56rem; }
+
+  /* Milestones */
+  .ct-milestones-wrap { padding:8px 9px; }
+  .ct-milestones-grid { gap:4px; }
+  .ct-badge { font-size:0.6rem; padding:3px 7px; }
+
+  /* Banner / notif */
+  .ct-frenzy-banner { font-size:0.64rem; padding:4px 8px; flex-wrap:nowrap; }
+  .ct-build-notif   { right:10px; bottom:14px; max-width:200px; font-size:0.76rem; padding:10px 14px; }
+  .ct-weather-banner{ font-size:0.64rem; padding:5px 8px; }
+}
+
+/* Çok küçük telefon ≤380px */
+@media(max-width:380px){
+  .ct-world-canvas { height:clamp(190px,58vw,280px); }
+  .ct-coin-wrap    { width:96px; height:96px; }
+  .ct-col-left     { grid-template-columns:100px 1fr; }
+  .ct-stat-val     { font-size:0.9rem; }
+  .ct-shop-list    { height:320px; }
+  .ct-upg          { padding:6px 7px; min-height:44px; }
+  .ct-upg-icon     { width:28px; height:28px; font-size:1rem; }
+  .ct-upg-name     { font-size:0.72rem; }
 }
 .ct-stats {
   display:flex; flex-wrap:wrap; gap:8px;
@@ -1253,7 +1385,8 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
 .ct-auto-box {
   background:#0d0d1a; border:1px solid #1c1c30;
   border-radius:12px; padding:12px 14px;
-  flex:1;
+  max-height:200px; overflow-y:auto;
+  scrollbar-width:thin; scrollbar-color:#252545 transparent;
 }
 .ct-auto-title {
   font-size:0.62rem; font-weight:700; letter-spacing:0.14em;
@@ -6132,9 +6265,12 @@ setTimeout(ctApplyOffline, 300);
 
   function resize(){
     const p=WCV.parentElement; if(!p) return;
-    const r=p.getBoundingClientRect();
-    const nW=Math.round(Math.max(200,r.width||400));
-    const nH=500;
+    const pr=p.getBoundingClientRect();
+    const nW=Math.round(Math.max(200, pr.width||400));
+    // CSS ile belirlenen yüksekliği oku (computed style)
+    const cs=getComputedStyle(WCV);
+    const cssH=parseFloat(cs.height)||0;
+    const nH=Math.round(Math.max(180, cssH>10?cssH:500));
     if(nW===wW&&nH===wH) return;
     wW=nW; wH=nH; WCV.width=wW; WCV.height=wH;
     initStars(); initClouds();
@@ -6702,11 +6838,14 @@ setTimeout(ctApplyOffline, 300);
   // ── START / STOP ──────────────────────────────────────
   function startWorld(){
     if(wRaf) return;
-    resize();
-    targetH=calcTarget();
-    cityH=targetH>0?targetH*0.9:0;
-    lastPres=typeof ct!=='undefined'?(ct.pres||0):-1;
-    tick();
+    // CSS layout'un oturması için iki frame bekle
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      resize();
+      targetH=calcTarget();
+      cityH=targetH>0?targetH*0.9:0;
+      lastPres=typeof ct!=='undefined'?(ct.pres||0):-1;
+      if(!wRaf) tick();
+    }));
   }
   function stopWorld(){ if(wRaf){ cancelAnimationFrame(wRaf); wRaf=null; } }
 
