@@ -968,6 +968,15 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
 .ct-coin-wrap {
   position:relative; align-self:center;
   width:min(190px,100%); height:min(190px,42vw);
+  flex-shrink:0;
+}
+
+/* Coin + sağ bilgi: yan yana satır (desktop'ta coin-wrap tam genişlik, right gizli) */
+.ct-coin-row {
+  display:flex; flex-direction:column; gap:10px; width:100%; align-items:center;
+}
+.ct-coin-right {
+  display:contents; /* desktop: elementler normal akışta, wrapper gibi davran */
 }
 #ctParticleCanvas {
   position:absolute; inset:0; width:100%; height:100%;
@@ -1170,35 +1179,33 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
     border-radius:14px;
   }
 
-  /* Sol kolon (coin + kontroller) */
-  .ct-col-left {
-    order:1; width:100%;
-    display:grid;
-    grid-template-columns:120px 1fr;
-    grid-template-rows:auto auto auto;
-    gap:6px;
-    align-items:start;
+  /* Sol kolon — normal flex column */
+  .ct-col-left { order:1; width:100%; }
+
+  /* Coin row: coin solda, bilgi sağda */
+  .ct-coin-row {
+    flex-direction:row;
+    align-items:flex-start;
+    gap:10px;
+    width:100%;
   }
 
-  /* Coin butonu — sol, 2 satır yüksekliğinde */
   .ct-coin-wrap {
-    grid-column:1; grid-row:1/3;
     width:110px; height:110px;
-    align-self:start;
+    flex-shrink:0; align-self:flex-start;
   }
 
-  /* Click info sağda */
-  .ct-click-info {
-    grid-column:2; grid-row:1;
-    flex-direction:column; gap:3px; font-size:0.6rem;
+  /* Sağ bilgi: normal block akış */
+  .ct-coin-right {
+    display:flex; flex-direction:column;
+    gap:6px; flex:1; min-width:0;
   }
 
-  /* Progress + prestige sağda alt */
-  .ct-progress-wrap  { grid-column:2; grid-row:2; }
-  .ct-prestige-btn   { grid-column:1/-1; grid-row:3; width:100%; }
+  .ct-click-info   { font-size:0.6rem; flex-direction:column; gap:2px; }
+  .ct-combo-display{ font-size:0.75rem; }
 
-  /* Combo / offline: tam genişlik */
-  #ctComboDisplay,#ctOfflineMsg { grid-column:1/-1; font-size:0.75rem; }
+  /* Prestige btn: coin row'dan sonra tam genişlik */
+  .ct-prestige-btn { width:100%; }
 
   /* Spin, quest, auto: tam genişlik */
   .ct-spin-box,.ct-quest-box,.ct-auto-box { width:100%; }
@@ -1256,8 +1263,7 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
 /* Çok küçük telefon ≤380px */
 @media(max-width:380px){
   .ct-world-canvas { height:clamp(190px,58vw,280px); }
-  .ct-coin-wrap    { width:96px; height:96px; }
-  .ct-col-left     { grid-template-columns:100px 1fr; }
+  .ct-coin-wrap    { width:90px; height:90px; }
   .ct-stat-val     { font-size:0.9rem; }
   .ct-shop-list    { height:320px; }
   .ct-upg          { padding:6px 7px; min-height:44px; }
@@ -2145,47 +2151,54 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
 
       <!-- COL 1: Coin + events -->
       <div class="ct-col ct-col-left">
-        <div class="ct-coin-wrap" id="ctCoinWrap">
-          <canvas id="ctParticleCanvas"></canvas>
-          <div id="ctCoinBtn" class="ct-coin" tabindex="-1">
-            <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <radialGradient id="cg1" cx="38%" cy="35%" r="65%">
-                  <stop offset="0%"   stop-color="#fff9c4"/>
-                  <stop offset="35%"  stop-color="#ffd600"/>
-                  <stop offset="70%"  stop-color="#ff9800"/>
-                  <stop offset="100%" stop-color="#bf6000"/>
-                </radialGradient>
-              </defs>
-              <circle cx="60" cy="60" r="57" fill="url(#cg1)" stroke="#b8860b" stroke-width="2.5"/>
-              <circle cx="60" cy="60" r="48" fill="none" stroke="rgba(255,255,180,0.25)" stroke-width="1.5"/>
-              <text x="60" y="80" text-anchor="middle" font-family="Georgia,serif"
-                    font-size="54" font-weight="bold" fill="#7a4000">$</text>
-              <ellipse cx="40" cy="36" rx="13" ry="7" fill="rgba(255,255,255,0.28)" transform="rotate(-30 40 36)"/>
-            </svg>
-          </div>
-          <!-- Golden coin event -->
-          <div id="ctGoldenCoin" class="ct-golden-coin" style="display:none" tabindex="-1">🌟</div>
-          <div id="ctFloatLayer" style="position:absolute;inset:0;pointer-events:none;overflow:visible"></div>
-        </div>
 
-        <div class="ct-click-info">
-          <span>Clicks: <b id="ctClicks">0</b></span>
-          <span>All-time: <b id="ctTotalClicks" style="color:#aaa">0</b></span>
-        </div>
-        <div id="ctComboDisplay" class="ct-combo-display" style="display:none"></div>
-        <div id="ctOfflineMsg" class="ct-offline-msg" style="display:none"></div>
+        <!-- Coin + sağ bilgi: yan yana satır -->
+        <div class="ct-coin-row">
+          <div class="ct-coin-wrap" id="ctCoinWrap">
+            <canvas id="ctParticleCanvas"></canvas>
+            <div id="ctCoinBtn" class="ct-coin" tabindex="-1">
+              <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <radialGradient id="cg1" cx="38%" cy="35%" r="65%">
+                    <stop offset="0%"   stop-color="#fff9c4"/>
+                    <stop offset="35%"  stop-color="#ffd600"/>
+                    <stop offset="70%"  stop-color="#ff9800"/>
+                    <stop offset="100%" stop-color="#bf6000"/>
+                  </radialGradient>
+                </defs>
+                <circle cx="60" cy="60" r="57" fill="url(#cg1)" stroke="#b8860b" stroke-width="2.5"/>
+                <circle cx="60" cy="60" r="48" fill="none" stroke="rgba(255,255,180,0.25)" stroke-width="1.5"/>
+                <text x="60" y="80" text-anchor="middle" font-family="Georgia,serif"
+                      font-size="54" font-weight="bold" fill="#7a4000">$</text>
+                <ellipse cx="40" cy="36" rx="13" ry="7" fill="rgba(255,255,255,0.28)" transform="rotate(-30 40 36)"/>
+              </svg>
+            </div>
+            <!-- Golden coin event -->
+            <div id="ctGoldenCoin" class="ct-golden-coin" style="display:none" tabindex="-1">🌟</div>
+            <div id="ctFloatLayer" style="position:absolute;inset:0;pointer-events:none;overflow:visible"></div>
+          </div>
 
-        <!-- Prestige progress -->
-        <div class="ct-progress-wrap">
-          <div class="ct-progress-label">
-            <span style="color:#7070a0">Prestige</span>
-            <span id="ctPrestigeGoal" style="color:#555">—</span>
+          <!-- Sağ bilgi paneli -->
+          <div class="ct-coin-right">
+            <div class="ct-click-info">
+              <span>Clicks: <b id="ctClicks">0</b></span>
+              <span>All-time: <b id="ctTotalClicks" style="color:#aaa">0</b></span>
+            </div>
+            <div id="ctComboDisplay" class="ct-combo-display" style="display:none"></div>
+            <div id="ctOfflineMsg" class="ct-offline-msg" style="display:none"></div>
+
+            <!-- Prestige progress -->
+            <div class="ct-progress-wrap">
+              <div class="ct-progress-label">
+                <span style="color:#7070a0">Prestige</span>
+                <span id="ctPrestigeGoal" style="color:#555">—</span>
+              </div>
+              <div class="ct-progress-bg">
+                <div id="ctProgressBar" class="ct-progress-fill" style="width:0%"></div>
+              </div>
+            </div>
           </div>
-          <div class="ct-progress-bg">
-            <div id="ctProgressBar" class="ct-progress-fill" style="width:0%"></div>
-          </div>
-        </div>
+        </div><!-- /ct-coin-row -->
 
         <button id="ctPrestigeBtn" class="ct-prestige-btn" tabindex="-1" style="display:none">
           ⭐ PRESTIGE — Reset &amp; Get ×2 Forever
