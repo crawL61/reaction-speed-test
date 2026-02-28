@@ -3492,6 +3492,7 @@ function cbCY() { return cbCanvas.height / 2; }
 /* ── reset / next-level ─────────────────────────────── */
 function cbReset() {
   cancelAnimationFrame(cb.animId);
+  _cbLastTs = 0;
   cb = { score:0, best:cb.best, level:1, ballsLeft:10,
          rotSpeed:0.012, stuckBalls:[], danger:[],
          flyBall:null, gameOver:false, transitioning:false, animId:null };
@@ -3634,16 +3635,21 @@ function cbDraw() {
 }
 
 /* ── main tick ──────────────────────────────────────── */
-function cbTick() {
-  if (curPanel !== 'coreball') { cb.animId = requestAnimationFrame(cbTick); return; }
+let _cbLastTs = 0;
+function cbTick(ts) {
+  if (curPanel !== 'coreball') { _cbLastTs = 0; cb.animId = requestAnimationFrame(cbTick); return; }
 
-  // Rotate whole cluster
-  cb.stuckBalls.forEach(s => s.angle += cb.rotSpeed);
-  cb.danger.forEach(d     => d.angle += cb.rotSpeed);
+  // Delta time — normalize to 60fps (16.667ms)
+  const dt = _cbLastTs ? Math.min((ts - _cbLastTs) / 16.667, 3) : 1;
+  _cbLastTs = ts;
+
+  // Rotate whole cluster (scale by dt)
+  cb.stuckBalls.forEach(s => s.angle += cb.rotSpeed * dt);
+  cb.danger.forEach(d     => d.angle += cb.rotSpeed * dt);
 
   // Move flying ball
   if (cb.flyBall) {
-    cb.flyBall.y += cb.flyBall.vy;
+    cb.flyBall.y += cb.flyBall.vy * dt;
     const b  = cb.flyBall;
     const cx = cbCX(), cy = cbCY();
     const dx = b.x - cx, dy = b.y - cy;
@@ -3716,6 +3722,7 @@ function cbTick() {
 
   cbDraw();
   if (!cb.gameOver && !cb.transitioning) cb.animId = requestAnimationFrame(cbTick);
+  else _cbLastTs = 0;
 }
 
 /* ── shoot ──────────────────────────────────────────── */
@@ -3760,6 +3767,7 @@ let dino = {
 };
 
 function dinoReset() {
+  _dinoLastTs = 0;
   if(dino.animId) cancelAnimationFrame(dino.animId);
   const best = dino.best;
   dino = {
@@ -3981,17 +3989,22 @@ function dinoDraw() {
   dctx.textAlign = 'left';
 }
 
-function dinoLoop() {
+let _dinoLastTs = 0;
+function dinoLoop(ts) {
   if (curPanel !== 'dino' || !dino.alive) return;
 
-  dino.frame++;
-  dino.legFrame++;
-  dino.score += 0.1;
-  dino.speed = 5 + dino.score * 0.005;
+  // Delta time normalized to 60fps (16.667ms per frame)
+  const dt = _dinoLastTs ? Math.min((ts - _dinoLastTs) / 16.667, 3) : 1;
+  _dinoLastTs = ts;
 
-  // Physics
-  dino.vy += 0.7;
-  dino.y += dino.vy;
+  dino.frame++;
+  dino.legFrame += dt;
+  dino.score += 0.1 * dt;
+  dino.speed = (5 + dino.score * 0.005) * dt;
+
+  // Physics (all scaled by dt)
+  dino.vy += 0.7 * dt;
+  dino.y += dino.vy * dt;
   if (dino.y >= dino.groundY - dino.h) {
     dino.y = dino.groundY - dino.h;
     dino.vy = 0; dino.jumping = false;
@@ -4003,17 +4016,17 @@ function dinoLoop() {
     dinoSpawnObstacle();
   }
 
-  // Move & animate obstacles
+  // Move & animate obstacles (scaled by dt)
   dino.obstacles = dino.obstacles.filter(o => {
     o.x -= dino.speed;
-    o.wingTimer++;
+    o.wingTimer += dt;
     if (o.wingTimer > 8) { o.wingUp = !o.wingUp; o.wingTimer = 0; }
     return o.x > -100;
   });
 
   // Clouds
-  if (Math.random() < 0.005) dino.clouds.push({x: dc.width, y: 40 + Math.random()*60});
-  dino.clouds = dino.clouds.filter(c => { c.x -= 0.8; return c.x > -100; });
+  if (Math.random() < 0.005 * dt) dino.clouds.push({x: dc.width, y: 40 + Math.random()*60});
+  dino.clouds = dino.clouds.filter(c => { c.x -= 0.8 * dt; return c.x > -100; });
 
   // Score & speed display
   const sc = Math.floor(dino.score);
@@ -4025,6 +4038,7 @@ function dinoLoop() {
     if (sc > dino.best) { dino.best = sc; document.getElementById('dinoBest').textContent = dino.best; }
     document.getElementById('dinoStatus').textContent = 'Dead 💀';
     dinoDraw();
+    _dinoLastTs = 0;
     return;
   }
 
@@ -5667,130 +5681,136 @@ let ctSoundOn = true;
     WCX.restore();
   }
 
-  /* ─── TOWER CRANE ─── */
-  function drawCrane(dom, bX, bW, bTop){
-    // Crane stands on right corner of the roof
-    const baseX = bX+bW+2;
-    const baseY = bTop;
-    const mastH = Math.min(52, 20+cityH*0.25);
-    const mastTop = baseY-mastH;
-    const jibLen = Math.min(82, bW*0.7+18);
-    const backJib = jibLen*0.32;
+  /* ─── TOWER CRANE ─── (free-standing, right of building) */
+  function drawCrane(dom, bX, bW, bTop, bBot){
+    // Crane stands on the GROUND, to the RIGHT of the building — independent
+    // Its mast height scales with cityH so it "grows" alongside the building
+    const craneGroundX = bX + bW + 14;  // just right of building, gap
+    const groundY = bBot;
+
+    // Mast height: proportional to building height, capped
+    const mastH = Math.min(cityH * 0.55 + 14, cityH - 5, wH * 0.5);
+    if(mastH < 12) return; // too short to draw
+
+    const mastBot = groundY;
+    const mastTopY = groundY - mastH;
+    const mL = craneGroundX - 3.5;
+    const mR = craneGroundX + 3.5;
 
     // Animate
     if(crane.activeFrames>0){ crane.activeFrames--; }
     const isActive = crane.activeFrames>0;
     if(isActive){
       crane.jibAng += 0.006*crane.jibDir;
-      if(crane.jibAng>0.14||crane.jibAng<-0.28) crane.jibDir*=-1;
+      if(crane.jibAng > 0.1 || crane.jibAng < -0.22) crane.jibDir*=-1;
       crane.trolleyT += 0.012;
-      crane.hookTarget = 28+Math.sin(crane.trolleyT*0.6)*22;
+      crane.hookTarget = 26+Math.sin(crane.trolleyT*0.55)*20;
     }
-    crane.hookLen += (crane.hookTarget-crane.hookLen)*0.045;
+    crane.hookLen += (crane.hookTarget - crane.hookLen)*0.045;
 
     WCX.save();
 
-    /* ── MAST ── lattice tower */
-    const mL=baseX-3.5, mR=baseX+3.5;
+    /* ── BASE FOOTING ── */
+    WCX.fillStyle='#44445a';
+    WCX.fillRect(mL-5, mastBot, 17, 6);
+    WCX.strokeStyle='#666680'; WCX.lineWidth=1;
+    WCX.strokeRect(mL-5, mastBot, 17, 6);
+    // Anchor bolts
+    WCX.fillStyle='#888899';
+    [-3,0,4,8].forEach(ox=>{
+      WCX.beginPath(); WCX.arc(mL+ox, mastBot+5, 1.5, 0, Math.PI*2); WCX.fill();
+    });
 
-    // Mast outline fill (solid back)
-    WCX.fillStyle='#4a4a70';
-    WCX.fillRect(mL,mastTop,7,mastH);
+    /* ── MAST — lattice tower ── */
+    // Background fill
+    WCX.fillStyle='#3a3a58';
+    WCX.fillRect(mL, mastTopY, 7, mastH);
 
     // Left and right chords
-    WCX.strokeStyle='#8888bb'; WCX.lineWidth=2.5;
-    WCX.beginPath(); WCX.moveTo(mL,baseY); WCX.lineTo(mL,mastTop); WCX.stroke();
-    WCX.beginPath(); WCX.moveTo(mR,baseY); WCX.lineTo(mR,mastTop); WCX.stroke();
+    WCX.strokeStyle='#8080bb'; WCX.lineWidth=2.5;
+    WCX.beginPath(); WCX.moveTo(mL, mastBot); WCX.lineTo(mL, mastTopY); WCX.stroke();
+    WCX.beginPath(); WCX.moveTo(mR, mastBot); WCX.lineTo(mR, mastTopY); WCX.stroke();
 
-    // Diagonal braces (alternating Z pattern)
-    WCX.strokeStyle='#6666aa'; WCX.lineWidth=1.2;
-    const nBraces=Math.max(3,Math.floor(mastH/12));
-    const bStep=mastH/nBraces;
+    // Z-pattern diagonal braces
+    const nBraces = Math.max(3, Math.floor(mastH/11));
+    const bStep = mastH/nBraces;
+    WCX.strokeStyle='#6060a8'; WCX.lineWidth=1.2;
     for(let i=0;i<nBraces;i++){
-      const y1=baseY-i*bStep, y2=baseY-(i+1)*bStep;
-      if(i%2===0){
-        WCX.beginPath(); WCX.moveTo(mL,y1); WCX.lineTo(mR,y2); WCX.stroke();
-      } else {
-        WCX.beginPath(); WCX.moveTo(mR,y1); WCX.lineTo(mL,y2); WCX.stroke();
-      }
+      const y1=mastBot-i*bStep, y2=mastBot-(i+1)*bStep;
+      WCX.beginPath();
+      if(i%2===0){ WCX.moveTo(mL,y1); WCX.lineTo(mR,y2); }
+      else        { WCX.moveTo(mR,y1); WCX.lineTo(mL,y2); }
+      WCX.stroke();
     }
-    // Horizontal rungs on mast
-    WCX.strokeStyle='#5555aa44'; WCX.lineWidth=1;
-    for(let i=0;i<nBraces;i++){
-      const y=baseY-i*bStep-bStep/2;
+    // Horizontal rungs
+    WCX.strokeStyle='#5050a840'; WCX.lineWidth=1;
+    for(let i=1;i<nBraces;i++){
+      const y=mastBot-i*bStep;
       WCX.beginPath(); WCX.moveTo(mL,y); WCX.lineTo(mR,y); WCX.stroke();
     }
 
-    /* Mast base plate */
-    WCX.fillStyle='#555580';
-    WCX.fillRect(mL-3,baseY,13,5);
-
-    /* Mast cap triangle */
-    WCX.fillStyle='#7070a0';
+    /* ── MAST CAP TRIANGLE ── */
+    WCX.fillStyle='#6868a0';
     WCX.beginPath();
-    WCX.moveTo(baseX,mastTop-8); WCX.lineTo(mL-2,mastTop+2); WCX.lineTo(mR+2,mastTop+2);
+    WCX.moveTo(craneGroundX, mastTopY-9);
+    WCX.lineTo(mL-2, mastTopY+2);
+    WCX.lineTo(mR+2, mastTopY+2);
     WCX.closePath(); WCX.fill();
 
     /* ── OPERATOR CABIN ── */
-    WCX.fillStyle='#2244aa';
-    WCX.strokeStyle='#4466cc'; WCX.lineWidth=1;
-    WCX.fillRect(mL-6, mastTop+2, 8, 10);
-    WCX.strokeRect(mL-6, mastTop+2, 8, 10);
-    // Cabin windows
-    WCX.fillStyle='rgba(120,210,255,0.55)';
-    WCX.fillRect(mL-5,mastTop+3,3,4);
-    WCX.fillRect(mL-1,mastTop+3,2,4);
+    WCX.fillStyle='#1e3d9a';
+    WCX.strokeStyle='#3a60cc'; WCX.lineWidth=1;
+    WCX.fillRect(mL-7, mastTopY+2, 9, 11); WCX.strokeRect(mL-7, mastTopY+2, 9, 11);
+    WCX.fillStyle='rgba(100,200,255,0.5)';
+    WCX.fillRect(mL-6, mastTopY+3, 3, 5); WCX.fillRect(mL-2, mastTopY+3, 2.5, 5);
 
-    /* ── JIB (main arm) — swings, drawn from pivot ── */
+    /* ── JIB (main arm) — swings left toward building ── */
+    const jibLen = Math.min(bW * 0.7 + 10, 80);
+    const backJib = jibLen*0.3;
+
     WCX.save();
-    WCX.translate(baseX, mastTop);
-    WCX.rotate(crane.jibAng);
+    WCX.translate(craneGroundX, mastTopY);
+    WCX.rotate(crane.jibAng);  // swings slightly up/down
 
-    // Jib top chord
-    WCX.strokeStyle='#8888bb'; WCX.lineWidth=2.8;
+    // Jib — double chord with struts + braces
+    WCX.strokeStyle='#8080bb'; WCX.lineWidth=2.8;
     WCX.beginPath(); WCX.moveTo(0,-3); WCX.lineTo(-jibLen,-3); WCX.stroke();
-    // Jib bottom chord
-    WCX.beginPath(); WCX.moveTo(0,3); WCX.lineTo(-jibLen,3); WCX.stroke();
-    // Jib vertical struts
-    WCX.strokeStyle='#6666aa'; WCX.lineWidth=1.2;
-    const nStruts=Math.max(4,Math.floor(jibLen/16));
+    WCX.beginPath(); WCX.moveTo(0, 3); WCX.lineTo(-jibLen, 3); WCX.stroke();
+
+    const nStruts = Math.max(4, Math.floor(jibLen/15));
+    WCX.strokeStyle='#6060a8'; WCX.lineWidth=1.2;
     for(let i=1;i<=nStruts;i++){
       const x=-jibLen*i/nStruts;
       WCX.beginPath(); WCX.moveTo(x,-3); WCX.lineTo(x,3); WCX.stroke();
     }
-    // Jib diagonal braces
     WCX.lineWidth=1;
     for(let i=0;i<nStruts;i++){
       const x1=-jibLen*i/nStruts, x2=-jibLen*(i+1)/nStruts;
       WCX.beginPath(); WCX.moveTo(x1,-3); WCX.lineTo(x2,3); WCX.stroke();
     }
     // Jib tip plate
-    WCX.fillStyle='#9999cc'; WCX.fillRect(-jibLen-3,-4,6,8);
+    WCX.fillStyle='#9090c0'; WCX.fillRect(-jibLen-3,-4,6,8);
 
-    // Tension cable from mast top down to jib (king post style)
-    WCX.strokeStyle='#aaaacc88'; WCX.lineWidth=1.3;
-    WCX.beginPath(); WCX.moveTo(0,-14); WCX.lineTo(-jibLen*0.5,-3); WCX.stroke();
-    WCX.beginPath(); WCX.moveTo(0,-14); WCX.lineTo(-jibLen,-3); WCX.stroke();
-    // King post
-    WCX.strokeStyle='#9999bb'; WCX.lineWidth=1.8;
+    // King post + tension cables
+    WCX.strokeStyle='#9898c0'; WCX.lineWidth=1.8;
     WCX.beginPath(); WCX.moveTo(0,3); WCX.lineTo(0,-16); WCX.stroke();
+    WCX.strokeStyle='#aaaacc66'; WCX.lineWidth=1.2;
+    WCX.beginPath(); WCX.moveTo(0,-16); WCX.lineTo(-jibLen*0.5,-3); WCX.stroke();
+    WCX.beginPath(); WCX.moveTo(0,-16); WCX.lineTo(-jibLen,-3); WCX.stroke();
 
-    // Trolley (slides along jib bottom)
-    const trolleyX = -jibLen*(0.3+Math.sin(crane.trolleyT)*0.28);
-    WCX.fillStyle='#cc9944';
-    WCX.strokeStyle='#ee aa44'; WCX.lineWidth=0.8;
-    WCX.fillRect(trolleyX-6,3,12,6); WCX.strokeRect(trolleyX-6,3,12,6);
-    // Trolley wheels
-    WCX.fillStyle='#333355';
-    WCX.beginPath(); WCX.arc(trolleyX-3,3,2,0,Math.PI*2); WCX.fill();
-    WCX.beginPath(); WCX.arc(trolleyX+3,3,2,0,Math.PI*2); WCX.fill();
+    // Trolley
+    const tx = -jibLen*(0.28 + Math.sin(crane.trolleyT)*0.26);
+    WCX.fillStyle='#cc9944'; WCX.strokeStyle='#ddaa55'; WCX.lineWidth=0.8;
+    WCX.fillRect(tx-5,3,10,6); WCX.strokeRect(tx-5,3,10,6);
+    WCX.fillStyle='#222240';
+    WCX.beginPath(); WCX.arc(tx-2.5,3,1.8,0,Math.PI*2); WCX.fill();
+    WCX.beginPath(); WCX.arc(tx+2.5,3,1.8,0,Math.PI*2); WCX.fill();
 
     // Hook rope
-    WCX.strokeStyle='#ccccee'; WCX.lineWidth=1.5;
-    WCX.beginPath(); WCX.moveTo(trolleyX,9); WCX.lineTo(trolleyX,9+crane.hookLen); WCX.stroke();
-
-    // Hook (J shape)
-    const hx=trolleyX, hy=9+crane.hookLen;
+    WCX.strokeStyle='#ccccee'; WCX.lineWidth=1.4;
+    WCX.beginPath(); WCX.moveTo(tx,9); WCX.lineTo(tx,9+crane.hookLen); WCX.stroke();
+    // J-hook
+    const hx=tx, hy=9+crane.hookLen;
     WCX.strokeStyle='#ddddff'; WCX.lineWidth=2.2; WCX.lineCap='round';
     WCX.beginPath();
     WCX.moveTo(hx,hy-2); WCX.lineTo(hx,hy+5);
@@ -5799,28 +5819,23 @@ let ctSoundOn = true;
 
     WCX.restore(); // end jib rotate
 
-    /* ── COUNTER JIB (back arm) ── */
+    /* ── COUNTER JIB (back arm, right direction) ── */
     WCX.save();
-    WCX.translate(baseX, mastTop);
-    // Counter-jib is opposite direction (+ rotation offset π)
+    WCX.translate(craneGroundX, mastTopY);
     WCX.rotate(crane.jibAng + Math.PI);
-    WCX.strokeStyle='#7777aa'; WCX.lineWidth=2.2;
+    WCX.strokeStyle='#7070a8'; WCX.lineWidth=2.2;
     WCX.beginPath(); WCX.moveTo(0,-2); WCX.lineTo(-backJib,-2); WCX.stroke();
-    WCX.beginPath(); WCX.moveTo(0,2); WCX.lineTo(-backJib,2); WCX.stroke();
-    // Counterweight block
-    WCX.fillStyle='#555577';
-    WCX.strokeStyle='#7777aa'; WCX.lineWidth=1;
-    WCX.fillRect(-backJib-8,-7,16,12);
-    WCX.strokeRect(-backJib-8,-7,16,12);
-    // CW detail lines
-    WCX.strokeStyle='#44446688'; WCX.lineWidth=0.7;
-    WCX.beginPath(); WCX.moveTo(-backJib-4,-7); WCX.lineTo(-backJib-4,5); WCX.stroke();
-    WCX.beginPath(); WCX.moveTo(-backJib+0,-7); WCX.lineTo(-backJib+0,5); WCX.stroke();
+    WCX.beginPath(); WCX.moveTo(0, 2); WCX.lineTo(-backJib, 2); WCX.stroke();
+    WCX.fillStyle='#484864'; WCX.strokeStyle='#6666a0'; WCX.lineWidth=1;
+    WCX.fillRect(-backJib-8,-7,16,12); WCX.strokeRect(-backJib-8,-7,16,12);
+    WCX.strokeStyle='#44446660'; WCX.lineWidth=0.7;
+    for(let ox of [-4,0,4]){
+      WCX.beginPath(); WCX.moveTo(-backJib+ox,-7); WCX.lineTo(-backJib+ox,5); WCX.stroke();
+    }
     WCX.restore();
 
-    WCX.restore(); // end global shadow
+    WCX.restore(); // end global
   }
-
   /* ─── LABELS ─── */
   function drawLabels(){
     WCX.save();
@@ -5873,7 +5888,7 @@ let ctSoundOn = true;
       const bBot=wH-12;
       const bTop=bBot-cityH;
       drawBuilding(dom, bX, bW, bTop, bBot);
-      drawCrane(dom, bX, bW, bTop);
+      drawCrane(dom, bX, bW, bTop, bBot);
     } else {
       drawEmpty();
     }
