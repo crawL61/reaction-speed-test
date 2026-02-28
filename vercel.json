@@ -9,6 +9,7 @@
     { "source": "/dinosaur-game",       "destination": "/app.html" },
     { "source": "/coreball-game",       "destination": "/app.html" },
     { "source": "/number-memory-test",  "destination": "/app.html" },
+    { "source": "/clicker-tycoon",      "destination": "/app.html" },
     { "source": "/snake-game",          "destination": "/app.html" }
   ]
 }
