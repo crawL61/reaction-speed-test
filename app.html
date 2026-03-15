@@ -4997,7 +4997,9 @@ snakeReset();
 // "Play Now" butonlarından gelen panel yönlendirmesi
 const _sessionPanel = sessionStorage.getItem('openPanel');
 if (_sessionPanel) { sessionStorage.removeItem('openPanel'); }
-const _initPanel = _sessionPanel || panelFromPath(location.pathname);
+// URL query param: /?p=reaction
+const _qp = new URLSearchParams(location.search).get('p');
+const _initPanel = _qp || _sessionPanel || panelFromPath(location.pathname);
 // fromPopstate=true → switchPanel skips pushState, no extra history entry
 switchPanel(_initPanel, true);
 // Set initial state so back button works correctly from first visit

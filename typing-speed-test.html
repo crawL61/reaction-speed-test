@@ -50,7 +50,7 @@ footer a:hover{color:var(--accent);}
   <a href="/" class="back">← Back to Reaction Speed Test</a>
   <h1>📝 Typing Speed Test</h1>
   <div class="sub">Free typing speed test. Measure your WPM and accuracy instantly with real-time tracking. Average is 41 WPM — how fast do you type?</div>
-  <a href="/typing-speed-test" class="play-btn" id="playNowBtn">▶ Play Now — Free</a>
+  <a href="/?p=typing" class="play-btn">▶ Play Now — Free</a>
 
   <div class="card">
     <h2>What Is a Typing Speed Test?</h2>
@@ -93,13 +93,6 @@ footer a:hover{color:var(--accent);}
     <p style="margin-top:8px"><a href="/">Home</a> · <a href="/about">About</a> · <a href="/privacy-policy">Privacy Policy</a> · <a href="/contact">Contact</a></p>
   </footer>
 </div>
-<script>
-document.getElementById('playNowBtn').addEventListener('click', function(e) {
-  e.preventDefault();
-  // Ana sayfaya git, localStorage'a panel bilgisini kaydet
-  sessionStorage.setItem('openPanel', 'typing');
-  window.location.href = '/';
-});
-</script>
+
 </body>
 </html>
