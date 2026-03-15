@@ -50,7 +50,7 @@ footer a:hover{color:var(--accent);}
   <a href="/" class="back">← Back to Reaction Speed Test</a>
   <h1>⌨️ Spacebar Speed Test</h1>
   <div class="sub">Free spacebar speed test. Measure how fast you can press the spacebar per second. Multiple durations, instant results, no download.</div>
-  <a href="/" class="play-btn">▶ Play Now — Free</a>
+  <a href="/spacebar-speed-test" class="play-btn" id="playNowBtn">▶ Play Now — Free</a>
   <div class="card"><h2>What Is the Spacebar Speed Test?</h2><p>The <strong>spacebar speed test</strong> measures how many times you can press the spacebar per second, expressed as HPS (hits per second). Our test offers multiple durations and shows your best score, current HPS, and total presses. The spacebar is the most frequently pressed key in many games and productivity applications — improving spacebar speed can directly benefit gaming and typing performance.</p></div>
   <div class="card"><h2>Spacebar Speed Rankings</h2><table><thead><tr><th>HPS</th><th>Rating</th></tr></thead><tbody><tr><td style="color:#ffd600">10+ HPS</td><td style="color:#ffd600">Elite</td></tr><tr><td style="color:#00f5a0">8–10 HPS</td><td style="color:#00f5a0">Excellent</td></tr><tr><td style="color:#a78bfa">6–8 HPS</td><td style="color:#a78bfa">Good</td></tr><tr><td>4–6 HPS</td><td>Average</td></tr><tr><td style="color:#f87171">Under 4 HPS</td><td style="color:#f87171">Slow</td></tr></tbody></table></div>
   <div class="card"><h2>Tips to Press the Spacebar Faster</h2><ul><li><strong>Use your dominant thumb:</strong> Most people get better results pressing with their dominant hand's thumb rather than alternating.</li><li><strong>Flat thumb position:</strong> Press with the flat pad of your thumb rather than the tip for a larger contact area and more reliable registration.</li><li><strong>Mechanical keyboard advantage:</strong> Linear mechanical switches (Cherry MX Red, Gateron Yellow) have shorter actuation distances and lighter spring weights — 10–20% HPS improvement over membrane keyboards is common.</li><li><strong>Wrist positioning:</strong> Keep your wrist level with the keyboard surface. Raised wrists create tension that slows repeated pressing.</li></ul></div>
@@ -63,5 +63,13 @@ footer a:hover{color:var(--accent);}
     <p style="margin-top:8px"><a href="/">Home</a> · <a href="/about">About</a> · <a href="/privacy-policy">Privacy Policy</a> · <a href="/contact">Contact</a></p>
   </footer>
 </div>
+<script>
+document.getElementById('playNowBtn').addEventListener('click', function(e) {
+  e.preventDefault();
+  // Ana sayfaya git, localStorage'a panel bilgisini kaydet
+  sessionStorage.setItem('openPanel', 'spacebar');
+  window.location.href = '/';
+});
+</script>
 </body>
 </html>

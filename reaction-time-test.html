@@ -50,7 +50,7 @@ footer a:hover{color:var(--accent);}
   <a href="/" class="back">← Back to Reaction Speed Test</a>
   <h1>⚡ Reaction Time Test</h1>
   <div class="sub">Free online reaction time test. Measure your reflex speed in milliseconds with 5-round averaging and human benchmark comparison. No signup required.</div>
-  <a href="/?panel=reaction_time_test" class="play-btn" onclick="window.location='/';return false;" href="/">▶ Play Now — Free</a>
+  <a href="/reaction-time-test" class="play-btn" id="playNowBtn">▶ Play Now — Free</a>
 
   <div class="card">
     <h2>What Is a Reaction Time Test?</h2>
@@ -110,5 +110,13 @@ footer a:hover{color:var(--accent);}
     <p style="margin-top:8px"><a href="/">Home</a> · <a href="/about">About</a> · <a href="/privacy-policy">Privacy Policy</a> · <a href="/contact">Contact</a></p>
   </footer>
 </div>
+<script>
+document.getElementById('playNowBtn').addEventListener('click', function(e) {
+  e.preventDefault();
+  // Ana sayfaya git, localStorage'a panel bilgisini kaydet
+  sessionStorage.setItem('openPanel', 'reaction');
+  window.location.href = '/';
+});
+</script>
 </body>
 </html>
