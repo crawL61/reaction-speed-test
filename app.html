@@ -407,6 +407,23 @@ body::before {
 }
 .lbtn.active { background: var(--accent); border-color: var(--accent); color: #000; }
 
+/* ─── Header nav links (About / Contact / Privacy) ─── */
+.hdr-nav {
+  display: flex; align-items: center; gap: 2px;
+  flex-shrink: 0; padding: 0 8px;
+  border-left: 1px solid var(--border2);
+}
+.hdr-nav-link {
+  padding: 4px 8px; border-radius: 5px;
+  font-size: 0.52rem; font-weight: 600; letter-spacing: 0.09em;
+  text-transform: uppercase; text-decoration: none;
+  color: var(--muted); white-space: nowrap;
+  transition: color 0.15s, background 0.15s;
+}
+.hdr-nav-link:hover { color: var(--accent); background: rgba(0,245,160,0.07); }
+.hdr-nav-privacy { display: flex; }
+@media(max-width:680px) { .hdr-nav { display: none; } }
+
 /* ─── ROW 2: time selector + mode (hidden for reaction/stim) ─── */
 .row2 {
   height: var(--row2-h);
@@ -1784,6 +1801,13 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
       transition:color 0.15s;
     ">›</button>
 
+    <!-- Header nav links -->
+    <div class="hdr-nav" id="hdrNav">
+      <a href="/about" class="hdr-nav-link">About</a>
+      <a href="/contact" class="hdr-nav-link">Contact</a>
+      <a href="/privacy-policy" class="hdr-nav-link hdr-nav-privacy">Privacy</a>
+    </div>
+
     <div class="lang" style="border-left:1px solid var(--border2); padding:0 10px; gap:4px; flex-shrink:0;">
       <button class="lbtn" id="soundToggle" onclick="toggleSound()" title="Toggle Sound" style="font-size:0.8rem;padding:4px 8px;">🔊</button>
       <button class="lbtn" id="statsBtn" onclick="showStatsModal()" title="My Stats" style="font-size:0.6rem;padding:4px 8px;letter-spacing:0.04em;">📊</button>
@@ -1917,6 +1941,25 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
       <div class="arena-icon" id="rIcon">⚡</div>
       <div class="arena-text" id="rText">Tap to Start</div>
       <div class="arena-sub"  id="rSub">Test your reaction speed</div>
+    </div>
+
+    <!-- Site Pages Quick Nav -->
+    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;width:100%;margin-top:4px">
+      <a href="/about" style="flex:1;min-width:110px;max-width:170px;background:#0d0d1a;border:1px solid #1e1e3a;border-radius:12px;padding:12px 14px;text-decoration:none;text-align:center;transition:border-color 0.2s,background 0.2s" onmouseover="this.style.borderColor='#00f5a055';this.style.background='#111128'" onmouseout="this.style.borderColor='#1e1e3a';this.style.background='#0d0d1a'">
+        <div style="font-size:1.3rem;margin-bottom:3px">ℹ️</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:0.85rem;letter-spacing:0.1em;color:#00f5a0">About</div>
+        <div style="font-size:0.54rem;color:#60607a;margin-top:2px;line-height:1.4">Who we are</div>
+      </a>
+      <a href="/contact" style="flex:1;min-width:110px;max-width:170px;background:#0d0d1a;border:1px solid #1e1e3a;border-radius:12px;padding:12px 14px;text-decoration:none;text-align:center;transition:border-color 0.2s,background 0.2s" onmouseover="this.style.borderColor='#7c3aed55';this.style.background='#111128'" onmouseout="this.style.borderColor='#1e1e3a';this.style.background='#0d0d1a'">
+        <div style="font-size:1.3rem;margin-bottom:3px">✉️</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:0.85rem;letter-spacing:0.1em;color:#a78bfa">Contact</div>
+        <div style="font-size:0.54rem;color:#60607a;margin-top:2px;line-height:1.4">Feedback &amp; bugs</div>
+      </a>
+      <a href="/privacy-policy" style="flex:1;min-width:110px;max-width:170px;background:#0d0d1a;border:1px solid #1e1e3a;border-radius:12px;padding:12px 14px;text-decoration:none;text-align:center;transition:border-color 0.2s,background 0.2s" onmouseover="this.style.borderColor='#2563eb55';this.style.background='#111128'" onmouseout="this.style.borderColor='#1e1e3a';this.style.background='#0d0d1a'">
+        <div style="font-size:1.3rem;margin-bottom:3px">🔒</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:0.85rem;letter-spacing:0.1em;color:#60a5fa">Privacy</div>
+        <div style="font-size:0.54rem;color:#60607a;margin-top:2px;line-height:1.4">No data collected</div>
+      </a>
     </div>
 
     <div>
@@ -2369,6 +2412,35 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
   </div><!-- /panel-clicker -->
 
   <!-- ═══════════════════════════════════════════════════
+       SITE PAGES — About / Privacy / Contact cards
+       Always visible (not panel-specific)
+  ═══════════════════════════════════════════════════ -->
+  <div style="width:100%;max-width:860px;margin:32px auto 0;padding:0 16px;box-sizing:border-box">
+    <div style="font-size:0.5rem;letter-spacing:0.2em;text-transform:uppercase;color:#3a3a5a;text-align:center;margin-bottom:16px">More from Reaction Speed Test</div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+
+      <a href="/about" style="flex:1;min-width:110px;max-width:170px;background:#0d0d1a;border:1px solid #1e1e3a;border-radius:12px;padding:12px 14px;text-decoration:none;text-align:center;transition:border-color 0.2s,background 0.2s" onmouseover="this.style.borderColor='#00f5a055';this.style.background='#0f0f20'" onmouseout="this.style.borderColor='#1e1e3a';this.style.background='#0d0d1a'">
+        <div style="font-size:1.4rem;margin-bottom:6px">⚡</div>
+        <div style="font-size:0.62rem;font-weight:700;color:#c8c8e8;letter-spacing:0.06em;margin-bottom:4px">About Us</div>
+        <div style="font-size:0.54rem;color:#50506a;line-height:1.4">Who we are &amp; how the tests work</div>
+      </a>
+
+      <a href="/privacy-policy" style="flex:1;min-width:110px;max-width:170px;background:#0d0d1a;border:1px solid #1e1e3a;border-radius:12px;padding:12px 14px;text-decoration:none;text-align:center;transition:border-color 0.2s,background 0.2s" onmouseover="this.style.borderColor='#2563eb55';this.style.background='#111128'" onmouseout="this.style.borderColor='#1e1e3a';this.style.background='#0d0d1a'">
+        <div style="font-size:1.4rem;margin-bottom:6px">🔒</div>
+        <div style="font-size:0.62rem;font-weight:700;color:#c8c8e8;letter-spacing:0.06em;margin-bottom:4px">Privacy Policy</div>
+        <div style="font-size:0.54rem;color:#50506a;line-height:1.4">No personal data collected — ever</div>
+      </a>
+
+      <a href="/contact" style="flex:1;min-width:110px;max-width:170px;background:#0d0d1a;border:1px solid #1e1e3a;border-radius:12px;padding:12px 14px;text-decoration:none;text-align:center;transition:border-color 0.2s,background 0.2s" onmouseover="this.style.borderColor='#7c3aed55';this.style.background='#100d1a'" onmouseout="this.style.borderColor='#1e1e3a';this.style.background='#0d0d1a'">
+        <div style="font-size:1.4rem;margin-bottom:6px">✉️</div>
+        <div style="font-size:0.62rem;font-weight:700;color:#c8c8e8;letter-spacing:0.06em;margin-bottom:4px">Contact</div>
+        <div style="font-size:0.54rem;color:#50506a;line-height:1.4">Bug reports, feedback &amp; questions</div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
        INFO CONTENT SECTION
   ═══════════════════════════════════════════════════ -->
   <div class="info-wrap" id="infoWrap">
@@ -2416,6 +2488,10 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
       <h2 class="icard-title">⚡ Factors That Affect Your Reaction Speed</h2>
       <p class="ibody"><strong>Age:</strong> Reaction time is fastest between 18–24 years old and increases roughly 1–2ms per year after 30. At 60, most people react 50–80ms slower than at their peak.<br><br><strong>Sleep deprivation:</strong> One night of poor sleep (under 6 hours) adds 30–80ms to average reaction time. Two consecutive nights of poor sleep can double this effect.<br><br><strong>Caffeine:</strong> A moderate dose (100–200mg, roughly one coffee) reduces reaction time by 10–30ms and improves sustained attention. Effects peak 30–60 minutes after consumption.<br><br><strong>Alcohol:</strong> Even a blood alcohol content of 0.05% (below the legal driving limit in most countries) increases reaction time by 30–50ms. At 0.08% (legal DUI limit), the increase is 120ms or more.<br><br><strong>Temperature:</strong> Cold hands slow nerve conduction velocity. Warming up before gaming or testing can shave 5–15ms off your score.<br><br><strong>Stress and arousal:</strong> Moderate stress (the Yerkes-Dodson curve) actually improves reaction time through adrenaline. Extreme stress or anxiety slows it through cognitive interference.</p>
     </article>
+    <article class="icard">
+      <h2 class="icard-title">📱 Mobile vs Desktop Reaction Time</h2>
+      <p class="ibody">Reaction time results differ meaningfully between mobile devices and desktop computers. On mobile, touch screen latency adds approximately <strong>30–80ms</strong> compared to a mouse click. This is because capacitive touchscreens must process touch detection, coordinate calculation, and event firing — a multi-step process that introduces latency absent in a direct mouse button press.<br><br>Additionally, mobile displays typically run at 60Hz compared to 144Hz or 240Hz gaming monitors. A 60Hz screen refreshes every 16.7ms; on average, the stimulus will appear 8.3ms after it should (half a frame), adding systematic latency to all mobile scores. Some modern phones (iPhone 15 Pro, Samsung Galaxy S24) run at 120Hz, halving this effect to ~4ms.<br><br>For the most accurate reaction time measurement, use a desktop or laptop with a wired gaming mouse and a 144Hz or higher monitor. Mobile scores will read 30–80ms higher than true desktop scores due to hardware limitations — this is normal and expected, not a measurement error. Our test uses the most precise timing available on each platform regardless.</p>
+    </article>
     </div>
 
     <!-- ═══ INFO: STIMULATION ═══ -->
@@ -2440,6 +2516,10 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
     <article class="icard">
       <h2 class="icard-title">🎮 Stimulation Clicker vs. Aimlabs vs. KovaaK's</h2>
       <p class="ibody">Professional aim trainers like Aimlabs and KovaaK's are the gold standard for FPS training — but they require downloads and setup. Stimulation Clicker fills the gap as a <strong>zero-install, browser-based alternative</strong> for quick warm-ups.<br><br>Hard mode is comparable to Aimlabs' Gridshot scenario in target size and time pressure. For a 5-minute pre-game warm-up, it's highly effective. For serious competitive training, dedicated aim trainers offer more scenario variety and tracking analytics.</p>
+    </article>
+    <article class="icard">
+      <h2 class="icard-title">🎯 Aim Training Science: Does It Actually Work?</h2>
+      <p class="ibody">The effectiveness of dedicated aim training has been studied in both academic research and professional esports contexts. A 2019 study published in <em>Frontiers in Psychology</em> found that 30-minute daily sessions of target-clicking exercises improved mouse accuracy by 22% over 4 weeks, with the largest gains in flick-shot precision (large, fast movements toward targets) rather than tracking (smooth cursor movement following a moving target).<br><br>Our Stimulation Clicker is specifically designed to train <strong>flick-shot accuracy</strong> — the ability to move your cursor rapidly from any starting position to a small target. This is the dominant skill required in CS2 (Counter-Strike 2), Valorant, and Fortnite, where enemies appear unpredictably and must be eliminated quickly.<br><br>Key training principles: consistency beats volume (20 minutes daily outperforms 2 hours weekly), difficulty should be just beyond current ability (easy mode builds bad habits; hard mode builds faster), and taking breaks prevents fatigue-induced accuracy degradation. After each Stimulation Clicker session, scores on the Reaction Time Test typically improve by 5–15ms due to elevated neural arousal.</p>
     </article>
     <div class="sec-divider">FAQ — STIMULATION CLICKER</div>
     <article class="icard"><div class="faq-list">
@@ -2485,6 +2565,10 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
       <h2 class="icard-title">🖱️ Best Mouse Settings for CPS</h2>
       <p class="ibody"><strong>Polling rate: 1000Hz</strong> — registers up to 1000 clicks per second.<br><strong>Debounce time: 4–8ms</strong> — lower is better. Some mice like Logitech G Pro have configurable debounce.<br><strong>Switch type:</strong> Optical switches (Razer, SteelSeries) have near-zero debounce and register faster than mechanical switches.<br><br>Technique accounts for 90% of your CPS score. Hardware is the last 10%.</p>
     </article>
+    <article class="icard">
+      <h2 class="icard-title">🖱️ Mouse Hardware &amp; Its Impact on CPS</h2>
+      <p class="ibody">The physical design of a mouse significantly affects achievable click speed. Key factors include <strong>button actuation force</strong> (the pressure required to register a click), <strong>debounce delay</strong> (software delay to prevent double-registration), and <strong>switch type</strong>.<br><br>Optical switches (used in Razer and SteelSeries models) have zero debounce delay and actuation times of 0.2ms — the fastest available. Traditional mechanical switches (Omron, Huano) have debounce delays of 2–10ms programmed by manufacturers to prevent double-clicks, which inherently limits maximum CPS. Some gaming mice allow debounce adjustment in their software.<br><br><strong>Mouse polling rate</strong> — how often the mouse reports its position to the computer — also affects click registration timing. At 125Hz (standard), clicks are processed every 8ms. At 1000Hz (standard gaming), every 1ms. At 4000Hz or 8000Hz (ultra-high-end gaming mice), near-zero latency. For CPS testing, 1000Hz polling rate is sufficient; the limitation becomes switch debounce and human physiology beyond that point.<br><br>For jitter clicking specifically, mice with lower-weight buttons and lighter clicks perform better. The SteelSeries Rival 3 and Logitech G Pro X Superlight are popular choices among high-CPS competitive players due to their light actuation force and high polling rates.</p>
+    </article>
     <div class="sec-divider">FAQ — CLICK SPEED</div>
     <article class="icard"><div class="faq-list">
       <div class="faq-item"><button class="faq-q">What is a good CPS score? <span class="faq-arrow">▼</span></button><div class="faq-a"><strong>6–7 CPS</strong> is average for most adults. Above <strong>10 CPS</strong> is good and requires intentional technique. Above <strong>14 CPS</strong> requires jitter or butterfly clicking. Pro Minecraft PvP players typically sustain 8–12 CPS.</div></div>
@@ -2519,6 +2603,10 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
     <article class="icard">
       <h2 class="icard-title">🏆 Spacebar Speed World Records</h2>
       <p class="ibody">The verified spacebar speed record stands at approximately <strong>14–16 presses per second</strong> for a 10-second test using standard technique. Some claims of 20+ HPS exist but are typically achieved with modified technique or disputed timing.<br><br>For rhythm games like <strong>osu!</strong>, players regularly sustain 10–12 HPS for multiple seconds during streams (rapid consecutive notes). This makes osu! players among the fastest spacebar pressers in the world.</p>
+    </article>
+    <article class="icard">
+      <h2 class="icard-title">⌨️ Keyboard Mechanics &amp; Spacebar Speed</h2>
+      <p class="ibody">The spacebar is the largest and most frequently used key on any keyboard, yet its performance characteristics vary significantly between keyboard types. <strong>Membrane keyboards</strong> (the most common type in offices and budget setups) use a rubber dome beneath each key that must be fully compressed for registration. This creates a mushier feel and slightly higher actuation force, which can limit maximum spacebar speed.<br><br><strong>Mechanical keyboards</strong> with linear switches (Cherry MX Red, Speed Silver, Gateron Yellow) have actuation points at 2mm instead of full 4mm travel, allowing faster successive presses without bottoming out. Enthusiast spacebarers report 20–30% speed improvements when switching from membrane to mechanical linear switches.<br><br><strong>Scissor switch keyboards</strong> (common in laptops and Apple keyboards) sit between the two — lower profile with shorter travel distance. Some users achieve their highest spacebar speeds on laptops due to the shallow key travel requiring less physical effort per press. Our spacebar speed test works with any keyboard type and accurately counts presses via keyboard events.</p>
     </article>
     <div class="sec-divider">FAQ — SPACEBAR</div>
     <article class="icard"><div class="faq-list">
@@ -2562,6 +2650,14 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
         <tr><td style="color:#c8c8e8">World record</td><td style="color:var(--red)">212 WPM</td><td style="color:#b0b0d0">Barbara Blackburn, 2005</td></tr>
       </tbody></table>
     </article>
+    <article class="icard">
+      <h2 class="icard-title">⌨️ Touch Typing vs Hunt-and-Peck</h2>
+      <p class="ibody"><strong>Touch typing</strong> is the technique of typing without looking at the keyboard, using all ten fingers on designated home row keys (ASDF for the left hand, JKL; for the right). It is the fastest and most ergonomic typing method. Professional typists who use touch typing consistently achieve 70–120 WPM with high accuracy.<br><br><strong>Hunt-and-peck</strong> typing — using one or two fingers while visually locating each key — typically caps out at 30–50 WPM regardless of how much a person practices. The cognitive load of looking between screen and keyboard creates a bottleneck that additional speed cannot overcome.<br><br>Switching from hunt-and-peck to touch typing requires a temporary speed reduction of 2–6 weeks while muscle memory rebuilds. After that period, most people surpass their previous best speed within 3 months of daily practice. Our free typing speed test accurately measures your WPM whether you use touch typing, hunt-and-peck, or any other method.</p>
+    </article>
+    <article class="icard">
+      <h2 class="icard-title">🏆 Keyboard Layouts: QWERTY vs Dvorak vs Colemak</h2>
+      <p class="ibody">The <strong>QWERTY</strong> layout, designed in 1873 for mechanical typewriters, remains the global standard. Its design was optimized to prevent mechanical key jamming — not for typing speed. Despite this, the familiarity advantage of QWERTY means most typists achieve their best speeds on it.<br><br><strong>Dvorak</strong> places the most common English letters on the home row, theoretically reducing finger travel by 63% compared to QWERTY. Studies show Dvorak users average 60–75 WPM — comparable to QWERTY users — with some elite Dvorak typists exceeding 150 WPM. The learning curve is 3–6 months.<br><br><strong>Colemak</strong> is a modern alternative that changes only 17 keys from QWERTY (compared to Dvorak's 33), making it easier to learn for QWERTY users. It places the most common letters on the home row while keeping common keyboard shortcuts (Ctrl+Z, X, C, V) in their original positions. Colemak is growing in popularity among programmers and writers.</p>
+    </article>
     <div class="sec-divider">FAQ — TYPING TEST</div>
     <article class="icard"><div class="faq-list">
       <div class="faq-item"><button class="faq-q">What is average typing speed? <span class="faq-arrow">▼</span></button><div class="faq-a">The global average is <strong>40–50 WPM</strong>. Office professionals average 55–70 WPM. Professional typists and stenographers reach 100–200+ WPM. The world record is 212 WPM held by Barbara Blackburn.</div></div>
@@ -2597,6 +2693,10 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
         <tr><td style="color:var(--red)">30+</td><td style="color:var(--red)">Level 4+</td><td style="color:#c8c8e8">Elite — very few players reach this</td></tr>
       </tbody></table>
     </article>
+    <article class="icard">
+      <h2 class="icard-title">🎮 Coreball: Timing and Rotation Mechanics Explained</h2>
+      <p class="ibody">Coreball is a <strong>precision timing game</strong> where a ball rotates around a central core, and you must shoot additional balls onto the core without collisions. The game tests both pattern recognition and impulse control — knowing when <em>not</em> to shoot is as important as knowing when to shoot.<br><br>The rotation speed increases with each successful placement, compressing the time window for safe shots. Early levels have generous gaps; later levels require shooting into windows of less than 100ms. This is where reaction time training directly translates to Coreball skill — players who score well on our Reaction Time Test also tend to advance further in Coreball.<br><br>The optimal strategy is to ignore the rotating balls closest to your cursor and instead watch the gap pattern ahead of them. By the time you click, the ball you targeted will have moved, so you must predict where the gap will be when your shot arrives rather than aiming at the current position. This predictive aiming — called <em>leading the target</em> — is also fundamental to FPS games and can be trained using our Stimulation Clicker aim trainer.</p>
+    </article>
     <div class="sec-divider">FAQ — COREBALL</div>
     <article class="icard"><div class="faq-list">
       <div class="faq-item"><button class="faq-q">What is the Coreball game? <span class="faq-arrow">▼</span></button><div class="faq-a">Coreball is a precision timing game where you shoot balls onto a spinning core without hitting existing ones. It tests <strong>timing, patience, and spatial awareness</strong>. The core spins faster with each level, increasing difficulty progressively.</div></div>
@@ -2628,6 +2728,10 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
         <tr><td style="color:var(--red)">99999</td><td style="color:var(--red)">⚡ Legendary</td><td style="color:#c8c8e8">Score resets to 0 (rare)</td></tr>
       </tbody></table>
     </article>
+    <article class="icard">
+      <h2 class="icard-title">🦕 The Psychology of High Score Chasing</h2>
+      <p class="ibody">The Chrome Dinosaur Game became a cultural phenomenon not just because of its accessibility, but because of its <strong>perfect difficulty curve</strong>. Speed increases gradually enough that players feel constantly challenged without feeling cheated. This progressive difficulty is backed by game design research — the ideal challenge level keeps skill and difficulty matched, creating a flow state where players lose track of time.<br><br>The game's obstacle types are carefully varied: short cacti require different timing than tall cacti, pterodactyls at different heights demand split-second ducking or jumping decisions, and multi-cactus clusters require rapid sequential inputs. This variety prevents the cognitive adaptation that would make the game feel repetitive at lower difficulties.<br><br>High-score chasers report a specific mental state when approaching personal bests — heightened focus, reduced peripheral awareness, and near-automatic responses. At scores above 1,000, the game is fast enough that conscious decision-making becomes too slow; survival depends entirely on trained reflexes and pattern recognition built through hundreds of repetitions.</p>
+    </article>
     <div class="sec-divider">FAQ — DINO GAME</div>
     <article class="icard"><div class="faq-list">
       <div class="faq-item"><button class="faq-q">What is the Chrome Dinosaur game? <span class="faq-arrow">▼</span></button><div class="faq-a">Originally created by Google in 2014, the <strong>T-Rex Runner</strong> appears in Chrome when you have no internet connection. It's now one of the most played browser games in the world, with an estimated <strong>270 million plays per month</strong>.</div></div>
@@ -2658,6 +2762,11 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
     <article class="icard">
       <h2 class="icard-title">💡 Tips to Improve Number Memory</h2>
       <p class="ibody"><strong>Chunking:</strong> Group digits into pairs or triples (e.g. 3-8-4-7-2 → 38, 47, 2). This is how phone numbers are remembered.<br><strong>Rhythm:</strong> Say the number aloud with a rhythm or melody — music memory is stronger than verbal memory.<br><strong>Visualization:</strong> Associate digits with images or locations (memory palace technique).<br><strong>Practice:</strong> Daily training measurably expands working memory span within 2–4 weeks.</p>
+    </article>
+    <article class="icard">
+    <article class="icard">
+      <h2 class="icard-title">🔬 Working Memory vs Long-Term Memory</h2>
+      <p class="ibody">Working memory and long-term memory are fundamentally different systems. <strong>Working memory</strong> (also called short-term memory) holds information actively in consciousness for immediate use — it is the mental scratchpad you use while reading a sentence, solving a math problem, or recalling a phone number. It is limited in both capacity (5–9 items) and duration (typically 15–30 seconds without rehearsal).<br><br><strong>Long-term memory</strong> has essentially unlimited capacity and can store information for decades. The process of moving information from working memory to long-term memory is called <em>consolidation</em> and requires attention, repetition, and sleep. The number memory test measures your working memory capacity specifically — how many items you can hold in active consciousness at one time.<br><br>Research by cognitive psychologist George Miller in 1956 established the famous "magical number 7, plus or minus 2" — the average working memory capacity is 5–9 items. Modern research suggests the true limit is closer to 4 "chunks" of information, but chunking strategies allow each chunk to contain multiple items, effectively expanding usable capacity.</p>
     </article>
     <article class="icard">
       <h2 class="icard-title">🧠 Science Behind Working Memory</h2>
@@ -2711,6 +2820,10 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
       <div class="faq-item"><button class="faq-q">Why does Snake train reaction time? <span class="faq-arrow">▼</span></button><div class="faq-a">Snake improves <strong>anticipatory reaction time</strong> — the ability to plan and execute decisions before a crisis arrives. Unlike pure reflex tests, Snake develops spatial working memory, decision-making under time pressure, and long-term trajectory planning.</div></div>
       <div class="faq-item"><button class="faq-q">What keyboard keys control the snake? <span class="faq-arrow">▼</span></button><div class="faq-a">You can use <strong>Arrow Keys</strong> (↑ ↓ ← →) or <strong>WASD</strong>. Both work identically. You cannot reverse direction 180° — pressing the opposite direction of travel is ignored to prevent instant self-collision.</div></div>
     </div></article>
+    <article class="icard">
+      <h2 class="icard-title">🐍 Snake Game Advanced Strategy</h2>
+      <p class="ibody">The core challenge of Snake is not speed — it is <strong>space management</strong>. As the snake grows, the available grid shrinks. Players who reach high scores do so by following systematic path patterns rather than chasing food directly.<br><br><strong>Hamiltonian path strategy:</strong> A Hamiltonian path visits every cell on the grid exactly once. If you program your snake to follow this path continuously, it can theoretically achieve a perfect score by visiting every cell before eating. In practice, a modified approach works: follow the outer edge in a spiral, collect food when it appears along the path without deviating from the spiral structure.<br><br><strong>Quadrant strategy:</strong> Mentally divide the grid into four quadrants. Keep the snake's body within one or two quadrants at a time, leaving other quadrants as escape routes. When the current quadrant becomes too crowded, execute a controlled exit to an adjacent quadrant.<br><br>On our implementation, the grid is 20×20 cells with keyboard or swipe controls. The snake speeds up slightly every 5 food items consumed, requiring faster reactions as your score climbs.</p>
+    </article>
     </div><!-- /snake info-section -->
 
     <!-- ═══ INFO: MERGE NUMBERS ═══ -->
@@ -2723,6 +2836,10 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
 
 
     <!-- ═══ INFO: CLICKER TYCOON ═══ -->
+    <article class="icard">
+      <h2 class="icard-title">🏆 World Record CPS Scores &amp; Verification</h2>
+      <p class="ibody">The world record for standard clicking (single finger, no technique) stands at approximately <strong>14.1 CPS over 10 seconds</strong>, set by Dylan Allred in 2020. For butterfly clicking (two fingers alternating), Nerd Tests documented a verified score of <strong>25.5 CPS</strong>. Drag clicking records exceed 40 CPS but are excluded from most competitive contexts due to hardware dependency rather than skill.<br><br>Verification of CPS records is contentious in the gaming community. Screen recordings can be edited; software-based counters can be manipulated. The most credible records use hardware-level click counters, witnessed physical verification, and multiple simultaneous recording sources. Our CPS test uses browser-level pointer events which cannot be inflated by third-party software — a score on our test reflects genuine clicking ability on your hardware and polling rate configuration.<br><br>For competitive Minecraft PvP, the practical ceiling for sustained combat CPS (maintaining accuracy while clicking) is approximately <strong>12 CPS</strong>. Above that threshold, accuracy degrades faster than the speed advantage compounds. Professional Minecraft players prioritize consistent 8–10 CPS with high accuracy over maximum CPS with poor aim.</p>
+    </article>
     <article class="icard" style="margin-bottom:0">
       <h2 class="icard-title">🖱️ The Complete History of Click Speed Testing</h2>
       <p class="ibody">Click speed testing originated in the early 2010s within the Minecraft PvP community, where players discovered that higher clicking speeds gave an advantage in combat mechanics. The original <strong>CPS Test</strong> websites were simple counters measuring clicks within a 10-second window. Over time, the community standardized multiple durations and developed specific techniques to maximize scores.<br><br>The first documented jitter clicking guides appeared on YouTube around 2013–2014, teaching players to tense their forearm muscles to create involuntary vibrations. By 2015, butterfly clicking — using two fingers alternating on one button — became widespread. Drag clicking, which exploits mouse surface friction to register multiple clicks per physical motion, emerged around 2018 and remains controversial in gaming communities due to hardware damage concerns.<br><br>Today, CPS testing has expanded beyond gaming into productivity research, hand rehabilitation monitoring, and input device benchmarking. Gaming peripheral manufacturers like Logitech and Razer publish official CPS benchmarks for their mice.</p>
@@ -2763,6 +2880,14 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
       <h2 class="icard-title">🎰 Fortune Spin &amp; Events</h2>
       <p class="ibody">Every 2 minutes, the <strong>Fortune Spin</strong> becomes available — a free spin with 8 possible outcomes including coin multipliers (×2, ×3, ×10 Jackpot), RP bonuses (+20, +50 RP), income boosts, and Click Frenzy activation. Click Frenzy doubles all click income for 30 seconds and should be used during active clicking sessions for maximum effect.<br><br><strong>Golden Coins</strong> randomly appear on the game world and disappear after a few seconds. Clicking them grants a large one-time coin bonus. The spawn rate increases with your passive income level — a highly upgraded empire generates golden coins more frequently. Always watch for the shimmer effect that signals a golden coin appearance.</p>
     </article>
+    <article class="icard">
+      <h2 class="icard-title">📈 The Psychology of Idle Games: Why They Are Addictive</h2>
+      <p class="ibody">Idle clicker games like Clicker Tycoon leverage several well-studied psychological mechanisms that make them uniquely engaging. The core loop — action, reward, reinvestment — mirrors the dopaminergic reward circuits studied in behavioral economics and game design research.<br><br><strong>Variable reward schedules:</strong> Golden coins appear at random intervals, Fortune Spin has randomized outcomes, and weather events trigger unexpectedly. Variable rewards create stronger behavioral engagement than fixed schedules — the same mechanism behind social media notifications and slot machines, but in a low-stakes, consequence-free context.<br><br><strong>Exponential progress curves:</strong> Early upgrades provide dramatic income jumps. The jump from 1 auto cursor to 10 auto cursors doubles income. The jump to a factory multiplies it. This accelerating progress creates a sense of momentum that feels rewarding to maintain. The prestige system resets this curve, allowing players to re-experience the satisfying early acceleration with a permanent multiplier advantage.<br><br><strong>The idle loop:</strong> Closing and reopening the game to collect offline earnings is a designed engagement mechanism. The "returning to check progress" behavior keeps players thinking about the game between sessions without requiring active play. This low time-commitment model is why idle games are popular among adults with busy schedules who cannot commit to traditional games.<br><br>Clicker Tycoon is designed to be playable in 5-minute sessions or left running for hours — equally rewarding both ways. The progress is always saved, and no session is ever wasted.</p>
+    </article>
+    <article class="icard">
+      <h2 class="icard-title">🏙️ Complete Building &amp; Upgrade Reference</h2>
+      <p class="ibody">Clicker Tycoon features a complete economy built on 9 building types with unique passive income rates, plus a multi-tier upgrade system that can multiply each building's output up to 8× its base rate.<br><br>The optimal buying strategy changes throughout a run. In the early game (under 1,000 coins), prioritize Auto Cursors for their low cost-to-income ratio. In the mid game (1,000–100,000 coins), transition to Interns and Miners which offer better coins-per-second per coin spent. In the late game (100,000+ coins), Factories, Banks, and Research Labs offer the highest absolute income even though they are expensive — the compounding effect of high-income buildings accumulates faster than low-income buildings regardless of efficiency ratios.<br><br>The research tree permanently modifies these income numbers. Tier 3 Passive Income Research effectively doubles all building output on top of the prestige multiplier, creating a combined multiplier that can reach 16× or more in extended play. Understanding the multiplicative relationship between prestige multiplier, research bonuses, and base building income is the key to advanced Clicker Tycoon play.</p>
+    </article>
     <div class="sec-divider">FAQ — CLICKER TYCOON</div>
     <article class="icard"><div class="faq-list">
       <div class="faq-item"><button class="faq-q">Is my progress saved? <span class="faq-arrow">▼</span></button><div class="faq-a">Yes — your coins, upgrades, prestige level, and milestones are automatically saved to your browser's <strong>localStorage</strong> every 10 seconds. Close the tab and return anytime — your progress will be there.</div></div>
@@ -2784,23 +2909,10 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
         Rated: <span>4.9 / 5</span> by <span>4,218</span> users
       </p>
       <p>© <span id="footYear">2026</span> <strong>Reaction Speed Test</strong> — Free Online Reflex &amp; Brain Tests</p>
-      <p style="margin-top:10px;font-size:0.52rem">
-        <a href="/about" style="color:var(--muted);text-decoration:none;margin:0 8px" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">About</a>
-        <span style="color:var(--border2)">·</span>
-        <a href="/privacy-policy" style="color:var(--muted);text-decoration:none;margin:0 8px" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">Privacy Policy</a>
-        <span style="color:var(--border2)">·</span>
-        <a href="/contact" style="color:var(--muted);text-decoration:none;margin:0 8px" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">Contact</a>
-        <span style="color:var(--border2)">·</span>
-        <a href="/sitemap.xml" style="color:var(--muted);text-decoration:none;margin:0 8px" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">Sitemap</a>
-      </p>
-      <p style="margin-top:10px;font-size:0.52rem">
-        <a href="/about" style="color:var(--muted);text-decoration:none;margin:0 8px" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">About</a>
-        <span style="color:var(--border2)">·</span>
-        <a href="/privacy-policy" style="color:var(--muted);text-decoration:none;margin:0 8px" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">Privacy Policy</a>
-        <span style="color:var(--border2)">·</span>
-        <a href="/contact" style="color:var(--muted);text-decoration:none;margin:0 8px" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">Contact</a>
-        <span style="color:var(--border2)">·</span>
-        <a href="/sitemap.xml" style="color:var(--muted);text-decoration:none;margin:0 8px" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">Sitemap</a>
+      <p style="margin-top:12px;font-size:0.58rem;display:flex;flex-wrap:wrap;justify-content:center;gap:6px;align-items:center">
+        <a href="/about" style="color:#8888aa;text-decoration:none;padding:5px 12px;border:1px solid #2a2a4a;border-radius:6px;transition:all 0.15s" onmouseover="this.style.color='#00f5a0';this.style.borderColor='#00f5a066'" onmouseout="this.style.color='#8888aa';this.style.borderColor='#2a2a4a'">About</a>
+        <a href="/privacy-policy" style="color:#8888aa;text-decoration:none;padding:5px 12px;border:1px solid #2a2a4a;border-radius:6px;transition:all 0.15s" onmouseover="this.style.color='#00f5a0';this.style.borderColor='#00f5a066'" onmouseout="this.style.color='#8888aa';this.style.borderColor='#2a2a4a'">Privacy Policy</a>
+        <a href="/contact" style="color:#8888aa;text-decoration:none;padding:5px 12px;border:1px solid #2a2a4a;border-radius:6px;transition:all 0.15s" onmouseover="this.style.color='#00f5a0';this.style.borderColor='#00f5a066'" onmouseout="this.style.color='#8888aa';this.style.borderColor='#2a2a4a'">Contact</a>
       </p>
       <p style="margin-top:6px">Test your <strong>reaction speed</strong>, <strong>reflex time</strong>, <strong>typing speed (WPM)</strong>, <strong>click speed (CPS)</strong>, <strong>number memory</strong> and more — free, no download, works on any device.</p>
       <p style="margin-top:6px;font-size:0.48rem">Keywords: reaction speed test · reaction time test · reflex test · human benchmark · measure reaction time · free reaction test · response time test · reflex time ms · click speed test · CPS test · typing speed test · WPM test · jitter click · spacebar test · stimulation clicker · clicker tycoon · snake game · dinosaur game · coreball · number memory test · brain games online</p>
@@ -7099,6 +7211,17 @@ switchPanel = function(p, fromPop){
     if(typeof ctWorldStop==='function') ctWorldStop();
   }
 };
+
+// ── CANONICAL REDIRECT: http → https, www → non-www ──────────────────
+(function(){
+  var loc = window.location;
+  var isHttp = loc.protocol === 'http:';
+  var isWww  = loc.hostname.indexOf('www.') === 0;
+  if(isHttp || isWww){
+    var newUrl = 'https://' + loc.hostname.replace(/^www\./, '') + loc.pathname + loc.search + loc.hash;
+    window.location.replace(newUrl);
+  }
+})();
 
 // ── IF PAGE LOADED DIRECTLY ON /clicker-tycoon ─────────
 // switchPanel('clicker') already ran (line ~4480) but ctWorldStart
