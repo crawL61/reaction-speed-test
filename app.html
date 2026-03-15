@@ -407,22 +407,7 @@ body::before {
 }
 .lbtn.active { background: var(--accent); border-color: var(--accent); color: #000; }
 
-/* ─── Header nav links (About / Contact / Privacy) ─── */
-.hdr-nav {
-  display: flex; align-items: center; gap: 2px;
-  flex-shrink: 0; padding: 0 8px;
-  border-left: 1px solid var(--border2);
-}
-.hdr-nav-link {
-  padding: 4px 8px; border-radius: 5px;
-  font-size: 0.52rem; font-weight: 600; letter-spacing: 0.09em;
-  text-transform: uppercase; text-decoration: none;
-  color: var(--muted); white-space: nowrap;
-  transition: color 0.15s, background 0.15s;
-}
-.hdr-nav-link:hover { color: var(--accent); background: rgba(0,245,160,0.07); }
-.hdr-nav-privacy { display: flex; }
-@media(max-width:680px) { .hdr-nav { display: none; } }
+
 
 /* ─── ROW 2: time selector + mode (hidden for reaction/stim) ─── */
 .row2 {
@@ -1801,13 +1786,6 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
       transition:color 0.15s;
     ">›</button>
 
-    <!-- Header nav links -->
-    <div class="hdr-nav" id="hdrNav">
-      <a href="/about" class="hdr-nav-link">About</a>
-      <a href="/contact" class="hdr-nav-link">Contact</a>
-      <a href="/privacy-policy" class="hdr-nav-link hdr-nav-privacy">Privacy</a>
-    </div>
-
     <div class="lang" style="border-left:1px solid var(--border2); padding:0 10px; gap:4px; flex-shrink:0;">
       <button class="lbtn" id="soundToggle" onclick="toggleSound()" title="Toggle Sound" style="font-size:0.8rem;padding:4px 8px;">🔊</button>
       <button class="lbtn" id="statsBtn" onclick="showStatsModal()" title="My Stats" style="font-size:0.6rem;padding:4px 8px;letter-spacing:0.04em;">📊</button>
@@ -2927,7 +2905,7 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
 /* ═══════════════════════════════════════════
    STATE
 ═══════════════════════════════════════════ */
-let curPanel    = 'cps';
+let curPanel    = 'reaction';
 let curDuration = 5;
 let clickMode   = 'normal';
 let stimDiff    = 'medium';
