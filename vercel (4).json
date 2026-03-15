@@ -1,0 +1,46 @@
+{
+  "rewrites": [
+    { "source": "/reaction-time-test",  "destination": "/app.html" },
+    { "source": "/click-speed-test",    "destination": "/app.html" },
+    { "source": "/jitter-click-test",   "destination": "/app.html" },
+    { "source": "/spacebar-speed-test", "destination": "/app.html" },
+    { "source": "/stimulation-clicker", "destination": "/app.html" },
+    { "source": "/typing-speed-test",   "destination": "/app.html" },
+    { "source": "/dinosaur-game",       "destination": "/app.html" },
+    { "source": "/coreball-game",       "destination": "/app.html" },
+    { "source": "/number-memory-text",  "destination": "/app.html" },
+    { "source": "/number-memory-test",  "destination": "/app.html" },
+    { "source": "/snake-game",          "destination": "/app.html" },
+    { "source": "/clicker-tycoon",      "destination": "/app.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options",        "value": "SAMEORIGIN" },
+        { "key": "X-XSS-Protection",       "value": "1; mode=block" },
+        { "key": "Referrer-Policy",        "value": "strict-origin-when-cross-origin" }
+      ]
+    },
+    {
+      "source": "/og-image.png",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400" }
+      ]
+    },
+    {
+      "source": "/sitemap.xml",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600" },
+        { "key": "Content-Type", "value": "application/xml" }
+      ]
+    },
+    {
+      "source": "/robots.txt",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400" }
+      ]
+    }
+  ]
+}
