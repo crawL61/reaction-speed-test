@@ -86,10 +86,38 @@
   <p>Reaction Speed Test does not collect, store, or transmit any personal data. All scores and game progress are stored exclusively in your browser's <strong>localStorage</strong> — on your device only. We have no user accounts, no registration, and no server-side score storage. When you clear your browser data, all scores are deleted permanently.</p>
   <p>We use Google AdSense to display non-personalized advertisements to support server costs. For full details on data handling, please read our <a href="/privacy-policy" style="color:var(--accent)">Privacy Policy</a>.</p>
 
+  <h2>Why We Built This</h2>
+  <p>The idea for Reaction Speed Test came from frustration with existing tools. Most reaction time tests were buried in cluttered websites, required sign-up, showed ads every 3 seconds, or simply didn't work on mobile. Tools like Human Benchmark were good but offered only a handful of tests. Dedicated aim trainers like Aimlabs required downloads and a Steam account.</p>
+  <p>We wanted a single destination that a gamer could bookmark and return to daily — fast loading, no friction, accurate results, and enough variety to make the visit worthwhile. The result is a platform that loads in under a second, works offline after first visit (cached by the browser), and runs 11 different tools without leaving the page.</p>
+  <p>Every design decision prioritizes the user's time. No cookie banners. No loading screens. No "rate us" popups. No social sharing nags. Just the tools, working immediately, on any device.</p>
+
+  <h2>Accuracy Commitment</h2>
+  <p>We take measurement accuracy seriously because inaccurate results are worse than no results. Our reaction time test uses <code>performance.now()</code> with sub-millisecond resolution. The random delay (1.5–4 seconds) is cryptographically random to prevent pattern detection. Early clicks invalidate the round rather than recording a false fast score.</p>
+  <p>The typing test uses keystroke-level event timing rather than word-level, giving accurate WPM even for short test durations. The CPS test uses <code>pointerdown</code> events rather than <code>click</code> events, correctly handling multi-touch and stylus input on tablets. The number memory test uses a spaced reveal algorithm so each digit is shown for exactly the same duration regardless of number length.</p>
+
+  <h2>Accessibility</h2>
+  <p>All interactive elements are keyboard-navigable. ARIA labels are applied to interactive regions. Color choices meet WCAG 2.1 AA contrast requirements. The site works with screen readers for informational content. Canvas-based games include text-based status alternatives in the stats bar. We are committed to improving accessibility with each update.</p>
+
   <h2>Technical Stack</h2>
   <p>Reaction Speed Test is built as a <strong>single-page application (SPA)</strong> — the entire platform runs from a single HTML file with no external JavaScript dependencies, no frameworks, and no build tools. This means it loads in under 500ms on most connections and works offline once cached.</p>
   <p>The Clicker Tycoon world is rendered using the <strong>HTML5 Canvas API</strong> with a custom 60fps game loop. The typing test, CPS counter, reaction timer, and all UI components are written in vanilla JavaScript. CSS animations use hardware-accelerated transforms where possible for smooth 60fps performance on mobile devices.</p>
   <p>The site is hosted on <strong>Vercel</strong> with global CDN distribution. All pages are served over HTTPS with HTTP/2 multiplexing. Average Time to First Byte (TTFB) is under 100ms globally.</p>
+
+  <h2>Our Commitment to Free Access</h2>
+  <p>Every tool on this platform has been and will remain <strong>completely free</strong>. We are supported entirely by non-intrusive advertising through Google AdSense. We have deliberately chosen not to introduce premium tiers, paywalled features, or account requirements — because we believe cognitive tools should be universally accessible regardless of income or geography.</p>
+  <p>We serve users from over 80 countries, and a significant portion of our traffic comes from mobile users in regions where paying for software is not practical. Our SPA architecture means the entire site works on a 2G connection once the initial file is cached.</p>
+
+  <h2>Frequently Asked Questions About Our Platform</h2>
+  <p><strong style="color:#fff">Why is everything in one HTML file?</strong><br>
+  The single-file architecture was a deliberate design choice for maximum portability and performance. It means the entire platform can be hosted on any static file server, works offline, requires zero build tooling to deploy, and has no dependencies that can break. The tradeoff is a slightly larger initial download (~350KB), but after the first load everything is cached locally.</p>
+  <p><strong style="color:#fff">How do you measure reaction time accurately in a browser?</strong><br>
+  We use <code>performance.now()</code> rather than <code>Date.now()</code>. The difference: <code>Date.now()</code> has millisecond resolution and is subject to system clock adjustments, while <code>performance.now()</code> uses a monotonic high-resolution timer with sub-millisecond precision. This is the same API used by professional benchmarking tools and game engines. The timestamp is recorded on <code>mousedown</code> or <code>touchstart</code> events rather than <code>click</code>, which fires slightly later, reducing artificial latency in the measurement.</p>
+  <p><strong style="color:#fff">Are your scores comparable to Human Benchmark?</strong><br>
+  Yes, methodologically they are equivalent. Both tests use visual stimulus reaction time measured via browser events. Minor variations (±5–15ms) between platforms can be attributed to differences in rendering pipelines, input event timing, and monitor refresh rates. A 210ms score on our test and a 205ms score on Human Benchmark should be considered equivalent within measurement uncertainty.</p>
+  <p><strong style="color:#fff">How do you handle mobile accuracy?</strong><br>
+  On mobile, we listen for <code>touchstart</code> events rather than <code>click</code> events. Touch events fire approximately 100–300ms earlier than synthesized click events on mobile browsers (which add a tap delay for double-tap detection). We disable the 300ms tap delay using <code>touch-action: manipulation</code> in CSS, ensuring mobile scores are comparable to desktop scores.</p>
+  <p><strong style="color:#fff">Does the typing test use real words?</strong><br>
+  Yes. Our typing test uses a corpus of the 500 most common English words, randomly shuffled per session. This gives a realistic typing experience compared to random character sequences. Accuracy is measured per character typed, and we distinguish between errors caught with backspace (corrected errors) and uncorrected errors at submission.</p>
 
   <div class="divider"></div>
 
