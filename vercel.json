@@ -1,4 +1,8 @@
 {
+  "redirects": [
+    { "source": "/:path*", "has": [{"type": "host", "value": "www.reactionspeedtest.com"}], "destination": "https://reactionspeedtest.com/:path*", "permanent": true },
+    { "source": "/:path*", "has": [{"type": "header", "key": "x-forwarded-proto", "value": "http"}], "destination": "https://reactionspeedtest.com/:path*", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/reaction-time-test",  "destination": "/app.html" },
     { "source": "/click-speed-test",    "destination": "/app.html" },
