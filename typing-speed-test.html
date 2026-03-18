@@ -32,9 +32,9 @@ body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospa
 /* LAYOUT — sidebar + center */
 .layout{display:flex;gap:0;max-width:1400px;margin:0 auto;}
 .sidebar{width:160px;flex-shrink:0;}
-.sidebar-inner{position:sticky;top:120px;padding:8px 4px;}
+.sidebar-inner{position:sticky;top:60px;padding:8px 4px;}
 .content{flex:1;min-width:0;max-width:860px;margin:0 auto;padding:36px 24px 60px;}
-@media(max-width:1199px){.sidebar{display:none;}}
+@media(max-width:1023px){.sidebar{display:none;}}
 
 /* BACK */
 .back{display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:32px;padding:6px 0;border-bottom:1px solid transparent;transition:color 0.2s,border-color 0.2s;}
