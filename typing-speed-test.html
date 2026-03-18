@@ -40,7 +40,7 @@ body{
 }
 
 /* PAGE */
-.page{max-width:860px;margin:0 auto;padding:36px 24px 80px;}
+.page{max-width:860px;margin:0 auto;padding:36px 24px 80px;} @media(min-width:1200px){body{padding-left:0;padding-right:0;}}
 
 /* BACK LINK */
 .back{
@@ -256,7 +256,39 @@ footer a:hover{color:var(--accent);}
 <style>body{padding-bottom:68px}</style>
 </head>
 <body>
+<!-- LEFT SIDEBAR AD -->
+<div id="adSideLeft" style="
+  position:fixed;left:0;top:50%;transform:translateY(-50%);
+  width:160px;z-index:500;
+  display:none;
+">
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:160px;height:600px"
+       data-ad-client="ca-pub-5019628877403001"
+       data-ad-slot="auto"
+       data-ad-format="vertical"></ins>
+</div>
+<!-- RIGHT SIDEBAR AD -->
+<div id="adSideRight" style="
+  position:fixed;right:0;top:50%;transform:translateY(-50%);
+  width:160px;z-index:500;
+  display:none;
+">
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:160px;height:600px"
+       data-ad-client="ca-pub-5019628877403001"
+       data-ad-slot="auto"
+       data-ad-format="vertical"></ins>
+</div>
 <div class="page">
+<div style="text-align:center;margin:12px auto;max-width:728px;min-height:90px">
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-5019628877403001"
+       data-ad-slot="auto"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+</div>
   <a href="/" class="back">← Back to Homepage</a>
   <h1>📝 <span class="hl">Typing Speed</span> Test</h1>
   <div class="sub">Free typing speed test. Measure your WPM and accuracy instantly with real-time tracking. Average is 41 WPM — how fast do you type?</div>
@@ -276,6 +308,16 @@ footer a:hover{color:var(--accent);}
     <p>A <strong>typing speed test</strong> measures how many words you type per minute (WPM) with a given accuracy percentage. Our test presents a passage of common English words and measures your speed and accuracy in real time. No signup required — results are displayed immediately after you finish typing.</p>
     <p>WPM is calculated as total characters typed divided by 5 (the standardized word length), divided by elapsed minutes. Accuracy is measured per keystroke. Our test tracks corrections made with backspace separately from uncorrected errors.</p>
   </div>
+
+<div style="text-align:center;margin:16px auto;max-width:728px">
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-5019628877403001"
+       data-ad-slot="auto"
+       data-ad-format="fluid"
+       data-ad-layout-key="-6t+ed+2i-1n-4w"
+       data-ad-layout="in-feed"></ins>
+</div>
   <div class="card">
     <h2>WPM Rankings by Skill Level</h2>
     <table>
@@ -290,6 +332,16 @@ footer a:hover{color:var(--accent);}
     </table>
     <p>The global average typing speed is approximately <strong>40 WPM</strong>. Professional typists average 65–75 WPM. The world record is 212 WPM over one minute, set by Barbara Blackburn using the Dvorak keyboard layout.</p>
   </div>
+
+<div style="text-align:center;margin:16px auto;max-width:728px">
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-5019628877403001"
+       data-ad-slot="auto"
+       data-ad-format="fluid"
+       data-ad-layout-key="-6t+ed+2i-1n-4w"
+       data-ad-layout="in-feed"></ins>
+</div>
   <div class="card">
     <h2>How to Type Faster</h2>
     <ul>
@@ -352,6 +404,31 @@ footer a:hover{color:var(--accent);}
 </div>
 <script>
 (function(){try{document.querySelectorAll('ins.adsbygoogle').forEach(function(i){if(!i.dataset.adsbygoogleStatus)(adsbygoogle=window.adsbygoogle||[]).push({});});}catch(e){}})();
+</script>
+<script>
+(function(){
+  function showSidebars(){
+    var minW = 1200;
+    var sl = document.getElementById('adSideLeft');
+    var sr = document.getElementById('adSideRight');
+    if(!sl || !sr) return;
+    if(window.innerWidth >= minW){
+      sl.style.display = 'block';
+      sr.style.display = 'block';
+    } else {
+      sl.style.display = 'none';
+      sr.style.display = 'none';
+    }
+  }
+  showSidebars();
+  window.addEventListener('resize', showSidebars);
+  // AdSense push for sidebars
+  try{
+    [document.querySelector('#adSideLeft ins'), document.querySelector('#adSideRight ins')].forEach(function(ins){
+      if(ins && !ins.dataset.adsbygoogleStatus)(adsbygoogle=window.adsbygoogle||[]).push({});
+    });
+  }catch(e){}
+})();
 </script>
 </body>
 </html>

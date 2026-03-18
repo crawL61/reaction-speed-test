@@ -40,7 +40,7 @@ body{
 }
 
 /* PAGE */
-.page{max-width:860px;margin:0 auto;padding:36px 24px 80px;}
+.page{max-width:860px;margin:0 auto;padding:36px 24px 80px;} @media(min-width:1200px){body{padding-left:0;padding-right:0;}}
 
 /* BACK LINK */
 .back{
@@ -256,7 +256,39 @@ footer a:hover{color:var(--accent);}
 <style>body{padding-bottom:68px}</style>
 </head>
 <body>
+<!-- LEFT SIDEBAR AD -->
+<div id="adSideLeft" style="
+  position:fixed;left:0;top:50%;transform:translateY(-50%);
+  width:160px;z-index:500;
+  display:none;
+">
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:160px;height:600px"
+       data-ad-client="ca-pub-5019628877403001"
+       data-ad-slot="auto"
+       data-ad-format="vertical"></ins>
+</div>
+<!-- RIGHT SIDEBAR AD -->
+<div id="adSideRight" style="
+  position:fixed;right:0;top:50%;transform:translateY(-50%);
+  width:160px;z-index:500;
+  display:none;
+">
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:160px;height:600px"
+       data-ad-client="ca-pub-5019628877403001"
+       data-ad-slot="auto"
+       data-ad-format="vertical"></ins>
+</div>
 <div class="page">
+<div style="text-align:center;margin:12px auto;max-width:728px;min-height:90px">
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-5019628877403001"
+       data-ad-slot="auto"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+</div>
   <a href="/" class="back">← Back to Homepage</a>
   <h1>⚡ <span class="hl">Reaction</span> Time Test</h1>
   <div class="sub">Free online reaction time test. Measure your reflex speed in milliseconds with 5-round averaging and human benchmark comparison. No signup required.</div>
@@ -306,6 +338,16 @@ footer a:hover{color:var(--accent);}
     <p>Average human reaction time to a visual stimulus is <strong>200–250ms</strong>. This includes ~20ms for light to travel from monitor to eye, ~40–50ms for the visual signal to reach the brain's visual cortex, ~50–80ms for the motor cortex to generate a response signal, and ~30–50ms for the nerve signal to travel to your finger muscles.</p>
   </div>
 
+<div style="text-align:center;margin:16px auto;max-width:728px">
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-5019628877403001"
+       data-ad-slot="auto"
+       data-ad-format="fluid"
+       data-ad-layout-key="-6t+ed+2i-1n-4w"
+       data-ad-layout="in-feed"></ins>
+</div>
+
   <div class="card">
     <h2>How to Improve Your Reaction Time</h2>
     <ul>
@@ -317,6 +359,16 @@ footer a:hover{color:var(--accent);}
       <li><strong>Monitor refresh rate:</strong> A 144Hz monitor reduces display lag from ~8ms (60Hz) to ~3ms, directly improving test scores.</li>
     </ul>
   </div>
+
+<div style="text-align:center;margin:16px auto;max-width:728px">
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-5019628877403001"
+       data-ad-slot="auto"
+       data-ad-format="fluid"
+       data-ad-layout-key="-6t+ed+2i-1n-4w"
+       data-ad-layout="in-feed"></ins>
+</div>
 
   <div class="card">
     <h2>Frequently Asked Questions</h2>
@@ -382,6 +434,31 @@ footer a:hover{color:var(--accent);}
 </div>
 <script>
 (function(){try{document.querySelectorAll('ins.adsbygoogle').forEach(function(i){if(!i.dataset.adsbygoogleStatus)(adsbygoogle=window.adsbygoogle||[]).push({});});}catch(e){}})();
+</script>
+<script>
+(function(){
+  function showSidebars(){
+    var minW = 1200;
+    var sl = document.getElementById('adSideLeft');
+    var sr = document.getElementById('adSideRight');
+    if(!sl || !sr) return;
+    if(window.innerWidth >= minW){
+      sl.style.display = 'block';
+      sr.style.display = 'block';
+    } else {
+      sl.style.display = 'none';
+      sr.style.display = 'none';
+    }
+  }
+  showSidebars();
+  window.addEventListener('resize', showSidebars);
+  // AdSense push for sidebars
+  try{
+    [document.querySelector('#adSideLeft ins'), document.querySelector('#adSideRight ins')].forEach(function(ins){
+      if(ins && !ins.dataset.adsbygoogleStatus)(adsbygoogle=window.adsbygoogle||[]).push({});
+    });
+  }catch(e){}
+})();
 </script>
 </body>
 </html>

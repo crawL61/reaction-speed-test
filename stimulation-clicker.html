@@ -40,7 +40,7 @@ body{
 }
 
 /* PAGE */
-.page{max-width:860px;margin:0 auto;padding:36px 24px 80px;}
+.page{max-width:860px;margin:0 auto;padding:36px 24px 80px;} @media(min-width:1200px){body{padding-left:0;padding-right:0;}}
 
 /* BACK LINK */
 .back{
@@ -256,7 +256,39 @@ footer a:hover{color:var(--accent);}
 <style>body{padding-bottom:68px}</style>
 </head>
 <body>
+<!-- LEFT SIDEBAR AD -->
+<div id="adSideLeft" style="
+  position:fixed;left:0;top:50%;transform:translateY(-50%);
+  width:160px;z-index:500;
+  display:none;
+">
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:160px;height:600px"
+       data-ad-client="ca-pub-5019628877403001"
+       data-ad-slot="auto"
+       data-ad-format="vertical"></ins>
+</div>
+<!-- RIGHT SIDEBAR AD -->
+<div id="adSideRight" style="
+  position:fixed;right:0;top:50%;transform:translateY(-50%);
+  width:160px;z-index:500;
+  display:none;
+">
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:160px;height:600px"
+       data-ad-client="ca-pub-5019628877403001"
+       data-ad-slot="auto"
+       data-ad-format="vertical"></ins>
+</div>
 <div class="page">
+<div style="text-align:center;margin:12px auto;max-width:728px;min-height:90px">
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-5019628877403001"
+       data-ad-slot="auto"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+</div>
   <a href="/" class="back">← Back to Homepage</a>
   <h1>🎯 <span class="hl">Stimulation</span> Clicker</h1>
   <div class="sub">Free aim trainer. Hit moving targets to improve mouse accuracy and reaction speed for CS2, Valorant, and Fortnite. No download required.</div>
@@ -270,8 +302,12 @@ footer a:hover{color:var(--accent);}
 </div>
   <!-- ad-playnow -->
   <a href="/game.html?p=stimulation" class="play-btn"><span class="play-arrow">▶</span> Start Aim Training <span class="play-free">FREE</span></a>
-  <div class="card"><h2>What Is the Stimulation Clicker?</h2><p>The <strong>Stimulation Clicker</strong> is a free browser-based aim trainer where colorful targets appear at random positions and you must click them before they disappear. It trains <strong>flick-shot accuracy</strong> — the ability to move your cursor rapidly to unpredictable targets — which is the core skill in FPS games like CS2, Valorant, Apex Legends, and Fortnite.</p><p>Unlike dedicated aim trainers that require downloads or subscriptions (Aimlabs, KovaaK's), our Stimulation Clicker runs directly in your browser with zero setup.</p></div>
-  <div class="card"><h2>Difficulty Modes</h2><table><thead><tr><th>Mode</th><th>Target Size</th><th>Lifetime</th><th>Equivalent</th></tr></thead><tbody><tr><td style="color:#00f5a0">Easy</td><td>64px</td><td>1.2s</td><td>Body shots, large targets</td></tr><tr><td style="color:#fbbf24">Medium</td><td>50px</td><td>0.8s</td><td>Head shots, normal targets</td></tr><tr><td style="color:#f87171">Hard</td><td>38px</td><td>0.5s</td><td>Aimlabs Gridshot difficulty</td></tr></tbody></table></div>
+  <div class="card"><h2>What Is the Stimulation Clicker?</h2><p>The <strong>Stimulation Clicker</strong> is a free browser-based aim trainer where colorful targets appear at random positions and you must click them before they disappear. It trains <strong>flick-shot accuracy</strong> — the ability to move your cursor rapidly to unpredictable targets — which is the core skill in FPS games like CS2, Valorant, Apex Legends, and Fortnite.</p>
+<div style="text-align:center;margin:14px auto"><ins class="adsbygoogle" style="display:block;text-align:center" data-ad-client="ca-pub-5019628877403001" data-ad-slot="auto" data-ad-layout="in-article" data-ad-format="fluid"></ins></div>
+<p>Unlike dedicated aim trainers that require downloads or subscriptions (Aimlabs, KovaaK's), our Stimulation Clicker runs directly in your browser with zero setup.</p></div>
+<div class="card"><h2>Difficulty Modes</h2><table><thead><tr><th>Mode</th><th>Target Size</th><th>Lifetime</th><th>Equivalent</th></tr></thead><tbody><tr><td style="color:#00f5a0">Easy</td><td>64px</td><td>1.2s</td><td>Body shots, large targets</td></tr><tr><td style="color:#fbbf24">Medium</td><td>50px</td><td>0.8s</td><td>Head shots, normal targets</td></tr><tr><td style="color:#f87171">Hard</td><td>38px</td><td>0.5s</td><td>Aimlabs Gridshot difficulty</td></tr></tbody></table></div>
+<div style="text-align:center;margin:14px auto;max-width:728px"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5019628877403001" data-ad-slot="auto" data-ad-format="fluid" data-ad-layout-key="-6t+ed+2i-1n-4w" data-ad-layout="in-feed"></ins></div>
+
   <div class="card"><h2>Training Benefits &amp; Research</h2><p>A 2019 study in <em>Frontiers in Psychology</em> found that 30-minute daily aim training sessions improved mouse accuracy by 22% over 4 weeks. Flick-shot accuracy showed the largest gains. The recommended training protocol: Hard mode, 15–20 minutes daily, 5 days per week. After each session, scores on the Reaction Time Test typically improve by 5–15ms due to elevated neural arousal.</p></div>
   </div>
   <div class="divider"></div>
@@ -313,6 +349,31 @@ footer a:hover{color:var(--accent);}
 </div>
 <script>
 (function(){try{document.querySelectorAll('ins.adsbygoogle').forEach(function(i){if(!i.dataset.adsbygoogleStatus)(adsbygoogle=window.adsbygoogle||[]).push({});});}catch(e){}})();
+</script>
+<script>
+(function(){
+  function showSidebars(){
+    var minW = 1200;
+    var sl = document.getElementById('adSideLeft');
+    var sr = document.getElementById('adSideRight');
+    if(!sl || !sr) return;
+    if(window.innerWidth >= minW){
+      sl.style.display = 'block';
+      sr.style.display = 'block';
+    } else {
+      sl.style.display = 'none';
+      sr.style.display = 'none';
+    }
+  }
+  showSidebars();
+  window.addEventListener('resize', showSidebars);
+  // AdSense push for sidebars
+  try{
+    [document.querySelector('#adSideLeft ins'), document.querySelector('#adSideRight ins')].forEach(function(ins){
+      if(ins && !ins.dataset.adsbygoogleStatus)(adsbygoogle=window.adsbygoogle||[]).push({});
+    });
+  }catch(e){}
+})();
 </script>
 </body>
 </html>

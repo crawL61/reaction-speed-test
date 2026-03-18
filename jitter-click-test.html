@@ -40,7 +40,7 @@ body{
 }
 
 /* PAGE */
-.page{max-width:860px;margin:0 auto;padding:36px 24px 80px;}
+.page{max-width:860px;margin:0 auto;padding:36px 24px 80px;} @media(min-width:1200px){body{padding-left:0;padding-right:0;}}
 
 /* BACK LINK */
 .back{
@@ -256,7 +256,39 @@ footer a:hover{color:var(--accent);}
 <style>body{padding-bottom:68px}</style>
 </head>
 <body>
+<!-- LEFT SIDEBAR AD -->
+<div id="adSideLeft" style="
+  position:fixed;left:0;top:50%;transform:translateY(-50%);
+  width:160px;z-index:500;
+  display:none;
+">
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:160px;height:600px"
+       data-ad-client="ca-pub-5019628877403001"
+       data-ad-slot="auto"
+       data-ad-format="vertical"></ins>
+</div>
+<!-- RIGHT SIDEBAR AD -->
+<div id="adSideRight" style="
+  position:fixed;right:0;top:50%;transform:translateY(-50%);
+  width:160px;z-index:500;
+  display:none;
+">
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:160px;height:600px"
+       data-ad-client="ca-pub-5019628877403001"
+       data-ad-slot="auto"
+       data-ad-format="vertical"></ins>
+</div>
 <div class="page">
+<div style="text-align:center;margin:12px auto;max-width:728px;min-height:90px">
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-5019628877403001"
+       data-ad-slot="auto"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+</div>
   <a href="/" class="back">← Back to Homepage</a>
   <h1>🖱 <span class="hl">Jitter Click</span> Test</h1>
   <div class="sub">Free jitter click test. Practice jitter clicking technique used in Minecraft PvP and measure your CPS. No download required.</div>
@@ -270,8 +302,12 @@ footer a:hover{color:var(--accent);}
 </div>
   <!-- ad-playnow -->
   <a href="/game.html?p=jitter" class="play-btn"><span class="play-arrow">▶</span> Start Jitter Test <span class="play-free">FREE</span></a>
-  <div class="card"><h2>What Is Jitter Clicking?</h2><p><strong>Jitter clicking</strong> involves tensing your forearm and wrist muscles to create rapid involuntary vibrations in your finger, translating into 10–14 clicks per second. It is one of the most common techniques used in competitive Minecraft PvP, where higher CPS can provide a combat advantage in certain game versions.</p><p>The technique was popularized on YouTube around 2013–2015 and quickly spread through the Minecraft community. Today it is also used by players wanting to maximize CPS scores without butterfly or drag clicking.</p></div>
-  <div class="card"><h2>How to Jitter Click</h2><ol><li>Place your index finger on the left mouse button</li><li>Rest your arm comfortably on a flat surface</li><li>Tense your forearm muscles firmly — not painfully</li><li>The vibration from the tension translates to rapid clicks</li><li>Practice holding the tension for 5–10 seconds at a time</li></ol><p><strong>Important:</strong> Jitter clicking carries real injury risk. Repetitive strain injuries (RSI), carpal tunnel symptoms, and wrist pain are common with overuse. Never practice for more than 10 minutes at a time and stop immediately if you feel pain.</p></div>
+  <div class="card"><h2>What Is Jitter Clicking?</h2><p><strong>Jitter clicking</strong> involves tensing your forearm and wrist muscles to create rapid involuntary vibrations in your finger, translating into 10–14 clicks per second. It is one of the most common techniques used in competitive Minecraft PvP, where higher CPS can provide a combat advantage in certain game versions.</p>
+<div style="text-align:center;margin:14px auto"><ins class="adsbygoogle" style="display:block;text-align:center" data-ad-client="ca-pub-5019628877403001" data-ad-slot="auto" data-ad-layout="in-article" data-ad-format="fluid"></ins></div>
+<p>The technique was popularized on YouTube around 2013–2015 and quickly spread through the Minecraft community. Today it is also used by players wanting to maximize CPS scores without butterfly or drag clicking.</p></div>
+<div class="card"><h2>How to Jitter Click</h2><ol><li>Place your index finger on the left mouse button</li><li>Rest your arm comfortably on a flat surface</li><li>Tense your forearm muscles firmly — not painfully</li><li>The vibration from the tension translates to rapid clicks</li><li>Practice holding the tension for 5–10 seconds at a time</li></ol><p><strong>Important:</strong> Jitter clicking carries real injury risk. Repetitive strain injuries (RSI), carpal tunnel symptoms, and wrist pain are common with overuse. Never practice for more than 10 minutes at a time and stop immediately if you feel pain.</p></div>
+<div style="text-align:center;margin:14px auto;max-width:728px"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5019628877403001" data-ad-slot="auto" data-ad-format="fluid" data-ad-layout-key="-6t+ed+2i-1n-4w" data-ad-layout="in-feed"></ins></div>
+
   <div class="card"><h2>Jitter Click vs Regular Click vs Butterfly</h2><table><thead><tr><th>Technique</th><th>CPS Range</th><th>Injury Risk</th><th>Banned?</th></tr></thead><tbody><tr><td>Regular</td><td>6–9 CPS</td><td style="color:#00f5a0">None</td><td style="color:#00f5a0">No</td></tr><tr><td>Jitter</td><td>10–14 CPS</td><td style="color:#fbbf24">Medium</td><td style="color:#fbbf24">Some servers</td></tr><tr><td>Butterfly</td><td>15–25 CPS</td><td style="color:#f87171">High</td><td style="color:#f87171">Most servers</td></tr><tr><td>Drag</td><td>30–40+ CPS</td><td style="color:#f87171">Very High</td><td style="color:#f87171">Almost all</td></tr></tbody></table></div>
   </div>
   <div class="divider"></div>
@@ -313,6 +349,31 @@ footer a:hover{color:var(--accent);}
 </div>
 <script>
 (function(){try{document.querySelectorAll('ins.adsbygoogle').forEach(function(i){if(!i.dataset.adsbygoogleStatus)(adsbygoogle=window.adsbygoogle||[]).push({});});}catch(e){}})();
+</script>
+<script>
+(function(){
+  function showSidebars(){
+    var minW = 1200;
+    var sl = document.getElementById('adSideLeft');
+    var sr = document.getElementById('adSideRight');
+    if(!sl || !sr) return;
+    if(window.innerWidth >= minW){
+      sl.style.display = 'block';
+      sr.style.display = 'block';
+    } else {
+      sl.style.display = 'none';
+      sr.style.display = 'none';
+    }
+  }
+  showSidebars();
+  window.addEventListener('resize', showSidebars);
+  // AdSense push for sidebars
+  try{
+    [document.querySelector('#adSideLeft ins'), document.querySelector('#adSideRight ins')].forEach(function(ins){
+      if(ins && !ins.dataset.adsbygoogleStatus)(adsbygoogle=window.adsbygoogle||[]).push({});
+    });
+  }catch(e){}
+})();
 </script>
 </body>
 </html>
