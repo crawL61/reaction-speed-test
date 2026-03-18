@@ -1721,6 +1721,102 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
   background:#08081a; border:1px solid #141428; color:#8888b0;
 }
 .ct-stat-row b { color:#d8d8f0; font-weight:700; }
+/* ═══ AD UNITS ═══ */
+.ad-unit {
+  width:100%; text-align:center;
+  margin:16px 0; min-height:60px;
+  display:flex; align-items:center; justify-content:center;
+}
+.ad-unit ins { display:block; margin:0 auto; }
+
+/* Pre-test ad — arena'dan önce */
+.ad-pre-test {
+  width:100%; max-width:728px; margin:0 auto 14px;
+  text-align:center; min-height:90px;
+  display:flex; align-items:center; justify-content:center;
+}
+
+/* Post-result ad — sonuç ekranında */
+.ad-post-result {
+  width:100%; max-width:728px; margin:12px auto;
+  text-align:center; min-height:90px;
+  display:flex; align-items:center; justify-content:center;
+}
+
+/* Sticky bottom — mobil */
+.ad-sticky-bottom {
+  display:none;
+  position:fixed; bottom:0; left:0; right:0; z-index:999;
+  background:rgba(6,6,14,0.97);
+  border-top:1px solid #1e1e3a;
+  text-align:center; padding:4px 0;
+  min-height:60px;
+}
+@media(max-width:768px) {
+  .ad-sticky-bottom { display:block; }
+  .wrap { padding-bottom:70px !important; }
+}
+
+/* Sticky sidebar — desktop */
+.ad-sticky-sidebar {
+  display:none;
+  position:fixed; right:12px; top:50%; transform:translateY(-50%);
+  z-index:900; width:160px;
+}
+@media(min-width:1280px) {
+  .ad-sticky-sidebar { display:block; }
+}
+
+/* Sticky close btn */
+.ad-sticky-close {
+  position:absolute; top:2px; right:8px;
+  background:none; border:none; color:#60607a;
+  font-size:0.7rem; cursor:pointer; padding:2px;
+}
+.ad-sticky-close:hover { color:#fff; }
+
+/* Score comparison section */
+.score-compare {
+  background:#0d0d1a; border:1px solid #1e1e3a;
+  border-radius:14px; padding:18px 20px; margin:14px 0;
+  display:none;
+}
+.score-compare.show { display:block; }
+.score-compare-title {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.1rem; letter-spacing:0.1em;
+  color:#00f5a0; margin-bottom:12px; text-align:center;
+}
+.score-bar-row {
+  display:flex; align-items:center; gap:10px; margin-bottom:8px;
+}
+.score-bar-label {
+  font-size:0.58rem; color:#8080a0;
+  letter-spacing:0.08em; width:80px; flex-shrink:0; text-align:right;
+}
+.score-bar-bg {
+  flex:1; height:8px; background:#1a1a2e;
+  border-radius:4px; overflow:hidden;
+}
+.score-bar-fill {
+  height:100%; border-radius:4px;
+  transition:width 1s ease;
+}
+.score-bar-val {
+  font-size:0.58rem; color:#c8c8e8;
+  width:50px; flex-shrink:0;
+}
+.share-row {
+  display:flex; gap:8px; justify-content:center; margin-top:14px;
+}
+.share-btn {
+  padding:8px 16px; border-radius:8px; border:1px solid #2a2a4a;
+  background:#111122; color:#a0a0c0; font-size:0.62rem;
+  letter-spacing:0.08em; text-transform:uppercase; cursor:pointer;
+  transition:all 0.15s;
+}
+.share-btn:hover { border-color:#00f5a0; color:#00f5a0; }
+
 </style>
 </head>
 <body>
@@ -1917,6 +2013,16 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
       <div class="scard hi3"><div class="slbl" id="lRound">Round</div><div class="sval purple" id="rRound">0/5</div></div>
     </div>
 
+    <!-- PRE-TEST AD (above fold, before start) -->
+    <div class="ad-pre-test" id="adPreTest">
+      <ins class="adsbygoogle"
+           style="display:block;width:100%;max-width:728px;height:90px"
+           data-ad-client="ca-pub-5019628877403001"
+           data-ad-slot="auto"
+           data-ad-format="horizontal"
+           data-full-width-responsive="true"></ins>
+    </div>
+
     <div class="reaction-arena s-wait" id="reactArena">
       <div class="arena-icon" id="rIcon">⚡</div>
       <div class="arena-text" id="rText">Tap to Start</div>
@@ -1940,6 +2046,57 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
         <div class="go-stat"><div class="go-slbl" id="goLA">Average</div><div class="go-sval" id="goAvg">---</div></div>
         <div class="go-stat"><div class="go-slbl" id="goLS">Score</div><div class="go-sval" id="goScore">0</div></div>
       </div>
+
+      <!-- POST-RESULT AD 1 — hemen sonuç altında -->
+      <div class="ad-post-result">
+        <ins class="adsbygoogle"
+             style="display:block;width:100%;max-width:728px;height:90px"
+             data-ad-client="ca-pub-5019628877403001"
+             data-ad-slot="auto"
+             data-ad-format="horizontal"
+             data-full-width-responsive="true"></ins>
+      </div>
+
+      <!-- SCORE COMPARISON — kullanıcıyı sayfada tutar -->
+      <div class="score-compare" id="scoreCompare">
+        <div class="score-compare-title">📊 How Do You Compare?</div>
+        <div class="score-bar-row">
+          <div class="score-bar-label">You</div>
+          <div class="score-bar-bg"><div class="score-bar-fill" id="barYou" style="width:0%;background:#00f5a0"></div></div>
+          <div class="score-bar-val" id="barYouVal">---</div>
+        </div>
+        <div class="score-bar-row">
+          <div class="score-bar-label">Average</div>
+          <div class="score-bar-bg"><div class="score-bar-fill" style="width:60%;background:#7c3aed"></div></div>
+          <div class="score-bar-val" style="color:#a78bfa">225ms</div>
+        </div>
+        <div class="score-bar-row">
+          <div class="score-bar-label">Gamers</div>
+          <div class="score-bar-bg"><div class="score-bar-fill" style="width:78%;background:#ffd600"></div></div>
+          <div class="score-bar-val" style="color:#ffd600">180ms</div>
+        </div>
+        <div class="score-bar-row">
+          <div class="score-bar-label">Pro eSports</div>
+          <div class="score-bar-bg"><div class="score-bar-fill" style="width:92%;background:#f87171"></div></div>
+          <div class="score-bar-val" style="color:#f87171">150ms</div>
+        </div>
+        <div class="share-row">
+          <button class="share-btn" onclick="copyScore()">📋 Copy Score</button>
+          <button class="share-btn" onclick="shareScore()">🔗 Share</button>
+          <button class="share-btn" onclick="resetReaction();setTimeout(startRound,600)">🔄 Try Again</button>
+        </div>
+      </div>
+
+      <!-- POST-RESULT AD 2 — replay butonunun üstünde -->
+      <div class="ad-post-result">
+        <ins class="adsbygoogle"
+             style="display:block;width:100%;max-width:336px;height:280px"
+             data-ad-client="ca-pub-5019628877403001"
+             data-ad-slot="auto"
+             data-ad-format="rectangle"
+             data-full-width-responsive="true"></ins>
+      </div>
+
       <button class="replay-btn" id="replayBtn">↺ Play Again</button>
     </div>
 
@@ -3445,6 +3602,30 @@ function endReaction() {
   document.getElementById('goAvg').textContent=avg?avg+'ms':'---';
   document.getElementById('goScore').textContent=rScore2;
   gover.classList.add('show'); updateDots();
+
+  // Score comparison bar
+  if(avg){
+    const sc=document.getElementById('scoreCompare');
+    if(sc){
+      sc.classList.add('show');
+      // Bar: daha düşük ms = daha iyi = daha geniş bar
+      // 400ms = 0%, 100ms = 100%
+      const pct = Math.min(100, Math.max(0, Math.round((400-avg)/300*100)));
+      const bar=document.getElementById('barYou');
+      const barVal=document.getElementById('barYouVal');
+      if(bar){ setTimeout(()=>{ bar.style.width=pct+'%'; },200); }
+      if(barVal){ barVal.textContent=avg+'ms'; }
+    }
+  }
+
+  // AdSense push — result reklamları
+  try{
+    document.querySelectorAll('.ad-post-result ins').forEach(ins=>{
+      if(!ins.dataset.adsbygoogleStatus){
+        (window.adsbygoogle=window.adsbygoogle||[]).push({});
+      }
+    });
+  }catch(e){}
 }
 
 function resetReaction() {
@@ -3453,7 +3634,50 @@ function resetReaction() {
   setRArena('⚡','Tap to Start','Test your reaction speed','s-wait');
   rDisp.textContent='0'; rBest.textContent='---'; rAvg.textContent='---'; rRound2.textContent='0/5';
   for(let i=0;i<ROUNDS;i++) rdots[i].className='dot';
+  // Score comparison gizle
+  const sc=document.getElementById('scoreCompare');
+  if(sc) sc.classList.remove('show');
 }
+
+// Score share functions
+function copyScore(){
+  const avg=document.getElementById('goAvg').textContent;
+  const score=document.getElementById('goScore').textContent;
+  const txt=`My reaction time: ${avg} | Score: ${score} — Test yours at reactionspeedtest.com`;
+  navigator.clipboard?.writeText(txt).then(()=>{
+    const btn=event.target; btn.textContent='✓ Copied!';
+    setTimeout(()=>btn.textContent='📋 Copy Score',2000);
+  }).catch(()=>{});
+}
+function shareScore(){
+  const avg=document.getElementById('goAvg').textContent;
+  const txt=`My reaction time is ${avg}! Can you beat me? 👉 reactionspeedtest.com`;
+  if(navigator.share){
+    navigator.share({title:'Reaction Speed Test',text:txt,url:'https://reactionspeedtest.com/reaction-time-test'}).catch(()=>{});
+  } else {
+    navigator.clipboard?.writeText('https://reactionspeedtest.com/reaction-time-test').then(()=>{
+      const btn=event.target; btn.textContent='✓ Link Copied!';
+      setTimeout(()=>btn.textContent='🔗 Share',2000);
+    }).catch(()=>{});
+  }
+}
+
+// Initial ad pushes
+(function initAds(){
+  try{
+    // Pre-test ad
+    const preAd=document.querySelector('#adPreTest ins');
+    if(preAd && !preAd.dataset.adsbygoogleStatus){
+      (window.adsbygoogle=window.adsbygoogle||[]).push({});
+    }
+    // Sticky ads
+    document.querySelectorAll('.ad-sticky-bottom ins, .ad-sticky-sidebar ins').forEach(ins=>{
+      if(!ins.dataset.adsbygoogleStatus){
+        (window.adsbygoogle=window.adsbygoogle||[]).push({});
+      }
+    });
+  }catch(e){}
+})();
 
 reactArena.addEventListener('click', handleReactionTap);
 reactArena.addEventListener('touchstart', e=>{e.preventDefault();handleReactionTap();},{passive:false});
@@ -7320,5 +7544,24 @@ if(typeof curPanel!=='undefined' && curPanel==='clicker'){
 
 
 <script async defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5019628877403001" crossorigin="anonymous"></script>
+
+<!-- STICKY BOTTOM AD — Mobile -->
+<div class="ad-sticky-bottom" id="adStickyBottom">
+  <button class="ad-sticky-close" onclick="document.getElementById('adStickyBottom').style.display='none'" aria-label="Close">✕</button>
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:320px;height:50px"
+       data-ad-client="ca-pub-5019628877403001"
+       data-ad-slot="auto"
+       data-ad-format="horizontal"></ins>
+</div>
+
+<!-- STICKY SIDEBAR AD — Desktop -->
+<div class="ad-sticky-sidebar" id="adStickySidebar">
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:160px;height:600px"
+       data-ad-client="ca-pub-5019628877403001"
+       data-ad-slot="auto"
+       data-ad-format="vertical"></ins>
+</div>
 </body>
 </html>
