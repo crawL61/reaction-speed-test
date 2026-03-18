@@ -1724,10 +1724,16 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
 /* ═══ AD UNITS ═══ */
 .ad-unit {
   width:100%; text-align:center;
-  margin:16px 0; min-height:60px;
+  margin:16px 0; min-height:90px;
   display:flex; align-items:center; justify-content:center;
+  background:rgba(0,0,0,0.15);
+  border-radius:8px; padding:4px;
 }
 .ad-unit ins { display:block; margin:0 auto; }
+/* in-article ads */
+ins[data-ad-layout="in-article"] {
+  width:100%; min-height:90px;
+}
 
 /* Pre-test ad — arena'dan önce */
 .ad-pre-test {
@@ -1943,6 +1949,15 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
       </div>
 
       <!-- Result overlay -->
+      <!-- In-game ad — CPS result üstünde -->
+      <div class="ad-unit" style="margin:8px 0">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-5019628877403001"
+             data-ad-slot="auto"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+      </div>
       <div class="result-overlay" id="cResult">
         <div class="r-label">Your Score</div>
         <div class="r-score" id="rScore">0</div>
@@ -2016,10 +2031,10 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
     <!-- PRE-TEST AD (above fold, before start) -->
     <div class="ad-pre-test" id="adPreTest">
       <ins class="adsbygoogle"
-           style="display:block;width:100%;max-width:728px;height:90px"
+           style="display:block"
            data-ad-client="ca-pub-5019628877403001"
            data-ad-slot="auto"
-           data-ad-format="horizontal"
+           data-ad-format="auto"
            data-full-width-responsive="true"></ins>
     </div>
 
@@ -2050,10 +2065,10 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
       <!-- POST-RESULT AD 1 — hemen sonuç altında -->
       <div class="ad-post-result">
         <ins class="adsbygoogle"
-             style="display:block;width:100%;max-width:728px;height:90px"
+             style="display:block"
              data-ad-client="ca-pub-5019628877403001"
              data-ad-slot="auto"
-             data-ad-format="horizontal"
+             data-ad-format="auto"
              data-full-width-responsive="true"></ins>
       </div>
 
@@ -2090,11 +2105,10 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
       <!-- POST-RESULT AD 2 — replay butonunun üstünde -->
       <div class="ad-post-result">
         <ins class="adsbygoogle"
-             style="display:block;width:100%;max-width:336px;height:280px"
+             style="display:inline-block;width:336px;height:280px"
              data-ad-client="ca-pub-5019628877403001"
              data-ad-slot="auto"
-             data-ad-format="rectangle"
-             data-full-width-responsive="true"></ins>
+             data-ad-format="rectangle"></ins>
       </div>
 
       <button class="replay-btn" id="replayBtn">↺ Play Again</button>
@@ -2594,6 +2608,15 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
       <div class="faq-item"><button class="faq-q">Do monitors affect reaction time results? <span class="faq-arrow">▼</span></button><div class="faq-a">Yes. Results include ~5–15ms mouse latency and ~1–8ms monitor delay. A <strong>144Hz+ monitor</strong> reduces display lag significantly. Your true neural reaction is slightly faster than the number shown.</div></div>
       <div class="faq-item"><button class="faq-q">How can I get a lower reaction time score? <span class="faq-arrow">▼</span></button><div class="faq-a">Be well-rested, stay focused, and practice daily. Avoid anticipating the signal — early clicks are counted as failed rounds. Use a gaming mouse and high-refresh monitor for best results.</div></div>
     </div></article>
+    <!-- IN-CONTENT AD 1 -->
+    <div style="margin:20px auto;max-width:728px;text-align:center">
+      <ins class="adsbygoogle"
+           style="display:block;text-align:center"
+           data-ad-client="ca-pub-5019628877403001"
+           data-ad-slot="auto"
+           data-ad-layout="in-article"
+           data-ad-format="fluid"></ins>
+    </div>
     <article class="icard">
       <h2 class="icard-title">🧠 The Science of Human Reaction Time</h2>
       <p class="ibody">Reaction time is the total time from a <strong>stimulus appearing</strong> to a <strong>voluntary movement beginning</strong>. It is composed of three distinct phases: sensory processing (your eyes detect the signal), neural transmission (the signal travels from your retina through the optic nerve to the visual cortex and motor cortex), and motor execution (the signal reaches your finger muscles and you press the button). Each phase adds milliseconds to your total score.<br><br>Research published in the <em>Journal of Motor Behavior</em> identifies that the average simple reaction time for a visual stimulus in healthy young adults is <strong>190–220 milliseconds</strong>. Complex reaction time — where you must choose between multiple responses — averages 300–400ms. Our test uses simple reaction time, which is why scores tend to be lower than real-world game performance.</p>
@@ -2606,6 +2629,15 @@ svg.rchart  { width:100%; height:auto; display:block; min-width:280px; }
       <h2 class="icard-title">⚡ Factors That Affect Your Reaction Speed</h2>
       <p class="ibody"><strong>Age:</strong> Reaction time is fastest between 18–24 years old and increases roughly 1–2ms per year after 30. At 60, most people react 50–80ms slower than at their peak.<br><br><strong>Sleep deprivation:</strong> One night of poor sleep (under 6 hours) adds 30–80ms to average reaction time. Two consecutive nights of poor sleep can double this effect.<br><br><strong>Caffeine:</strong> A moderate dose (100–200mg, roughly one coffee) reduces reaction time by 10–30ms and improves sustained attention. Effects peak 30–60 minutes after consumption.<br><br><strong>Alcohol:</strong> Even a blood alcohol content of 0.05% (below the legal driving limit in most countries) increases reaction time by 30–50ms. At 0.08% (legal DUI limit), the increase is 120ms or more.<br><br><strong>Temperature:</strong> Cold hands slow nerve conduction velocity. Warming up before gaming or testing can shave 5–15ms off your score.<br><br><strong>Stress and arousal:</strong> Moderate stress (the Yerkes-Dodson curve) actually improves reaction time through adrenaline. Extreme stress or anxiety slows it through cognitive interference.</p>
     </article>
+    <article class="icard">
+    <div class="ad-unit" style="margin:20px auto;max-width:728px">
+      <ins class="adsbygoogle"
+           style="display:block;text-align:center"
+           data-ad-client="ca-pub-5019628877403001"
+           data-ad-slot="auto"
+           data-ad-layout="in-article"
+           data-ad-format="fluid"></ins>
+    </div>
     <article class="icard">
       <h2 class="icard-title">📱 Mobile vs Desktop Reaction Time</h2>
       <p class="ibody">Reaction time results differ meaningfully between mobile devices and desktop computers. On mobile, touch screen latency adds approximately <strong>30–80ms</strong> compared to a mouse click. This is because capacitive touchscreens must process touch detection, coordinate calculation, and event firing — a multi-step process that introduces latency absent in a direct mouse button press.<br><br>Additionally, mobile displays typically run at 60Hz compared to 144Hz or 240Hz gaming monitors. A 60Hz screen refreshes every 16.7ms; on average, the stimulus will appear 8.3ms after it should (half a frame), adding systematic latency to all mobile scores. Some modern phones (iPhone 15 Pro, Samsung Galaxy S24) run at 120Hz, halving this effect to ~4ms.<br><br>For the most accurate reaction time measurement, use a desktop or laptop with a wired gaming mouse and a 144Hz or higher monitor. Mobile scores will read 30–80ms higher than true desktop scores due to hardware limitations — this is normal and expected, not a measurement error. Our test uses the most precise timing available on each platform regardless.</p>
@@ -3662,22 +3694,32 @@ function shareScore(){
   }
 }
 
-// Initial ad pushes
+// Initial ad pushes — tüm manuel ad unit'leri push et
 (function initAds(){
   try{
-    // Pre-test ad
-    const preAd=document.querySelector('#adPreTest ins');
-    if(preAd && !preAd.dataset.adsbygoogleStatus){
-      (window.adsbygoogle=window.adsbygoogle||[]).push({});
-    }
-    // Sticky ads
-    document.querySelectorAll('.ad-sticky-bottom ins, .ad-sticky-sidebar ins').forEach(ins=>{
+    // Sayfa yüklenince görünen tüm ins'leri push et
+    document.querySelectorAll('ins.adsbygoogle').forEach(ins=>{
       if(!ins.dataset.adsbygoogleStatus){
         (window.adsbygoogle=window.adsbygoogle||[]).push({});
       }
     });
   }catch(e){}
 })();
+
+// Panel değişince yeni görünen ad'leri push et
+const _origSP_ads = switchPanel;
+switchPanel = function(p, fp) {
+  _origSP_ads(p, fp);
+  setTimeout(()=>{
+    try{
+      document.querySelectorAll('ins.adsbygoogle').forEach(ins=>{
+        if(!ins.dataset.adsbygoogleStatus && ins.offsetParent!==null){
+          (window.adsbygoogle=window.adsbygoogle||[]).push({});
+        }
+      });
+    }catch(e){}
+  }, 300);
+};
 
 reactArena.addEventListener('click', handleReactionTap);
 reactArena.addEventListener('touchstart', e=>{e.preventDefault();handleReactionTap();},{passive:false});
@@ -7543,7 +7585,10 @@ if(typeof curPanel!=='undefined' && curPanel==='clicker'){
 
 
 
-<script async defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5019628877403001" crossorigin="anonymous"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5019628877403001" crossorigin="anonymous"></script>
+<script>
+(adsbygoogle=window.adsbygoogle||[]).requestNonPersonalizedAds=0;
+</script>
 
 <!-- STICKY BOTTOM AD — Mobile -->
 <div class="ad-sticky-bottom" id="adStickyBottom">
