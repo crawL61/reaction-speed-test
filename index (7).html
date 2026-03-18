@@ -62,7 +62,7 @@ body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospa
 
 /* HERO */
 .hero{
-  text-align:center;padding:32px 24px 24px;
+  text-align:center;padding:64px 24px 48px;
   background:radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0,245,160,0.07) 0%, transparent 70%);
 }
 .hero-badge{
@@ -73,7 +73,7 @@ body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospa
 }
 .hero h1{
   font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(2rem,6vw,3.5rem);
+  font-size:clamp(2.8rem,9vw,5.5rem);
   letter-spacing:0.04em;line-height:1.0;
   color:#fff;margin-bottom:16px;
 }
@@ -96,14 +96,14 @@ body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospa
 }
 
 /* MAIN */
-.main{max-width:1100px;margin:0 auto;padding:0 20px 48px;}
+.main{max-width:1100px;margin:0 auto;padding:0 20px 64px;}
 
 /* SECTION */
 .sec-head{
   display:flex;align-items:center;gap:12px;
   font-family:'Bebas Neue',sans-serif;font-size:1.1rem;
   letter-spacing:0.18em;color:var(--muted);
-  margin:20px 0 14px;
+  margin:48px 0 18px;
 }
 .sec-head::after{content:'';flex:1;height:1px;background:var(--border);}
 
@@ -208,7 +208,14 @@ footer a:hover{color:var(--accent);}
 
 <section class="hero">
   <div class="hero-badge">100% Free · No Signup · Instant Results</div>
-  <h1><span class="hl">Reaction</span> Speed Test</h1>
+  <h1>Test Your<br><span class="hl">Reflexes</span></h1>
+  <p>Reaction time, click speed, typing speed, aim training, memory tests and classic games — all free, works on any device.</p>
+  <div class="hero-tags">
+    <span class="hero-tag">⚡ No Signup</span>
+    <span class="hero-tag">📱 Mobile Ready</span>
+    <span class="hero-tag">🆓 Always Free</span>
+    <span class="hero-tag">💾 No Download</span>
+  </div>
 </section>
 
 <main class="main">
@@ -329,6 +336,5 @@ footer a:hover{color:var(--accent);}
 </footer>
 
 <script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
-<script async defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5019628877403001" crossorigin="anonymous"></script>
 </body>
 </html>
