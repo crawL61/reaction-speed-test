@@ -1768,12 +1768,13 @@ ins[data-ad-layout="in-article"] {
 /* Sticky sidebar — desktop */
 .ad-sticky-sidebar {
   display:none;
-  position:fixed; right:4px; top:50%; transform:translateY(-50%);
-  z-index:100; width:160px;
-  pointer-events:auto;
+  position:fixed; right:4px; top:50%;
+  transform:translateY(-50%);
+  z-index:10; width:160px;
 }
-@media(min-width:1540px) {
+@media(min-width:1380px) {
   .ad-sticky-sidebar { display:block; }
+  .wrap { margin-right:170px; }
 }
 
 /* Sticky close btn */
