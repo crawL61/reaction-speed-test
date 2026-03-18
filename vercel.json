@@ -1,3 +1,5 @@
+/ rewrite: [{'source': '/', 'destination': '/index.html'}]
+app.html rewrite: [{'source': '/app.html', 'destination': '/game.html'}]
 {
   "redirects": [
     {
@@ -148,5 +150,6 @@
         }
       ]
     }
-  ]
+  ],
+  "cleanUrls": true
 }
