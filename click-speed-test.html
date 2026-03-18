@@ -6,342 +6,328 @@
 <link rel="apple-touch-icon" href="/favicon.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Click Speed Test (CPS) – How Fast Can You Click? | Reaction Speed Test</title>
-<meta name="description" content="Free CPS test — measure your clicks per second instantly. 8 durations from 1 to 100 seconds. Average is 6–7 CPS. Works on PC and mobile.">
+<meta name="description" content="Free online CPS test. Measure your clicks per second with 8 durations from 1 to 100 seconds. Compare your score to global averages.">
 <link rel="canonical" href="https://reactionspeedtest.com/click-speed-test">
 <meta name="robots" content="index, follow">
-<meta property="og:title" content="Click Speed Test (CPS) – How Fast Can You Click? | Reaction Speed Test">
-<meta property="og:description" content="Free CPS test — measure your clicks per second instantly. 8 durations from 1 to 100 seconds. Average is 6–7 CPS. Works on PC and mobile.">
+<meta property="og:title" content="Click Speed Test – Measure Your CPS Online">
+<meta property="og:description" content="Free online CPS test. Measure your clicks per second with 8 durations from 1 to 100 seconds. Compare your score to global averages.">
 <meta property="og:url" content="https://reactionspeedtest.com/click-speed-test">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://reactionspeedtest.com/og-image.png">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"></noscript>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5019628877403001" crossorigin="anonymous"></script>
 <style>
 :root{
-  --bg:#06060e;
-  --surf:#0d0d1c;
-  --surf2:#12122a;
-  --border:#1e1e3f;
-  --text:#f0f0ff;
-  --muted:#7070a0;
-  --accent:#00f5a0;
-  --accent2:#7c3aed;
+  --bg:#06060e;--surf:#0d0d1c;--surf2:#12122a;
+  --border:#1e1e3f;--text:#f0f0ff;--muted:#7070a0;
+  --accent:#ff6b6b;--accent2:#7c3aed;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:'JetBrains Mono',monospace;
-  line-height:1.8;
-  font-size:15px;
-}
+body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;line-height:1.8;font-size:15px;padding-bottom:68px;}
 
-/* PAGE */
-.page{max-width:860px;margin:0 auto;padding:36px 24px 80px;} @media(min-width:1200px){body{padding-left:0;padding-right:0;}}
+/* LAYOUT — sidebar + center */
+.layout{display:flex;gap:0;max-width:1400px;margin:0 auto;}
+.sidebar{width:160px;flex-shrink:0;}
+.sidebar-inner{position:sticky;top:120px;padding:8px 4px;}
+.content{flex:1;min-width:0;max-width:860px;margin:0 auto;padding:36px 24px 60px;}
+@media(max-width:1199px){.sidebar{display:none;}}
 
-/* BACK LINK */
-.back{
-  display:inline-flex;align-items:center;gap:6px;
-  color:var(--muted);text-decoration:none;
-  font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;
-  margin-bottom:36px;padding:6px 0;
-  border-bottom:1px solid transparent;
-  transition:color 0.2s,border-color 0.2s;
-}
+/* BACK */
+.back{display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:32px;padding:6px 0;border-bottom:1px solid transparent;transition:color 0.2s,border-color 0.2s;}
 .back:hover{color:var(--accent);border-color:var(--accent);}
 
-/* HERO AREA */
-.hero{margin-bottom:36px;}
+/* TYPOGRAPHY */
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.4rem,7vw,3.8rem);letter-spacing:0.06em;line-height:1.05;margin-bottom:12px;color:#fff;}
+h1 .hl{background:linear-gradient(90deg,var(--accent),#38bdf8,var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.sub{color:#a0a0c8;font-size:0.82rem;line-height:1.7;margin-bottom:24px;max-width:600px;border-left:3px solid var(--accent);padding-left:14px;}
+h2{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.1em;color:var(--accent);margin:0 0 14px;display:flex;align-items:center;gap:8px;}
+h2::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(0,245,160,0.3),transparent);}
+h3{font-size:0.88rem;font-weight:700;color:#e0e0ff;margin:20px 0 6px;letter-spacing:0.05em;}
+p{color:#c0c0e8;font-size:0.84rem;line-height:1.95;margin-bottom:16px;}
+strong{color:#f0f0ff;}
+code{background:#1a1a30;color:var(--accent);padding:1px 6px;border-radius:4px;font-size:0.82rem;}
+ul,ol{color:#c0c0e8;font-size:0.84rem;line-height:1.95;margin:10px 0 16px 20px;}
+li{margin-bottom:6px;}
 
-h1{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(2.4rem,7vw,3.8rem);
-  letter-spacing:0.06em;
-  line-height:1.05;
-  margin-bottom:12px;
-  color:#fff;
-  text-shadow:0 0 40px rgba(0,245,160,0.15);
-}
-h1 .hl{
-  background:linear-gradient(90deg,var(--accent),#38bdf8,var(--accent2));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;
-}
-
-.sub{
-  color:#a0a0c8;
-  font-size:0.82rem;
-  line-height:1.7;
-  margin-bottom:28px;
-  max-width:600px;
-  border-left:3px solid var(--accent);
-  padding-left:14px;
-}
-
-/* PLAY NOW BUTTON */
-.play-btn{
-  display:inline-flex;align-items:center;gap:12px;
-  background:linear-gradient(135deg,var(--accent),#00c8a0);
-  color:#000;
-  padding:16px 36px;
-  border-radius:14px;
-  text-decoration:none;
-  font-family:'Bebas Neue',sans-serif;
-  font-size:1.5rem;
-  letter-spacing:0.14em;
-  margin-bottom:44px;
-  position:relative;
-  overflow:hidden;
-  transition:transform 0.15s,box-shadow 0.15s;
-  box-shadow:0 0 0 rgba(0,245,160,0);
-  font-weight:900;
-}
-.play-btn::before{
-  content:'';
-  position:absolute;inset:0;
-  background:linear-gradient(135deg,transparent 30%,rgba(255,255,255,0.25) 50%,transparent 70%);
-  transform:translateX(-100%);
-  transition:transform 0.4s;
-}
-.play-btn:hover{
-  transform:translateY(-2px) scale(1.02);
-  box-shadow:0 8px 32px rgba(0,245,160,0.45),0 0 0 2px rgba(0,245,160,0.3);
-}
+/* PLAY BTN */
+.play-btn{display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,var(--accent),#00c8a0);color:#000;padding:16px 36px;border-radius:14px;text-decoration:none;font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.14em;margin-bottom:32px;position:relative;overflow:hidden;transition:transform 0.15s,box-shadow 0.15s;font-weight:900;}
+.play-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 30%,rgba(255,255,255,0.25) 50%,transparent 70%);transform:translateX(-100%);transition:transform 0.4s;}
+.play-btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 8px 32px rgba(0,245,160,0.45);}
 .play-btn:hover::before{transform:translateX(100%);}
-.play-btn:active{transform:translateY(0) scale(0.99);}
 .play-arrow{font-size:1.2rem;transition:transform 0.2s;}
 .play-btn:hover .play-arrow{transform:translateX(4px);}
-.play-free{
-  font-size:0.65rem;letter-spacing:0.1em;
-  background:rgba(0,0,0,0.2);
-  padding:2px 8px;border-radius:4px;
-  font-family:'JetBrains Mono',monospace;
-  font-weight:700;
-}
-
-/* SECTION HEADINGS */
-h2{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:1.5rem;
-  letter-spacing:0.1em;
-  color:var(--accent);
-  margin:0 0 14px;
-  display:flex;align-items:center;gap:8px;
-}
-h2::after{
-  content:'';flex:1;height:1px;
-  background:linear-gradient(90deg,rgba(0,245,160,0.3),transparent);
-}
-h3{
-  font-size:0.88rem;font-weight:700;
-  color:#e0e0ff;margin:20px 0 6px;
-  letter-spacing:0.05em;
-}
-
-/* BODY TEXT */
-p{
-  color:#c0c0e8;
-  font-size:0.84rem;
-  line-height:1.95;
-  margin-bottom:16px;
-}
-strong{color:#f0f0ff;}
-code{
-  background:#1a1a30;
-  color:var(--accent);
-  padding:1px 6px;
-  border-radius:4px;
-  font-size:0.82rem;
-}
-ul,ol{
-  color:#c0c0e8;
-  font-size:0.84rem;
-  line-height:1.95;
-  margin:10px 0 16px 20px;
-}
-li{margin-bottom:6px;}
-li strong{color:#f0f0ff;}
+.play-free{font-size:0.65rem;letter-spacing:0.1em;background:rgba(0,0,0,0.2);padding:2px 8px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-weight:700;}
 
 /* CARDS */
-.card{
-  background:var(--surf);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:24px 28px;
-  margin-bottom:16px;
-  position:relative;
-  overflow:hidden;
-  transition:border-color 0.2s;
-}
-.card::before{
-  content:'';
-  position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
-  opacity:0;transition:opacity 0.2s;
-}
+.card{background:var(--surf);border:1px solid var(--border);border-radius:16px;padding:24px 28px;margin-bottom:20px;position:relative;overflow:hidden;transition:border-color 0.2s;}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));opacity:0;transition:opacity 0.2s;}
 .card:hover{border-color:#2e2e5a;}
 .card:hover::before{opacity:1;}
 
 /* TABLE */
 table{width:100%;border-collapse:collapse;margin:16px 0;font-size:0.8rem;}
-th{
-  background:#111128;
-  color:var(--accent);
-  padding:11px 16px;
-  text-align:left;
-  font-size:0.6rem;
-  letter-spacing:0.16em;
-  text-transform:uppercase;
-  border:1px solid var(--border);
-}
-td{
-  padding:10px 16px;
-  border:1px solid #16162e;
-  color:#c0c0e8;
-  vertical-align:middle;
-}
+th{background:#111128;color:var(--accent);padding:11px 16px;text-align:left;font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;border:1px solid var(--border);}
+td{padding:10px 16px;border:1px solid #16162e;color:#c0c0e8;vertical-align:middle;}
 tr:nth-child(even) td{background:#0a0a1a;}
 tr:hover td{background:#10102a;color:#e0e0ff;}
 
+/* AD UNITS */
+.ad-sidebar{text-align:center;margin-bottom:20px;}
+.ad-inline{text-align:center;margin:20px auto;max-width:728px;}
+.ad-label{font-size:0.55rem;color:#30304a;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px;}
+
 /* RELATED */
-.related-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:1.3rem;letter-spacing:0.12em;
-  color:var(--muted);margin-bottom:14px;
-}
-.related{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
-  gap:10px;
-}
-.related a{
-  background:var(--surf);
-  border:1px solid var(--border);
-  border-radius:12px;padding:14px 16px;
-  text-decoration:none;
-  transition:border-color 0.2s,background 0.2s,transform 0.15s;
-  display:block;
-}
-.related a:hover{
-  border-color:rgba(0,245,160,0.4);
-  background:var(--surf2);
-  transform:translateY(-2px);
-}
+.related{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-top:12px;}
+.related a{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:14px 16px;text-decoration:none;transition:border-color 0.2s,background 0.2s,transform 0.15s;display:block;}
+.related a:hover{border-color:rgba(0,245,160,0.4);background:var(--surf2);transform:translateY(-2px);}
 .related a span{font-size:1.3rem;display:block;margin-bottom:4px;}
 .related a div{font-size:0.7rem;font-weight:700;color:#e0e0ff;letter-spacing:0.05em;}
 
+/* FAQ */
+.faq{margin-bottom:8px;}
+.faq-q{width:100%;background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px 18px;text-align:left;color:#e0e0ff;font-size:0.82rem;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:border-color 0.2s;font-family:inherit;}
+.faq-q:hover{border-color:var(--accent);color:var(--accent);}
+.faq-a{background:#0a0a18;border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;padding:14px 18px;color:#c0c0e8;font-size:0.82rem;line-height:1.9;display:none;}
+.faq-a.open{display:block;}
+.faq-arrow{transition:transform 0.2s;font-size:0.7rem;}
+.faq-q.active .faq-arrow{transform:rotate(180deg);}
+
 /* DIVIDER */
-.divider{height:1px;background:var(--border);margin:44px 0;}
+.divider{height:1px;background:var(--border);margin:40px 0;}
 
 /* FOOTER */
-footer{
-  text-align:center;padding:28px 0 0;
-  font-size:0.6rem;color:var(--muted);line-height:2;
-}
+footer{text-align:center;padding:28px 0 0;font-size:0.6rem;color:var(--muted);line-height:2;}
 footer a{color:var(--muted);text-decoration:none;margin:0 8px;transition:color 0.2s;}
 footer a:hover{color:var(--accent);}
 
-/* MOBILE */
+/* STICKY */
+#stickyAd{position:fixed;bottom:0;left:0;right:0;z-index:9999;background:rgba(6,6,14,0.97);border-top:1px solid #1e1e3a;text-align:center;padding:4px 0;min-height:58px;}
+.sticky-close{position:absolute;top:3px;right:8px;background:none;border:none;color:#60607a;font-size:0.8rem;cursor:pointer;}
+
 @media(max-width:600px){
-  .page{padding:24px 16px 60px;}
+  .content{padding:24px 16px 60px;}
   .play-btn{width:100%;justify-content:center;font-size:1.3rem;padding:14px 24px;}
   .card{padding:18px 16px;}
   h1{font-size:2.2rem;}
 }
 </style>
-
-<style>body{padding-bottom:65px;}</style>
 </head>
 <body>
-<style>
-#adLeft,#adRight{display:none;}
-@media(min-width:1200px){#adLeft,#adRight{display:block;}}
-</style>
-<div id="adLeft" style="position:fixed;left:0;top:50%;transform:translateY(-50%);width:160px;z-index:200">
-  <ins class="adsbygoogle" style="display:inline-block;width:160px;height:600px"
-       data-ad-client="ca-pub-5019628877403001" data-ad-slot="auto" data-ad-format="vertical"></ins>
-</div>
-<div id="adRight" style="position:fixed;right:0;top:50%;transform:translateY(-50%);width:160px;z-index:200">
-  <ins class="adsbygoogle" style="display:inline-block;width:160px;height:600px"
-       data-ad-client="ca-pub-5019628877403001" data-ad-slot="auto" data-ad-format="vertical"></ins>
-</div>
-<div class="page">
-<a href="/" class="back">← Back to Homepage</a>
-  <h1>🖱️ <span class="hl">Click Speed</span> Test (CPS)</h1>
-  <div class="sub">Free CPS test — measure your clicks per second instantly. 8 durations from 1 to 100 seconds. Average is 6–7 CPS. Works on PC and mobile.</div>
-<div style="text-align:center;margin:16px auto;max-width:728px">
-  <ins class="adsbygoogle" style="display:block"
-       data-ad-client="ca-pub-5019628877403001" data-ad-slot="auto"
-       data-ad-format="auto" data-full-width-responsive="true"></ins>
-</div>
-<a href="/game.html?p=cps" class="play-btn"><span class="play-arrow">▶</span> Start Clicking <span class="play-free">FREE</span></a>
 
-  <div class="card">
-    <h2>What Is a CPS Test?</h2>
-    <p>A <strong>CPS test</strong> (clicks per second test) measures how many times you can click a mouse button within a given time period. Our test offers 8 durations: 1, 2, 5, 10, 15, 30, 60, and 100 seconds. The average person clicks at 6–7 CPS in normal clicking. Trained gamers using jitter or butterfly technique can exceed 14 CPS.</p>
-  </div>
-<div style="text-align:center;margin:20px auto">
-  <ins class="adsbygoogle" style="display:block;text-align:center"
-       data-ad-client="ca-pub-5019628877403001" data-ad-slot="auto"
-       data-ad-layout="in-article" data-ad-format="fluid"></ins>
-</div>
+<!-- LAYOUT WRAPPER -->
+<div class="layout">
 
-<div class="card">
-    <h2>CPS Rankings</h2>
-    <table>
-      <thead><tr><th>CPS</th><th>Rating</th><th>Technique</th></tr></thead>
-      <tbody>
-        <tr><td style="color:#ffd600">14+ CPS</td><td style="color:#ffd600">Elite</td><td>Jitter / butterfly clicking</td></tr>
-        <tr><td style="color:#00f5a0">10–14 CPS</td><td style="color:#00f5a0">Excellent</td><td>Advanced single finger</td></tr>
-        <tr><td style="color:#00f5a0">8–10 CPS</td><td style="color:#00f5a0">Great</td><td>Fast single finger</td></tr>
-        <tr><td style="color:#a78bfa">6–8 CPS</td><td style="color:#a78bfa">Average</td><td>Normal clicking</td></tr>
-        <tr><td>Under 6 CPS</td><td>Slow</td><td>Casual / mobile</td></tr>
-      </tbody>
-    </table>
-  </div>
-<div style="text-align:center;margin:20px auto">
-  <ins class="adsbygoogle" style="display:block;text-align:center"
-       data-ad-client="ca-pub-5019628877403001" data-ad-slot="auto"
-       data-ad-layout="in-article" data-ad-format="fluid"></ins>
-</div>
-
-<div class="card">
-    <h2>Clicking Techniques Explained</h2>
-    <h3>Regular Clicking</h3>
-    <p>Standard index finger clicking. Average: 6–8 CPS. Sustainable for extended periods without fatigue or injury risk. Best for casual gaming and everyday computer use.</p>
-    <h3>Jitter Clicking</h3>
-    <p>Tensing forearm and wrist muscles to create rapid vibrations translating into 10–14 CPS. Used in Minecraft PvP. Carries injury risk (repetitive strain) with prolonged use. Not recommended for more than 10-minute sessions.</p>
-    <h3>Butterfly Clicking</h3>
-    <p>Using two fingers alternating on the same mouse button to achieve 15–25 CPS. Banned in many competitive Minecraft servers. High CPS but reduced accuracy for directional clicking tasks.</p>
-    <h3>Drag Clicking</h3>
-    <p>Dragging a finger across the mouse button to generate 30–40+ CPS through friction. Highly hardware-dependent. Causes physical damage to mouse buttons over time. Excluded from most official records.</p>
+  <!-- LEFT SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-inner">
+      <div class="ad-label">Advertisement</div>
+      <div class="ad-sidebar">
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:160px;height:600px"
+             data-ad-client="ca-pub-5019628877403001"
+             data-ad-slot="auto"
+             data-ad-format="vertical"></ins>
+      </div>
+      <div class="ad-sidebar" style="margin-top:16px">
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:160px;height:600px"
+             data-ad-client="ca-pub-5019628877403001"
+             data-ad-slot="auto"
+             data-ad-format="vertical"></ins>
+      </div>
+    </div>
   </div>
 
-  </div>
-  <div class="divider"></div>
-  </div>
-  <h2>Other Free Tests &amp; Games</h2>
-  <div class="related">
-<a href="/jitter-click-test" style="background:#0d0d1a;border:1px solid #1e1e3a;border-radius:10px;padding:12px 16px;text-decoration:none;display:block"><span style="font-size:1.2rem">🖱</span><div style="font-size:0.72rem;font-weight:700;color:#fff;margin-top:3px">Jitter Click Test</div></a><a href="/reaction-time-test" style="background:#0d0d1a;border:1px solid #1e1e3a;border-radius:10px;padding:12px 16px;text-decoration:none;display:block"><span style="font-size:1.2rem">⚡</span><div style="font-size:0.72rem;font-weight:700;color:#fff;margin-top:3px">Reaction Test</div></a><a href="/spacebar-speed-test" style="background:#0d0d1a;border:1px solid #1e1e3a;border-radius:10px;padding:12px 16px;text-decoration:none;display:block"><span style="font-size:1.2rem">⌨️</span><div style="font-size:0.72rem;font-weight:700;color:#fff;margin-top:3px">Spacebar Test</div></a><a href="/typing-speed-test" style="background:#0d0d1a;border:1px solid #1e1e3a;border-radius:10px;padding:12px 16px;text-decoration:none;display:block"><span style="font-size:1.2rem">📝</span><div style="font-size:0.72rem;font-weight:700;color:#fff;margin-top:3px">Typing Speed</div></a>
+  <!-- MAIN CONTENT -->
+  <div class="content">
+    <a href="/" class="back">← Back to Homepage</a>
+
+    <h1>🖱️ <span class="hl">Click Speed</span> Test (CPS)</h1>
+    <div class="sub">How many clicks per second can you achieve? 8 durations from 1 to 100 seconds. Average is 6–7 CPS. Free, no signup.</div>
+
+    <!-- AD: Above Play Button (above fold) -->
+    <div class="ad-inline">
+      <div class="ad-label">Advertisement</div>
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-5019628877403001"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    </div>
+
+    <a href="/game.html?p=cps" class="play-btn">
+      <span class="play-arrow">▶</span> Start CPS Test <span class="play-free">FREE</span>
+    </a>
+
+    <!-- CONTENT CARDS -->
+    
+    <div class="card">
+      <h2>What Is a CPS Test?</h2>
+      <p>A <strong>CPS test</strong> (clicks per second test) measures how many times you can click a mouse button within a set time. Our test offers 8 durations: 1, 2, 5, 10, 15, 30, 60, and 100 seconds. The average person clicks at 6–7 CPS in normal clicking. Trained gamers using advanced techniques can exceed 14 CPS.</p>
+      <h3>CPS Rankings</h3>
+      <table>
+        <thead><tr><th>CPS</th><th>Rating</th><th>Technique</th></tr></thead>
+        <tbody>
+          <tr><td style="color:#ffd600">14+ CPS</td><td style="color:#ffd600">Elite</td><td>Jitter or butterfly clicking</td></tr>
+          <tr><td style="color:#00f5a0">10–14 CPS</td><td style="color:#00f5a0">Excellent</td><td>Advanced single finger</td></tr>
+          <tr><td style="color:#00f5a0">8–10 CPS</td><td style="color:#00f5a0">Great</td><td>Fast single finger</td></tr>
+          <tr><td style="color:#a78bfa">6–8 CPS</td><td style="color:#a78bfa">Average</td><td>Normal clicking</td></tr>
+          <tr><td>Under 6 CPS</td><td>Slow</td><td>Casual or mobile</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>Clicking Techniques Explained</h2>
+      <h3>Regular Clicking</h3>
+      <p>Standard index finger clicking. Average: 6–8 CPS. Sustainable for extended periods without fatigue or injury risk. Best for casual gaming and everyday computer use.</p>
+      <h3>Jitter Clicking</h3>
+      <p>Tensing forearm muscles to create rapid vibrations: 10–14 CPS. Used in Minecraft PvP. Carries repetitive strain injury risk with prolonged use. Not recommended for sessions longer than 10 minutes.</p>
+      <h3>Butterfly Clicking</h3>
+      <p>Alternating two fingers on the same button: 15–25 CPS. Banned on many competitive Minecraft servers. High CPS but reduced directional accuracy.</p>
+      <h3>Drag Clicking</h3>
+      <p>Dragging a finger across the button to generate 30–40+ CPS through friction. Highly hardware-dependent and causes physical damage to mouse buttons over time.</p>
+    </div>
+
+    <div class="card">
+      <h2>How to Improve Your CPS Score</h2>
+      <ul>
+        <li><strong>Warm up:</strong> Shake out your hand and do light finger stretches before testing.</li>
+        <li><strong>Correct posture:</strong> Keep your elbow on a flat surface. Floating your arm causes faster fatigue.</li>
+        <li><strong>Mouse weight:</strong> Lighter mice (under 80g) allow faster clicking with less effort.</li>
+        <li><strong>Click depth:</strong> Use a mouse with a short actuation distance — less travel means faster cycling.</li>
+        <li><strong>Daily practice:</strong> 5–10 minutes of consistent practice increases CPS by 1–2 within a week.</li>
+        <li><strong>Test duration:</strong> Your 1-second CPS will always be higher than your 10-second CPS due to fatigue. Train longer durations for Minecraft PvP endurance.</li>
+      </ul>
+    </div>
+
+    <!-- AD: Mid page in-article -->
+    <div class="ad-inline">
+      <div class="ad-label">Advertisement</div>
+      <ins class="adsbygoogle"
+           style="display:block;text-align:center"
+           data-ad-client="ca-pub-5019628877403001"
+           data-ad-slot="auto"
+           data-ad-layout="in-article"
+           data-ad-format="fluid"></ins>
+    </div>
+
+    <!-- EXTRA SECTIONS -->
+    
+
+    <!-- FAQ -->
+    
+    <div class="card">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq">
+        <button class="faq-q">What CPS do I need for Minecraft PvP? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">For Minecraft 1.8 PvP, 8–12 CPS gives a significant advantage. In modern versions with cooldown mechanics, consistent clicking at 4–6 CPS with good timing matters more than raw speed.</div>
+      </div>
+      <div class="faq">
+        <button class="faq-q">Is jitter clicking safe? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Jitter clicking carries real injury risk. Repetitive strain injuries (RSI), carpal tunnel symptoms, and wrist pain are common with overuse. Never practice for more than 10 minutes at a time and stop immediately if you feel pain.</div>
+      </div>
+      <div class="faq">
+        <button class="faq-q">What is the world record CPS? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">The verified world record for clicks per second over 10 seconds is approximately 14.2 CPS using regular clicking technique. Drag clicking records exceed 30 CPS but are not considered standard competitive records.</div>
+      </div>
+      <div class="faq">
+        <button class="faq-q">Does mouse model affect CPS? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Yes. Mice with a 1000Hz polling rate register clicks every 1ms vs 8ms for 125Hz. Optical switches (like Razer) have near-zero actuation debounce. Together these can add 1–3 CPS vs a standard office mouse.</div>
+      </div>
+    </div>
+
+    <!-- AD: Before related -->
+    <div class="ad-inline" style="margin-top:32px">
+      <div class="ad-label">Advertisement</div>
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-5019628877403001"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    </div>
+
+    <div class="divider"></div>
+    <h2 style="color:var(--muted);font-size:1.1rem">Other Free Tests &amp; Games</h2>
+    <div class="related">
+      <a href="/reaction-time-test"><span>⚡</span><div>Reaction Time</div></a>
+<a href="/typing-speed-test"><span>📝</span><div>Typing Speed</div></a>
+<a href="/jitter-click-test"><span>🖱</span><div>Jitter Click</div></a>
+<a href="/spacebar-speed-test"><span>⌨️</span><div>Spacebar Test</div></a>
+<a href="/stimulation-clicker"><span>🎯</span><div>Aim Trainer</div></a>
+<a href="/number-memory-test"><span>🧠</span><div>Memory Test</div></a>
+<a href="/dinosaur-game"><span>🦕</span><div>Dino Game</div></a>
+<a href="/coreball-game"><span>🎮</span><div>Coreball</div></a>
+<a href="/snake-game"><span>🐍</span><div>Snake Game</div></a>
+<a href="/clicker-tycoon"><span>💰</span><div>Clicker Tycoon</div></a>
+    </div>
+
+    <div class="divider"></div>
+    <footer>
+      <p>© 2026 Reaction Speed Test — Free Online Reflex &amp; Brain Tests</p>
+      <p style="margin-top:8px">
+        <a href="/">Home</a> · <a href="/about">About</a> ·
+        <a href="/privacy-policy">Privacy Policy</a> · <a href="/contact">Contact</a>
+      </p>
+    </footer>
   </div>
 
-<div class="divider"></div>
-<footer>
-    <p>© 2026 Reaction Speed Test — Free Online Reflex &amp; Brain Tests</p>
-    <p style="margin-top:8px"><a href="/">Home</a> · <a href="/about">About</a> · <a href="/privacy-policy">Privacy Policy</a> · <a href="/contact">Contact</a></p>
-  </footer>
+  <!-- RIGHT SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-inner">
+      <div class="ad-label">Advertisement</div>
+      <div class="ad-sidebar">
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:160px;height:600px"
+             data-ad-client="ca-pub-5019628877403001"
+             data-ad-slot="auto"
+             data-ad-format="vertical"></ins>
+      </div>
+      <div class="ad-sidebar" style="margin-top:16px">
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:160px;height:600px"
+             data-ad-client="ca-pub-5019628877403001"
+             data-ad-slot="auto"
+             data-ad-format="vertical"></ins>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /layout -->
+
+<!-- STICKY BOTTOM -->
+<div id="stickyAd">
+  <button class="sticky-close" onclick="document.getElementById('stickyAd').style.display='none'">✕</button>
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:320px;height:50px"
+       data-ad-client="ca-pub-5019628877403001"
+       data-ad-slot="auto"
+       data-ad-format="horizontal"></ins>
 </div>
 
-<div id="stickyAd" style="position:fixed;bottom:0;left:0;right:0;z-index:9999;background:rgba(6,6,14,0.97);border-top:1px solid #1e1e3a;text-align:center;padding:4px 0;min-height:58px">
-  <button onclick="document.getElementById('stickyAd').style.display='none'" style="position:absolute;top:3px;right:8px;background:none;border:none;color:#60607a;font-size:0.8rem;cursor:pointer">✕</button>
-  <ins class="adsbygoogle" style="display:inline-block;width:320px;height:50px"
-       data-ad-client="ca-pub-5019628877403001" data-ad-slot="auto" data-ad-format="horizontal"></ins>
-</div>
 <script>
-(function(){try{document.querySelectorAll('ins.adsbygoogle').forEach(function(i){if(!i.dataset.adsbygoogleStatus)(adsbygoogle=window.adsbygoogle||[]).push({});})}catch(e){}})();
+// FAQ toggle
+document.querySelectorAll('.faq-q').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    this.classList.toggle('active');
+    var a=this.nextElementSibling;
+    a.classList.toggle('open');
+  });
+});
+// AdSense push
+(function(){
+  try{
+    document.querySelectorAll('ins.adsbygoogle').forEach(function(i){
+      if(!i.dataset.adsbygoogleStatus)(adsbygoogle=window.adsbygoogle||[]).push({});
+    });
+  }catch(e){}
+})();
 </script>
 </body>
 </html>

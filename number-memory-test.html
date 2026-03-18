@@ -5,312 +5,304 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Number Memory Test – Working Memory Test Online | Reaction Speed Test</title>
-<meta name="description" content="Free number memory test. How many digits can you memorize? Tests your working memory capacity. Average adults remember 5–7 digits.">
+<title>Number Memory Test – How Many Digits Can You Memorize? | Reaction Speed Test</title>
+<meta name="description" content="Free number memory test. How many digits can you memorize? Tests working memory capacity. Average is 7 digits.">
 <link rel="canonical" href="https://reactionspeedtest.com/number-memory-test">
 <meta name="robots" content="index, follow">
-<meta property="og:title" content="Number Memory Test – Working Memory Test Online | Reaction Speed Test">
-<meta property="og:description" content="Free number memory test. How many digits can you memorize? Tests your working memory capacity. Average adults remember 5–7 digits.">
+<meta property="og:title" content="Number Memory Test – Free Working Memory Test">
+<meta property="og:description" content="Free number memory test. How many digits can you memorize? Tests working memory capacity. Average is 7 digits.">
 <meta property="og:url" content="https://reactionspeedtest.com/number-memory-test">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://reactionspeedtest.com/og-image.png">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"></noscript>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5019628877403001" crossorigin="anonymous"></script>
 <style>
 :root{
-  --bg:#06060e;
-  --surf:#0d0d1c;
-  --surf2:#12122a;
-  --border:#1e1e3f;
-  --text:#f0f0ff;
-  --muted:#7070a0;
-  --accent:#00f5a0;
-  --accent2:#7c3aed;
+  --bg:#06060e;--surf:#0d0d1c;--surf2:#12122a;
+  --border:#1e1e3f;--text:#f0f0ff;--muted:#7070a0;
+  --accent:#c084fc;--accent2:#7c3aed;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:'JetBrains Mono',monospace;
-  line-height:1.8;
-  font-size:15px;
-}
+body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;line-height:1.8;font-size:15px;padding-bottom:68px;}
 
-/* PAGE */
-.page{max-width:860px;margin:0 auto;padding:36px 24px 80px;} @media(min-width:1200px){body{padding-left:0;padding-right:0;}}
+/* LAYOUT — sidebar + center */
+.layout{display:flex;gap:0;max-width:1400px;margin:0 auto;}
+.sidebar{width:160px;flex-shrink:0;}
+.sidebar-inner{position:sticky;top:120px;padding:8px 4px;}
+.content{flex:1;min-width:0;max-width:860px;margin:0 auto;padding:36px 24px 60px;}
+@media(max-width:1199px){.sidebar{display:none;}}
 
-/* BACK LINK */
-.back{
-  display:inline-flex;align-items:center;gap:6px;
-  color:var(--muted);text-decoration:none;
-  font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;
-  margin-bottom:36px;padding:6px 0;
-  border-bottom:1px solid transparent;
-  transition:color 0.2s,border-color 0.2s;
-}
+/* BACK */
+.back{display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:32px;padding:6px 0;border-bottom:1px solid transparent;transition:color 0.2s,border-color 0.2s;}
 .back:hover{color:var(--accent);border-color:var(--accent);}
 
-/* HERO AREA */
-.hero{margin-bottom:36px;}
+/* TYPOGRAPHY */
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.4rem,7vw,3.8rem);letter-spacing:0.06em;line-height:1.05;margin-bottom:12px;color:#fff;}
+h1 .hl{background:linear-gradient(90deg,var(--accent),#38bdf8,var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.sub{color:#a0a0c8;font-size:0.82rem;line-height:1.7;margin-bottom:24px;max-width:600px;border-left:3px solid var(--accent);padding-left:14px;}
+h2{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.1em;color:var(--accent);margin:0 0 14px;display:flex;align-items:center;gap:8px;}
+h2::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(0,245,160,0.3),transparent);}
+h3{font-size:0.88rem;font-weight:700;color:#e0e0ff;margin:20px 0 6px;letter-spacing:0.05em;}
+p{color:#c0c0e8;font-size:0.84rem;line-height:1.95;margin-bottom:16px;}
+strong{color:#f0f0ff;}
+code{background:#1a1a30;color:var(--accent);padding:1px 6px;border-radius:4px;font-size:0.82rem;}
+ul,ol{color:#c0c0e8;font-size:0.84rem;line-height:1.95;margin:10px 0 16px 20px;}
+li{margin-bottom:6px;}
 
-h1{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(2.4rem,7vw,3.8rem);
-  letter-spacing:0.06em;
-  line-height:1.05;
-  margin-bottom:12px;
-  color:#fff;
-  text-shadow:0 0 40px rgba(0,245,160,0.15);
-}
-h1 .hl{
-  background:linear-gradient(90deg,var(--accent),#38bdf8,var(--accent2));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;
-}
-
-.sub{
-  color:#a0a0c8;
-  font-size:0.82rem;
-  line-height:1.7;
-  margin-bottom:28px;
-  max-width:600px;
-  border-left:3px solid var(--accent);
-  padding-left:14px;
-}
-
-/* PLAY NOW BUTTON */
-.play-btn{
-  display:inline-flex;align-items:center;gap:12px;
-  background:linear-gradient(135deg,var(--accent),#00c8a0);
-  color:#000;
-  padding:16px 36px;
-  border-radius:14px;
-  text-decoration:none;
-  font-family:'Bebas Neue',sans-serif;
-  font-size:1.5rem;
-  letter-spacing:0.14em;
-  margin-bottom:44px;
-  position:relative;
-  overflow:hidden;
-  transition:transform 0.15s,box-shadow 0.15s;
-  box-shadow:0 0 0 rgba(0,245,160,0);
-  font-weight:900;
-}
-.play-btn::before{
-  content:'';
-  position:absolute;inset:0;
-  background:linear-gradient(135deg,transparent 30%,rgba(255,255,255,0.25) 50%,transparent 70%);
-  transform:translateX(-100%);
-  transition:transform 0.4s;
-}
-.play-btn:hover{
-  transform:translateY(-2px) scale(1.02);
-  box-shadow:0 8px 32px rgba(0,245,160,0.45),0 0 0 2px rgba(0,245,160,0.3);
-}
+/* PLAY BTN */
+.play-btn{display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,var(--accent),#00c8a0);color:#000;padding:16px 36px;border-radius:14px;text-decoration:none;font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.14em;margin-bottom:32px;position:relative;overflow:hidden;transition:transform 0.15s,box-shadow 0.15s;font-weight:900;}
+.play-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 30%,rgba(255,255,255,0.25) 50%,transparent 70%);transform:translateX(-100%);transition:transform 0.4s;}
+.play-btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 8px 32px rgba(0,245,160,0.45);}
 .play-btn:hover::before{transform:translateX(100%);}
-.play-btn:active{transform:translateY(0) scale(0.99);}
 .play-arrow{font-size:1.2rem;transition:transform 0.2s;}
 .play-btn:hover .play-arrow{transform:translateX(4px);}
-.play-free{
-  font-size:0.65rem;letter-spacing:0.1em;
-  background:rgba(0,0,0,0.2);
-  padding:2px 8px;border-radius:4px;
-  font-family:'JetBrains Mono',monospace;
-  font-weight:700;
-}
-
-/* SECTION HEADINGS */
-h2{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:1.5rem;
-  letter-spacing:0.1em;
-  color:var(--accent);
-  margin:0 0 14px;
-  display:flex;align-items:center;gap:8px;
-}
-h2::after{
-  content:'';flex:1;height:1px;
-  background:linear-gradient(90deg,rgba(0,245,160,0.3),transparent);
-}
-h3{
-  font-size:0.88rem;font-weight:700;
-  color:#e0e0ff;margin:20px 0 6px;
-  letter-spacing:0.05em;
-}
-
-/* BODY TEXT */
-p{
-  color:#c0c0e8;
-  font-size:0.84rem;
-  line-height:1.95;
-  margin-bottom:16px;
-}
-strong{color:#f0f0ff;}
-code{
-  background:#1a1a30;
-  color:var(--accent);
-  padding:1px 6px;
-  border-radius:4px;
-  font-size:0.82rem;
-}
-ul,ol{
-  color:#c0c0e8;
-  font-size:0.84rem;
-  line-height:1.95;
-  margin:10px 0 16px 20px;
-}
-li{margin-bottom:6px;}
-li strong{color:#f0f0ff;}
+.play-free{font-size:0.65rem;letter-spacing:0.1em;background:rgba(0,0,0,0.2);padding:2px 8px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-weight:700;}
 
 /* CARDS */
-.card{
-  background:var(--surf);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:24px 28px;
-  margin-bottom:16px;
-  position:relative;
-  overflow:hidden;
-  transition:border-color 0.2s;
-}
-.card::before{
-  content:'';
-  position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
-  opacity:0;transition:opacity 0.2s;
-}
+.card{background:var(--surf);border:1px solid var(--border);border-radius:16px;padding:24px 28px;margin-bottom:20px;position:relative;overflow:hidden;transition:border-color 0.2s;}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));opacity:0;transition:opacity 0.2s;}
 .card:hover{border-color:#2e2e5a;}
 .card:hover::before{opacity:1;}
 
 /* TABLE */
 table{width:100%;border-collapse:collapse;margin:16px 0;font-size:0.8rem;}
-th{
-  background:#111128;
-  color:var(--accent);
-  padding:11px 16px;
-  text-align:left;
-  font-size:0.6rem;
-  letter-spacing:0.16em;
-  text-transform:uppercase;
-  border:1px solid var(--border);
-}
-td{
-  padding:10px 16px;
-  border:1px solid #16162e;
-  color:#c0c0e8;
-  vertical-align:middle;
-}
+th{background:#111128;color:var(--accent);padding:11px 16px;text-align:left;font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;border:1px solid var(--border);}
+td{padding:10px 16px;border:1px solid #16162e;color:#c0c0e8;vertical-align:middle;}
 tr:nth-child(even) td{background:#0a0a1a;}
 tr:hover td{background:#10102a;color:#e0e0ff;}
 
+/* AD UNITS */
+.ad-sidebar{text-align:center;margin-bottom:20px;}
+.ad-inline{text-align:center;margin:20px auto;max-width:728px;}
+.ad-label{font-size:0.55rem;color:#30304a;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px;}
+
 /* RELATED */
-.related-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:1.3rem;letter-spacing:0.12em;
-  color:var(--muted);margin-bottom:14px;
-}
-.related{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
-  gap:10px;
-}
-.related a{
-  background:var(--surf);
-  border:1px solid var(--border);
-  border-radius:12px;padding:14px 16px;
-  text-decoration:none;
-  transition:border-color 0.2s,background 0.2s,transform 0.15s;
-  display:block;
-}
-.related a:hover{
-  border-color:rgba(0,245,160,0.4);
-  background:var(--surf2);
-  transform:translateY(-2px);
-}
+.related{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-top:12px;}
+.related a{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:14px 16px;text-decoration:none;transition:border-color 0.2s,background 0.2s,transform 0.15s;display:block;}
+.related a:hover{border-color:rgba(0,245,160,0.4);background:var(--surf2);transform:translateY(-2px);}
 .related a span{font-size:1.3rem;display:block;margin-bottom:4px;}
 .related a div{font-size:0.7rem;font-weight:700;color:#e0e0ff;letter-spacing:0.05em;}
 
+/* FAQ */
+.faq{margin-bottom:8px;}
+.faq-q{width:100%;background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px 18px;text-align:left;color:#e0e0ff;font-size:0.82rem;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:border-color 0.2s;font-family:inherit;}
+.faq-q:hover{border-color:var(--accent);color:var(--accent);}
+.faq-a{background:#0a0a18;border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;padding:14px 18px;color:#c0c0e8;font-size:0.82rem;line-height:1.9;display:none;}
+.faq-a.open{display:block;}
+.faq-arrow{transition:transform 0.2s;font-size:0.7rem;}
+.faq-q.active .faq-arrow{transform:rotate(180deg);}
+
 /* DIVIDER */
-.divider{height:1px;background:var(--border);margin:44px 0;}
+.divider{height:1px;background:var(--border);margin:40px 0;}
 
 /* FOOTER */
-footer{
-  text-align:center;padding:28px 0 0;
-  font-size:0.6rem;color:var(--muted);line-height:2;
-}
+footer{text-align:center;padding:28px 0 0;font-size:0.6rem;color:var(--muted);line-height:2;}
 footer a{color:var(--muted);text-decoration:none;margin:0 8px;transition:color 0.2s;}
 footer a:hover{color:var(--accent);}
 
-/* MOBILE */
+/* STICKY */
+#stickyAd{position:fixed;bottom:0;left:0;right:0;z-index:9999;background:rgba(6,6,14,0.97);border-top:1px solid #1e1e3a;text-align:center;padding:4px 0;min-height:58px;}
+.sticky-close{position:absolute;top:3px;right:8px;background:none;border:none;color:#60607a;font-size:0.8rem;cursor:pointer;}
+
 @media(max-width:600px){
-  .page{padding:24px 16px 60px;}
+  .content{padding:24px 16px 60px;}
   .play-btn{width:100%;justify-content:center;font-size:1.3rem;padding:14px 24px;}
   .card{padding:18px 16px;}
   h1{font-size:2.2rem;}
 }
 </style>
-
-<style>body{padding-bottom:65px;}</style>
 </head>
 <body>
-<style>
-#adLeft,#adRight{display:none;}
-@media(min-width:1200px){#adLeft,#adRight{display:block;}}
-</style>
-<div id="adLeft" style="position:fixed;left:0;top:50%;transform:translateY(-50%);width:160px;z-index:200">
-  <ins class="adsbygoogle" style="display:inline-block;width:160px;height:600px"
-       data-ad-client="ca-pub-5019628877403001" data-ad-slot="auto" data-ad-format="vertical"></ins>
-</div>
-<div id="adRight" style="position:fixed;right:0;top:50%;transform:translateY(-50%);width:160px;z-index:200">
-  <ins class="adsbygoogle" style="display:inline-block;width:160px;height:600px"
-       data-ad-client="ca-pub-5019628877403001" data-ad-slot="auto" data-ad-format="vertical"></ins>
-</div>
-<div class="page">
-<a href="/" class="back">← Back to Homepage</a>
-  <h1>🧠 <span class="hl">Number Memory</span> Test</h1>
-  <div class="sub">Free number memory test. How many digits can you memorize? Tests your working memory capacity. Average adults remember 5–7 digits.</div>
-<div style="text-align:center;margin:16px auto;max-width:728px">
-  <ins class="adsbygoogle" style="display:block"
-       data-ad-client="ca-pub-5019628877403001" data-ad-slot="auto"
-       data-ad-format="auto" data-full-width-responsive="true"></ins>
-</div>
-<a href="/game.html?p=memory" class="play-btn"><span class="play-arrow">▶</span> Test My Memory <span class="play-free">FREE</span></a>
-  <div class="card"><h2>What Is the Number Memory Test?</h2><p>The <strong>number memory test</strong> displays a sequence of digits for a fixed time, then asks you to recall them in order. It measures your <strong>working memory capacity</strong> — how many items you can hold in active conscious memory at one time. This is one of the most fundamental cognitive measures used in psychology and neuroscience research.</p>
-<p>Each correct round increases the digit count by one. The test ends when you make an incorrect response. Your final score (digit count) is your working memory span for numerical information.</p></div>
-<div style="text-align:center;margin:20px auto">
-  <ins class="adsbygoogle" style="display:block;text-align:center"
-       data-ad-client="ca-pub-5019628877403001" data-ad-slot="auto"
-       data-ad-layout="in-article" data-ad-format="fluid"></ins>
-</div>
-<div class="card"><h2>Score Rankings</h2><table><thead><tr><th>Digits</th><th>Rating</th><th>Population Percentile</th></tr></thead><tbody><tr><td style="color:#ffd600">10+</td><td style="color:#ffd600">Exceptional</td><td>Top 5%</td></tr><tr><td style="color:#00f5a0">8–9</td><td style="color:#00f5a0">Above Average</td><td>Top 20%</td></tr><tr><td style="color:#a78bfa">6–7</td><td style="color:#a78bfa">Average</td><td>Middle 50%</td></tr><tr><td>4–5</td><td>Below Average</td><td>Bottom 30%</td></tr><tr><td style="color:#f87171">Under 4</td><td style="color:#f87171">Low</td><td>Bottom 10%</td></tr></tbody></table><p>The average working memory span is <strong>7 ± 2 digits</strong>, a finding established by psychologist George Miller in 1956 and known as "Miller's Law." Modern research suggests the true capacity is closer to 4 independent "chunks" — but chunking strategies allow each chunk to contain multiple items.</p></div>
-<div style="text-align:center;margin:20px auto">
-  <ins class="adsbygoogle" style="display:block;text-align:center"
-       data-ad-client="ca-pub-5019628877403001" data-ad-slot="auto"
-       data-ad-layout="in-article" data-ad-format="fluid"></ins>
-</div>
-<div class="card"><h2>Memory Improvement Techniques</h2><ul><li><strong>Chunking:</strong> Group digits into 2–3 digit groups (e.g., 847291 → 847 · 291). Reduces 6 items to 2 chunks, well within working memory limits.</li><li><strong>Verbal rehearsal:</strong> Silently repeat the number sequence during the recall phase. Articulatory loop in working memory benefits from verbal rehearsal.</li><li><strong>Spaced practice:</strong> Daily testing yields measurable working memory improvements over 4–6 weeks.</li></ul></div>
+
+<!-- LAYOUT WRAPPER -->
+<div class="layout">
+
+  <!-- LEFT SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-inner">
+      <div class="ad-label">Advertisement</div>
+      <div class="ad-sidebar">
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:160px;height:600px"
+             data-ad-client="ca-pub-5019628877403001"
+             data-ad-slot="auto"
+             data-ad-format="vertical"></ins>
+      </div>
+      <div class="ad-sidebar" style="margin-top:16px">
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:160px;height:600px"
+             data-ad-client="ca-pub-5019628877403001"
+             data-ad-slot="auto"
+             data-ad-format="vertical"></ins>
+      </div>
+    </div>
   </div>
-  <div class="divider"></div>
+
+  <!-- MAIN CONTENT -->
+  <div class="content">
+    <a href="/" class="back">← Back to Homepage</a>
+
+    <h1>🧠 <span class="hl">Number Memory</span> Test</h1>
+    <div class="sub">How many digits can you memorize in sequence? Tests working memory capacity. Average is 7 digits. Free, no signup.</div>
+
+    <!-- AD: Above Play Button (above fold) -->
+    <div class="ad-inline">
+      <div class="ad-label">Advertisement</div>
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-5019628877403001"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    </div>
+
+    <a href="/game.html?p=memory" class="play-btn">
+      <span class="play-arrow">▶</span> Test My Memory <span class="play-free">FREE</span>
+    </a>
+
+    <!-- CONTENT CARDS -->
+    
+    <div class="card">
+      <h2>What Is Working Memory?</h2>
+      <p><strong>Working memory</strong> is the brain's system for temporarily holding and manipulating information. It is governed primarily by the prefrontal cortex and is one of the strongest predictors of academic and professional performance. Psychologist George Miller's famous 1956 paper established that humans can hold <strong>7±2 chunks</strong> of information in working memory.</p>
+      <p>Our number memory test measures your raw digit span — how many sequential digits you can recall immediately after seeing them. Each correct answer adds one more digit to the next sequence.</p>
+      <h3>Average Scores by Age</h3>
+      <table>
+        <thead><tr><th>Age Group</th><th>Average Digit Span</th></tr></thead>
+        <tbody>
+          <tr><td>Under 10</td><td>4–5 digits</td></tr>
+          <tr><td>10–17</td><td>6–7 digits</td></tr>
+          <tr><td>18–40</td><td>7–8 digits</td></tr>
+          <tr><td>40–60</td><td>6–7 digits</td></tr>
+          <tr><td>60+</td><td>5–6 digits</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h2>How to Improve Working Memory</h2>
+      <ul>
+        <li><strong>Chunking:</strong> Group digits into 2–3 digit clusters. "3-8-4-7-1-2" becomes "384" and "712" — two chunks instead of six.</li>
+        <li><strong>Verbal rehearsal:</strong> Silently repeat the sequence rhythmically as you read it. Rhythm aids retention.</li>
+        <li><strong>Visualization:</strong> Associate numbers with visual images or locations (method of loci/memory palace).</li>
+        <li><strong>Sleep:</strong> Working memory consolidates during slow-wave sleep. 7–9 hours produces significantly better next-day performance.</li>
+        <li><strong>Dual n-back training:</strong> Shown in research to produce real working memory capacity gains over 4–8 weeks of daily practice.</li>
+      </ul>
+    </div>
+
+    <!-- AD: Mid page in-article -->
+    <div class="ad-inline">
+      <div class="ad-label">Advertisement</div>
+      <ins class="adsbygoogle"
+           style="display:block;text-align:center"
+           data-ad-client="ca-pub-5019628877403001"
+           data-ad-slot="auto"
+           data-ad-layout="in-article"
+           data-ad-format="fluid"></ins>
+    </div>
+
+    <!-- EXTRA SECTIONS -->
+    
+
+    <!-- FAQ -->
+    
+    <div class="card">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq"><button class="faq-q">What does a high digit span mean? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a">A high digit span correlates with better reading comprehension, mathematical ability, and general fluid intelligence. It is used as a component in standard IQ tests like the WAIS.</div></div>
+      <div class="faq"><button class="faq-q">Can working memory be trained? <span class="faq-arrow">▼</span></button>
+      <div class="faq-a">Yes, but transfer effects are limited. Training improves performance on specific working memory tasks. Evidence for broad cognitive benefits from working memory training alone is mixed — lifestyle factors like sleep, exercise, and stress management have stronger overall effects.</div></div>
+    </div>
+
+    <!-- AD: Before related -->
+    <div class="ad-inline" style="margin-top:32px">
+      <div class="ad-label">Advertisement</div>
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-5019628877403001"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    </div>
+
+    <div class="divider"></div>
+    <h2 style="color:var(--muted);font-size:1.1rem">Other Free Tests &amp; Games</h2>
+    <div class="related">
+      <a href="/reaction-time-test"><span>⚡</span><div>Reaction Time</div></a>
+<a href="/click-speed-test"><span>🖱️</span><div>CPS Test</div></a>
+<a href="/typing-speed-test"><span>📝</span><div>Typing Speed</div></a>
+<a href="/jitter-click-test"><span>🖱</span><div>Jitter Click</div></a>
+<a href="/spacebar-speed-test"><span>⌨️</span><div>Spacebar Test</div></a>
+<a href="/stimulation-clicker"><span>🎯</span><div>Aim Trainer</div></a>
+<a href="/dinosaur-game"><span>🦕</span><div>Dino Game</div></a>
+<a href="/coreball-game"><span>🎮</span><div>Coreball</div></a>
+<a href="/snake-game"><span>🐍</span><div>Snake Game</div></a>
+<a href="/clicker-tycoon"><span>💰</span><div>Clicker Tycoon</div></a>
+    </div>
+
+    <div class="divider"></div>
+    <footer>
+      <p>© 2026 Reaction Speed Test — Free Online Reflex &amp; Brain Tests</p>
+      <p style="margin-top:8px">
+        <a href="/">Home</a> · <a href="/about">About</a> ·
+        <a href="/privacy-policy">Privacy Policy</a> · <a href="/contact">Contact</a>
+      </p>
+    </footer>
   </div>
-  <h2>Other Free Tests &amp; Games</h2>
-  <div class="related"><a href="/reaction-time-test" style="background:#0d0d1a;border:1px solid #1e1e3a;border-radius:10px;padding:12px 16px;text-decoration:none;display:block"><span style="font-size:1.2rem">⚡</span><div style="font-size:0.72rem;font-weight:700;color:#fff;margin-top:3px">Reaction Test</div></a><a href="/typing-speed-test" style="background:#0d0d1a;border:1px solid #1e1e3a;border-radius:10px;padding:12px 16px;text-decoration:none;display:block"><span style="font-size:1.2rem">📝</span><div style="font-size:0.72rem;font-weight:700;color:#fff;margin-top:3px">Typing Test</div></a><a href="/click-speed-test" style="background:#0d0d1a;border:1px solid #1e1e3a;border-radius:10px;padding:12px 16px;text-decoration:none;display:block"><span style="font-size:1.2rem">🖱️</span><div style="font-size:0.72rem;font-weight:700;color:#fff;margin-top:3px">CPS Test</div></a><a href="/snake-game" style="background:#0d0d1a;border:1px solid #1e1e3a;border-radius:10px;padding:12px 16px;text-decoration:none;display:block"><span style="font-size:1.2rem">🐍</span><div style="font-size:0.72rem;font-weight:700;color:#fff;margin-top:3px">Snake Game</div></a></div>
-  <div class="divider"></div>
-<footer>
-    <p>© 2026 Reaction Speed Test — Free Online Reflex &amp; Brain Tests</p>
-    <p style="margin-top:8px"><a href="/">Home</a> · <a href="/about">About</a> · <a href="/privacy-policy">Privacy Policy</a> · <a href="/contact">Contact</a></p>
-  </footer>
+
+  <!-- RIGHT SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-inner">
+      <div class="ad-label">Advertisement</div>
+      <div class="ad-sidebar">
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:160px;height:600px"
+             data-ad-client="ca-pub-5019628877403001"
+             data-ad-slot="auto"
+             data-ad-format="vertical"></ins>
+      </div>
+      <div class="ad-sidebar" style="margin-top:16px">
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:160px;height:600px"
+             data-ad-client="ca-pub-5019628877403001"
+             data-ad-slot="auto"
+             data-ad-format="vertical"></ins>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /layout -->
+
+<!-- STICKY BOTTOM -->
+<div id="stickyAd">
+  <button class="sticky-close" onclick="document.getElementById('stickyAd').style.display='none'">✕</button>
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:320px;height:50px"
+       data-ad-client="ca-pub-5019628877403001"
+       data-ad-slot="auto"
+       data-ad-format="horizontal"></ins>
 </div>
 
-<div id="stickyAd" style="position:fixed;bottom:0;left:0;right:0;z-index:9999;background:rgba(6,6,14,0.97);border-top:1px solid #1e1e3a;text-align:center;padding:4px 0;min-height:58px">
-  <button onclick="document.getElementById('stickyAd').style.display='none'" style="position:absolute;top:3px;right:8px;background:none;border:none;color:#60607a;font-size:0.8rem;cursor:pointer">✕</button>
-  <ins class="adsbygoogle" style="display:inline-block;width:320px;height:50px"
-       data-ad-client="ca-pub-5019628877403001" data-ad-slot="auto" data-ad-format="horizontal"></ins>
-</div>
 <script>
-(function(){try{document.querySelectorAll('ins.adsbygoogle').forEach(function(i){if(!i.dataset.adsbygoogleStatus)(adsbygoogle=window.adsbygoogle||[]).push({});})}catch(e){}})();
+// FAQ toggle
+document.querySelectorAll('.faq-q').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    this.classList.toggle('active');
+    var a=this.nextElementSibling;
+    a.classList.toggle('open');
+  });
+});
+// AdSense push
+(function(){
+  try{
+    document.querySelectorAll('ins.adsbygoogle').forEach(function(i){
+      if(!i.dataset.adsbygoogleStatus)(adsbygoogle=window.adsbygoogle||[]).push({});
+    });
+  }catch(e){}
+})();
 </script>
 </body>
 </html>
