@@ -9,7 +9,7 @@
 <meta name="description" content="Free jitter click test. Practice jitter clicking and measure your maximum CPS. Used in Minecraft PvP.">
 <link rel="canonical" href="https://reactionspeedtest.com/jitter-click-test">
 <meta name="robots" content="index, follow">
-<meta property="og:title" content="Jitter Click Test – Free Online CPS Tester">
+<meta property="og:title" content="Jitter Click Test – Measure Your Jitter CPS | Reaction Speed Test">
 <meta property="og:description" content="Free jitter click test. Practice jitter clicking and measure your maximum CPS. Used in Minecraft PvP.">
 <meta property="og:url" content="https://reactionspeedtest.com/jitter-click-test">
 <meta property="og:type" content="website">
@@ -20,40 +20,20 @@
 <noscript><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"></noscript>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5019628877403001" crossorigin="anonymous"></script>
 <style>
-:root{
-  --bg:#06060e;--surf:#0d0d1c;--surf2:#12122a;
-  --border:#1e1e3f;--text:#f0f0ff;--muted:#7070a0;
-  --accent:#fbbf24;--accent2:#7c3aed;
-}
+:root{--bg:#06060e;--surf:#0d0d1c;--surf2:#12122a;--border:#1e1e3f;--text:#f0f0ff;--muted:#7070a0;--accent:#fbbf24;--accent2:#7c3aed;}
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;line-height:1.8;font-size:15px;padding-bottom:68px;}
-
-/* LAYOUT — sidebar + center */
-.layout{display:flex;gap:0;max-width:1400px;margin:0 auto;}
-.sidebar{width:160px;flex-shrink:0;}
-.sidebar-inner{position:sticky;top:60px;padding:8px 4px;}
-.content{flex:1;min-width:0;max-width:860px;margin:0 auto;padding:36px 24px 60px;}
-@media(max-width:1023px){.sidebar{display:none;}}
-
-/* BACK */
+.layout{display:flex;max-width:1400px;margin:0 auto;}
+.sidebar{width:160px;flex-shrink:0;padding:8px 4px;}
+.sidebar-sticky{position:sticky;top:60px;}
+.content{flex:1;min-width:0;max-width:880px;margin:0 auto;padding:36px 24px 60px;}
+@media(max-width:1199px){.sidebar{display:none;}}
 .back{display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:32px;padding:6px 0;border-bottom:1px solid transparent;transition:color 0.2s,border-color 0.2s;}
 .back:hover{color:var(--accent);border-color:var(--accent);}
-
-/* TYPOGRAPHY */
 h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.4rem,7vw,3.8rem);letter-spacing:0.06em;line-height:1.05;margin-bottom:12px;color:#fff;}
 h1 .hl{background:linear-gradient(90deg,var(--accent),#38bdf8,var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .sub{color:#a0a0c8;font-size:0.82rem;line-height:1.7;margin-bottom:24px;max-width:600px;border-left:3px solid var(--accent);padding-left:14px;}
-h2{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.1em;color:var(--accent);margin:0 0 14px;display:flex;align-items:center;gap:8px;}
-h2::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(0,245,160,0.3),transparent);}
-h3{font-size:0.88rem;font-weight:700;color:#e0e0ff;margin:20px 0 6px;letter-spacing:0.05em;}
-p{color:#c0c0e8;font-size:0.84rem;line-height:1.95;margin-bottom:16px;}
-strong{color:#f0f0ff;}
-code{background:#1a1a30;color:var(--accent);padding:1px 6px;border-radius:4px;font-size:0.82rem;}
-ul,ol{color:#c0c0e8;font-size:0.84rem;line-height:1.95;margin:10px 0 16px 20px;}
-li{margin-bottom:6px;}
-
-/* PLAY BTN */
 .play-btn{display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,var(--accent),#00c8a0);color:#000;padding:16px 36px;border-radius:14px;text-decoration:none;font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.14em;margin-bottom:32px;position:relative;overflow:hidden;transition:transform 0.15s,box-shadow 0.15s;font-weight:900;}
 .play-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 30%,rgba(255,255,255,0.25) 50%,transparent 70%);transform:translateX(-100%);transition:transform 0.4s;}
 .play-btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 8px 32px rgba(0,245,160,0.45);}
@@ -61,33 +41,28 @@ li{margin-bottom:6px;}
 .play-arrow{font-size:1.2rem;transition:transform 0.2s;}
 .play-btn:hover .play-arrow{transform:translateX(4px);}
 .play-free{font-size:0.65rem;letter-spacing:0.1em;background:rgba(0,0,0,0.2);padding:2px 8px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-weight:700;}
-
-/* CARDS */
+h2{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.1em;color:var(--accent);margin:0 0 14px;display:flex;align-items:center;gap:8px;}
+h2::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(0,245,160,0.3),transparent);}
+h3{font-size:0.88rem;font-weight:700;color:#e0e0ff;margin:20px 0 6px;}
+p{color:#c0c0e8;font-size:0.84rem;line-height:1.95;margin-bottom:16px;}
+strong{color:#f0f0ff;}
+code{background:#1a1a30;color:var(--accent);padding:1px 6px;border-radius:4px;font-size:0.82rem;}
+ul,ol{color:#c0c0e8;font-size:0.84rem;line-height:1.95;margin:10px 0 16px 20px;}
+li{margin-bottom:6px;}
 .card{background:var(--surf);border:1px solid var(--border);border-radius:16px;padding:24px 28px;margin-bottom:20px;position:relative;overflow:hidden;transition:border-color 0.2s;}
 .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));opacity:0;transition:opacity 0.2s;}
 .card:hover{border-color:#2e2e5a;}
 .card:hover::before{opacity:1;}
-
-/* TABLE */
 table{width:100%;border-collapse:collapse;margin:16px 0;font-size:0.8rem;}
 th{background:#111128;color:var(--accent);padding:11px 16px;text-align:left;font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;border:1px solid var(--border);}
 td{padding:10px 16px;border:1px solid #16162e;color:#c0c0e8;vertical-align:middle;}
 tr:nth-child(even) td{background:#0a0a1a;}
 tr:hover td{background:#10102a;color:#e0e0ff;}
-
-/* AD UNITS */
-.ad-sidebar{text-align:center;margin-bottom:20px;}
-.ad-inline{text-align:center;margin:20px auto;max-width:728px;}
-.ad-label{font-size:0.55rem;color:#30304a;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px;}
-
-/* RELATED */
 .related{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-top:12px;}
 .related a{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:14px 16px;text-decoration:none;transition:border-color 0.2s,background 0.2s,transform 0.15s;display:block;}
 .related a:hover{border-color:rgba(0,245,160,0.4);background:var(--surf2);transform:translateY(-2px);}
 .related a span{font-size:1.3rem;display:block;margin-bottom:4px;}
-.related a div{font-size:0.7rem;font-weight:700;color:#e0e0ff;letter-spacing:0.05em;}
-
-/* FAQ */
+.related a div{font-size:0.7rem;font-weight:700;color:#e0e0ff;}
 .faq{margin-bottom:8px;}
 .faq-q{width:100%;background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px 18px;text-align:left;color:#e0e0ff;font-size:0.82rem;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:border-color 0.2s;font-family:inherit;}
 .faq-q:hover{border-color:var(--accent);color:var(--accent);}
@@ -95,144 +70,60 @@ tr:hover td{background:#10102a;color:#e0e0ff;}
 .faq-a.open{display:block;}
 .faq-arrow{transition:transform 0.2s;font-size:0.7rem;}
 .faq-q.active .faq-arrow{transform:rotate(180deg);}
-
-/* DIVIDER */
 .divider{height:1px;background:var(--border);margin:40px 0;}
-
-/* FOOTER */
 footer{text-align:center;padding:28px 0 0;font-size:0.6rem;color:var(--muted);line-height:2;}
 footer a{color:var(--muted);text-decoration:none;margin:0 8px;transition:color 0.2s;}
 footer a:hover{color:var(--accent);}
-
-/* STICKY */
 #stickyAd{position:fixed;bottom:0;left:0;right:0;z-index:9999;background:rgba(6,6,14,0.97);border-top:1px solid #1e1e3a;text-align:center;padding:4px 0;min-height:58px;}
-.sticky-close{position:absolute;top:3px;right:8px;background:none;border:none;color:#60607a;font-size:0.8rem;cursor:pointer;}
-
-@media(max-width:600px){
-  .content{padding:24px 16px 60px;}
-  .play-btn{width:100%;justify-content:center;font-size:1.3rem;padding:14px 24px;}
-  .card{padding:18px 16px;}
-  h1{font-size:2.2rem;}
-}
+.sticky-close{position:absolute;top:3px;right:8px;background:none;border:none;color:#60607a;font-size:0.85rem;cursor:pointer;line-height:1;padding:2px 6px;}
+.sticky-close:hover{color:#fff;}
+.ad-label{font-size:0.52rem;color:#30304a;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px;text-align:center;}
+@media(max-width:600px){.content{padding:24px 16px 60px;}.play-btn{width:100%;justify-content:center;font-size:1.3rem;padding:14px 24px;}.card{padding:18px 16px;}h1{font-size:2.2rem;}}
 </style>
 </head>
 <body>
-
-<!-- LAYOUT WRAPPER -->
 <div class="layout">
 
   <!-- LEFT SIDEBAR -->
   <div class="sidebar">
-    <div class="sidebar-inner">
+    <div class="sidebar-sticky">
       <div class="ad-label">Advertisement</div>
-      <div class="ad-sidebar">
-        <ins class="adsbygoogle"
-             style="display:inline-block;width:160px;height:600px"
-             data-ad-client="ca-pub-5019628877403001"
-             data-ad-slot="auto"
-             data-ad-format="vertical"></ins>
-      </div>
-      <div class="ad-sidebar" style="margin-top:16px">
-        <ins class="adsbygoogle"
-             style="display:inline-block;width:160px;height:600px"
-             data-ad-client="ca-pub-5019628877403001"
-             data-ad-slot="auto"
-             data-ad-format="vertical"></ins>
-      </div>
+      <ins class="adsbygoogle" style="display:inline-block;width:160px;height:600px"
+           data-ad-client="ca-pub-5019628877403001" data-ad-slot="auto" data-ad-format="vertical"></ins>
     </div>
   </div>
 
-  <!-- MAIN CONTENT -->
+  <!-- CONTENT -->
   <div class="content">
     <a href="/" class="back">← Back to Homepage</a>
-
     <h1>🖱 <span class="hl">Jitter Click</span> Test</h1>
     <div class="sub">Practice jitter clicking and measure your maximum CPS. Used in Minecraft PvP. Free, no signup.</div>
-
-    <!-- AD: Above Play Button (above fold) -->
-    <div class="ad-inline">
-      <div class="ad-label">Advertisement</div>
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-5019628877403001"
-           data-ad-slot="auto"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-    </div>
-
     <a href="/game.html?p=jitter" class="play-btn">
       <span class="play-arrow">▶</span> Start Jitter Test <span class="play-free">FREE</span>
     </a>
 
-    <!-- CONTENT CARDS -->
     
-    <div class="card">
-      <h2>What Is Jitter Clicking?</h2>
-      <p><strong>Jitter clicking</strong> involves tensing your forearm and wrist muscles to create rapid involuntary vibrations in your finger, translating into 10–14 clicks per second. It was popularized through Minecraft PvP around 2013–2015 and remains one of the most common high-CPS techniques.</p>
-      <h3>How to Jitter Click</h3>
-      <ol>
-        <li>Place your index finger on the left mouse button</li>
-        <li>Rest your arm comfortably on a flat surface</li>
-        <li>Tense your forearm muscles firmly — not painfully</li>
-        <li>The vibration translates to rapid clicks</li>
-        <li>Practice holding the tension for 5–10 seconds at a time</li>
-      </ol>
-      <p><strong>Important:</strong> Jitter clicking carries real injury risk. Repetitive strain, carpal tunnel, and wrist pain are common with overuse. Never practice more than 10 minutes at a time.</p>
-    </div>
-    <div class="card">
-      <h2>Jitter Click vs Other Techniques</h2>
-      <table>
-        <thead><tr><th>Technique</th><th>CPS Range</th><th>Injury Risk</th><th>Banned?</th></tr></thead>
-        <tbody>
-          <tr><td>Regular</td><td>6–9 CPS</td><td style="color:#00f5a0">None</td><td style="color:#00f5a0">No</td></tr>
-          <tr><td>Jitter</td><td>10–14 CPS</td><td style="color:#fbbf24">Medium</td><td style="color:#fbbf24">Some servers</td></tr>
-          <tr><td>Butterfly</td><td>15–25 CPS</td><td style="color:#f87171">High</td><td style="color:#f87171">Most servers</td></tr>
-          <tr><td>Drag</td><td>30–40+ CPS</td><td style="color:#f87171">Very High</td><td style="color:#f87171">Almost all</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- AD: Mid page in-article -->
-    <div class="ad-inline">
-      <div class="ad-label">Advertisement</div>
-      <ins class="adsbygoogle"
-           style="display:block;text-align:center"
-           data-ad-client="ca-pub-5019628877403001"
-           data-ad-slot="auto"
-           data-ad-layout="in-article"
-           data-ad-format="fluid"></ins>
-    </div>
-
-    <!-- EXTRA SECTIONS -->
-    
-
-    <!-- FAQ -->
-    
-    <div class="card">
-      <h2>Frequently Asked Questions</h2>
-      <div class="faq"><button class="faq-q">Is jitter clicking allowed on Hypixel? <span class="faq-arrow">▼</span></button>
-      <div class="faq-a">Hypixel's rules allow jitter clicking but flag accounts consistently exceeding 15–17 CPS. Scores above this threshold may trigger automated anti-cheat reviews.</div></div>
-      <div class="faq"><button class="faq-q">Can jitter clicking damage my mouse? <span class="faq-arrow">▼</span></button>
-      <div class="faq-a">The rapid vibrations accelerate wear on mouse switches. Budget mice may fail within weeks of regular jitter clicking. A mouse with optical switches (like Razer) holds up better.</div></div>
-      <div class="faq"><button class="faq-q">What mouse is best for jitter clicking? <span class="faq-arrow">▼</span></button>
-      <div class="faq-a">Mice with grippy side textures and medium weight (80–100g) are preferred. Popular choices include the Logitech G402, Razer DeathAdder, and SteelSeries Rival 3.</div></div>
-    </div>
-
-    <!-- AD: Before related -->
-    <div class="ad-inline" style="margin-top:32px">
-      <div class="ad-label">Advertisement</div>
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-5019628877403001"
-           data-ad-slot="auto"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
+    <div class="card"><h2>What Is Jitter Clicking?</h2>
+    <p><strong>Jitter clicking</strong> involves tensing forearm muscles to create rapid vibrations: 10–14 CPS. Popularized by Minecraft PvP around 2013–2015. Carries repetitive strain injury risk — max 10 min sessions.</p>
+    <h3>How to Jitter Click</h3>
+    <ol><li>Index finger on left mouse button</li><li>Arm flat on surface</li><li>Tense forearm muscles firmly</li><li>Vibration translates to rapid clicks</li></ol></div>
+    <div class="card"><h2>Jitter vs Other Techniques</h2>
+    <table><thead><tr><th>Technique</th><th>CPS</th><th>Risk</th><th>Banned?</th></tr></thead><tbody>
+    <tr><td>Regular</td><td>6–9</td><td style="color:#00f5a0">None</td><td style="color:#00f5a0">No</td></tr>
+    <tr><td>Jitter</td><td>10–14</td><td style="color:#fbbf24">Medium</td><td style="color:#fbbf24">Some</td></tr>
+    <tr><td>Butterfly</td><td>15–25</td><td style="color:#f87171">High</td><td style="color:#f87171">Most</td></tr>
+    <tr><td>Drag</td><td>30–40+</td><td style="color:#f87171">Very High</td><td style="color:#f87171">Almost all</td></tr>
+    </tbody></table></div>
+    <div class="card"><h2>Frequently Asked Questions</h2>
+    <div class="faq"><button class="faq-q">Is jitter clicking allowed on Hypixel? <span class="faq-arrow">▼</span></button>
+    <div class="faq-a">Allowed but accounts consistently exceeding 15–17 CPS may trigger automated anti-cheat reviews.</div></div>
+    <div class="faq"><button class="faq-q">What mouse is best for jitter clicking? <span class="faq-arrow">▼</span></button>
+    <div class="faq-a">Medium weight (80–100g) with grippy texture. Popular: Logitech G402, Razer DeathAdder, SteelSeries Rival 3.</div></div>
     </div>
 
     <div class="divider"></div>
     <h2 style="color:var(--muted);font-size:1.1rem">Other Free Tests &amp; Games</h2>
-    <div class="related">
-      <a href="/reaction-time-test"><span>⚡</span><div>Reaction Time</div></a>
+    <div class="related"><a href="/reaction-time-test"><span>⚡</span><div>Reaction Time</div></a>
 <a href="/click-speed-test"><span>🖱️</span><div>CPS Test</div></a>
 <a href="/typing-speed-test"><span>📝</span><div>Typing Speed</div></a>
 <a href="/spacebar-speed-test"><span>⌨️</span><div>Spacebar Test</div></a>
@@ -241,69 +132,40 @@ footer a:hover{color:var(--accent);}
 <a href="/dinosaur-game"><span>🦕</span><div>Dino Game</div></a>
 <a href="/coreball-game"><span>🎮</span><div>Coreball</div></a>
 <a href="/snake-game"><span>🐍</span><div>Snake Game</div></a>
-<a href="/clicker-tycoon"><span>💰</span><div>Clicker Tycoon</div></a>
-    </div>
-
+<a href="/clicker-tycoon"><span>💰</span><div>Clicker Tycoon</div></a></div>
     <div class="divider"></div>
     <footer>
       <p>© 2026 Reaction Speed Test — Free Online Reflex &amp; Brain Tests</p>
-      <p style="margin-top:8px">
-        <a href="/">Home</a> · <a href="/about">About</a> ·
-        <a href="/privacy-policy">Privacy Policy</a> · <a href="/contact">Contact</a>
-      </p>
+      <p style="margin-top:8px"><a href="/">Home</a> · <a href="/about">About</a> · <a href="/privacy-policy">Privacy Policy</a> · <a href="/contact">Contact</a></p>
     </footer>
   </div>
 
   <!-- RIGHT SIDEBAR -->
   <div class="sidebar">
-    <div class="sidebar-inner">
+    <div class="sidebar-sticky">
       <div class="ad-label">Advertisement</div>
-      <div class="ad-sidebar">
-        <ins class="adsbygoogle"
-             style="display:inline-block;width:160px;height:600px"
-             data-ad-client="ca-pub-5019628877403001"
-             data-ad-slot="auto"
-             data-ad-format="vertical"></ins>
-      </div>
-      <div class="ad-sidebar" style="margin-top:16px">
-        <ins class="adsbygoogle"
-             style="display:inline-block;width:160px;height:600px"
-             data-ad-client="ca-pub-5019628877403001"
-             data-ad-slot="auto"
-             data-ad-format="vertical"></ins>
-      </div>
+      <ins class="adsbygoogle" style="display:inline-block;width:160px;height:600px"
+           data-ad-client="ca-pub-5019628877403001" data-ad-slot="auto" data-ad-format="vertical"></ins>
     </div>
   </div>
 
-</div><!-- /layout -->
+</div>
 
 <!-- STICKY BOTTOM -->
 <div id="stickyAd">
   <button class="sticky-close" onclick="document.getElementById('stickyAd').style.display='none'">✕</button>
-  <ins class="adsbygoogle"
-       style="display:inline-block;width:320px;height:50px"
-       data-ad-client="ca-pub-5019628877403001"
-       data-ad-slot="auto"
-       data-ad-format="horizontal"></ins>
+  <ins class="adsbygoogle" style="display:inline-block;width:320px;height:50px"
+       data-ad-client="ca-pub-5019628877403001" data-ad-slot="auto" data-ad-format="horizontal"></ins>
 </div>
 
 <script>
-// FAQ toggle
-document.querySelectorAll('.faq-q').forEach(function(btn){
-  btn.addEventListener('click',function(){
+document.querySelectorAll('.faq-q').forEach(function(b){
+  b.addEventListener('click',function(){
     this.classList.toggle('active');
-    var a=this.nextElementSibling;
-    a.classList.toggle('open');
+    this.nextElementSibling.classList.toggle('open');
   });
 });
-// AdSense push
-(function(){
-  try{
-    document.querySelectorAll('ins.adsbygoogle').forEach(function(i){
-      if(!i.dataset.adsbygoogleStatus)(adsbygoogle=window.adsbygoogle||[]).push({});
-    });
-  }catch(e){}
-})();
+(function(){try{document.querySelectorAll('ins.adsbygoogle').forEach(function(i){if(!i.dataset.adsbygoogleStatus)(adsbygoogle=window.adsbygoogle||[]).push({});})}catch(e){}}());
 </script>
 </body>
 </html>
