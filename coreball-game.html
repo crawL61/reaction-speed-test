@@ -28,23 +28,33 @@ body{background:var(--bg);color:var(--fg);font-family:"JetBrains Mono",monospace
   min-height:100vh;
   max-width:1400px;
   margin:0 auto;
+  overflow:hidden;
 }
 .sb{
   padding:20px 6px;
+  overflow:hidden;
+  width:160px;
 }
 .sb-inner{
   position:sticky;
   top:20px;
+  width:160px;
+  overflow:hidden;
 }
 .main{
   padding:32px 28px 40px;
   max-width:860px;
   width:100%;
   margin:0 auto;
+  min-width:0;
+  overflow:hidden;
 }
 @media(max-width:1199px){
-  .pg{grid-template-columns:0 1fr 0;}
+  .pg{grid-template-columns:1fr;}
   .sb{display:none;}
+}
+@media(max-width:600px){
+  .main{padding:20px 14px 32px;}
 }
 
 /* ── TYPOGRAPHY ── */
@@ -91,6 +101,20 @@ footer a:hover{color:var(--ac);}
 .related a div{font-size:.68rem;font-weight:700;color:#e0e0ff;}
 
 /* ── STICKY BOTTOM ── */
+
+@media(max-width:600px){
+  .main{padding:20px 16px 32px;}
+  h1{font-size:1.9rem;}
+  .play-btn{width:100%;justify-content:center;font-size:1.2rem;padding:13px 20px;}
+  .card{padding:16px 14px;}
+  table{font-size:.72rem;}
+  th,td{padding:7px 8px;}
+  .related{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:380px){
+  h1{font-size:1.6rem;}
+  .related{grid-template-columns:1fr;}
+}
 </style>
   <link rel="alternate" hreflang="en" href="https://reactionspeedtest.com/coreball-game">
   <link rel="alternate" hreflang="en-us" href="https://reactionspeedtest.com/coreball-game">
