@@ -107,4 +107,10 @@
     <priority>0.55</priority>
   </url>
 
+  <url><loc>https://reactionspeedtest.com/blog</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://reactionspeedtest.com/blog/how-to-improve-reaction-time</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://reactionspeedtest.com/blog/what-is-a-good-reaction-time</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://reactionspeedtest.com/blog/best-games-to-improve-reflexes</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reactionspeedtest.com/blog/cps-test-guide</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reactionspeedtest.com/blog/reaction-time-age</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>

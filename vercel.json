@@ -84,6 +84,30 @@
     {
       "source": "/contact",
       "destination": "/contact.html"
+    },
+    {
+      "source": "/blog",
+      "destination": "/blog/index.html"
+    },
+    {
+      "source": "/blog/how-to-improve-reaction-time",
+      "destination": "/blog/how-to-improve-reaction-time.html"
+    },
+    {
+      "source": "/blog/what-is-a-good-reaction-time",
+      "destination": "/blog/what-is-a-good-reaction-time.html"
+    },
+    {
+      "source": "/blog/best-games-to-improve-reflexes",
+      "destination": "/blog/best-games-to-improve-reflexes.html"
+    },
+    {
+      "source": "/blog/cps-test-guide",
+      "destination": "/blog/cps-test-guide.html"
+    },
+    {
+      "source": "/blog/reaction-time-age",
+      "destination": "/blog/reaction-time-age.html"
     }
   ],
   "headers": [

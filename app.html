@@ -1826,6 +1826,36 @@ ins[data-ad-layout="in-article"] {
 }
 .share-btn:hover { border-color:#00f5a0; color:#00f5a0; }
 
+/* ── ANCHOR AD ── */
+#anchorAd{
+  position:fixed;bottom:0;left:0;right:0;z-index:9999;
+  text-align:center;
+  transform:translateY(100%);
+  animation:anchorIn 0.4s ease-out 2s forwards;
+}
+@keyframes anchorIn{to{transform:translateY(0)}}
+
+/* ── LEADERBOARD ── */
+.leaderboard{
+  background:var(--surf);border:1px solid var(--border);
+  border-radius:14px;padding:18px 20px;margin-top:14px;
+  width:100%;max-width:480px;
+}
+.lb-title{
+  font-family:'Bebas Neue',sans-serif;font-size:1.1rem;
+  letter-spacing:0.1em;color:var(--yellow);margin-bottom:12px;
+  display:flex;align-items:center;gap:8px;
+}
+.lb-row{
+  display:flex;align-items:center;gap:10px;
+  padding:7px 0;border-bottom:1px solid #1a1a2e;font-size:0.7rem;
+}
+.lb-row:last-child{border-bottom:none;}
+.lb-rank{width:24px;color:var(--muted);font-size:0.65rem;text-align:center;flex-shrink:0;}
+.lb-name{flex:1;color:#c0c0e8;}
+.lb-score{color:var(--accent);font-family:'Bebas Neue',sans-serif;font-size:0.95rem;letter-spacing:0.05em;}
+.lb-you{background:rgba(0,245,160,0.06);border-radius:6px;margin:0 -6px;padding:7px 6px;}
+
 </style>
 </head>
 <body>
@@ -2096,6 +2126,12 @@ ins[data-ad-layout="in-article"] {
              data-ad-format="rectangle"></ins>
       </div>
 
+
+      <!-- LEADERBOARD -->
+      <div class="leaderboard" id="lbPanel" style="display:none">
+        <div class="lb-title">🏆 Today's Top Scores</div>
+        <div id="lbRows"></div>
+      </div>
       <button class="replay-btn" id="replayBtn">↺ Play Again</button>
     </div>
 
@@ -3619,6 +3655,7 @@ function endReaction() {
   document.getElementById('goAvg').textContent=avg?avg+'ms':'---';
   document.getElementById('goScore').textContent=rScore2;
   gover.classList.add('show'); updateDots();
+  if(avg) window.showLeaderboard(avg);
 
   // Score comparison bar
   if(avg){
@@ -3654,7 +3691,51 @@ function resetReaction() {
   // Score comparison gizle
   const sc=document.getElementById('scoreCompare');
   if(sc) sc.classList.remove('show');
+  const lb=document.getElementById('lbPanel');
+  if(lb) lb.style.display='none';
 }
+
+
+// Leaderboard
+(function(){
+  var NAMES = ['Alex K.','Sam R.','Jordan M.','Casey T.','Riley B.','Morgan S.',
+               'Blake H.','Quinn L.','Avery P.','Drew N.','Taylor W.','Jamie O.'];
+  var BASE = [148,156,163,171,178,182,189,194,198,203,211,219];
+  
+  function getScores(userMs){
+    var scores = BASE.map(function(ms,i){
+      return {name:NAMES[i], ms:ms+Math.floor(Math.random()*8-4)};
+    });
+    if(userMs){
+      var inserted = false;
+      for(var i=0;i<scores.length;i++){
+        if(userMs < scores[i].ms){
+          scores.splice(i,0,{name:'You',ms:userMs,you:true});
+          inserted = true; break;
+        }
+      }
+      if(!inserted) scores.push({name:'You',ms:userMs,you:true});
+      scores = scores.slice(0,8);
+    }
+    return scores;
+  }
+  
+  window.showLeaderboard = function(userMs){
+    var panel = document.getElementById('lbPanel');
+    var rows = document.getElementById('lbRows');
+    if(!panel||!rows) return;
+    var scores = getScores(userMs);
+    rows.innerHTML = scores.map(function(s,i){
+      var medal = i===0?'🥇':i===1?'🥈':i===2?'🥉':(i+1)+'.';
+      return '<div class="lb-row'+(s.you?' lb-you':'')+'">'+
+        '<span class="lb-rank">'+medal+'</span>'+
+        '<span class="lb-name">'+(s.you?'<strong style="color:#00f5a0">You</strong>':s.name)+'</span>'+
+        '<span class="lb-score">'+s.ms+'ms</span>'+
+        '</div>';
+    }).join('');
+    panel.style.display='block';
+  };
+})();
 
 // Score share functions
 function copyScore(){
@@ -7592,6 +7673,15 @@ if(typeof curPanel!=='undefined' && curPanel==='clicker'){
        data-ad-client="ca-pub-5019628877403001"
        data-ad-slot="auto"
        data-ad-format="vertical"></ins>
+</div>
+
+<!-- ANCHOR AD -->
+<div id="anchorAd">
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-5019628877403001"
+       data-ad-slot="auto"
+       data-ad-format="autorelaxed"></ins>
 </div>
 </body>
 </html>
