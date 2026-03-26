@@ -2134,6 +2134,17 @@ ins[data-ad-layout="in-article"] {
         <div id="lbRows"></div>
       </div>
       <button class="replay-btn" id="replayBtn">↺ Play Again</button>
+
+      <!-- NEXT TEST YÖNLENDİRME -->
+      <div id="nextTestBar" style="display:none;margin-top:14px;background:#0d0d1a;border:1px solid #1e1e3a;border-radius:14px;padding:16px 18px;">
+        <div style="font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:#60607a;margin-bottom:10px;">Try Another Test</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <a href="/click-speed-test" style="display:inline-flex;align-items:center;gap:6px;background:#0a0a18;border:1px solid #1e1e3a;border-radius:10px;padding:8px 14px;text-decoration:none;color:#c0c0e0;font-size:0.65rem;letter-spacing:0.06em;transition:border-color 0.15s;" onmouseover="this.style.borderColor='#00f5a0';this.style.color='#00f5a0'" onmouseout="this.style.borderColor='#1e1e3a';this.style.color='#c0c0e0'">🖱️ CPS Test</a>
+          <a href="/typing-speed-test" style="display:inline-flex;align-items:center;gap:6px;background:#0a0a18;border:1px solid #1e1e3a;border-radius:10px;padding:8px 14px;text-decoration:none;color:#c0c0e0;font-size:0.65rem;letter-spacing:0.06em;transition:border-color 0.15s;" onmouseover="this.style.borderColor='#38bdf8';this.style.color='#38bdf8'" onmouseout="this.style.borderColor='#1e1e3a';this.style.color='#c0c0e0'">📝 Typing Speed</a>
+          <a href="/number-memory-test" style="display:inline-flex;align-items:center;gap:6px;background:#0a0a18;border:1px solid #1e1e3a;border-radius:10px;padding:8px 14px;text-decoration:none;color:#c0c0e0;font-size:0.65rem;letter-spacing:0.06em;transition:border-color 0.15s;" onmouseover="this.style.borderColor='#c084fc';this.style.color='#c084fc'" onmouseout="this.style.borderColor='#1e1e3a';this.style.color='#c0c0e0'">🧠 Memory Test</a>
+          <a href="/stimulation-clicker" style="display:inline-flex;align-items:center;gap:6px;background:#0a0a18;border:1px solid #1e1e3a;border-radius:10px;padding:8px 14px;text-decoration:none;color:#c0c0e0;font-size:0.65rem;letter-spacing:0.06em;transition:border-color 0.15s;" onmouseover="this.style.borderColor='#f472b6';this.style.color='#f472b6'" onmouseout="this.style.borderColor='#1e1e3a';this.style.color='#c0c0e0'">🎯 Aim Trainer</a>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -3644,6 +3655,7 @@ function handleReactionTap() {
 
 function endReaction() {
   rState='gameover';
+  var ntb=document.getElementById('nextTestBar'); if(ntb) ntb.style.display='block';
   const valid=rResults.filter(r=>r!=='early');
   const best=valid.length?Math.min(...valid):null;
   const avg=valid.length?Math.round(valid.reduce((a,b)=>a+b,0)/valid.length):null;
