@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What Is a Good Reaction Time? Benchmarks by Age & Skill | Reaction Speed Test</title>
+<meta name="description" content="Average reaction time is 200–250ms. Pro gamers average 150–180ms. Benchmarks by age, skill level, and activity — and how you compare.">
+<link rel="canonical" href="https://reactionspeedtest.com/blog/what-is-a-good-reaction-time">
+<meta property="og:title" content="What Is a Good Reaction Time? Benchmarks by Age & Skill Level">
+<meta property="og:description" content="Average humans react in 200–250ms. Pro gamers average 150–180ms. Where do you fall?">
+<meta property="og:url" content="https://reactionspeedtest.com/blog/what-is-a-good-reaction-time">
+<meta property="og:image" content="https://reactionspeedtest.com/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<style>
+/* ============================================================
+   Reaction Speed Test — Global Stylesheet
+   Tüm HTML sayfaları bu dosyayı import eder.
+   ============================================================ */
+
+:root {
+  --bg:     #06060e;
+  --surf:   #0d0d1a;
+  --surf2:  #111122;
+  --border: #1e1e3a;
+  --border2:#2a2a4a;
+  --text:   #f0f0ff;
+  --muted:  #60607a;
+  --accent: #00f5a0;
+  --purple: #7c3aed;
+  --yellow: #ffd600;
+  --red:    #f87171;
+}
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+  min-height: 100vh;
+  line-height: 1.7;
+}
+
+/* ── HEADER ── */
+.hdr {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(6,6,14,0.96);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px; height: 54px;
+}
+.hdr-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.35rem; letter-spacing: 0.1em;
+  color: #fff; text-decoration: none;
+  display: flex; align-items: center; gap: 8px;
+}
+.hdr-logo .accent { color: var(--accent); }
+
+/* NAV — mobile'da gizleme KALDIRILDI, hamburger menü eklendi */
+.hdr-links { display: flex; align-items: center; gap: 4px; }
+.hdr-link {
+  color: var(--muted); text-decoration: none;
+  font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 5px 10px; border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+}
+.hdr-link:hover { color: var(--accent); background: rgba(0,245,160,0.08); }
+
+/* Hamburger — sadece mobilde görünür */
+.hdr-burger {
+  display: none;
+  background: none; border: 1px solid var(--border);
+  border-radius: 6px; padding: 5px 8px;
+  color: var(--muted); cursor: pointer; font-size: 1rem;
+}
+.hdr-mobile-menu {
+  display: none;
+  position: fixed; top: 54px; left: 0; right: 0;
+  background: rgba(6,6,14,0.98);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 24px 16px;
+  flex-direction: column; gap: 4px;
+  z-index: 99;
+}
+.hdr-mobile-menu.open { display: flex; }
+.hdr-mobile-menu a {
+  color: var(--text); text-decoration: none;
+  font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+}
+.hdr-mobile-menu a:hover { color: var(--accent); }
+
+@media(max-width:480px) {
+  .hdr-links { display: none; }
+  .hdr-burger { display: block; }
+}
+
+/* ── HERO ── */
+.hero {
+  text-align: center; padding: 32px 24px 24px;
+  background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0,245,160,0.07) 0%, transparent 70%);
+}
+.hero-badge {
+  display: inline-block; margin-bottom: 20px;
+  padding: 5px 14px; background: rgba(0,245,160,0.1);
+  border: 1px solid rgba(0,245,160,0.25); border-radius: 20px;
+  font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent);
+}
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2rem,6vw,3.5rem);
+  letter-spacing: 0.04em; line-height: 1.0;
+  color: #fff; margin-bottom: 16px;
+}
+.hero h1 .hl {
+  background: linear-gradient(90deg, var(--accent), #38bdf8);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero p {
+  color: #9090b8; font-size: 0.82rem;
+  max-width: 560px; margin: 0 auto 36px; line-height: 1.8;
+}
+.hero-tags {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+}
+.hero-tag {
+  padding: 5px 14px; background: var(--surf);
+  border: 1px solid var(--border); border-radius: 20px;
+  font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+}
+
+/* ── MAIN CONTAINER ── */
+.main { max-width: 1100px; margin: 0 auto; padding: 0 20px 48px; }
+
+/* ── SECTION HEADING ── */
+.sec-head {
+  display: flex; align-items: center; gap: 12px;
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem;
+  letter-spacing: 0.18em; color: var(--muted);
+  margin: 20px 0 14px;
+}
+.sec-head::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* ── CARDS ── */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px,1fr));
+  gap: 12px;
+}
+.card {
+  background: var(--surf); border: 1px solid var(--border);
+  border-radius: 16px; padding: 22px;
+  text-decoration: none; color: var(--text);
+  transition: border-color 0.2s, background 0.2s, transform 0.15s, box-shadow 0.2s;
+  display: flex; flex-direction: column; gap: 10px;
+  position: relative; overflow: hidden;
+}
+.card-glow {
+  position: absolute; top: -30px; right: -30px;
+  width: 120px; height: 120px; border-radius: 50%;
+  background: var(--card-color, #00f5a0);
+  opacity: 0.04; filter: blur(20px);
+  transition: opacity 0.2s; pointer-events: none;
+}
+.card:hover {
+  border-color: var(--card-color, #00f5a0);
+  background: var(--surf2);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+.card:hover .card-glow { opacity: 0.12; }
+.card-top { display: flex; align-items: center; justify-content: space-between; }
+.card-icon { font-size: 1.9rem; line-height: 1; }
+.card-badge {
+  padding: 3px 8px; border-radius: 5px;
+  font-size: 0.5rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  background: rgba(0,0,0,0.3);
+  color: var(--card-color, #00f5a0);
+  border: 1px solid currentColor; opacity: 0.8;
+}
+.card-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.15rem; letter-spacing: 0.07em; color: #fff; line-height: 1.1;
+}
+.card-desc { font-size: 0.64rem; color: var(--muted); line-height: 1.55; }
+.card-cta {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--card-color, #00f5a0); margin-top: 2px;
+  opacity: 0; transform: translateX(-4px);
+  transition: opacity 0.2s, transform 0.2s;
+}
+.card:hover .card-cta { opacity: 1; transform: translateX(0); }
+
+/* Sosyal paylaşım butonu (test sayfalarında sonuç ekranında) */
+.share-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(0,245,160,0.12);
+  border: 1px solid rgba(0,245,160,0.35);
+  color: var(--accent); border-radius: 8px;
+  padding: 8px 16px; font-size: 0.68rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  cursor: pointer; transition: background 0.2s, transform 0.15s;
+  font-family: 'JetBrains Mono', monospace;
+}
+.share-btn:hover { background: rgba(0,245,160,0.2); transform: translateY(-1px); }
+
+/* ── ABOUT STRIP ── */
+.about-strip {
+  background: var(--surf); border: 1px solid var(--border);
+  border-radius: 16px; padding: 28px 32px; margin-top: 48px;
+}
+.about-strip h2 {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
+  letter-spacing: 0.1em; color: var(--accent); margin-bottom: 12px;
+}
+.about-strip p {
+  font-size: 0.78rem; color: #b0b0d0; line-height: 1.9; margin-bottom: 10px;
+}
+.about-strip p:last-child { margin: 0; }
+.about-strip strong { color: #e0e0f8; }
+
+/* ── DIVIDER ── */
+.divider { height: 1px; background: var(--border); margin: 36px 0; }
+
+/* ── FOOTER ── */
+footer {
+  text-align: center; padding: 32px 20px 24px;
+  border-top: 1px solid var(--border);
+  font-size: 0.58rem; color: var(--muted); line-height: 2.2;
+}
+footer a { color: var(--muted); text-decoration: none; margin: 0 8px; transition: color 0.15s; }
+footer a:hover { color: var(--accent); }
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px) {
+  .hero { padding: 44px 16px 36px; }
+  .main { padding: 0 14px 48px; }
+  .cards { grid-template-columns: 1fr 1fr; }
+  .card { padding: 16px; }
+  .about-strip { padding: 20px; }
+}
+@media(max-width:380px) {
+  .cards { grid-template-columns: 1fr; }
+}
+
+/* ── 3-KOLON LAYOUT (test sayfaları) ── */
+.pg {
+  display: grid;
+  grid-template-columns: 160px 1fr 160px;
+  min-height: 100vh;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.sb { padding: 20px 6px; overflow: hidden; width: 160px; }
+.sb-inner { position: sticky; top: 74px; width: 160px; }
+.pg-main { padding: 32px 28px 40px; max-width: 860px; width: 100%; margin: 0 auto; min-width: 0; }
+@media(max-width:1199px) {
+  .pg { grid-template-columns: 1fr; }
+  .sb { display: none; }
+}
+@media(max-width:600px) {
+  .pg-main { padding: 20px 14px 32px; }
+}
+
+</style>
+<style>
+.page{max-width:780px;margin:0 auto;padding:40px 24px 80px;}
+a.back{color:var(--muted);text-decoration:none;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;display:inline-flex;align-items:center;gap:6px;margin-bottom:28px;padding:4px 0;transition:color .2s;}
+a.back:hover{color:var(--accent);}
+.post-meta{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.post-tag{font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:5px;border:1px solid #38bdf8;color:#38bdf8;opacity:.9;}
+.post-date{font-size:.6rem;color:var(--muted);}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.9rem,5vw,2.8rem);letter-spacing:.04em;color:#fff;margin-bottom:16px;line-height:1.1;}
+.lead{color:#a0a0c8;font-size:.88rem;line-height:1.85;margin-bottom:32px;border-left:3px solid #38bdf8;padding-left:16px;}
+h2{font-family:'Bebas Neue',sans-serif;font-size:1.35rem;letter-spacing:.1em;color:var(--accent);margin:36px 0 10px;display:flex;align-items:center;gap:8px;}
+h2::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(0,245,160,.25),transparent);}
+p{color:#c0c0e8;font-size:.83rem;line-height:1.95;margin-bottom:14px;}
+strong{color:#f0f0ff;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.79rem;}
+th{background:#111128;color:var(--accent);padding:10px 14px;text-align:left;font-size:.59rem;letter-spacing:.15em;text-transform:uppercase;border:1px solid var(--border);}
+td{padding:9px 14px;border:1px solid #16162e;color:#c0c0e8;}
+tr:nth-child(even) td{background:#0a0a1a;}
+tr:hover td{background:#10102a;color:#e0e0ff;}
+.cta-box{background:var(--surf);border:1px solid var(--border);border-radius:14px;padding:22px 26px;margin:32px 0;text-align:center;}
+.cta-box h3{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.1em;color:#fff;margin-bottom:8px;}
+.cta-box p{margin-bottom:16px;}
+.cta-btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),#00c8a0);color:#000;padding:12px 28px;border-radius:10px;text-decoration:none;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.1em;}
+footer{text-align:center;padding:40px 0 0;font-size:.58rem;color:var(--muted);}
+footer a{color:var(--muted);text-decoration:none;margin:0 8px;}
+footer a:hover{color:var(--accent);}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Article",
+  "headline":"What Is a Good Reaction Time? Benchmarks by Age & Skill Level",
+  "datePublished":"2026-03-22",
+  "dateModified":"2026-03-22",
+  "author":{"@type":"Organization","name":"Reaction Speed Test"},
+  "publisher":{"@type":"Organization","name":"Reaction Speed Test","url":"https://reactionspeedtest.com"}
+}
+</script>
+</head>
+<body>
+
+<header class="hdr">
+  <a href="/" class="hdr-logo">⚡ <span class="accent">Reaction</span> Speed Test</a>
+  <nav class="hdr-links">
+    <a href="/blog" class="hdr-link" style="color:var(--accent)">Blog</a>
+    <a href="/about" class="hdr-link">About</a>
+    <a href="/contact" class="hdr-link">Contact</a>
+  </nav>
+  <button class="hdr-burger" id="burger" aria-label="Open menu">☰</button>
+</header>
+<nav class="hdr-mobile-menu" id="mobileMenu">
+  <a href="/blog">📝 Blog</a>
+  <a href="/about">About</a>
+  <a href="/contact">Contact</a>
+  <a href="/privacy-policy">Privacy</a>
+</nav>
+
+<article class="page">
+  <a href="/blog" class="back">← Back to Blog</a>
+  <div class="post-meta">
+    <span class="post-tag">Guide</span>
+    <span class="post-date">March 22, 2026 · 5 min read</span>
+  </div>
+  <h1>What Is a Good Reaction Time? Benchmarks by Age & Skill Level</h1>
+  <p class="lead">
+    The average human reacts to a visual stimulus in 200–250ms. But "good" depends entirely on context —
+    what's average for a casual gamer is elite for a 60-year-old, and slow for a pro esports player.
+  </p>
+
+  <h2>Global Benchmark Table</h2>
+  <table><thead><tr><th>Time (ms)</th><th>Rating</th><th>Who Typically Scores This</th></tr></thead><tbody>
+    <tr><td style="color:#ffd600">&lt;150ms</td><td style="color:#ffd600">⚡ Legendary</td><td>Pro sprinters, elite esports players, outliers</td></tr>
+    <tr><td style="color:#00f5a0">150–180ms</td><td style="color:#00f5a0">🔥 Elite</td><td>Top 1% of competitive gamers (CS2 pro level)</td></tr>
+    <tr><td style="color:#00f5a0">180–200ms</td><td style="color:#00f5a0">✅ Excellent</td><td>Skilled competitive gamers, well-rested young adults</td></tr>
+    <tr><td style="color:#a78bfa">200–250ms</td><td style="color:#a78bfa">👍 Above Average</td><td>Regular gamers, athletes, adults under 30</td></tr>
+    <tr><td>250–320ms</td><td>😐 Average</td><td>General population, non-gamers</td></tr>
+    <tr><td style="color:#fbbf24">320–400ms</td><td style="color:#fbbf24">🐢 Below Average</td><td>Fatigued, distracted, or older adults</td></tr>
+    <tr><td style="color:#f87171">400ms+</td><td style="color:#f87171">⚠️ Slow</td><td>Significant fatigue, medication effects, health factors</td></tr>
+  </tbody></table>
+
+  <h2>Reaction Time by Age</h2>
+  <p>Reaction time peaks between ages <strong>18 and 24</strong>, then gradually increases roughly 1–2ms per year through middle age, and accelerates after 60.</p>
+  <table><thead><tr><th>Age Group</th><th>Average Reaction Time</th></tr></thead><tbody>
+    <tr><td>Under 18</td><td>~220ms (still developing)</td></tr>
+    <tr><td>18–24</td><td>~195ms (peak performance)</td></tr>
+    <tr><td>25–34</td><td>~210ms</td></tr>
+    <tr><td>35–44</td><td>~225ms</td></tr>
+    <tr><td>45–54</td><td>~240ms</td></tr>
+    <tr><td>55–64</td><td>~260ms</td></tr>
+    <tr><td>65+</td><td>~290ms+</td></tr>
+  </tbody></table>
+  <p>Note: These are averages. Regular exercise and cognitive training can keep reaction times significantly lower than age-predicted values.</p>
+
+  <h2>Reaction Time by Activity</h2>
+  <table><thead><tr><th>Group</th><th>Average Reaction Time</th></tr></thead><tbody>
+    <tr><td>Professional CS2/Valorant players</td><td>150–180ms</td></tr>
+    <tr><td>Competitive gamers (ranked)</td><td>180–220ms</td></tr>
+    <tr><td>Amateur athletes</td><td>200–240ms</td></tr>
+    <tr><td>Non-gaming adults (20–35)</td><td>230–280ms</td></tr>
+    <tr><td>Formula 1 drivers</td><td>~200ms (but under extreme conditions)</td></tr>
+    <tr><td>100m sprinters (start reaction)</td><td>130–160ms (False start threshold: 100ms)</td></tr>
+  </tbody></table>
+
+  <h2>Mobile vs Desktop Scores</h2>
+  <p>
+    Mobile scores typically run <strong>30–80ms higher</strong> than desktop scores for the same person.
+    This is due to touchscreen polling rates (often 60–120Hz vs mouse polling at 125–1000Hz),
+    the 300ms tap delay (mitigated by <code>touch-action: manipulation</code>), and display latency differences.
+    Always compare mobile scores to mobile benchmarks, not desktop ones.
+  </p>
+
+  <div class="cta-box">
+    <h3>Find Out Where You Stand</h3>
+    <p>Take our free reaction time test. 5 rounds, instant result, no signup.</p>
+    <a href="/reaction-time-test" class="cta-btn">⚡ Test My Reaction Time</a>
+  </div>
+
+  <div class="divider"></div>
+  <footer>
+    <p>© <span id="yr">2026</span> Reaction Speed Test</p>
+    <p style="margin-top:8px"><a href="/">Home</a> · <a href="/blog">Blog</a> · <a href="/about">About</a> · <a href="/contact">Contact</a></p>
+  </footer>
+</article>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+document.getElementById('burger').addEventListener('click', function() { document.getElementById('mobileMenu').classList.toggle('open'); });
+document.addEventListener('click', function(e) { if (!e.target.closest('#burger') && !e.target.closest('#mobileMenu')) document.getElementById('mobileMenu').classList.remove('open'); });
+</script>
+<script defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5019628877403001" crossorigin="anonymous"></script>
+</body>
+</html>

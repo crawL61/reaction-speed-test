@@ -2,13 +2,17 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<!-- FIX #13: SVG favicon + ICO fallback -->
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Reaction Speed Test – Free Online Reflex, Typing & Brain Games</title>
 <meta name="description" content="Free online reaction time test, click speed test (CPS), typing speed test, aim trainer, memory test and browser games. No signup, no download — instant results.">
 <link rel="canonical" href="https://reactionspeedtest.com/">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+
+<!-- OG / Twitter -->
 <meta property="og:title" content="Reaction Speed Test – Free Online Reflex, Typing & Brain Games">
 <meta property="og:description" content="Free online reaction time test, CPS test, typing speed, aim trainer, memory test and browser games. No signup required.">
 <meta property="og:url" content="https://reactionspeedtest.com/">
@@ -19,8 +23,10 @@
 <meta name="twitter:title" content="Reaction Speed Test – Free Online Reflex & Brain Tests">
 <meta name="twitter:description" content="Free reaction time test, CPS, typing speed, aim trainer, memory test and games. No signup.">
 <meta name="twitter:image" content="https://reactionspeedtest.com/og-image.png">
+
 <link rel="sitemap" type="application/xml" href="https://reactionspeedtest.com/sitemap.xml">
 
+<!-- FIX #12: Ortak CSS -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
@@ -28,238 +34,356 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"></noscript>
 <style>
-:root{
-  --bg:#06060e; --surf:#0d0d1a; --surf2:#111122;
-  --border:#1e1e3a; --border2:#2a2a4a;
-  --text:#f0f0ff; --muted:#60607a;
-  --accent:#00f5a0; --purple:#7c3aed; --yellow:#ffd600;
-}
-*{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;min-height:100vh;line-height:1.7;}
+/* ============================================================
+   Reaction Speed Test — Global Stylesheet
+   Tüm HTML sayfaları bu dosyayı import eder.
+   ============================================================ */
 
-/* HEADER */
-.hdr{
-  position:sticky;top:0;z-index:100;
-  background:rgba(6,6,14,0.96);backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 24px;height:54px;
-}
-.hdr-logo{
-  font-family:'Bebas Neue',sans-serif;font-size:1.35rem;
-  letter-spacing:0.1em;color:#fff;text-decoration:none;
-  display:flex;align-items:center;gap:8px;
-}
-.hdr-logo .accent{color:var(--accent);}
-.hdr-links{display:flex;align-items:center;gap:4px;}
-.hdr-link{
-  color:var(--muted);text-decoration:none;font-size:0.6rem;
-  letter-spacing:0.1em;text-transform:uppercase;
-  padding:5px 10px;border-radius:6px;
-  transition:color 0.15s,background 0.15s;
-}
-.hdr-link:hover{color:var(--accent);background:rgba(0,245,160,0.08);}
-@media(max-width:480px){.hdr-link{display:none;}}
-
-/* HERO */
-.hero{
-  text-align:center;padding:32px 24px 24px;
-  background:radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0,245,160,0.07) 0%, transparent 70%);
-}
-.hero-badge{
-  display:inline-block;margin-bottom:20px;
-  padding:5px 14px;background:rgba(0,245,160,0.1);
-  border:1px solid rgba(0,245,160,0.25);border-radius:20px;
-  font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);
-}
-.hero h1{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(2rem,6vw,3.5rem);
-  letter-spacing:0.04em;line-height:1.0;
-  color:#fff;margin-bottom:16px;
-}
-.hero h1 .hl{
-  background:linear-gradient(90deg,var(--accent),#38bdf8);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.hero p{
-  color:#9090b8;font-size:0.82rem;
-  max-width:500px;margin:0 auto 36px;line-height:1.8;
-}
-.hero-tags{
-  display:flex;flex-wrap:wrap;justify-content:center;gap:8px;
-}
-.hero-tag{
-  padding:5px 14px;background:var(--surf);
-  border:1px solid var(--border);border-radius:20px;
-  font-size:0.58rem;letter-spacing:0.1em;
-  text-transform:uppercase;color:var(--muted);
+:root {
+  --bg:     #06060e;
+  --surf:   #0d0d1a;
+  --surf2:  #111122;
+  --border: #1e1e3a;
+  --border2:#2a2a4a;
+  --text:   #f0f0ff;
+  --muted:  #60607a;
+  --accent: #00f5a0;
+  --purple: #7c3aed;
+  --yellow: #ffd600;
+  --red:    #f87171;
 }
 
-/* MAIN */
-.main{max-width:1100px;margin:0 auto;padding:0 20px 48px;}
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+  min-height: 100vh;
+  line-height: 1.7;
+}
 
-/* SECTION */
-.sec-head{
-  display:flex;align-items:center;gap:12px;
-  font-family:'Bebas Neue',sans-serif;font-size:1.1rem;
-  letter-spacing:0.18em;color:var(--muted);
-  margin:20px 0 14px;
+/* ── HEADER ── */
+.hdr {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(6,6,14,0.96);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px; height: 54px;
 }
-.sec-head::after{content:'';flex:1;height:1px;background:var(--border);}
+.hdr-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.35rem; letter-spacing: 0.1em;
+  color: #fff; text-decoration: none;
+  display: flex; align-items: center; gap: 8px;
+}
+.hdr-logo .accent { color: var(--accent); }
 
-/* CARDS */
-.cards{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
-  gap:12px;
+/* NAV — mobile'da gizleme KALDIRILDI, hamburger menü eklendi */
+.hdr-links { display: flex; align-items: center; gap: 4px; }
+.hdr-link {
+  color: var(--muted); text-decoration: none;
+  font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 5px 10px; border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
 }
-.card{
-  background:var(--surf);
-  border:1px solid var(--border);
-  border-radius:16px;padding:22px;
-  text-decoration:none;color:var(--text);
-  transition:border-color 0.2s,background 0.2s,transform 0.15s,box-shadow 0.2s;
-  display:flex;flex-direction:column;gap:10px;
-  position:relative;overflow:hidden;
-}
-.card-glow{
-  position:absolute;top:-30px;right:-30px;
-  width:120px;height:120px;border-radius:50%;
-  background:var(--card-color,#00f5a0);
-  opacity:0.04;filter:blur(20px);
-  transition:opacity 0.2s;pointer-events:none;
-}
-.card:hover{
-  border-color:var(--card-color,#00f5a0);
-  background:var(--surf2);
-  transform:translateY(-3px);
-  box-shadow:0 8px 32px rgba(0,0,0,0.4);
-}
-.card:hover .card-glow{opacity:0.12;}
-.card-top{display:flex;align-items:center;justify-content:space-between;}
-.card-icon{font-size:1.9rem;line-height:1;}
-.card-badge{
-  padding:3px 8px;border-radius:5px;
-  font-size:0.5rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
-  background:rgba(0,0,0,0.3);
-  color:var(--card-color,#00f5a0);
-  border:1px solid currentColor;opacity:0.8;
-}
-.card-name{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:1.15rem;letter-spacing:0.07em;color:#fff;line-height:1.1;
-}
-.card-desc{font-size:0.64rem;color:var(--muted);line-height:1.55;}
-.card-cta{
-  display:flex;align-items:center;gap:4px;
-  font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;
-  color:var(--card-color,#00f5a0);margin-top:2px;
-  opacity:0;transform:translateX(-4px);
-  transition:opacity 0.2s,transform 0.2s;
-}
-.card:hover .card-cta{opacity:1;transform:translateX(0);}
+.hdr-link:hover { color: var(--accent); background: rgba(0,245,160,0.08); }
 
-/* ABOUT STRIP */
-.about-strip{
-  background:var(--surf);border:1px solid var(--border);
-  border-radius:16px;padding:28px 32px;margin-top:48px;
+/* Hamburger — sadece mobilde görünür */
+.hdr-burger {
+  display: none;
+  background: none; border: 1px solid var(--border);
+  border-radius: 6px; padding: 5px 8px;
+  color: var(--muted); cursor: pointer; font-size: 1rem;
 }
-.about-strip h2{
-  font-family:'Bebas Neue',sans-serif;font-size:1.4rem;
-  letter-spacing:0.1em;color:var(--accent);margin-bottom:12px;
+.hdr-mobile-menu {
+  display: none;
+  position: fixed; top: 54px; left: 0; right: 0;
+  background: rgba(6,6,14,0.98);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 24px 16px;
+  flex-direction: column; gap: 4px;
+  z-index: 99;
 }
-.about-strip p{
-  font-size:0.78rem;color:#b0b0d0;line-height:1.9;margin-bottom:10px;
+.hdr-mobile-menu.open { display: flex; }
+.hdr-mobile-menu a {
+  color: var(--text); text-decoration: none;
+  font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
 }
-.about-strip p:last-child{margin:0;}
-.about-strip strong{color:#e0e0f8;}
+.hdr-mobile-menu a:hover { color: var(--accent); }
 
-/* FOOTER */
-footer{
-  text-align:center;padding:32px 20px 24px;
-  border-top:1px solid var(--border);
-  font-size:0.58rem;color:var(--muted);line-height:2.2;
+@media(max-width:480px) {
+  .hdr-links { display: none; }
+  .hdr-burger { display: block; }
 }
-footer a{color:var(--muted);text-decoration:none;margin:0 8px;transition:color 0.15s;}
-footer a:hover{color:var(--accent);}
 
-@media(max-width:600px){
-  .hero{padding:44px 16px 36px;}
-  .main{padding:0 14px 48px;}
-  .cards{grid-template-columns:1fr 1fr;}
-  .card{padding:16px;}
-  .about-strip{padding:20px;}
+/* ── HERO ── */
+.hero {
+  text-align: center; padding: 32px 24px 24px;
+  background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0,245,160,0.07) 0%, transparent 70%);
 }
-@media(max-width:380px){
-  .cards{grid-template-columns:1fr;}
+.hero-badge {
+  display: inline-block; margin-bottom: 20px;
+  padding: 5px 14px; background: rgba(0,245,160,0.1);
+  border: 1px solid rgba(0,245,160,0.25); border-radius: 20px;
+  font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent);
 }
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2rem,6vw,3.5rem);
+  letter-spacing: 0.04em; line-height: 1.0;
+  color: #fff; margin-bottom: 16px;
+}
+.hero h1 .hl {
+  background: linear-gradient(90deg, var(--accent), #38bdf8);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero p {
+  color: #9090b8; font-size: 0.82rem;
+  max-width: 560px; margin: 0 auto 36px; line-height: 1.8;
+}
+.hero-tags {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+}
+.hero-tag {
+  padding: 5px 14px; background: var(--surf);
+  border: 1px solid var(--border); border-radius: 20px;
+  font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+}
+
+/* ── MAIN CONTAINER ── */
+.main { max-width: 1100px; margin: 0 auto; padding: 0 20px 48px; }
+
+/* ── SECTION HEADING ── */
+.sec-head {
+  display: flex; align-items: center; gap: 12px;
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem;
+  letter-spacing: 0.18em; color: var(--muted);
+  margin: 20px 0 14px;
+}
+.sec-head::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* ── CARDS ── */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px,1fr));
+  gap: 12px;
+}
+.card {
+  background: var(--surf); border: 1px solid var(--border);
+  border-radius: 16px; padding: 22px;
+  text-decoration: none; color: var(--text);
+  transition: border-color 0.2s, background 0.2s, transform 0.15s, box-shadow 0.2s;
+  display: flex; flex-direction: column; gap: 10px;
+  position: relative; overflow: hidden;
+}
+.card-glow {
+  position: absolute; top: -30px; right: -30px;
+  width: 120px; height: 120px; border-radius: 50%;
+  background: var(--card-color, #00f5a0);
+  opacity: 0.04; filter: blur(20px);
+  transition: opacity 0.2s; pointer-events: none;
+}
+.card:hover {
+  border-color: var(--card-color, #00f5a0);
+  background: var(--surf2);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+.card:hover .card-glow { opacity: 0.12; }
+.card-top { display: flex; align-items: center; justify-content: space-between; }
+.card-icon { font-size: 1.9rem; line-height: 1; }
+.card-badge {
+  padding: 3px 8px; border-radius: 5px;
+  font-size: 0.5rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  background: rgba(0,0,0,0.3);
+  color: var(--card-color, #00f5a0);
+  border: 1px solid currentColor; opacity: 0.8;
+}
+.card-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.15rem; letter-spacing: 0.07em; color: #fff; line-height: 1.1;
+}
+.card-desc { font-size: 0.64rem; color: var(--muted); line-height: 1.55; }
+.card-cta {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--card-color, #00f5a0); margin-top: 2px;
+  opacity: 0; transform: translateX(-4px);
+  transition: opacity 0.2s, transform 0.2s;
+}
+.card:hover .card-cta { opacity: 1; transform: translateX(0); }
+
+/* Sosyal paylaşım butonu (test sayfalarında sonuç ekranında) */
+.share-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(0,245,160,0.12);
+  border: 1px solid rgba(0,245,160,0.35);
+  color: var(--accent); border-radius: 8px;
+  padding: 8px 16px; font-size: 0.68rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  cursor: pointer; transition: background 0.2s, transform 0.15s;
+  font-family: 'JetBrains Mono', monospace;
+}
+.share-btn:hover { background: rgba(0,245,160,0.2); transform: translateY(-1px); }
+
+/* ── ABOUT STRIP ── */
+.about-strip {
+  background: var(--surf); border: 1px solid var(--border);
+  border-radius: 16px; padding: 28px 32px; margin-top: 48px;
+}
+.about-strip h2 {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
+  letter-spacing: 0.1em; color: var(--accent); margin-bottom: 12px;
+}
+.about-strip p {
+  font-size: 0.78rem; color: #b0b0d0; line-height: 1.9; margin-bottom: 10px;
+}
+.about-strip p:last-child { margin: 0; }
+.about-strip strong { color: #e0e0f8; }
+
+/* ── DIVIDER ── */
+.divider { height: 1px; background: var(--border); margin: 36px 0; }
+
+/* ── FOOTER ── */
+footer {
+  text-align: center; padding: 32px 20px 24px;
+  border-top: 1px solid var(--border);
+  font-size: 0.58rem; color: var(--muted); line-height: 2.2;
+}
+footer a { color: var(--muted); text-decoration: none; margin: 0 8px; transition: color 0.15s; }
+footer a:hover { color: var(--accent); }
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px) {
+  .hero { padding: 44px 16px 36px; }
+  .main { padding: 0 14px 48px; }
+  .cards { grid-template-columns: 1fr 1fr; }
+  .card { padding: 16px; }
+  .about-strip { padding: 20px; }
+}
+@media(max-width:380px) {
+  .cards { grid-template-columns: 1fr; }
+}
+
+/* ── 3-KOLON LAYOUT (test sayfaları) ── */
+.pg {
+  display: grid;
+  grid-template-columns: 160px 1fr 160px;
+  min-height: 100vh;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.sb { padding: 20px 6px; overflow: hidden; width: 160px; }
+.sb-inner { position: sticky; top: 74px; width: 160px; }
+.pg-main { padding: 32px 28px 40px; max-width: 860px; width: 100%; margin: 0 auto; min-width: 0; }
+@media(max-width:1199px) {
+  .pg { grid-template-columns: 1fr; }
+  .sb { display: none; }
+}
+@media(max-width:600px) {
+  .pg-main { padding: 20px 14px 32px; }
+}
+
 </style>
-  <link rel="alternate" hreflang="en" href="https://reactionspeedtest.com/">
-  <link rel="alternate" hreflang="en-us" href="https://reactionspeedtest.com/">
-  <link rel="alternate" hreflang="en-gb" href="https://reactionspeedtest.com/">
-  <link rel="alternate" hreflang="en-ca" href="https://reactionspeedtest.com/">
-  <link rel="alternate" hreflang="en-au" href="https://reactionspeedtest.com/">
-  <link rel="alternate" hreflang="x-default" href="https://reactionspeedtest.com/">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Reaction Speed Test",
-    "url": "https://reactionspeedtest.com",
-    "description": "Free online reaction time test, CPS test, typing speed test, aim trainer, memory test and browser games. No signup required.",
-    "inLanguage": "en",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://reactionspeedtest.com/?s={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
+
+<!-- hreflang -->
+<link rel="alternate" hreflang="en" href="https://reactionspeedtest.com/">
+<link rel="alternate" hreflang="en-us" href="https://reactionspeedtest.com/">
+<link rel="alternate" hreflang="en-gb" href="https://reactionspeedtest.com/">
+<link rel="alternate" hreflang="en-ca" href="https://reactionspeedtest.com/">
+<link rel="alternate" hreflang="en-au" href="https://reactionspeedtest.com/">
+<link rel="alternate" hreflang="x-default" href="https://reactionspeedtest.com/">
+
+<!-- Schema.org -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Reaction Speed Test",
+  "url": "https://reactionspeedtest.com",
+  "description": "Free online reaction time test, CPS test, typing speed test, aim trainer, memory test and browser games. No signup required.",
+  "inLanguage": "en",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://reactionspeedtest.com/?s={search_term_string}",
+    "query-input": "required name=search_term_string"
   }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "name": "Free Online Reflex & Brain Tests",
-    "url": "https://reactionspeedtest.com",
-    "itemListElement": [
-      {"@type":"ListItem","position":1,"name":"Reaction Time Test","url":"https://reactionspeedtest.com/reaction-time-test"},
-      {"@type":"ListItem","position":2,"name":"Click Speed Test","url":"https://reactionspeedtest.com/click-speed-test"},
-      {"@type":"ListItem","position":3,"name":"Typing Speed Test","url":"https://reactionspeedtest.com/typing-speed-test"},
-      {"@type":"ListItem","position":4,"name":"Jitter Click Test","url":"https://reactionspeedtest.com/jitter-click-test"},
-      {"@type":"ListItem","position":5,"name":"Spacebar Speed Test","url":"https://reactionspeedtest.com/spacebar-speed-test"},
-      {"@type":"ListItem","position":6,"name":"Stimulation Clicker","url":"https://reactionspeedtest.com/stimulation-clicker"},
-      {"@type":"ListItem","position":7,"name":"Number Memory Test","url":"https://reactionspeedtest.com/number-memory-test"},
-      {"@type":"ListItem","position":8,"name":"Dinosaur Game","url":"https://reactionspeedtest.com/dinosaur-game"},
-      {"@type":"ListItem","position":9,"name":"Coreball Game","url":"https://reactionspeedtest.com/coreball-game"},
-      {"@type":"ListItem","position":10,"name":"Snake Game","url":"https://reactionspeedtest.com/snake-game"},
-      {"@type":"ListItem","position":11,"name":"Clicker Tycoon","url":"https://reactionspeedtest.com/clicker-tycoon"}
-    ]
-  }
-  </script>
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Free Online Reflex & Brain Tests",
+  "url": "https://reactionspeedtest.com",
+  "itemListElement": [
+    {"@type":"ListItem","position":1,"name":"Reaction Time Test","url":"https://reactionspeedtest.com/reaction-time-test"},
+    {"@type":"ListItem","position":2,"name":"Click Speed Test","url":"https://reactionspeedtest.com/click-speed-test"},
+    {"@type":"ListItem","position":3,"name":"Typing Speed Test","url":"https://reactionspeedtest.com/typing-speed-test"},
+    {"@type":"ListItem","position":4,"name":"Jitter Click Test","url":"https://reactionspeedtest.com/jitter-click-test"},
+    {"@type":"ListItem","position":5,"name":"Spacebar Speed Test","url":"https://reactionspeedtest.com/spacebar-speed-test"},
+    {"@type":"ListItem","position":6,"name":"Stimulation Clicker","url":"https://reactionspeedtest.com/stimulation-clicker"},
+    {"@type":"ListItem","position":7,"name":"Number Memory Test","url":"https://reactionspeedtest.com/number-memory-test"},
+    {"@type":"ListItem","position":8,"name":"Dinosaur Game","url":"https://reactionspeedtest.com/dinosaur-game"},
+    {"@type":"ListItem","position":9,"name":"Coreball Game","url":"https://reactionspeedtest.com/coreball-game"},
+    {"@type":"ListItem","position":10,"name":"Snake Game","url":"https://reactionspeedtest.com/snake-game"},
+    {"@type":"ListItem","position":11,"name":"Clicker Tycoon","url":"https://reactionspeedtest.com/clicker-tycoon"}
+  ]
+}
+</script>
 </head>
 <body>
 
+<!-- HEADER -->
 <header class="hdr">
   <a href="/" class="hdr-logo">⚡ <span class="accent">Reaction</span> Speed Test</a>
+  <!-- FIX #7: Desktop nav -->
   <nav class="hdr-links">
+    <a href="/blog" class="hdr-link">Blog</a>
     <a href="/about" class="hdr-link">About</a>
     <a href="/contact" class="hdr-link">Contact</a>
     <a href="/privacy-policy" class="hdr-link">Privacy</a>
   </nav>
+  <!-- FIX #7: Mobile hamburger -->
+  <button class="hdr-burger" id="burger" aria-label="Open menu">☰</button>
 </header>
+<!-- Mobile menu -->
+<nav class="hdr-mobile-menu" id="mobileMenu">
+  <a href="/blog">📝 Blog</a>
+  <a href="/about">About</a>
+  <a href="/contact">Contact</a>
+  <a href="/privacy-policy">Privacy</a>
+</nav>
 
+<!-- HERO -->
 <section class="hero">
   <div class="hero-badge">100% Free · No Signup · Instant Results</div>
   <h1><span class="hl">Reaction</span> Speed Test</h1>
+  <!-- FIX #5: Zengin hero metni (SEO için) -->
+  <p>
+    Test and improve your <strong style="color:#e0e0ff">reaction time</strong>, <strong style="color:#e0e0ff">click speed (CPS)</strong>,
+    <strong style="color:#e0e0ff">typing speed</strong>, and <strong style="color:#e0e0ff">memory</strong> — all in one place.
+    Used by gamers, students, and professionals to benchmark cognitive performance.
+    No download. No account. Works on any device.
+  </p>
+  <div class="hero-tags">
+    <span class="hero-tag">Reaction Time</span>
+    <span class="hero-tag">CPS Test</span>
+    <span class="hero-tag">Typing Speed</span>
+    <span class="hero-tag">Aim Trainer</span>
+    <span class="hero-tag">Memory Test</span>
+    <span class="hero-tag">Brain Games</span>
+  </div>
 </section>
 
 <main class="main">
 
   <div class="sec-head">🧪 SKILL TESTS</div>
   <div class="cards">
-
     <a href="/reaction-time-test" class="card" style="--card-color:#00f5a0">
       <div class="card-glow"></div>
       <div class="card-top"><div class="card-icon">⚡</div><div class="card-badge">Most Popular</div></div>
@@ -267,7 +391,6 @@ footer a:hover{color:var(--accent);}
       <div class="card-desc">Measure your reflex speed in milliseconds. 5-round average with human benchmark comparison.</div>
       <div class="card-cta">Play now →</div>
     </a>
-
     <a href="/click-speed-test" class="card" style="--card-color:#ff6b6b">
       <div class="card-glow"></div>
       <div class="card-top"><div class="card-icon">🖱️</div><div class="card-badge">CPS Test</div></div>
@@ -275,7 +398,6 @@ footer a:hover{color:var(--accent);}
       <div class="card-desc">How many clicks per second can you achieve? 8 durations from 1 to 100 seconds.</div>
       <div class="card-cta">Play now →</div>
     </a>
-
     <a href="/typing-speed-test" class="card" style="--card-color:#38bdf8">
       <div class="card-glow"></div>
       <div class="card-top"><div class="card-icon">📝</div><div class="card-badge">WPM Test</div></div>
@@ -283,7 +405,6 @@ footer a:hover{color:var(--accent);}
       <div class="card-desc">Measure your words per minute and accuracy in real time. Average is 40 WPM.</div>
       <div class="card-cta">Play now →</div>
     </a>
-
     <a href="/stimulation-clicker" class="card" style="--card-color:#f472b6">
       <div class="card-glow"></div>
       <div class="card-top"><div class="card-icon">🎯</div><div class="card-badge">Aim Trainer</div></div>
@@ -291,7 +412,6 @@ footer a:hover{color:var(--accent);}
       <div class="card-desc">Free aim trainer. Hit moving targets to improve FPS accuracy for CS2 and Valorant.</div>
       <div class="card-cta">Play now →</div>
     </a>
-
     <a href="/jitter-click-test" class="card" style="--card-color:#fbbf24">
       <div class="card-glow"></div>
       <div class="card-top"><div class="card-icon">🖱</div><div class="card-badge">Jitter Click</div></div>
@@ -299,7 +419,6 @@ footer a:hover{color:var(--accent);}
       <div class="card-desc">Practice jitter clicking and measure your maximum CPS. Used in Minecraft PvP.</div>
       <div class="card-cta">Play now →</div>
     </a>
-
     <a href="/spacebar-speed-test" class="card" style="--card-color:#a78bfa">
       <div class="card-glow"></div>
       <div class="card-top"><div class="card-icon">⌨️</div><div class="card-badge">HPS Test</div></div>
@@ -307,7 +426,6 @@ footer a:hover{color:var(--accent);}
       <div class="card-desc">How fast can you press the spacebar per second? Multiple durations available.</div>
       <div class="card-cta">Play now →</div>
     </a>
-
     <a href="/number-memory-test" class="card" style="--card-color:#c084fc">
       <div class="card-glow"></div>
       <div class="card-top"><div class="card-icon">🧠</div><div class="card-badge">Memory Test</div></div>
@@ -315,12 +433,10 @@ footer a:hover{color:var(--accent);}
       <div class="card-desc">How many digits can you memorize? Tests working memory. Average is 7 digits.</div>
       <div class="card-cta">Play now →</div>
     </a>
-
   </div>
 
   <div class="sec-head">🎮 GAMES</div>
   <div class="cards">
-
     <a href="/clicker-tycoon" class="card" style="--card-color:#ffd600">
       <div class="card-glow"></div>
       <div class="card-top"><div class="card-icon">💰</div><div class="card-badge">Idle Game</div></div>
@@ -328,7 +444,6 @@ footer a:hover{color:var(--accent);}
       <div class="card-desc">Click, upgrade, prestige and build a city. Free idle clicker game, progress auto-saves.</div>
       <div class="card-cta">Play now →</div>
     </a>
-
     <a href="/dinosaur-game" class="card" style="--card-color:#9ca3af">
       <div class="card-glow"></div>
       <div class="card-top"><div class="card-icon">🦕</div><div class="card-badge">Runner</div></div>
@@ -336,7 +451,6 @@ footer a:hover{color:var(--accent);}
       <div class="card-desc">Classic Chrome T-Rex runner. Jump over cacti, duck under pterodactyls.</div>
       <div class="card-cta">Play now →</div>
     </a>
-
     <a href="/snake-game" class="card" style="--card-color:#00f5a0">
       <div class="card-glow"></div>
       <div class="card-top"><div class="card-icon">🐍</div><div class="card-badge">Classic</div></div>
@@ -344,7 +458,6 @@ footer a:hover{color:var(--accent);}
       <div class="card-desc">Eat food to grow longer, avoid hitting yourself or the walls. Arrow keys or swipe.</div>
       <div class="card-cta">Play now →</div>
     </a>
-
     <a href="/coreball-game" class="card" style="--card-color:#fb923c">
       <div class="card-glow"></div>
       <div class="card-top"><div class="card-icon">🎮</div><div class="card-badge">Puzzle</div></div>
@@ -352,13 +465,32 @@ footer a:hover{color:var(--accent);}
       <div class="card-desc">Shoot balls onto the rotating core without colliding. Timing and precision.</div>
       <div class="card-cta">Play now →</div>
     </a>
-
   </div>
 
+  <!-- FIX #5: Zengin about metni (SEO) -->
   <div class="about-strip">
     <h2>About Reaction Speed Test</h2>
-    <p><strong>Reaction Speed Test</strong> is a free browser-based platform for measuring and improving your cognitive performance. Every tool runs directly in your browser — no download, no account, no cost. Works on any device.</p>
-    <p>Our tests use the browser's <code style="background:#1a1a30;color:var(--accent);padding:1px 5px;border-radius:3px;font-size:0.78rem">performance.now()</code> API for sub-millisecond timing accuracy. All scores are stored only on your device — we never collect personal data.</p>
+    <p>
+      <strong>Reaction Speed Test</strong> is a free browser-based platform for measuring and improving your cognitive performance.
+      Whether you're a <strong>competitive gamer</strong> looking to shave milliseconds off your reflex time,
+      a <strong>typist</strong> aiming for 100 WPM, or just curious how your brain compares to the global average —
+      every tool runs directly in your browser with no download, no account, and no cost.
+    </p>
+    <p>
+      Our tests use the browser's <code style="background:#1a1a30;color:var(--accent);padding:1px 5px;border-radius:3px;font-size:0.78rem">performance.now()</code>
+      API for sub-millisecond timing accuracy. All scores are stored only on your device — we never collect personal data.
+      The average human reaction time is <strong>200–250 ms</strong>. Pro esports players typically score under <strong>180 ms</strong>.
+      Where do you stand?
+    </p>
+  </div>
+
+  <!-- FIX #1 / Blog link strip -->
+  <div style="margin-top:24px;background:var(--surf);border:1px solid var(--border);border-radius:16px;padding:22px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;">
+    <div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.1em;color:var(--accent);margin-bottom:4px;">📖 Learn & Improve</div>
+      <p style="font-size:0.72rem;color:var(--muted);margin:0;">Science-backed guides on improving reaction time, CPS, and cognitive performance.</p>
+    </div>
+    <a href="/blog" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--accent),#00c8a0);color:#000;padding:10px 22px;border-radius:10px;text-decoration:none;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:0.1em;white-space:nowrap;">Read the Blog →</a>
   </div>
 
 </main>
@@ -373,7 +505,22 @@ footer a:hover{color:var(--accent);}
   </p>
 </footer>
 
-<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
-<script async defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5019628877403001" crossorigin="anonymous"></script>
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+// FIX #7: Hamburger menu toggle
+document.getElementById('burger').addEventListener('click', function() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+});
+// Menü dışına tıklanınca kapat
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('#burger') && !e.target.closest('#mobileMenu')) {
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+});
+</script>
+
+<!-- FIX #11: Reklam sadece 1 yerde, defer ile yükleniyor -->
+<script defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5019628877403001" crossorigin="anonymous"></script>
 </body>
 </html>

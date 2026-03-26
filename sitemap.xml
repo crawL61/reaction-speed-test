@@ -1,116 +1,138 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- Ana sayfa — sadece HTTPS non-www canonical URL -->
+  <!-- Ana sayfa -->
   <url>
     <loc>https://reactionspeedtest.com/</loc>
-    <lastmod>2026-03-15</lastmod>
+    <lastmod>2026-03-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
+  <!-- Test sayfaları -->
   <url>
     <loc>https://reactionspeedtest.com/reaction-time-test</loc>
-    <lastmod>2026-03-15</lastmod>
+    <lastmod>2026-03-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
-
   <url>
     <loc>https://reactionspeedtest.com/click-speed-test</loc>
-    <lastmod>2026-03-15</lastmod>
+    <lastmod>2026-03-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
   </url>
-
   <url>
     <loc>https://reactionspeedtest.com/typing-speed-test</loc>
-    <lastmod>2026-03-15</lastmod>
+    <lastmod>2026-03-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.88</priority>
   </url>
-
   <url>
     <loc>https://reactionspeedtest.com/number-memory-test</loc>
-    <lastmod>2026-03-15</lastmod>
+    <lastmod>2026-03-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
-
   <url>
     <loc>https://reactionspeedtest.com/jitter-click-test</loc>
-    <lastmod>2026-03-15</lastmod>
+    <lastmod>2026-03-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.82</priority>
   </url>
-
   <url>
     <loc>https://reactionspeedtest.com/clicker-tycoon</loc>
-    <lastmod>2026-03-15</lastmod>
+    <lastmod>2026-03-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.82</priority>
   </url>
-
   <url>
     <loc>https://reactionspeedtest.com/spacebar-speed-test</loc>
-    <lastmod>2026-03-15</lastmod>
+    <lastmod>2026-03-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
-
   <url>
     <loc>https://reactionspeedtest.com/stimulation-clicker</loc>
-    <lastmod>2026-03-15</lastmod>
+    <lastmod>2026-03-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
-
   <url>
     <loc>https://reactionspeedtest.com/snake-game</loc>
-    <lastmod>2026-03-15</lastmod>
+    <lastmod>2026-03-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.78</priority>
   </url>
-
   <url>
     <loc>https://reactionspeedtest.com/dinosaur-game</loc>
-    <lastmod>2026-03-15</lastmod>
+    <lastmod>2026-03-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.78</priority>
   </url>
-
   <url>
     <loc>https://reactionspeedtest.com/coreball-game</loc>
-    <lastmod>2026-03-15</lastmod>
+    <lastmod>2026-03-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
 
+  <!-- Bilgi sayfaları -->
   <url>
     <loc>https://reactionspeedtest.com/about</loc>
-    <lastmod>2026-03-15</lastmod>
+    <lastmod>2026-03-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
   </url>
-
   <url>
     <loc>https://reactionspeedtest.com/privacy-policy</loc>
-    <lastmod>2026-03-15</lastmod>
+    <lastmod>2026-03-26</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
   </url>
-
   <url>
     <loc>https://reactionspeedtest.com/contact</loc>
-    <lastmod>2026-03-15</lastmod>
+    <lastmod>2026-03-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.55</priority>
   </url>
 
-  <url><loc>https://reactionspeedtest.com/blog</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://reactionspeedtest.com/blog/how-to-improve-reaction-time</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://reactionspeedtest.com/blog/what-is-a-good-reaction-time</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://reactionspeedtest.com/blog/best-games-to-improve-reflexes</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://reactionspeedtest.com/blog/cps-test-guide</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://reactionspeedtest.com/blog/reaction-time-age</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <!-- FIX #1: Blog sayfaları artık gerçekten var -->
+  <url>
+    <loc>https://reactionspeedtest.com/blog</loc>
+    <lastmod>2026-03-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://reactionspeedtest.com/blog/how-to-improve-reaction-time</loc>
+    <lastmod>2026-03-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://reactionspeedtest.com/blog/what-is-a-good-reaction-time</loc>
+    <lastmod>2026-03-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://reactionspeedtest.com/blog/best-games-to-improve-reflexes</loc>
+    <lastmod>2026-03-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://reactionspeedtest.com/blog/cps-test-guide</loc>
+    <lastmod>2026-03-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://reactionspeedtest.com/blog/reaction-time-age</loc>
+    <lastmod>2026-03-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
 </urlset>

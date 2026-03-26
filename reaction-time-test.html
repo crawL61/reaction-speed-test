@@ -2,111 +2,332 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<!-- FIX #13: SVG + ICO fallback -->
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Reaction Time Test – Measure Your Reflex Speed | Reaction Speed Test</title>
 <meta name="description" content="Free online reaction time test. Measure reflex speed in milliseconds. 5-round average with human benchmark. No signup.">
 <link rel="canonical" href="https://reactionspeedtest.com/reaction-time-test">
+
+<!-- FIX #6: Sayfaya özel OG image yerine genel kullanılıyor — ileride sayfa görseli eklenebilir -->
 <meta property="og:title" content="Reaction Time Test – Measure Your Reflex Speed | Reaction Speed Test">
 <meta property="og:description" content="Free online reaction time test. Measure reflex speed in milliseconds. 5-round average with human benchmark. No signup.">
 <meta property="og:url" content="https://reactionspeedtest.com/reaction-time-test">
-<meta property="og:image" content="https://reactionspeedtest.com/og-image.png">
+<meta property="og:image" content="https://reactionspeedtest.com/og-reaction-time.png">
+
+<!-- FIX #12: Ortak CSS -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5019628877403001" crossorigin="anonymous"></script>
 <style>
-:root{--bg:#06060e;--surf:#0d0d1c;--surf2:#12122a;--border:#1e1e3f;--fg:#f0f0ff;--muted:#7070a0;--ac:#00f5a0;--ac2:#7c3aed;}
-*{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;background:var(--bg);}
-body{background:var(--bg);color:var(--fg);font-family:"JetBrains Mono",monospace;line-height:1.8;font-size:15px;min-height:100vh;}
+/* ============================================================
+   Reaction Speed Test — Global Stylesheet
+   Tüm HTML sayfaları bu dosyayı import eder.
+   ============================================================ */
 
-/* ── 3-COLUMN LAYOUT ── */
-.pg{
-  display:grid;
-  grid-template-columns:160px 1fr 160px;
-  min-height:100vh;
-  max-width:1400px;
-  margin:0 auto;
-  overflow:hidden;
-}
-.sb{
-  padding:20px 6px;
-  overflow:hidden;
-  width:160px;
-}
-.sb-inner{
-  position:sticky;
-  top:20px;
-  width:160px;
-  overflow:hidden;
-}
-.main{
-  padding:32px 28px 40px;
-  max-width:860px;
-  width:100%;
-  margin:0 auto;
-  min-width:0;
-  overflow:hidden;
-}
-@media(max-width:1199px){
-  .pg{grid-template-columns:1fr;}
-  .sb{display:none;}
-}
-@media(max-width:600px){
-  .main{padding:20px 14px 32px;}
+:root {
+  --bg:     #06060e;
+  --surf:   #0d0d1a;
+  --surf2:  #111122;
+  --border: #1e1e3a;
+  --border2:#2a2a4a;
+  --text:   #f0f0ff;
+  --muted:  #60607a;
+  --accent: #00f5a0;
+  --purple: #7c3aed;
+  --yellow: #ffd600;
+  --red:    #f87171;
 }
 
-/* ── TYPOGRAPHY ── */
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+  min-height: 100vh;
+  line-height: 1.7;
+}
+
+/* ── HEADER ── */
+.hdr {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(6,6,14,0.96);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px; height: 54px;
+}
+.hdr-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.35rem; letter-spacing: 0.1em;
+  color: #fff; text-decoration: none;
+  display: flex; align-items: center; gap: 8px;
+}
+.hdr-logo .accent { color: var(--accent); }
+
+/* NAV — mobile'da gizleme KALDIRILDI, hamburger menü eklendi */
+.hdr-links { display: flex; align-items: center; gap: 4px; }
+.hdr-link {
+  color: var(--muted); text-decoration: none;
+  font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 5px 10px; border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+}
+.hdr-link:hover { color: var(--accent); background: rgba(0,245,160,0.08); }
+
+/* Hamburger — sadece mobilde görünür */
+.hdr-burger {
+  display: none;
+  background: none; border: 1px solid var(--border);
+  border-radius: 6px; padding: 5px 8px;
+  color: var(--muted); cursor: pointer; font-size: 1rem;
+}
+.hdr-mobile-menu {
+  display: none;
+  position: fixed; top: 54px; left: 0; right: 0;
+  background: rgba(6,6,14,0.98);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 24px 16px;
+  flex-direction: column; gap: 4px;
+  z-index: 99;
+}
+.hdr-mobile-menu.open { display: flex; }
+.hdr-mobile-menu a {
+  color: var(--text); text-decoration: none;
+  font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+}
+.hdr-mobile-menu a:hover { color: var(--accent); }
+
+@media(max-width:480px) {
+  .hdr-links { display: none; }
+  .hdr-burger { display: block; }
+}
+
+/* ── HERO ── */
+.hero {
+  text-align: center; padding: 32px 24px 24px;
+  background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0,245,160,0.07) 0%, transparent 70%);
+}
+.hero-badge {
+  display: inline-block; margin-bottom: 20px;
+  padding: 5px 14px; background: rgba(0,245,160,0.1);
+  border: 1px solid rgba(0,245,160,0.25); border-radius: 20px;
+  font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent);
+}
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2rem,6vw,3.5rem);
+  letter-spacing: 0.04em; line-height: 1.0;
+  color: #fff; margin-bottom: 16px;
+}
+.hero h1 .hl {
+  background: linear-gradient(90deg, var(--accent), #38bdf8);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero p {
+  color: #9090b8; font-size: 0.82rem;
+  max-width: 560px; margin: 0 auto 36px; line-height: 1.8;
+}
+.hero-tags {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+}
+.hero-tag {
+  padding: 5px 14px; background: var(--surf);
+  border: 1px solid var(--border); border-radius: 20px;
+  font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+}
+
+/* ── MAIN CONTAINER ── */
+.main { max-width: 1100px; margin: 0 auto; padding: 0 20px 48px; }
+
+/* ── SECTION HEADING ── */
+.sec-head {
+  display: flex; align-items: center; gap: 12px;
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem;
+  letter-spacing: 0.18em; color: var(--muted);
+  margin: 20px 0 14px;
+}
+.sec-head::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* ── CARDS ── */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px,1fr));
+  gap: 12px;
+}
+.card {
+  background: var(--surf); border: 1px solid var(--border);
+  border-radius: 16px; padding: 22px;
+  text-decoration: none; color: var(--text);
+  transition: border-color 0.2s, background 0.2s, transform 0.15s, box-shadow 0.2s;
+  display: flex; flex-direction: column; gap: 10px;
+  position: relative; overflow: hidden;
+}
+.card-glow {
+  position: absolute; top: -30px; right: -30px;
+  width: 120px; height: 120px; border-radius: 50%;
+  background: var(--card-color, #00f5a0);
+  opacity: 0.04; filter: blur(20px);
+  transition: opacity 0.2s; pointer-events: none;
+}
+.card:hover {
+  border-color: var(--card-color, #00f5a0);
+  background: var(--surf2);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+.card:hover .card-glow { opacity: 0.12; }
+.card-top { display: flex; align-items: center; justify-content: space-between; }
+.card-icon { font-size: 1.9rem; line-height: 1; }
+.card-badge {
+  padding: 3px 8px; border-radius: 5px;
+  font-size: 0.5rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  background: rgba(0,0,0,0.3);
+  color: var(--card-color, #00f5a0);
+  border: 1px solid currentColor; opacity: 0.8;
+}
+.card-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.15rem; letter-spacing: 0.07em; color: #fff; line-height: 1.1;
+}
+.card-desc { font-size: 0.64rem; color: var(--muted); line-height: 1.55; }
+.card-cta {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--card-color, #00f5a0); margin-top: 2px;
+  opacity: 0; transform: translateX(-4px);
+  transition: opacity 0.2s, transform 0.2s;
+}
+.card:hover .card-cta { opacity: 1; transform: translateX(0); }
+
+/* Sosyal paylaşım butonu (test sayfalarında sonuç ekranında) */
+.share-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(0,245,160,0.12);
+  border: 1px solid rgba(0,245,160,0.35);
+  color: var(--accent); border-radius: 8px;
+  padding: 8px 16px; font-size: 0.68rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  cursor: pointer; transition: background 0.2s, transform 0.15s;
+  font-family: 'JetBrains Mono', monospace;
+}
+.share-btn:hover { background: rgba(0,245,160,0.2); transform: translateY(-1px); }
+
+/* ── ABOUT STRIP ── */
+.about-strip {
+  background: var(--surf); border: 1px solid var(--border);
+  border-radius: 16px; padding: 28px 32px; margin-top: 48px;
+}
+.about-strip h2 {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
+  letter-spacing: 0.1em; color: var(--accent); margin-bottom: 12px;
+}
+.about-strip p {
+  font-size: 0.78rem; color: #b0b0d0; line-height: 1.9; margin-bottom: 10px;
+}
+.about-strip p:last-child { margin: 0; }
+.about-strip strong { color: #e0e0f8; }
+
+/* ── DIVIDER ── */
+.divider { height: 1px; background: var(--border); margin: 36px 0; }
+
+/* ── FOOTER ── */
+footer {
+  text-align: center; padding: 32px 20px 24px;
+  border-top: 1px solid var(--border);
+  font-size: 0.58rem; color: var(--muted); line-height: 2.2;
+}
+footer a { color: var(--muted); text-decoration: none; margin: 0 8px; transition: color 0.15s; }
+footer a:hover { color: var(--accent); }
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px) {
+  .hero { padding: 44px 16px 36px; }
+  .main { padding: 0 14px 48px; }
+  .cards { grid-template-columns: 1fr 1fr; }
+  .card { padding: 16px; }
+  .about-strip { padding: 20px; }
+}
+@media(max-width:380px) {
+  .cards { grid-template-columns: 1fr; }
+}
+
+/* ── 3-KOLON LAYOUT (test sayfaları) ── */
+.pg {
+  display: grid;
+  grid-template-columns: 160px 1fr 160px;
+  min-height: 100vh;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.sb { padding: 20px 6px; overflow: hidden; width: 160px; }
+.sb-inner { position: sticky; top: 74px; width: 160px; }
+.pg-main { padding: 32px 28px 40px; max-width: 860px; width: 100%; margin: 0 auto; min-width: 0; }
+@media(max-width:1199px) {
+  .pg { grid-template-columns: 1fr; }
+  .sb { display: none; }
+}
+@media(max-width:600px) {
+  .pg-main { padding: 20px 14px 32px; }
+}
+
+</style>
+
+<!-- Sayfa bazlı ek stiller -->
+<style>
 a.back{color:var(--muted);text-decoration:none;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;display:inline-flex;align-items:center;gap:6px;margin-bottom:28px;border-bottom:1px solid transparent;transition:color .2s,border-color .2s;padding:4px 0;}
-a.back:hover{color:var(--ac);border-color:var(--ac);}
+a.back:hover{color:var(--accent);border-color:var(--accent);}
 h1{font-family:"Bebas Neue",sans-serif;font-size:clamp(2.2rem,6vw,3.6rem);letter-spacing:.05em;line-height:1.05;margin-bottom:12px;color:#fff;}
-h1 .hl{background:linear-gradient(90deg,var(--ac),#38bdf8,var(--ac2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.sub{color:#a0a0c8;font-size:.82rem;line-height:1.7;margin-bottom:22px;border-left:3px solid var(--ac);padding-left:14px;max-width:600px;}
-.play-btn{display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,var(--ac),#00c8a0);color:#000;padding:15px 34px;border-radius:12px;text-decoration:none;font-family:"Bebas Neue",sans-serif;font-size:1.45rem;letter-spacing:.13em;margin-bottom:28px;position:relative;overflow:hidden;transition:transform .15s,box-shadow .15s;font-weight:900;}
+h1 .hl{background:linear-gradient(90deg,var(--accent),#38bdf8,var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.sub{color:#a0a0c8;font-size:.82rem;line-height:1.7;margin-bottom:22px;border-left:3px solid var(--accent);padding-left:14px;max-width:600px;}
+.play-btn{display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,var(--accent),#00c8a0);color:#000;padding:15px 34px;border-radius:12px;text-decoration:none;font-family:"Bebas Neue",sans-serif;font-size:1.45rem;letter-spacing:.13em;margin-bottom:28px;position:relative;overflow:hidden;transition:transform .15s,box-shadow .15s;font-weight:900;}
 .play-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,245,160,.4);}
 .play-free{font-size:.62rem;background:rgba(0,0,0,.2);padding:2px 8px;border-radius:4px;font-family:"JetBrains Mono",monospace;font-weight:700;}
-h2{font-family:"Bebas Neue",sans-serif;font-size:1.45rem;letter-spacing:.1em;color:var(--ac);margin:0 0 12px;display:flex;align-items:center;gap:8px;}
+h2{font-family:"Bebas Neue",sans-serif;font-size:1.45rem;letter-spacing:.1em;color:var(--accent);margin:0 0 12px;display:flex;align-items:center;gap:8px;}
 h2::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(0,245,160,.3),transparent);}
 h3{font-size:.87rem;font-weight:700;color:#e0e0ff;margin:18px 0 5px;}
 p{color:#c0c0e8;font-size:.83rem;line-height:1.95;margin-bottom:14px;}
 strong{color:#f0f0ff;}
-code{background:#1a1a30;color:var(--ac);padding:1px 6px;border-radius:4px;font-size:.8rem;}
+code{background:#1a1a30;color:var(--accent);padding:1px 6px;border-radius:4px;font-size:.8rem;}
 ul,ol{color:#c0c0e8;font-size:.83rem;line-height:1.9;margin:8px 0 14px 18px;}
 li{margin-bottom:5px;}
 table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.79rem;}
-th{background:#111128;color:var(--ac);padding:10px 14px;text-align:left;font-size:.59rem;letter-spacing:.15em;text-transform:uppercase;border:1px solid var(--border);}
+th{background:#111128;color:var(--accent);padding:10px 14px;text-align:left;font-size:.59rem;letter-spacing:.15em;text-transform:uppercase;border:1px solid var(--border);}
 td{padding:9px 14px;border:1px solid #16162e;color:#c0c0e8;}
 tr:nth-child(even) td{background:#0a0a1a;}
 tr:hover td{background:#10102a;color:#e0e0ff;}
-.card{background:var(--surf);border:1px solid var(--border);border-radius:14px;padding:22px 26px;margin-bottom:16px;position:relative;overflow:hidden;}
-.card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--ac),var(--ac2));opacity:0;transition:opacity .2s;}
-.card:hover{border-color:#2e2e5a;}
-.card:hover::before{opacity:1;}
+.info-card{background:var(--surf);border:1px solid var(--border);border-radius:14px;padding:22px 26px;margin-bottom:16px;position:relative;overflow:hidden;}
+.info-card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--purple));opacity:0;transition:opacity .2s;}
+.info-card:hover{border-color:#2e2e5a;}
+.info-card:hover::before{opacity:1;}
 .faq{margin-bottom:7px;}
 .faq-q{width:100%;background:var(--surf);border:1px solid var(--border);border-radius:9px;padding:13px 16px;text-align:left;color:#e0e0ff;font-size:.81rem;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-family:inherit;transition:border-color .2s;}
-.faq-q:hover{border-color:var(--ac);color:var(--ac);}
+.faq-q:hover{border-color:var(--accent);color:var(--accent);}
 .faq-a{background:#0a0a18;border:1px solid var(--border);border-top:none;border-radius:0 0 9px 9px;padding:12px 16px;color:#c0c0e8;font-size:.81rem;line-height:1.85;display:none;}
 .faq-a.open{display:block;}
 .faq-arr{transition:transform .2s;font-size:.68rem;}
 .faq-q.act .faq-arr{transform:rotate(180deg);}
-.divider{height:1px;background:var(--border);margin:36px 0;}
-footer{text-align:center;padding:24px 0 0;font-size:.6rem;color:var(--muted);line-height:2;}
-footer a{color:var(--muted);text-decoration:none;margin:0 8px;}
-footer a:hover{color:var(--ac);}
 .related{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:9px;margin-top:10px;}
 .related a{background:var(--surf);border:1px solid var(--border);border-radius:11px;padding:13px 14px;text-decoration:none;transition:border-color .2s,background .2s,transform .15s;display:block;}
 .related a:hover{border-color:rgba(0,245,160,.4);background:var(--surf2);transform:translateY(-2px);}
 .related a span{font-size:1.25rem;display:block;margin-bottom:3px;}
 .related a div{font-size:.68rem;font-weight:700;color:#e0e0ff;}
 
-/* ── STICKY BOTTOM ── */
+/* FIX #8: Sosyal paylaşım butonu stili */
+.share-bar{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;}
+.share-tw{display:inline-flex;align-items:center;gap:6px;background:#1da1f2;color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:opacity .2s;font-family:'JetBrains Mono',monospace;}
+.share-tw:hover{opacity:0.85;}
+.copy-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.07);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:8px 16px;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:background .2s;font-family:'JetBrains Mono',monospace;}
+.copy-btn:hover{background:rgba(255,255,255,0.12);}
 
 @media(max-width:600px){
-  .main{padding:20px 16px 32px;}
   h1{font-size:1.9rem;}
   .play-btn{width:100%;justify-content:center;font-size:1.2rem;padding:13px 20px;}
-  .card{padding:16px 14px;}
+  .info-card{padding:16px 14px;}
   table{font-size:.72rem;}
   th,td{padding:7px 8px;}
   .related{grid-template-columns:repeat(2,1fr);}
@@ -116,148 +337,201 @@ footer a:hover{color:var(--ac);}
   .related{grid-template-columns:1fr;}
 }
 </style>
-  <link rel="alternate" hreflang="en" href="https://reactionspeedtest.com/reaction-time-test">
-  <link rel="alternate" hreflang="en-us" href="https://reactionspeedtest.com/reaction-time-test">
-  <link rel="alternate" hreflang="en-gb" href="https://reactionspeedtest.com/reaction-time-test">
-  <link rel="alternate" hreflang="en-ca" href="https://reactionspeedtest.com/reaction-time-test">
-  <link rel="alternate" hreflang="en-au" href="https://reactionspeedtest.com/reaction-time-test">
-  <link rel="alternate" hreflang="x-default" href="https://reactionspeedtest.com/reaction-time-test">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Reaction Time Test",
-    "url": "https://reactionspeedtest.com/reaction-time-test",
-    "description": "Free online reaction time test. Measure your reflex speed in milliseconds with 5-round averaging and human benchmark comparison.",
-    "applicationCategory": "GameApplication",
-    "operatingSystem": "Web Browser",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "author": {
-      "@type": "Organization",
-      "name": "Reaction Speed Test",
-      "url": "https://reactionspeedtest.com"
-    },
-    "keywords": "reaction time test, reflex test, reaction speed test, human benchmark",
-    "inLanguage": "en",
-    "isAccessibleForFree": true,
-    "browserRequirements": "Requires JavaScript"
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://reactionspeedtest.com"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Reaction Time Test",
-        "item": "https://reactionspeedtest.com/reaction-time-test"
-      }
-    ]
-  }
-  </script>
+
+<link rel="alternate" hreflang="en" href="https://reactionspeedtest.com/reaction-time-test">
+<link rel="alternate" hreflang="en-us" href="https://reactionspeedtest.com/reaction-time-test">
+<link rel="alternate" hreflang="en-gb" href="https://reactionspeedtest.com/reaction-time-test">
+<link rel="alternate" hreflang="en-ca" href="https://reactionspeedtest.com/reaction-time-test">
+<link rel="alternate" hreflang="en-au" href="https://reactionspeedtest.com/reaction-time-test">
+<link rel="alternate" hreflang="x-default" href="https://reactionspeedtest.com/reaction-time-test">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Reaction Time Test",
+  "url": "https://reactionspeedtest.com/reaction-time-test",
+  "description": "Free online reaction time test. Measure your reflex speed in milliseconds with 5-round averaging and human benchmark comparison.",
+  "applicationCategory": "GameApplication",
+  "operatingSystem": "Web Browser",
+  "offers": {"@type":"Offer","price":"0","priceCurrency":"USD"},
+  "author": {"@type":"Organization","name":"Reaction Speed Test","url":"https://reactionspeedtest.com"},
+  "keywords": "reaction time test, reflex test, reaction speed test, human benchmark",
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "browserRequirements": "Requires JavaScript"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://reactionspeedtest.com"},
+    {"@type":"ListItem","position":2,"name":"Reaction Time Test","item":"https://reactionspeedtest.com/reaction-time-test"}
+  ]
+}
+</script>
 </head>
 <body>
-<div class="pg">
 
-  <!-- LEFT SIDEBAR -->
+<!-- HEADER -->
+<header class="hdr">
+  <a href="/" class="hdr-logo">⚡ <span class="accent">Reaction</span> Speed Test</a>
+  <nav class="hdr-links">
+    <a href="/blog" class="hdr-link">Blog</a>
+    <a href="/about" class="hdr-link">About</a>
+    <a href="/contact" class="hdr-link">Contact</a>
+  </nav>
+  <button class="hdr-burger" id="burger" aria-label="Open menu">☰</button>
+</header>
+<nav class="hdr-mobile-menu" id="mobileMenu">
+  <a href="/blog">📝 Blog</a>
+  <a href="/about">About</a>
+  <a href="/contact">Contact</a>
+  <a href="/privacy-policy">Privacy</a>
+</nav>
+
+<div class="pg">
+  <!-- LEFT AD -->
   <div class="sb">
     <div class="sb-inner">
-      <ins class="adsbygoogle"
-           style="display:inline-block;width:160px;height:600px"
-           data-ad-client="ca-pub-5019628877403001"
-           data-ad-slot="auto"
-           data-ad-format="vertical"></ins>
+      <ins class="adsbygoogle" style="display:inline-block;width:160px;height:600px"
+        data-ad-client="ca-pub-5019628877403001" data-ad-slot="auto" data-ad-format="vertical"></ins>
     </div>
   </div>
 
   <!-- MAIN -->
-  <main class="main">
+  <main class="pg-main">
     <a href="/" class="back">← Back to Homepage</a>
     <h1>⚡ <span class="hl">Reaction</span> Time Test</h1>
     <div class="sub">Measure your reflex speed in milliseconds. 5-round average with human benchmark comparison. Free, no signup.</div>
     <a href="/app.html?p=reaction" class="play-btn">▶ Test My Reflexes <span class="play-free">FREE</span></a>
 
-    
-  <div class="card"><h2>What Is a Reaction Time Test?</h2>
-  <p>A <strong>reaction time test</strong> measures elapsed time between a visual stimulus and your response, in <strong>milliseconds (ms)</strong>. Our test runs 5 rounds and shows your average, best, and a rating vs global benchmarks.</p>
-  <h3>Benchmark Table</h3>
-  <table><thead><tr><th>Time</th><th>Rating</th><th>Who</th></tr></thead><tbody>
-  <tr><td style="color:#ffd600">&lt;150ms</td><td style="color:#ffd600">⚡ Legendary</td><td>Pro esports, sprinters</td></tr>
-  <tr><td style="color:#00f5a0">150–200ms</td><td style="color:#00f5a0">🔥 Perfect</td><td>Top competitive gamers</td></tr>
-  <tr><td style="color:#00f5a0">200–250ms</td><td style="color:#00f5a0">✅ Great</td><td>Above average gamers</td></tr>
-  <tr><td style="color:#a78bfa">250–320ms</td><td style="color:#a78bfa">👍 Good</td><td>Casual gamers, adults</td></tr>
-  <tr><td>320–400ms</td><td>😐 Average</td><td>Most non-gamers</td></tr>
-  <tr><td style="color:#f87171">400ms+</td><td style="color:#f87171">🐢 Slow</td><td>Fatigued or distracted</td></tr>
-  </tbody></table></div>
-  <div class="card"><h2>How to Improve Reaction Time</h2>
-  <ul>
-  <li><strong>Sleep 7–9 hours</strong> — one bad night adds 30–80ms</li>
-  <li><strong>Daily practice</strong> — 10–15 min/day builds speed in 2–4 weeks</li>
-  <li><strong>Play FPS games</strong> — CS2/Valorant players react 50–100ms faster</li>
-  <li><strong>Caffeine</strong> — 100–200mg cuts reaction time by 10–30ms</li>
-  <li><strong>144Hz monitor</strong> — cuts display lag from ~8ms to ~3ms</li>
-  </ul></div>
-  <div class="card"><h2>The Science</h2>
-  <p>Visual reaction involves 4 phases: <strong>photoreceptor activation</strong> (~10ms), <strong>signal transmission</strong> (~40–50ms), <strong>cognitive processing</strong> (~50–80ms), <strong>motor execution</strong> (~30–50ms). Total minimum: ~150ms. Reaction time peaks at age 18–24.</p></div>
-  <div class="card"><h2>Frequently Asked Questions</h2>
-  <div class="faq"><button class="faq-q">What is a good reaction time? <span class="faq-arr">▼</span></button>
-  <div class="faq-a">Under 200ms is excellent. Pro CS2/Valorant players average 160–180ms. Average human: 200–250ms.</div></div>
-  <div class="faq"><button class="faq-q">Does it work on mobile? <span class="faq-arr">▼</span></button>
-  <div class="faq-a">Yes, but mobile scores run 30–80ms higher due to touchscreen latency and 60Hz displays.</div></div>
-  <div class="faq"><button class="faq-q">Why does my score vary? <span class="faq-arr">▼</span></button>
-  <div class="faq-a">20–40ms variation between rounds is normal. The 5-round average smooths this out.</div></div>
-  </div>
+    <!-- FIX #8: Sosyal paylaşım butonu — test sonrası JS ile sonuç doldurulur -->
+    <div id="shareSection" style="display:none;margin-bottom:24px;">
+      <p style="font-size:.75rem;color:var(--muted);margin-bottom:8px;">Share your result:</p>
+      <div class="share-bar">
+        <button class="share-tw" id="shareTw">🐦 Share on Twitter/X</button>
+        <button class="copy-btn" id="copyResult">📋 Copy Result</button>
+      </div>
+    </div>
+
+    <div class="info-card"><h2>What Is a Reaction Time Test?</h2>
+      <p>A <strong>reaction time test</strong> measures elapsed time between a visual stimulus and your response, in <strong>milliseconds (ms)</strong>. Our test runs 5 rounds and shows your average, best, and a rating vs global benchmarks.</p>
+      <h3>Benchmark Table</h3>
+      <table><thead><tr><th>Time</th><th>Rating</th><th>Who</th></tr></thead><tbody>
+        <tr><td style="color:#ffd600">&lt;150ms</td><td style="color:#ffd600">⚡ Legendary</td><td>Pro esports, sprinters</td></tr>
+        <tr><td style="color:#00f5a0">150–200ms</td><td style="color:#00f5a0">🔥 Perfect</td><td>Top competitive gamers</td></tr>
+        <tr><td style="color:#00f5a0">200–250ms</td><td style="color:#00f5a0">✅ Great</td><td>Above average gamers</td></tr>
+        <tr><td style="color:#a78bfa">250–320ms</td><td style="color:#a78bfa">👍 Good</td><td>Casual gamers, adults</td></tr>
+        <tr><td>320–400ms</td><td>😐 Average</td><td>Most non-gamers</td></tr>
+        <tr><td style="color:#f87171">400ms+</td><td style="color:#f87171">🐢 Slow</td><td>Fatigued or distracted</td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="info-card"><h2>How to Improve Reaction Time</h2>
+      <ul>
+        <li><strong>Sleep 7–9 hours</strong> — one bad night adds 30–80ms</li>
+        <li><strong>Daily practice</strong> — 10–15 min/day builds speed in 2–4 weeks</li>
+        <li><strong>Play FPS games</strong> — CS2/Valorant players react 50–100ms faster</li>
+        <li><strong>Caffeine</strong> — 100–200mg cuts reaction time by 10–30ms</li>
+        <li><strong>144Hz monitor</strong> — cuts display lag from ~8ms to ~3ms</li>
+      </ul>
+    </div>
+
+    <div class="info-card"><h2>The Science</h2>
+      <p>Visual reaction involves 4 phases: <strong>photoreceptor activation</strong> (~10ms), <strong>signal transmission</strong> (~40–50ms), <strong>cognitive processing</strong> (~50–80ms), <strong>motor execution</strong> (~30–50ms). Total minimum: ~150ms. Reaction time peaks at age 18–24.</p>
+    </div>
+
+    <div class="info-card"><h2>Frequently Asked Questions</h2>
+      <div class="faq"><button class="faq-q">What is a good reaction time? <span class="faq-arr">▼</span></button>
+        <div class="faq-a">Under 200ms is excellent. Pro CS2/Valorant players average 160–180ms. Average human: 200–250ms.</div></div>
+      <div class="faq"><button class="faq-q">Does it work on mobile? <span class="faq-arr">▼</span></button>
+        <div class="faq-a">Yes, but mobile scores run 30–80ms higher due to touchscreen latency and 60Hz displays.</div></div>
+      <div class="faq"><button class="faq-q">Why does my score vary? <span class="faq-arr">▼</span></button>
+        <div class="faq-a">20–40ms variation between rounds is normal. The 5-round average smooths this out.</div></div>
+    </div>
 
     <div class="divider"></div>
     <h2 style="color:var(--muted);font-size:1.05rem">Other Free Tests &amp; Games</h2>
-    <div class="related"><a href="/click-speed-test"><span>🖱️</span><div>CPS Test</div></a><a href="/typing-speed-test"><span>📝</span><div>Typing Speed</div></a><a href="/jitter-click-test"><span>🖱</span><div>Jitter Click</div></a><a href="/spacebar-speed-test"><span>⌨️</span><div>Spacebar Test</div></a><a href="/stimulation-clicker"><span>🎯</span><div>Aim Trainer</div></a><a href="/number-memory-test"><span>🧠</span><div>Memory Test</div></a><a href="/dinosaur-game"><span>🦕</span><div>Dino Game</div></a><a href="/coreball-game"><span>🎮</span><div>Coreball</div></a><a href="/snake-game"><span>🐍</span><div>Snake Game</div></a><a href="/clicker-tycoon"><span>💰</span><div>Clicker Tycoon</div></a></div>
+    <div class="related">
+      <a href="/click-speed-test"><span>🖱️</span><div>CPS Test</div></a>
+      <a href="/typing-speed-test"><span>📝</span><div>Typing Speed</div></a>
+      <a href="/jitter-click-test"><span>🖱</span><div>Jitter Click</div></a>
+      <a href="/spacebar-speed-test"><span>⌨️</span><div>Spacebar Test</div></a>
+      <a href="/stimulation-clicker"><span>🎯</span><div>Aim Trainer</div></a>
+      <a href="/number-memory-test"><span>🧠</span><div>Memory Test</div></a>
+      <a href="/dinosaur-game"><span>🦕</span><div>Dino Game</div></a>
+      <a href="/coreball-game"><span>🎮</span><div>Coreball</div></a>
+      <a href="/snake-game"><span>🐍</span><div>Snake Game</div></a>
+      <a href="/clicker-tycoon"><span>💰</span><div>Clicker Tycoon</div></a>
+    </div>
+
     <div class="divider"></div>
     <footer>
-      <p>© 2026 Reaction Speed Test — Free Online Reflex &amp; Brain Tests</p>
-      <p style="margin-top:6px"><a href="/">Home</a>·<a href="/about">About</a>·<a href="/privacy-policy">Privacy</a>·<a href="/contact">Contact</a></p>
+      <p>© <span id="yr">2026</span> Reaction Speed Test — Free Online Reflex &amp; Brain Tests</p>
+      <p style="margin-top:6px"><a href="/">Home</a>·<a href="/blog">Blog</a>·<a href="/about">About</a>·<a href="/privacy-policy">Privacy</a>·<a href="/contact">Contact</a></p>
     </footer>
   </main>
 
-  <!-- RIGHT SIDEBAR -->
+  <!-- RIGHT AD -->
   <div class="sb">
     <div class="sb-inner">
-      <ins class="adsbygoogle"
-           style="display:inline-block;width:160px;height:600px"
-           data-ad-client="ca-pub-5019628877403001"
-           data-ad-slot="auto"
-           data-ad-format="vertical"></ins>
+      <ins class="adsbygoogle" style="display:inline-block;width:160px;height:600px"
+        data-ad-client="ca-pub-5019628877403001" data-ad-slot="auto" data-ad-format="vertical"></ins>
     </div>
   </div>
-
 </div>
 
-
 <script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+// FAQ accordion
 document.querySelectorAll('.faq-q').forEach(function(b){
   b.addEventListener('click',function(){
     this.classList.toggle('act');
     this.nextElementSibling.classList.toggle('open');
   });
 });
-window.addEventListener('load',function(){
-  try{
+
+// Hamburger menu
+document.getElementById('burger').addEventListener('click', function() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+});
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('#burger') && !e.target.closest('#mobileMenu')) {
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+});
+
+// FIX #8: Sosyal paylaşım — app.html'den sonuç geldiğinde bunu tetikle
+// window.showShareButtons(score) şeklinde app.html'den çağrılabilir
+window.showShareButtons = function(scoreMs, rating) {
+  document.getElementById('shareSection').style.display = 'block';
+  var text = 'My reaction time is ' + scoreMs + 'ms (' + rating + ') on @ReactionSpeedTest! Test yours 👉 https://reactionspeedtest.com/reaction-time-test';
+  document.getElementById('shareTw').onclick = function() {
+    window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(text), '_blank');
+  };
+  document.getElementById('copyResult').onclick = function() {
+    navigator.clipboard.writeText(text).then(function() {
+      document.getElementById('copyResult').textContent = '✅ Copied!';
+      setTimeout(function(){ document.getElementById('copyResult').textContent = '📋 Copy Result'; }, 2000);
+    });
+  };
+};
+
+// Ads
+window.addEventListener('load', function(){
+  try {
     document.querySelectorAll('ins.adsbygoogle').forEach(function(i){
       if(!i.dataset.adsbygoogleStatus)(adsbygoogle=window.adsbygoogle||[]).push({});
     });
-  }catch(e){}
+  } catch(e) {}
 });
 </script>
+
+<!-- FIX #11: defer ile tek yükleme -->
+<script defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5019628877403001" crossorigin="anonymous"></script>
 </body>
 </html>
