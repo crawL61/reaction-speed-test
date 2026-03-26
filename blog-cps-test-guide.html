@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CPS Test Guide: What Is Good Click Speed & How to Click Faster | Reaction Speed Test</title>
+<meta name="description" content="Average CPS is 6–7. World record is 14+ CPS. Learn jitter click, butterfly click, and drag click techniques with science behind each.">
+<link rel="canonical" href="https://reactionspeedtest.com/blog-cps-test-guide">
+<meta property="og:title" content="CPS Test Guide: What Is a Good Click Speed & How to Click Faster">
+<meta property="og:description" content="Average CPS is 6–7. World record is 14+ CPS. Jitter, butterfly, and drag click techniques explained.">
+<meta property="og:url" content="https://reactionspeedtest.com/blog-cps-test-guide">
+<meta property="og:image" content="https://reactionspeedtest.com/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<style>
+/* ============================================================
+   Reaction Speed Test — Global Stylesheet
+   Tüm HTML sayfaları bu dosyayı import eder.
+   ============================================================ */
+
+:root {
+  --bg:     #06060e;
+  --surf:   #0d0d1a;
+  --surf2:  #111122;
+  --border: #1e1e3a;
+  --border2:#2a2a4a;
+  --text:   #f0f0ff;
+  --muted:  #60607a;
+  --accent: #00f5a0;
+  --purple: #7c3aed;
+  --yellow: #ffd600;
+  --red:    #f87171;
+}
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+  min-height: 100vh;
+  line-height: 1.7;
+}
+
+/* ── HEADER ── */
+.hdr {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(6,6,14,0.96);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px; height: 54px;
+}
+.hdr-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.35rem; letter-spacing: 0.1em;
+  color: #fff; text-decoration: none;
+  display: flex; align-items: center; gap: 8px;
+}
+.hdr-logo .accent { color: var(--accent); }
+
+/* NAV — mobile'da gizleme KALDIRILDI, hamburger menü eklendi */
+.hdr-links { display: flex; align-items: center; gap: 4px; }
+.hdr-link {
+  color: var(--muted); text-decoration: none;
+  font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 5px 10px; border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+}
+.hdr-link:hover { color: var(--accent); background: rgba(0,245,160,0.08); }
+
+/* Hamburger — sadece mobilde görünür */
+.hdr-burger {
+  display: none;
+  background: none; border: 1px solid var(--border);
+  border-radius: 6px; padding: 5px 8px;
+  color: var(--muted); cursor: pointer; font-size: 1rem;
+}
+.hdr-mobile-menu {
+  display: none;
+  position: fixed; top: 54px; left: 0; right: 0;
+  background: rgba(6,6,14,0.98);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 24px 16px;
+  flex-direction: column; gap: 4px;
+  z-index: 99;
+}
+.hdr-mobile-menu.open { display: flex; }
+.hdr-mobile-menu a {
+  color: var(--text); text-decoration: none;
+  font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+}
+.hdr-mobile-menu a:hover { color: var(--accent); }
+
+@media(max-width:480px) {
+  .hdr-links { display: none; }
+  .hdr-burger { display: block; }
+}
+
+/* ── HERO ── */
+.hero {
+  text-align: center; padding: 32px 24px 24px;
+  background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0,245,160,0.07) 0%, transparent 70%);
+}
+.hero-badge {
+  display: inline-block; margin-bottom: 20px;
+  padding: 5px 14px; background: rgba(0,245,160,0.1);
+  border: 1px solid rgba(0,245,160,0.25); border-radius: 20px;
+  font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent);
+}
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2rem,6vw,3.5rem);
+  letter-spacing: 0.04em; line-height: 1.0;
+  color: #fff; margin-bottom: 16px;
+}
+.hero h1 .hl {
+  background: linear-gradient(90deg, var(--accent), #38bdf8);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero p {
+  color: #9090b8; font-size: 0.82rem;
+  max-width: 560px; margin: 0 auto 36px; line-height: 1.8;
+}
+.hero-tags {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+}
+.hero-tag {
+  padding: 5px 14px; background: var(--surf);
+  border: 1px solid var(--border); border-radius: 20px;
+  font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+}
+
+/* ── MAIN CONTAINER ── */
+.main { max-width: 1100px; margin: 0 auto; padding: 0 20px 48px; }
+
+/* ── SECTION HEADING ── */
+.sec-head {
+  display: flex; align-items: center; gap: 12px;
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem;
+  letter-spacing: 0.18em; color: var(--muted);
+  margin: 20px 0 14px;
+}
+.sec-head::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* ── CARDS ── */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px,1fr));
+  gap: 12px;
+}
+.card {
+  background: var(--surf); border: 1px solid var(--border);
+  border-radius: 16px; padding: 22px;
+  text-decoration: none; color: var(--text);
+  transition: border-color 0.2s, background 0.2s, transform 0.15s, box-shadow 0.2s;
+  display: flex; flex-direction: column; gap: 10px;
+  position: relative; overflow: hidden;
+}
+.card-glow {
+  position: absolute; top: -30px; right: -30px;
+  width: 120px; height: 120px; border-radius: 50%;
+  background: var(--card-color, #00f5a0);
+  opacity: 0.04; filter: blur(20px);
+  transition: opacity 0.2s; pointer-events: none;
+}
+.card:hover {
+  border-color: var(--card-color, #00f5a0);
+  background: var(--surf2);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+.card:hover .card-glow { opacity: 0.12; }
+.card-top { display: flex; align-items: center; justify-content: space-between; }
+.card-icon { font-size: 1.9rem; line-height: 1; }
+.card-badge {
+  padding: 3px 8px; border-radius: 5px;
+  font-size: 0.5rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  background: rgba(0,0,0,0.3);
+  color: var(--card-color, #00f5a0);
+  border: 1px solid currentColor; opacity: 0.8;
+}
+.card-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.15rem; letter-spacing: 0.07em; color: #fff; line-height: 1.1;
+}
+.card-desc { font-size: 0.64rem; color: var(--muted); line-height: 1.55; }
+.card-cta {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--card-color, #00f5a0); margin-top: 2px;
+  opacity: 0; transform: translateX(-4px);
+  transition: opacity 0.2s, transform 0.2s;
+}
+.card:hover .card-cta { opacity: 1; transform: translateX(0); }
+
+/* Sosyal paylaşım butonu (test sayfalarında sonuç ekranında) */
+.share-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(0,245,160,0.12);
+  border: 1px solid rgba(0,245,160,0.35);
+  color: var(--accent); border-radius: 8px;
+  padding: 8px 16px; font-size: 0.68rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  cursor: pointer; transition: background 0.2s, transform 0.15s;
+  font-family: 'JetBrains Mono', monospace;
+}
+.share-btn:hover { background: rgba(0,245,160,0.2); transform: translateY(-1px); }
+
+/* ── ABOUT STRIP ── */
+.about-strip {
+  background: var(--surf); border: 1px solid var(--border);
+  border-radius: 16px; padding: 28px 32px; margin-top: 48px;
+}
+.about-strip h2 {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
+  letter-spacing: 0.1em; color: var(--accent); margin-bottom: 12px;
+}
+.about-strip p {
+  font-size: 0.78rem; color: #b0b0d0; line-height: 1.9; margin-bottom: 10px;
+}
+.about-strip p:last-child { margin: 0; }
+.about-strip strong { color: #e0e0f8; }
+
+/* ── DIVIDER ── */
+.divider { height: 1px; background: var(--border); margin: 36px 0; }
+
+/* ── FOOTER ── */
+footer {
+  text-align: center; padding: 32px 20px 24px;
+  border-top: 1px solid var(--border);
+  font-size: 0.58rem; color: var(--muted); line-height: 2.2;
+}
+footer a { color: var(--muted); text-decoration: none; margin: 0 8px; transition: color 0.15s; }
+footer a:hover { color: var(--accent); }
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px) {
+  .hero { padding: 44px 16px 36px; }
+  .main { padding: 0 14px 48px; }
+  .cards { grid-template-columns: 1fr 1fr; }
+  .card { padding: 16px; }
+  .about-strip { padding: 20px; }
+}
+@media(max-width:380px) {
+  .cards { grid-template-columns: 1fr; }
+}
+
+/* ── 3-KOLON LAYOUT (test sayfaları) ── */
+.pg {
+  display: grid;
+  grid-template-columns: 160px 1fr 160px;
+  min-height: 100vh;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.sb { padding: 20px 6px; overflow: hidden; width: 160px; }
+.sb-inner { position: sticky; top: 74px; width: 160px; }
+.pg-main { padding: 32px 28px 40px; max-width: 860px; width: 100%; margin: 0 auto; min-width: 0; }
+@media(max-width:1199px) {
+  .pg { grid-template-columns: 1fr; }
+  .sb { display: none; }
+}
+@media(max-width:600px) {
+  .pg-main { padding: 20px 14px 32px; }
+}
+
+</style>
+<style>
+.page{max-width:780px;margin:0 auto;padding:40px 24px 80px;}
+a.back{color:var(--muted);text-decoration:none;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;display:inline-flex;align-items:center;gap:6px;margin-bottom:28px;padding:4px 0;transition:color .2s;}
+a.back:hover{color:var(--accent);}
+.post-meta{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.post-tag{font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:5px;border:1px solid #ff6b6b;color:#ff6b6b;opacity:.9;}
+.post-date{font-size:.6rem;color:var(--muted);}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.9rem,5vw,2.8rem);letter-spacing:.04em;color:#fff;margin-bottom:16px;line-height:1.1;}
+.lead{color:#a0a0c8;font-size:.88rem;line-height:1.85;margin-bottom:32px;border-left:3px solid #ff6b6b;padding-left:16px;}
+h2{font-family:'Bebas Neue',sans-serif;font-size:1.35rem;letter-spacing:.1em;color:var(--accent);margin:36px 0 10px;display:flex;align-items:center;gap:8px;}
+h2::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(0,245,160,.25),transparent);}
+p{color:#c0c0e8;font-size:.83rem;line-height:1.95;margin-bottom:14px;}
+strong{color:#f0f0ff;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.79rem;}
+th{background:#111128;color:var(--accent);padding:10px 14px;text-align:left;font-size:.59rem;letter-spacing:.15em;text-transform:uppercase;border:1px solid var(--border);}
+td{padding:9px 14px;border:1px solid #16162e;color:#c0c0e8;}
+tr:nth-child(even) td{background:#0a0a1a;}
+.tip-box{background:rgba(255,107,107,0.06);border:1px solid rgba(255,107,107,0.2);border-radius:12px;padding:18px 22px;margin:20px 0;}
+.cta-box{background:var(--surf);border:1px solid var(--border);border-radius:14px;padding:22px 26px;margin:32px 0;text-align:center;}
+.cta-box h3{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.1em;color:#fff;margin-bottom:8px;}
+.cta-box p{margin-bottom:16px;}
+.cta-btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#ff6b6b,#ee5a5a);color:#fff;padding:12px 28px;border-radius:10px;text-decoration:none;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.1em;}
+footer{text-align:center;padding:40px 0 0;font-size:.58rem;color:var(--muted);}
+footer a{color:var(--muted);text-decoration:none;margin:0 8px;}
+footer a:hover{color:var(--accent);}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <a href="/" class="hdr-logo">⚡ <span class="accent">Reaction</span> Speed Test</a>
+  <nav class="hdr-links">
+    <a href="/blog" class="hdr-link" style="color:var(--accent)">Blog</a>
+    <a href="/about" class="hdr-link">About</a>
+    <a href="/contact" class="hdr-link">Contact</a>
+  </nav>
+  <button class="hdr-burger" id="burger" aria-label="Open menu">☰</button>
+</header>
+<nav class="hdr-mobile-menu" id="mobileMenu">
+  <a href="/blog">📝 Blog</a>
+  <a href="/about">About</a>
+  <a href="/contact">Contact</a>
+  <a href="/privacy-policy">Privacy</a>
+</nav>
+
+<article class="page">
+  <a href="/blog" class="back">← Back to Blog</a>
+  <div class="post-meta">
+    <span class="post-tag">CPS</span>
+    <span class="post-date">March 14, 2026 · 6 min read</span>
+  </div>
+  <h1>CPS Test Guide: What Is a Good Click Speed & How to Click Faster</h1>
+  <p class="lead">
+    CPS (clicks per second) is one of the most trainable performance metrics. Average is 6–7 CPS.
+    With technique, most people can reach 10–12 CPS. Here's how.
+  </p>
+
+  <h2>CPS Benchmark Table</h2>
+  <table><thead><tr><th>CPS Score</th><th>Rating</th><th>Context</th></tr></thead><tbody>
+    <tr><td style="color:#f87171">&lt;4 CPS</td><td>Slow</td><td>One-finger, casual clicking</td></tr>
+    <tr><td>4–6 CPS</td><td>Below Average</td><td>Typical non-gamer</td></tr>
+    <tr><td style="color:#a78bfa">6–8 CPS</td><td>Average</td><td>Most people, regular clicking</td></tr>
+    <tr><td style="color:#00f5a0">8–10 CPS</td><td>Good</td><td>Regular gamers</td></tr>
+    <tr><td style="color:#00f5a0">10–12 CPS</td><td>Excellent</td><td>Experienced PvP gamers</td></tr>
+    <tr><td style="color:#ffd600">12–14 CPS</td><td>Elite</td><td>Jitter/butterfly clickers</td></tr>
+    <tr><td style="color:#ffd600">14+ CPS</td><td>World-class</td><td>Top-tier competitive players</td></tr>
+  </tbody></table>
+
+  <h2>Clicking Techniques Explained</h2>
+
+  <h2>Regular Click (6–8 CPS)</h2>
+  <p>Standard index-finger clicking. Limited by finger muscle speed and fatigue. Most people plateau here without training. Best for accuracy-sensitive tasks where precision matters more than raw speed.</p>
+
+  <h2>Jitter Click (10–14 CPS)</h2>
+  <p>
+    Uses arm muscle vibration to create rapid, involuntary finger movement. The arm tenses while the finger maintains contact with the mouse button.
+    Requires practice to avoid loss of aim control. <strong>Not recommended for extended sessions</strong> — can cause hand fatigue and is associated with RSI in extreme cases.
+  </p>
+  <div class="tip-box">
+    <strong>Note:</strong> Jitter clicking is banned in some Minecraft server PvP contexts. Check server rules before training this technique for competitive play.
+  </div>
+
+  <h2>Butterfly Click (12–16 CPS)</h2>
+  <p>
+    Uses two fingers alternating on a single mouse button. Each finger clicks once per cycle, doubling effective CPS. Requires a mouse that registers both clicks reliably.
+    Not all mice support this — some have debounce settings that ignore rapid successive clicks from the same button.
+  </p>
+
+  <h2>Drag Click (sometimes 20+ CPS)</h2>
+  <p>
+    Drags a finger across the mouse button to generate multiple register events from a single motion.
+    Requires a mouse with the right surface texture. Widely considered exploitative and is banned in most competitive contexts.
+    The raw CPS numbers are impressive but not practical for real gameplay.
+  </p>
+
+  <h2>How to Improve Regular CPS</h2>
+  <p>For most people, the practical goal is reaching 8–12 CPS with regular clicking technique:</p>
+  <ul>
+    <li><strong>Finger placement:</strong> Click with the fingertip, not the pad — faster spring-back</li>
+    <li><strong>Wrist position:</strong> Keep wrist slightly raised, not flat on the desk</li>
+    <li><strong>Short burst training:</strong> 5-second max-effort bursts with rest, rather than 30-second grinding</li>
+    <li><strong>Mouse weight:</strong> Lighter mice (under 80g) allow faster movement and clicking</li>
+    <li><strong>Mouse button tension:</strong> Some mice have adjustable trigger tension — lighter = faster</li>
+  </ul>
+
+  <div class="cta-box">
+    <h3>Test Your CPS Now</h3>
+    <p>Multiple durations from 1 to 100 seconds. Find your true average, not just your best burst.</p>
+    <a href="/click-speed-test" class="cta-btn">🖱️ Take the CPS Test</a>
+  </div>
+
+  <div class="divider"></div>
+  <footer>
+    <p>© <span id="yr">2026</span> Reaction Speed Test</p>
+    <p style="margin-top:8px"><a href="/">Home</a> · <a href="/blog">Blog</a> · <a href="/about">About</a> · <a href="/contact">Contact</a></p>
+  </footer>
+</article>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+document.getElementById('burger').addEventListener('click', function() { document.getElementById('mobileMenu').classList.toggle('open'); });
+document.addEventListener('click', function(e) { if (!e.target.closest('#burger') && !e.target.closest('#mobileMenu')) document.getElementById('mobileMenu').classList.remove('open'); });
+</script>
+<script defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5019628877403001" crossorigin="anonymous"></script>
+</body>
+</html>
