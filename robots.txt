@@ -1,8 +1,9 @@
 User-agent: *
 Allow: /
 
+# Gereksiz/tekrarlayan sayfaları gizle
+Disallow: /game.html
+Disallow: /app.html
+
 # Sitemap
 Sitemap: https://reactionspeedtest.com/sitemap.xml
-
-# Crawl-delay (isteğe bağlı, agresif botlar için)
-Crawl-delay: 1
