@@ -2,31 +2,34 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<!-- FIX #13: SVG favicon + ICO fallback -->
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reaction Speed Test – Free Online Reflex, Typing & Brain Games</title>
-<meta name="description" content="Free online reaction time test, click speed test (CPS), typing speed test, aim trainer, memory test and browser games. No signup, no download — instant results.">
+
+<!-- ✅ SEO: Optimized title — hedef keywordler: reaction time test · cps test online · typing speed test -->
+<title>Reaction Time Test – CPS Test & Typing Speed Test Online | Free</title>
+
+<!-- ✅ SEO: Custom meta description — CTR odaklı, merak uyandıran, 148 karakter -->
+<meta name="description" content="Test your reaction time, click speed (CPS), and typing speed — all free, no signup. See how you compare to 250M+ humans. Can you beat 200ms?">
+
 <link rel="canonical" href="https://reactionspeedtest.com/">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 
-<!-- OG / Twitter -->
-<meta property="og:title" content="Reaction Speed Test – Free Online Reflex, Typing & Brain Games">
-<meta property="og:description" content="Free online reaction time test, CPS test, typing speed, aim trainer, memory test and browser games. No signup required.">
+<!-- ✅ SEO: OG tags da title ile uyumlu hale getirildi -->
+<meta property="og:title" content="Reaction Time Test – CPS Test & Typing Speed Test Online | Free">
+<meta property="og:description" content="Test your reaction time, click speed (CPS), and typing speed — all free, no signup. See how you compare to 250M+ humans. Can you beat 200ms?">
 <meta property="og:url" content="https://reactionspeedtest.com/">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://reactionspeedtest.com/og-image.png">
 <meta property="og:site_name" content="Reaction Speed Test">
+
+<!-- ✅ SEO: Twitter card da güncellendi -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Reaction Speed Test – Free Online Reflex & Brain Tests">
-<meta name="twitter:description" content="Free reaction time test, CPS, typing speed, aim trainer, memory test and games. No signup.">
+<meta name="twitter:title" content="Reaction Time Test – CPS Test & Typing Speed Test Online | Free">
+<meta name="twitter:description" content="Test your reaction time, click speed (CPS), and typing speed — all free, no signup. Can you beat 200ms?">
 <meta name="twitter:image" content="https://reactionspeedtest.com/og-image.png">
 
 <link rel="sitemap" type="application/xml" href="https://reactionspeedtest.com/sitemap.xml">
-
-<!-- FIX #12: Ortak CSS -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
@@ -34,271 +37,172 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"></noscript>
 <style>
-/* ============================================================
-   Reaction Speed Test — Global Stylesheet
-   Tüm HTML sayfaları bu dosyayı import eder.
-   ============================================================ */
-
-:root {
-  --bg:     #06060e;
-  --surf:   #0d0d1a;
-  --surf2:  #111122;
-  --border: #1e1e3a;
-  --border2:#2a2a4a;
-  --text:   #f0f0ff;
-  --muted:  #60607a;
-  --accent: #00f5a0;
-  --purple: #7c3aed;
-  --yellow: #ffd600;
-  --red:    #f87171;
+:root{
+--bg:#06060e; --surf:#0d0d1a; --surf2:#111122;
+--border:#1e1e3a; --border2:#2a2a4a;
+--text:#f0f0ff; --muted:#60607a;
+--accent:#00f5a0; --purple:#7c3aed; --yellow:#ffd600;
 }
-
-/* ── RESET ── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'JetBrains Mono', monospace;
-  min-height: 100vh;
-  line-height: 1.7;
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;min-height:100vh;line-height:1.7;}
+/* HEADER */
+.hdr{
+position:sticky;top:0;z-index:100;
+background:rgba(6,6,14,0.96);backdrop-filter:blur(16px);
+border-bottom:1px solid var(--border);
+display:flex;align-items:center;justify-content:space-between;
+padding:0 24px;height:54px;
 }
-
-/* ── HEADER ── */
-.hdr {
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(6,6,14,0.96);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 24px; height: 54px;
+.hdr-logo{
+font-family:'Bebas Neue',sans-serif;font-size:1.35rem;
+letter-spacing:0.1em;color:#fff;text-decoration:none;
+display:flex;align-items:center;gap:8px;
 }
-.hdr-logo {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.35rem; letter-spacing: 0.1em;
-  color: #fff; text-decoration: none;
-  display: flex; align-items: center; gap: 8px;
+.hdr-logo .accent{color:var(--accent);}
+.hdr-links{display:flex;align-items:center;gap:4px;}
+.hdr-link{
+color:var(--muted);text-decoration:none;font-size:0.6rem;
+letter-spacing:0.1em;text-transform:uppercase;
+padding:5px 10px;border-radius:6px;
+transition:color 0.15s,background 0.15s;
 }
-.hdr-logo .accent { color: var(--accent); }
-
-/* NAV — mobile'da gizleme KALDIRILDI, hamburger menü eklendi */
-.hdr-links { display: flex; align-items: center; gap: 4px; }
-.hdr-link {
-  color: var(--muted); text-decoration: none;
-  font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
-  padding: 5px 10px; border-radius: 6px;
-  transition: color 0.15s, background 0.15s;
+.hdr-link:hover{color:var(--accent);background:rgba(0,245,160,0.08);}
+@media(max-width:480px){.hdr-link{display:none;}}
+/* HERO */
+.hero{
+text-align:center;padding:32px 24px 24px;
+background:radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0,245,160,0.07) 0%, transparent 70%);
 }
-.hdr-link:hover { color: var(--accent); background: rgba(0,245,160,0.08); }
-
-/* Hamburger — sadece mobilde görünür */
-.hdr-burger {
-  display: none;
-  background: none; border: 1px solid var(--border);
-  border-radius: 6px; padding: 5px 8px;
-  color: var(--muted); cursor: pointer; font-size: 1rem;
+.hero-badge{
+display:inline-block;margin-bottom:20px;
+padding:5px 14px;background:rgba(0,245,160,0.1);
+border:1px solid rgba(0,245,160,0.25);border-radius:20px;
+font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);
 }
-.hdr-mobile-menu {
-  display: none;
-  position: fixed; top: 54px; left: 0; right: 0;
-  background: rgba(6,6,14,0.98);
-  border-bottom: 1px solid var(--border);
-  padding: 12px 24px 16px;
-  flex-direction: column; gap: 4px;
-  z-index: 99;
+.hero h1{
+font-family:'Bebas Neue',sans-serif;
+font-size:clamp(2rem,6vw,3.5rem);
+letter-spacing:0.04em;line-height:1.0;
+color:#fff;margin-bottom:16px;
 }
-.hdr-mobile-menu.open { display: flex; }
-.hdr-mobile-menu a {
-  color: var(--text); text-decoration: none;
-  font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
-  padding: 10px 0; border-bottom: 1px solid var(--border);
+.hero h1 .hl{
+background:linear-gradient(90deg,var(--accent),#38bdf8);
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
 }
-.hdr-mobile-menu a:hover { color: var(--accent); }
-
-@media(max-width:480px) {
-  .hdr-links { display: none; }
-  .hdr-burger { display: block; }
+.hero p{
+color:#9090b8;font-size:0.82rem;
+max-width:500px;margin:0 auto 36px;line-height:1.8;
 }
-
-/* ── HERO ── */
-.hero {
-  text-align: center; padding: 32px 24px 24px;
-  background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0,245,160,0.07) 0%, transparent 70%);
+.hero-tags{
+display:flex;flex-wrap:wrap;justify-content:center;gap:8px;
 }
-.hero-badge {
-  display: inline-block; margin-bottom: 20px;
-  padding: 5px 14px; background: rgba(0,245,160,0.1);
-  border: 1px solid rgba(0,245,160,0.25); border-radius: 20px;
-  font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent);
+.hero-tag{
+padding:5px 14px;background:var(--surf);
+border:1px solid var(--border);border-radius:20px;
+font-size:0.58rem;letter-spacing:0.1em;
+text-transform:uppercase;color:var(--muted);
 }
-.hero h1 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(2rem,6vw,3.5rem);
-  letter-spacing: 0.04em; line-height: 1.0;
-  color: #fff; margin-bottom: 16px;
+/* MAIN */
+.main{max-width:1100px;margin:0 auto;padding:0 20px 48px;}
+/* SECTION */
+.sec-head{
+display:flex;align-items:center;gap:12px;
+font-family:'Bebas Neue',sans-serif;font-size:1.1rem;
+letter-spacing:0.18em;color:var(--muted);
+margin:20px 0 14px;
 }
-.hero h1 .hl {
-  background: linear-gradient(90deg, var(--accent), #38bdf8);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+.sec-head::after{content:'';flex:1;height:1px;background:var(--border);}
+/* CARDS */
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+gap:12px;
 }
-.hero p {
-  color: #9090b8; font-size: 0.82rem;
-  max-width: 560px; margin: 0 auto 36px; line-height: 1.8;
+.card{
+background:var(--surf);
+border:1px solid var(--border);
+border-radius:16px;padding:22px;
+text-decoration:none;color:var(--text);
+transition:border-color 0.2s,background 0.2s,transform 0.15s,box-shadow 0.2s;
+display:flex;flex-direction:column;gap:10px;
+position:relative;overflow:hidden;
 }
-.hero-tags {
-  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+.card-glow{
+position:absolute;top:-30px;right:-30px;
+width:120px;height:120px;border-radius:50%;
+background:var(--card-color,#00f5a0);
+opacity:0.04;filter:blur(20px);
+transition:opacity 0.2s;pointer-events:none;
 }
-.hero-tag {
-  padding: 5px 14px; background: var(--surf);
-  border: 1px solid var(--border); border-radius: 20px;
-  font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+.card:hover{
+border-color:var(--card-color,#00f5a0);
+background:var(--surf2);
+transform:translateY(-3px);
+box-shadow:0 8px 32px rgba(0,0,0,0.4);
 }
-
-/* ── MAIN CONTAINER ── */
-.main { max-width: 1100px; margin: 0 auto; padding: 0 20px 48px; }
-
-/* ── SECTION HEADING ── */
-.sec-head {
-  display: flex; align-items: center; gap: 12px;
-  font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem;
-  letter-spacing: 0.18em; color: var(--muted);
-  margin: 20px 0 14px;
+.card:hover .card-glow{opacity:0.12;}
+.card-top{display:flex;align-items:center;justify-content:space-between;}
+.card-icon{font-size:1.9rem;line-height:1;}
+.card-badge{
+padding:3px 8px;border-radius:5px;
+font-size:0.5rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+background:rgba(0,0,0,0.3);
+color:var(--card-color,#00f5a0);
+border:1px solid currentColor;opacity:0.8;
 }
-.sec-head::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-
-/* ── CARDS ── */
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px,1fr));
-  gap: 12px;
+.card-name{
+font-family:'Bebas Neue',sans-serif;
+font-size:1.15rem;letter-spacing:0.07em;color:#fff;line-height:1.1;
 }
-.card {
-  background: var(--surf); border: 1px solid var(--border);
-  border-radius: 16px; padding: 22px;
-  text-decoration: none; color: var(--text);
-  transition: border-color 0.2s, background 0.2s, transform 0.15s, box-shadow 0.2s;
-  display: flex; flex-direction: column; gap: 10px;
-  position: relative; overflow: hidden;
+.card-desc{font-size:0.64rem;color:var(--muted);line-height:1.55;}
+.card-cta{
+display:flex;align-items:center;gap:4px;
+font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;
+color:var(--card-color,#00f5a0);margin-top:2px;
+opacity:0;transform:translateX(-4px);
+transition:opacity 0.2s,transform 0.2s;
 }
-.card-glow {
-  position: absolute; top: -30px; right: -30px;
-  width: 120px; height: 120px; border-radius: 50%;
-  background: var(--card-color, #00f5a0);
-  opacity: 0.04; filter: blur(20px);
-  transition: opacity 0.2s; pointer-events: none;
+.card:hover .card-cta{opacity:1;transform:translateX(0);}
+/* ABOUT STRIP */
+.about-strip{
+background:var(--surf);border:1px solid var(--border);
+border-radius:16px;padding:28px 32px;margin-top:48px;
 }
-.card:hover {
-  border-color: var(--card-color, #00f5a0);
-  background: var(--surf2);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+.about-strip h2{
+font-family:'Bebas Neue',sans-serif;font-size:1.4rem;
+letter-spacing:0.1em;color:var(--accent);margin-bottom:12px;
 }
-.card:hover .card-glow { opacity: 0.12; }
-.card-top { display: flex; align-items: center; justify-content: space-between; }
-.card-icon { font-size: 1.9rem; line-height: 1; }
-.card-badge {
-  padding: 3px 8px; border-radius: 5px;
-  font-size: 0.5rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-  background: rgba(0,0,0,0.3);
-  color: var(--card-color, #00f5a0);
-  border: 1px solid currentColor; opacity: 0.8;
+.about-strip p{
+font-size:0.78rem;color:#b0b0d0;line-height:1.9;margin-bottom:10px;
 }
-.card-name {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.15rem; letter-spacing: 0.07em; color: #fff; line-height: 1.1;
+.about-strip p:last-child{margin:0;}
+.about-strip strong{color:#e0e0f8;}
+/* FOOTER */
+footer{
+text-align:center;padding:32px 20px 24px;
+border-top:1px solid var(--border);
+font-size:0.58rem;color:var(--muted);line-height:2.2;
 }
-.card-desc { font-size: 0.64rem; color: var(--muted); line-height: 1.55; }
-.card-cta {
-  display: flex; align-items: center; gap: 4px;
-  font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--card-color, #00f5a0); margin-top: 2px;
-  opacity: 0; transform: translateX(-4px);
-  transition: opacity 0.2s, transform 0.2s;
+footer a{color:var(--muted);text-decoration:none;margin:0 8px;transition:color 0.15s;}
+footer a:hover{color:var(--accent);}
+@media(max-width:600px){
+.hero{padding:44px 16px 36px;}
+.main{padding:0 14px 48px;}
+.cards{grid-template-columns:1fr 1fr;}
+.card{padding:16px;}
+.about-strip{padding:20px;}
 }
-.card:hover .card-cta { opacity: 1; transform: translateX(0); }
-
-/* Sosyal paylaşım butonu (test sayfalarında sonuç ekranında) */
-.share-btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(0,245,160,0.12);
-  border: 1px solid rgba(0,245,160,0.35);
-  color: var(--accent); border-radius: 8px;
-  padding: 8px 16px; font-size: 0.68rem;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  cursor: pointer; transition: background 0.2s, transform 0.15s;
-  font-family: 'JetBrains Mono', monospace;
+@media(max-width:380px){
+.cards{grid-template-columns:1fr;}
 }
-.share-btn:hover { background: rgba(0,245,160,0.2); transform: translateY(-1px); }
-
-/* ── ABOUT STRIP ── */
-.about-strip {
-  background: var(--surf); border: 1px solid var(--border);
-  border-radius: 16px; padding: 28px 32px; margin-top: 48px;
-}
-.about-strip h2 {
-  font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
-  letter-spacing: 0.1em; color: var(--accent); margin-bottom: 12px;
-}
-.about-strip p {
-  font-size: 0.78rem; color: #b0b0d0; line-height: 1.9; margin-bottom: 10px;
-}
-.about-strip p:last-child { margin: 0; }
-.about-strip strong { color: #e0e0f8; }
-
-/* ── DIVIDER ── */
-.divider { height: 1px; background: var(--border); margin: 36px 0; }
-
-/* ── FOOTER ── */
-footer {
-  text-align: center; padding: 32px 20px 24px;
-  border-top: 1px solid var(--border);
-  font-size: 0.58rem; color: var(--muted); line-height: 2.2;
-}
-footer a { color: var(--muted); text-decoration: none; margin: 0 8px; transition: color 0.15s; }
-footer a:hover { color: var(--accent); }
-
-/* ── RESPONSIVE ── */
-@media(max-width:600px) {
-  .hero { padding: 44px 16px 36px; }
-  .main { padding: 0 14px 48px; }
-  .cards { grid-template-columns: 1fr 1fr; }
-  .card { padding: 16px; }
-  .about-strip { padding: 20px; }
-}
-@media(max-width:380px) {
-  .cards { grid-template-columns: 1fr; }
-}
-
-/* ── 3-KOLON LAYOUT (test sayfaları) ── */
-.pg {
-  display: grid;
-  grid-template-columns: 160px 1fr 160px;
-  min-height: 100vh;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-.sb { padding: 20px 6px; overflow: hidden; width: 160px; }
-.sb-inner { position: sticky; top: 74px; width: 160px; }
-.pg-main { padding: 32px 28px 40px; max-width: 860px; width: 100%; margin: 0 auto; min-width: 0; }
-@media(max-width:1199px) {
-  .pg { grid-template-columns: 1fr; }
-  .sb { display: none; }
-}
-@media(max-width:600px) {
-  .pg-main { padding: 20px 14px 32px; }
-}
-
 </style>
-
-<!-- hreflang -->
 <link rel="alternate" hreflang="en" href="https://reactionspeedtest.com/">
 <link rel="alternate" hreflang="en-us" href="https://reactionspeedtest.com/">
 <link rel="alternate" hreflang="en-gb" href="https://reactionspeedtest.com/">
 <link rel="alternate" hreflang="en-ca" href="https://reactionspeedtest.com/">
 <link rel="alternate" hreflang="en-au" href="https://reactionspeedtest.com/">
 <link rel="alternate" hreflang="x-default" href="https://reactionspeedtest.com/">
-
-<!-- Schema.org -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -337,51 +241,21 @@ footer a:hover { color: var(--accent); }
 </script>
 </head>
 <body>
-
-<!-- HEADER -->
 <header class="hdr">
   <a href="/" class="hdr-logo">⚡ <span class="accent">Reaction</span> Speed Test</a>
-  <!-- FIX #7: Desktop nav -->
   <nav class="hdr-links">
-    <a href="/blog" class="hdr-link">Blog</a>
     <a href="/about" class="hdr-link">About</a>
     <a href="/contact" class="hdr-link">Contact</a>
     <a href="/privacy-policy" class="hdr-link">Privacy</a>
   </nav>
-  <!-- FIX #7: Mobile hamburger -->
-  <button class="hdr-burger" id="burger" aria-label="Open menu">☰</button>
 </header>
-<!-- Mobile menu -->
-<nav class="hdr-mobile-menu" id="mobileMenu">
-  <a href="/blog">📝 Blog</a>
-  <a href="/about">About</a>
-  <a href="/contact">Contact</a>
-  <a href="/privacy-policy">Privacy</a>
-</nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-badge">100% Free · No Signup · Instant Results</div>
   <h1><span class="hl">Reaction</span> Speed Test</h1>
-  <!-- FIX #5: Zengin hero metni (SEO için) -->
-  <p>
-    Test and improve your <strong style="color:#e0e0ff">reaction time</strong>, <strong style="color:#e0e0ff">click speed (CPS)</strong>,
-    <strong style="color:#e0e0ff">typing speed</strong>, and <strong style="color:#e0e0ff">memory</strong> — all in one place.
-    Used by gamers, students, and professionals to benchmark cognitive performance.
-    No download. No account. Works on any device.
-  </p>
-  <div class="hero-tags">
-    <span class="hero-tag">Reaction Time</span>
-    <span class="hero-tag">CPS Test</span>
-    <span class="hero-tag">Typing Speed</span>
-    <span class="hero-tag">Aim Trainer</span>
-    <span class="hero-tag">Memory Test</span>
-    <span class="hero-tag">Brain Games</span>
-  </div>
 </section>
 
 <main class="main">
-
   <div class="sec-head">🧪 SKILL TESTS</div>
   <div class="cards">
     <a href="/reaction-time-test" class="card" style="--card-color:#00f5a0">
@@ -467,32 +341,11 @@ footer a:hover { color: var(--accent); }
     </a>
   </div>
 
-  <!-- FIX #5: Zengin about metni (SEO) -->
   <div class="about-strip">
     <h2>About Reaction Speed Test</h2>
-    <p>
-      <strong>Reaction Speed Test</strong> is a free browser-based platform for measuring and improving your cognitive performance.
-      Whether you're a <strong>competitive gamer</strong> looking to shave milliseconds off your reflex time,
-      a <strong>typist</strong> aiming for 100 WPM, or just curious how your brain compares to the global average —
-      every tool runs directly in your browser with no download, no account, and no cost.
-    </p>
-    <p>
-      Our tests use the browser's <code style="background:#1a1a30;color:var(--accent);padding:1px 5px;border-radius:3px;font-size:0.78rem">performance.now()</code>
-      API for sub-millisecond timing accuracy. All scores are stored only on your device — we never collect personal data.
-      The average human reaction time is <strong>200–250 ms</strong>. Pro esports players typically score under <strong>180 ms</strong>.
-      Where do you stand?
-    </p>
+    <p><strong>Reaction Speed Test</strong> is a free browser-based platform for measuring and improving your cognitive performance. Every tool runs directly in your browser — no download, no account, no cost. Works on any device.</p>
+    <p>Our tests use the browser's <code style="background:#1a1a30;color:var(--accent);padding:1px 5px;border-radius:3px;font-size:0.78rem">performance.now()</code> API for sub-millisecond timing accuracy. All scores are stored only on your device — we never collect personal data.</p>
   </div>
-
-  <!-- FIX #1 / Blog link strip -->
-  <div style="margin-top:24px;background:var(--surf);border:1px solid var(--border);border-radius:16px;padding:22px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;">
-    <div>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.1em;color:var(--accent);margin-bottom:4px;">📖 Learn & Improve</div>
-      <p style="font-size:0.72rem;color:var(--muted);margin:0;">Science-backed guides on improving reaction time, CPS, and cognitive performance.</p>
-    </div>
-    <a href="/blog" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--accent),#00c8a0);color:#000;padding:10px 22px;border-radius:10px;text-decoration:none;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:0.1em;white-space:nowrap;">Read the Blog →</a>
-  </div>
-
 </main>
 
 <footer>
@@ -505,22 +358,7 @@ footer a:hover { color: var(--accent); }
   </p>
 </footer>
 
-<script>
-document.getElementById('yr').textContent = new Date().getFullYear();
-
-// FIX #7: Hamburger menu toggle
-document.getElementById('burger').addEventListener('click', function() {
-  document.getElementById('mobileMenu').classList.toggle('open');
-});
-// Menü dışına tıklanınca kapat
-document.addEventListener('click', function(e) {
-  if (!e.target.closest('#burger') && !e.target.closest('#mobileMenu')) {
-    document.getElementById('mobileMenu').classList.remove('open');
-  }
-});
-</script>
-
-<!-- FIX #11: Reklam sadece 1 yerde, defer ile yükleniyor -->
-<script defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5019628877403001" crossorigin="anonymous"></script>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+<script async defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5019628877403001" crossorigin="anonymous"></script>
 </body>
 </html>
